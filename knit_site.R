@@ -18,15 +18,7 @@
 
 library(rmarkdown)
 
-# The following stanza is problematic in that 
-# a) it generates html in the same folder as the md files
-# b) the generated index.html refers to these same files from inside html folder
-# Together it means there are two copies of these files one at 
-# /workshop_setup and another inside /html. We really need them to be inside 
-# /html to keep things simple, but since learners have the link to 
-# /workshow_setup/preworkshop_checklist I can't gracefully fix this now. Should 
-# be simple to fix after the workshop.
-# cgates 11/9/2021
+render('source/workshop_setup/preregistration_info.md', output_dir='html/workshop_setup/')
 render('source/workshop_setup/preworkshop_checklist.md', output_dir='html/workshop_setup/')
 render('source/workshop_setup/setup_instructions.md', output_dir='html/workshop_setup/')
 render('source/workshop_setup/setup_instructions_advanced.md', output_dir='html/workshop_setup/')
