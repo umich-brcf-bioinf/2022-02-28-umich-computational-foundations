@@ -30,6 +30,7 @@ The Bioinf Core Workshop Team is pleased to host two upcoming workshops:
 * The workshop is entirely online and will be conducted over Zoom and Slack.
 * The series assumes basic knowledge of genetics but no previous coding/programming experience is necessary.
 * The cost is $250/seat for the entire two-workshop series. While it is possible to register for a single workshop, we recommend that you attend both. When you enroll in the RNA-Seq Demystified workshop, you can request to be automatically registered for Computational Foundations. Register at <a href="https://www.eventbrite.com/e/rna-seq-demystified-a-virtual-3-day-workshop-from-um-bionfcore-tickets-243028162777" target="_blank">EventBrite</a>. *(The Computational Foundations is free of charge; however please note that: 1) registration precedence is given to RNA-Seq Demystified attendees and 2) general admission registration for Computational Foundations opens later in Feburary.)*
+* Registration closes 2/21/2022.
 
 
 ### More details:
@@ -46,7 +47,4 @@ The Bioinf Core Workshop Team is pleased to host two upcoming workshops:
 
 <br/>
 
-For any questions, please email us at [bioinformatics-workshops@umich.edu](mailto:bioinformatics-workshops@umich.edu).
-
-The Bioinformatics Core Workshop Team<br/>
-[bioinformatics-workshops@umich.edu](mailto:bioinformatics-workshops@umich.edu)
+For any questions, please email the Bioinformatics Core Workshop Team at <br/> [bioinformatics-workshops@umich.edu](mailto:bioinformatics-workshops@umich.edu)
