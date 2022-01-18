@@ -237,7 +237,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">RNA-Seq Demystified</a>
+      <a class="navbar-brand" href="index.html">Computational Foundations</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -246,49 +246,28 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Sequence QC
+    Bash Shell
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Module01_Warming_Up.html">Warming up</a>
+      <a href="bash-01-introduction.html">Introducing the Shell</a>
     </li>
     <li>
-      <a href="Module02_QC.html">Quality Control</a>
+      <a href="bash-02-the-filesystem.html">Navigating Files and Directories</a>
     </li>
     <li>
-      <a href="Module02optional_Cutadapt_MoreQC.html">Optional: Cutadapt/MoreQC</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Alignment
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Module03_Reference_Genomes.html">Reference Genomes</a>
+      <a href="bash-03-working-with-files.html">Working with Files</a>
     </li>
     <li>
-      <a href="Module04_Alignment.html">Alignment/Quantification (STAR/RSEM)</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Quantification
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Module05_MultiQC_and_Count_Matrix.html">Count matrix / Alignment QC</a>
+      <a href="bash-04-redirection.html">Redirection</a>
     </li>
     <li>
-      <a href="Module05optional_Additional_Details.html">Optional: Additional details</a>
+      <a href="bash-05-writing-scripts.html">Writing Scripts and Working with Data</a>
+    </li>
+    <li>
+      <a href="bash-06-organization.html">Project Organization</a>
     </li>
   </ul>
 </li>
@@ -296,49 +275,31 @@ $(document).ready(function () {
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Groups/Model
+    R and RStudio
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Module06_DEAnalysisSetup.html">Introduction to DESeq2</a>
+      <a href="r-01-introduction.html">Introducing R and RStudio IDE</a>
     </li>
     <li>
-      <a href="Module07_DESeq2Init.html">DESeq2 Initialization</a>
+      <a href="r-02-r-basics.html">R Basics</a>
     </li>
     <li>
-      <a href="Module08_DESeq2DE.html">Count Normalizations and DESeq2 model fitting</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Expression plots
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Module09_SampleQCViz.html">Sample Visualizations for QC</a>
-    </li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Diff Expression
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="Module10_DEComparisons.html">Comparisons</a>
+      <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
     </li>
     <li>
-      <a href="Module11_DEVisualizations.html">DE Visiualization and Annotation</a>
+      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
     </li>
     <li>
-      <a href="Module11X_BonusContent.html">Bonus content</a>
+      <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
+    </li>
+    <li>
+      <a href="r-06-data-visualization.html">Data Visualizations with ggplot2</a>
+    </li>
+    <li>
+      <a href="r-07-r-help.html">Getting Help with R</a>
     </li>
   </ul>
 </li>
@@ -364,8 +325,8 @@ body, td {
    font-size: 18px;
 }
 </style>
-<div id="rna-seq-demystified" class="section level1">
-<h1>RNA-seq Demystified</h1>
+<div id="computational-foundations-workshop" class="section level1">
+<h1>Computational Foundations Workshop</h1>
 <div id="setup-instructions" class="section level4">
 <h4><a href="workshop_setup/setup_instructions.html">Setup instructions</a></h4>
 </div>
@@ -381,7 +342,7 @@ body, td {
 <thead>
 <tr class="header">
 <th align="left">Time</th>
-<th align="left">Topic : Details</th>
+<th align="left">Topic</th>
 </tr>
 </thead>
 <tbody>
@@ -391,45 +352,17 @@ body, td {
 </tr>
 <tr class="even">
 <td align="left">9:30</td>
-<td align="left"><strong>Sequence QC:</strong></td>
+<td align="left"><strong>Introduction to Bash Shell</strong></td>
 </tr>
 <tr class="odd">
-<td align="left"></td>
-<td align="left">    <a href="Module01_Warming_Up.html">Warming Up</a></td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left">    <a href="Module02_QC.html">Quality Control (FASTQs)</a></td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left">    <a href="Module02optional_Cutadapt_MoreQC.html">Trimming and MultiQC</a></td>
-</tr>
-<tr class="even">
-<td align="left">11:00</td>
-<td align="left">Break</td>
-</tr>
-<tr class="odd">
-<td align="left">11:15</td>
-<td align="left"><strong>Alignment:</strong></td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left">    <a href="Module03_Reference_Genomes.html">Reference genomes</a></td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left">    <a href="Module04_Alignment.html">Alignment</a></td>
-</tr>
-<tr class="even">
 <td align="left">1:00</td>
 <td align="left">Day 1 concludes</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="day-2-travis-dana" class="section level4">
-<h4>Day 2 (Travis &amp; Dana)</h4>
+<div id="day-2-raymond" class="section level4">
+<h4>Day 2 (Raymond)</h4>
 <table>
 <tbody>
 <tr class="odd">
@@ -438,45 +371,17 @@ body, td {
 </tr>
 <tr class="even">
 <td align="left">9:10</td>
-<td align="left"><strong>Quantification:</strong></td>
+<td align="left"><strong>Introduction to R</strong></td>
 </tr>
 <tr class="odd">
-<td align="left"></td>
-<td align="left">    <a href="Module05_MultiQC_and_Count_Matrix.html">Count matrix / Alignment QC</a></td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left">    <a href="Module05optional_Additional_Details.html">Additional details and exercise</a></td>
-</tr>
-<tr class="odd">
-<td align="left">11:00</td>
-<td align="left">Break</td>
-</tr>
-<tr class="even">
-<td align="left">11:15</td>
-<td align="left"><strong>Groups and Modeling:</strong></td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left">    <a href="Module06_DEAnalysisSetup.html">Intro to DESeq2</a></td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left">    <a href="Module07_DESeq2Init.html">DESeq2 Initialization</a></td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left">    <a href="Module08_DESeq2DE.html">Count normalization and model fitting</a></td>
-</tr>
-<tr class="even">
 <td align="left">1:00</td>
 <td align="left">Day 2 concludes</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="day-3-dana" class="section level4">
-<h4>Day 3 (Dana)</h4>
+<div id="day-3-raymond" class="section level4">
+<h4>Day 3 (Raymond)</h4>
 <table>
 <tbody>
 <tr class="odd">
@@ -485,31 +390,7 @@ body, td {
 </tr>
 <tr class="even">
 <td align="left">9:10</td>
-<td align="left"><strong>Expression plots:</strong></td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left">    <a href="Module09_SampleQCViz.html">Sample visualizations for QC</a></td>
-</tr>
-<tr class="even">
-<td align="left">11:00</td>
-<td align="left">Break</td>
-</tr>
-<tr class="odd">
-<td align="left">11:15</td>
-<td align="left"><strong>Differential Expression:</strong></td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left">    <a href="Module10_DEComparisons.html">Comparisons</a></td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left">    <a href="Module11_DEVisualizations.html">DE Visiualization and Annotation</a></td>
-</tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left">    <a href="Module11X_BonusContent.html">Bonus Content</a></td>
+<td align="left"><strong>Introduction to R</strong></td>
 </tr>
 <tr class="odd">
 <td align="left">12:45</td>

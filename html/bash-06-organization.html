@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Project Organization</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Computational Foundations</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Module00_Introduction.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Bash Shell
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="bash-01-introduction.html">Introducing the Shell</a>
+    </li>
+    <li>
+      <a href="bash-02-the-filesystem.html">Navigating Files and Directories</a>
+    </li>
+    <li>
+      <a href="bash-03-working-with-files.html">Working with Files</a>
+    </li>
+    <li>
+      <a href="bash-04-redirection.html">Redirection</a>
+    </li>
+    <li>
+      <a href="bash-05-writing-scripts.html">Writing Scripts and Working with Data</a>
+    </li>
+    <li>
+      <a href="bash-06-organization.html">Project Organization</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R and RStudio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio IDE</a>
+    </li>
+    <li>
+      <a href="r-02-r-basics.html">R Basics</a>
+    </li>
+    <li>
+      <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+    </li>
+    <li>
+      <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
+    </li>
+    <li>
+      <a href="r-06-data-visualization.html">Data Visualizations with ggplot2</a>
+    </li>
+    <li>
+      <a href="r-07-r-help.html">Getting Help with R</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Module99_Wrap_up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Project Organization</h1>
+
+</div>
+
+
+<div id="getting-your-project-started" class="section level1">
+<h1>Getting your project started</h1>
+<p>Project organization is one of the most important parts of a sequencing project, and yet is often overlooked amidst the excitement of getting a first look at new data. Of course, while it’s best to get yourself organized before you even begin your analyses, it’s never too late to start, either.</p>
+<p>You should approach your sequencing project similarly to how you do a biological experiment and this ideally begins with experimental design. We’re going to assume that you’ve already designed a beautiful sequencing experiment to address your biological question, collected appropriate samples, and that you have enough statistical power to answer the questions you’re interested in asking. These steps are all incredibly important, but beyond the scope of our course. For all of those steps (collecting specimens, extracting DNA, prepping your samples) you’ve likely kept a lab notebook that details how and why you did each step. However, the process of documentation doesn’t stop at the sequencer!</p>
+<p>Genomics projects can quickly accumulate hundreds of files across tens of folders. Every computational analysis you perform over the course of your project is going to create many files, which can especially become a problem when you’ll inevitably want to run some of those analyses again. For instance, you might have made significant headway into your project, but then have to remember the PCR conditions you used to create your sequencing library months prior.</p>
+<p>Other questions might arise along the way: - What were your best alignment results? - Which folder were they in: Analysis1, AnalysisRedone, or AnalysisRedone2? - Which quality cutoff did you use? - What version of a given program did you implement your analysis in?</p>
+<p>Good documentation is key to avoiding this issue, and luckily enough, recording your computational experiments is even easier than recording lab data. Copy/Paste will become your best friend, sensible file names will make your analysis understandable by you and your collaborators, and writing the methods section for your next paper will be easy! Remember that in any given project of yours, it’s worthwhile to consider a future version of yourself as an entirely separate collaborator. The better your documenation is, the more this ‘collaborator’ will feel indebted to you!</p>
+<p>With this in mind, let’s have a look at the best practices for documenting your genomics project. Your future self will thank you.</p>
+<p>In this exercise we will setup a file system for the project we will be working on during this workshop.</p>
+<p>We will start by creating a directory that we can use for the rest of the workshop. First navigate to your home directory. Then confirm that you are in the correct directory using the <code>pwd</code> command.</p>
+<pre><code>$ cd
+$ pwd</code></pre>
+<p>{: .bash}</p>
+<p>You should see the output:</p>
+<pre><code>/home/dcuser  </code></pre>
+<p>{: .output}</p>
+<blockquote>
+<h2 id="tip">Tip</h2>
+<p>If you aren’t in your home directory, the easiest way to get there is to enter the command <code>cd</code>, which always returns you to home.<br />
+{: .callout}</p>
+</blockquote>
+<blockquote>
+<h2 id="exercise">Exercise</h2>
+<p>Use the <code>mkdir</code> command to make the following directories:<br />
+- <code>dc_workshop</code> - <code>dc_workshop/docs</code> - <code>dc_workshop/data</code> - <code>dc_workshop/results</code></p>
+<blockquote>
+<h2 id="solution">Solution</h2>
+<pre><code>$ mkdir dc_workshop
+$ mkdir dc_workshop/docs
+$ mkdir dc_workshop/data
+$ mkdir dc_workshop/results</code></pre>
+<p>{: .bash} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<p>Use <code>ls -R</code> to verify that you have created these directories. The <code>-R</code> option for <code>ls</code> stands for recursive. This option causes <code>ls</code> to return the contents of each subdirectory within the directory iteratively.</p>
+<pre><code>$ ls -R dc_workshop</code></pre>
+<p>{: .bash}</p>
+<p>You should see the following output:</p>
+<pre><code>dc_workshop/:
+data  docs  results
+
+dc_workshop/data:
+
+dc_workshop/docs:
+
+dc_workshop/results: </code></pre>
+<p>{: .output}</p>
+</div>
+<div id="organizing-your-files" class="section level1">
+<h1>Organizing your files</h1>
+<p>Before beginning any analysis, it’s important to save a copy of your raw data. The raw data should never be changed. Regardless of how sure you are that you want to carry out a particular data cleaning step, there’s always the chance that you’ll change your mind later or that there will be an error in carrying out the data cleaning and you’ll need to go back a step in the process. Having a raw copy of your data that you never modify guarantees that you will always be able to start over if something goes wrong with your analysis. When starting any analysis, you can make a copy of your raw data file and do your manipulations on that file, rather than the raw version. We learned in <a href="http://www.datacarpentry.org/shell-genomics/03-working-with-files/#file-permissions">a previous episode</a> how to prevent overwriting our raw data files by setting restrictive file permissions.</p>
+<p>You can store any results that are generated from your analysis in the <code>results</code> folder. This guarantees that you won’t confuse results file and data files in six months or two years when you are looking back through your files in preparation for publishing your study.</p>
+<p>The <code>docs</code> folder is the place to store any written analysis of your results, notes about how your analyses were carried out, and documents related to your eventual publication.</p>
+</div>
+<div id="documenting-your-activity-on-the-project" class="section level1">
+<h1>Documenting your activity on the project</h1>
+<p>When carrying out wet-lab analyses, most scientists work from a written protocol and keep a hard copy of written notes in their lab notebook, including any things they did differently from the written protocol. This detailed record-keeping process is just as important when doing computational analyses. Luckily, it’s even easier to record the steps you’ve carried out computational than it is when working at the bench.</p>
+<p>The <code>history</code> command is a convenient way to document all the commands you have used while analyzing and manipulating your project files. Let’s document the work we have done on our project so far.</p>
+<p>View the commands that you have used so far during this session using <code>history</code>:</p>
+<pre><code>$ history</code></pre>
+<p>{: .bash}</p>
+<p>The history likely contains many more commands than you have used for the current project. Let’s view the last several commands that focus on just what we need for this project.</p>
+<p>View the last n lines of your history (where n = approximately the last few lines you think relevant). For our example, we will use the last 7:</p>
+<pre><code>$ history | tail -n 7</code></pre>
+<p>{: .bash}</p>
+<blockquote>
+<h2 id="exercise-1">Exercise</h2>
+<p>Using your knowledge of the shell, use the append redirect <code>&gt;&gt;</code> to create a file called <code>dc_workshop_log_XXXX_XX_XX.sh</code> (Use the four-digit year, two-digit month, and two digit day, e.g. <code>dc_workshop_log_2017_10_27.sh</code>)<br />
+&gt; &gt; ## Solution &gt; ~~~ &gt; $ history | tail -n 7 &gt;&gt; dc_workshop_log_2017_10_27.sh &gt; ~~~ &gt; {: .bash} &gt; Note we used the last 7 lines as an example, the number of lines may vary. {: .solution} {: .challenge}</p>
+</blockquote>
+<p>You may have noticed that your history contains the <code>history</code> command itself. To remove this redundancy from our log, let’s use the <code>nano</code> text editor to fix the file:</p>
+<pre><code>$ nano dc_workshop_log_2017_10_27.sh</code></pre>
+<p>{: .bash}</p>
+<p>(Remember to replace the <code>2017_10_27</code> with your workshop date.)</p>
+<p>From the <code>nano</code> screen, you can use your cursor to navigate, type, and delete any redundant lines.</p>
+<blockquote>
+<h2 id="navigating-in-nano">Navigating in Nano</h2>
+<p>Although <code>nano</code> is useful, it can be frustrating to edit documents, as you can’t use your mouse to navigate to the part of the document you would like to edit. Here are some useful keyboard shortcuts for moving around within a text document in <code>nano</code>. You can find more information by typing <kbd>Ctrl</kbd>-<kbd>G</kbd> within <code>nano</code>.</p>
+<table>
+<thead>
+<tr class="header">
+<th>key</th>
+<th>action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><kbd>Ctrl</kbd>-<kbd>Space</kbd> OR <kbd>Ctrl</kbd>-<kbd>→</kbd></td>
+<td>to move forward one word</td>
+</tr>
+<tr class="even">
+<td><kbd>Alt</kbd>-<kbd>Space</kbd> OR <kbd>Esc</kbd>-<kbd>Space</kbd> OR <kbd>Ctrl</kbd>-<kbd>←</kbd></td>
+<td>to move back one word</td>
+</tr>
+<tr class="odd">
+<td><kbd>Ctrl</kbd>-<kbd>A</kbd></td>
+<td>to move to the beginning of the current line</td>
+</tr>
+<tr class="even">
+<td><kbd>Ctrl</kbd>-<kbd>E</kbd></td>
+<td>to move to the end of the current line</td>
+</tr>
+<tr class="odd">
+<td><kbd>Ctrl</kbd>-<kbd>W</kbd></td>
+<td>to search</td>
+</tr>
+</tbody>
+</table>
+<p>{: .callout}</p>
+</blockquote>
+<p>Add a date line and comment to the line where you have created the directory. Recall that any text on a line after a <code>#</code> is ignored by bash when evaluating the text as code. For example:</p>
+<pre><code># 2017_10_27   
+# Created sample directories for the Data Carpentry workshop  </code></pre>
+<p>{: .bash}</p>
+<p>Next, remove any lines of the history that are not relevant by navigating to those lines and using your delete key. Save your file and close <code>nano</code>.</p>
+<p>Your file should look something like this:</p>
+<pre><code># 2017_10_27
+# Created sample directories for the Data Carpentry workshop
+
+mkdir dc_workshop
+mkdir dc_workshop/docs
+mkdir dc_workshop/data
+mkdir dc_workshop/results</code></pre>
+<p>{: .output}</p>
+<p>If you keep this file up to date, you can use it to re-do your work on your project if something happens to your results files. To demonstrate how this works, first delete your <code>dc_workshop</code> directory and all of its subdirectories. Look at your directory contents to verify the directory is gone.</p>
+<pre><code>$ rm -r dc_workshop
+$ ls</code></pre>
+<p>{: .bash}</p>
+<pre><code>shell_data  dc_workshop_log_2017_10_27.sh</code></pre>
+<p>{: .output}</p>
+<p>Then run your workshop log file as a bash script. You should see the <code>dc_workshop</code> directory and all of its subdirectories reappear.</p>
+<pre><code>$ bash dc_workshop_log_2017_10_27.sh
+$ ls</code></pre>
+<p>{: .bash}</p>
+<pre><code>shell_data  dc_workshop dc_workshop_log_2017_10_27.sh</code></pre>
+<p>{: .output}</p>
+<p>It’s important that we keep our workshop log file outside of our <code>dc_workshop</code> directory if we want to use it to recreate our work. It’s also important for us to keep it up to date by regularly updating with the commands that we used to generate our results files.</p>
+<p>Congratulations! You’ve finished your introduction to using the shell for genomics projects. You now know how to navigate your file system, create, copy, move, and remove files and directories, and automate repetitive tasks using scripts and wildcards. With this solid foundation, you’re ready to move on to apply all of these new skills to carrying out more sophisticated bioinformatics analysis work. Don’t worry if everything doesn’t feel perfectly comfortable yet. We’re going to have many more opportunities for practice as we move forward on our bioinformatics journey!</p>
+<div id="references" class="section level2">
+<h2>References</h2>
+<p><a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424">A Quick Guide to Organizing Computational Biology Projects</a></p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
