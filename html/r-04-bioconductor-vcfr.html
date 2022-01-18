@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Using packages from Bioconductor</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Computational Foundations</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Module00_Introduction.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Bash Shell
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="bash-01-introduction.html">Introducing the Shell</a>
+    </li>
+    <li>
+      <a href="bash-02-the-filesystem.html">Navigating Files and Directories</a>
+    </li>
+    <li>
+      <a href="bash-03-working-with-files.html">Working with Files</a>
+    </li>
+    <li>
+      <a href="bash-04-redirection.html">Redirection</a>
+    </li>
+    <li>
+      <a href="bash-05-writing-scripts.html">Writing Scripts and Working with Data</a>
+    </li>
+    <li>
+      <a href="bash-06-organization.html">Project Organization</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R and RStudio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio IDE</a>
+    </li>
+    <li>
+      <a href="r-02-r-basics.html">R Basics</a>
+    </li>
+    <li>
+      <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+    </li>
+    <li>
+      <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
+    </li>
+    <li>
+      <a href="r-06-data-visualization.html">Data Visualizations with ggplot2</a>
+    </li>
+    <li>
+      <a href="r-07-r-help.html">Getting Help with R</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Module99_Wrap_up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Using packages from Bioconductor</h1>
+
+</div>
+
+
+<!-- example of rendered lesson https://datacarpentry.org/genomics-r-intro/02-r-basics/index.html -->
+<div id="installing-packages-from-somewhere-else-besides-cran" class="section level2">
+<h2>Installing packages from somewhere else besides CRAN?</h2>
+<p>In some cases, you may want to use a specialized package that is not hosted on <a href="https://cran.r-project.org/">CRAN</a> (the Comprehensive R Archive Network). This may be because the package is so new that it hasn’t yet been submitted to CRAN, or it could be that it is on a focal topic that has an alternative repository. One major example of an alternative repository source is <a href="https://bioconductor.org/">Bioconductor</a>, which has a mission of “promot[ing] the statistical analysis and comprehension of current and emerging high-throughput biological assays.” This means that many if not all of the packages available on Bioconductor are focused on the analysis of biological data, and that it can be a great place to look for tools to help you analyze your -omics datasets!</p>
+</div>
+<div id="so-how-do-i-use-it" class="section level2">
+<h2>So how do I use it?</h2>
+<p>Since access to the <a href="https://bioconductor.org/">Bioconductor</a> repository is not built in to base R ‘out of the box’, there are a couple steps needed to install packages from this alternative source. We will work through the steps (only 2!) to install a package to help with the VCF analysis we are working on, but you can use the same approach to install any of the many thousands of available packages.</p>
+<div class="figure">
+<img src="images/bioconductor_website_screenshot.jpg" alt="" />
+<p class="caption">screenshot of bioconductor homepage</p>
+</div>
+</div>
+<div id="first-install-the-biocmanager-package" class="section level2">
+<h2>First, install the <code>BiocManager</code> package</h2>
+<p>The first step is to install a package that <em>is</em> on CRAN, <code>BiocManager</code>. This package will allow us to use it to install packages from Bioconductor. You can think of Bioconductor kind of like an alternative app store for your phone, except instead of apps you are installing packages, and instead of your phone it’s your local R package library.</p>
+<pre><code># install the BiocManager from CRAN using the base R install.packages() function
+install.packages(&quot;BiocManager&quot;)</code></pre>
+<p>{: .language-r}</p>
+<p>To check if this worked (and also so you can make a note of the version for reproducibility purposes), you can run <code>BiocManager::version()</code> and it should give you the version number.</p>
+<pre><code># to make sure it worked, check the version
+BiocManager::version()</code></pre>
+<p>{: .language-r}</p>
+</div>
+<div id="second-install-the-vcfr-package-from-bioconductor-using-biocmanager" class="section level1">
+<h1>Second, install the vcfR package from Bioconductor using <code>BiocManager</code></h1>
+<pre><code># install the vcfR package from bioconductor using BiocManager::install()
+BiocManager::install(&quot;vcfR&quot;)</code></pre>
+<p>{: .language-r} You may need to also allow it to install some dependencies or update installed packages in order to successfully complete the process.</p>
+<blockquote>
+<h2 id="note-installing-packages-from-bioconductor-vs-from-cran">Note: Installing packages from Bioconductor vs from CRAN</h2>
+<p>Some packages begin by being available only on Bioconductor, and then later move to CRAN. <code>vcfR</code> is one such package, which originally was only available from Bioconductor, but is currently available from CRAN. The other thing to know is that <code>BiocManager::install()</code> will also install packages from CRAN (it is a wrapper around <code>install.packages()</code> that adds some extra features). There are other benefits to using <code>BiocManager::install()</code> for Bioconductor packages, many of which are outlined <a href="https://www.bioconductor.org/install/">here</a>. In short, Bioconductor packages have a release cycle that is different from CRAN and the <code>install()</code> function is aware of that difference, so it helps to keep package versions in line with one another in a way that doesn’t generally happen with the base R <code>install.packages()</code>.</p>
+<p>{: .callout}</p>
+</blockquote>
+</div>
+<div id="search-for-bioconductor-packages-based-on-your-analysis-needs" class="section level1">
+<h1>Search for Bioconductor packages based on your analysis needs</h1>
+<p>While we are only focusing in this workshop on VCF analyses, there are hundreds or thousands of different types of data and analyses that bioinformaticians may want to work with. Sometimes you may get a new dataset and not know exactly where to start with analyzing or visualizing it. The Bioconductor package search view can be a great way to browse through the packages that are available.</p>
+<div class="figure">
+<img src="images/bioconductor_search.jpg" alt="" />
+<p class="caption">screenshot of bioconductor search</p>
+</div>
+<blockquote>
+<h2 id="tip-searching-for-packages-on-the-bioconductor-website">Tip: Searching for packages on the Bioconductor website</h2>
+<p>There are several thousand packages available through the Bioconductor website. It can be a bit of a challenge to find what you want, but one helpful resource is the <a href="https://bioconductor.org/packages/release/BiocViews.html#___Software">package search page</a>.</p>
+<p>{: .callout}</p>
+</blockquote>
+<p>In bioinformatics, there are often many different tools that can be used in a particular instance. The authors of <code>vcfR</code> have <a href="https://github.com/knausb/vcfR#software-that-produce-vcf-files">compiled some of them</a>. One of those packages that <a href="https://bioconductor.org/packages/release/bioc/html/VariantAnnotation.html">is available from Bioconductor</a> is called <code>VariantAnnotation</code> and may also be of interest to those working with vcf files in R.</p>
+<blockquote>
+<h2 id="challenge">Challenge</h2>
+<p>Add code chunks to</p>
+<ul>
+<li>Install the <code>BiocManager</code> package</li>
+<li>Use that package’s <code>install()</code> function to install <code>vcfR</code></li>
+<li>Browse the Bioconductor website to find a second package, and install it {: .challenge}</li>
+</ul>
+</blockquote>
+<div id="resources" class="section level2">
+<h2>Resources</h2>
+<ul>
+<li><a href="https://bioconductor.org/">Bioconductor</a></li>
+<li><a href="https://bioconductor.org/packages/release/BiocViews.html#___Software">Bioconductor package search</a></li>
+<li><a href="https://cran.r-project.org/">CRAN</a></li>
+</ul>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

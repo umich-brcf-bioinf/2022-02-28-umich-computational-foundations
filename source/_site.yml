@@ -1,52 +1,40 @@
-name: "RSD Workshop"
+name: "Computational Foundations"
 output_dir: ../html
-exclude: ["Example.md"]
 navbar:
-  title: "RNA-Seq Demystified"
+  title: "Computational Foundations"
   type: inverse
   left:
     - text: "Intro"
       href: Module00_Introduction.html
-    - text: "Sequence QC"
+    - text: "Bash Shell"
       menu:
-        - text: "Warming up"
-          href: Module01_Warming_Up.html
-        - text: "Quality Control"
-          href: Module02_QC.html
-        - text: "Optional: Cutadapt/MoreQC"
-          href: Module02optional_Cutadapt_MoreQC.html
-    - text: "Alignment"
+        - text: "Introducing the Shell"
+          href: bash-01-introduction.html
+        - text: "Navigating Files and Directories"
+          href: bash-02-the-filesystem.html
+        - text: "Working with Files"
+          href: bash-03-working-with-files.html
+        - text: "Redirection"
+          href: bash-04-redirection.html
+        - text: "Writing Scripts and Working with Data"
+          href: bash-05-writing-scripts.html
+        - text: "Project Organization"
+          href: bash-06-organization.html
+    - text: "R and RStudio"
       menu:
-        - text: "Reference Genomes"
-          href: Module03_Reference_Genomes.html
-        - text: "Alignment/Quantification (STAR/RSEM)"
-          href: Module04_Alignment.html
-    - text: "Quantification"
-      menu:
-        - text: "Count matrix / Alignment QC"
-          href: Module05_MultiQC_and_Count_Matrix.html
-        - text: "Optional: Additional details"
-          href: Module05optional_Additional_Details.html
-  right:
-    - text: "Groups/Model"
-      menu:
-        - text: "Introduction to DESeq2"
-          href: Module06_DEAnalysisSetup.html
-        - text: "DESeq2 Initialization"
-          href: Module07_DESeq2Init.html
-        - text: "Count Normalizations and DESeq2 model fitting"
-          href: Module08_DESeq2DE.html
-    - text: "Expression plots"
-      menu:
-        - text: "Sample Visualizations for QC"
-          href: Module09_SampleQCViz.html
-    - text: "Diff Expression"
-      menu:
-        - text: "Comparisons"
-          href: Module10_DEComparisons.html
-        - text: "DE Visiualization and Annotation"
-          href: Module11_DEVisualizations.html
-        - text: "Bonus content"
-          href: Module11X_BonusContent.html
+        - text: "Introducing R and RStudio IDE"
+          href: r-01-introduction.html
+        - text: "R Basics"
+          href: r-02-r-basics.html
+        - text: "R Basics Continued - Factors and Data Frames"
+          href: r-03-basics-factors-dataframes.html
+        - text: "Using Packages from Bioconductor"
+          href: r-04-bioconductor-vcfr.html
+        - text: "Data Wrangling and Analyses with Tidyverse"
+          href: r-05-dplyr.html
+        - text: "Data Visualizations with ggplot2"
+          href: r-06-data-visualization.html
+        - text: "Getting Help with R"
+          href: r-07-r-help.html
     - text: "Wrap up"
       href: Module99_Wrap_up.html

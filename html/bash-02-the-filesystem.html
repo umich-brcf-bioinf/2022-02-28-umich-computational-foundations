@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Navigating Files and Directories</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Computational Foundations</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Module00_Introduction.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Bash Shell
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="bash-01-introduction.html">Introducing the Shell</a>
+    </li>
+    <li>
+      <a href="bash-02-the-filesystem.html">Navigating Files and Directories</a>
+    </li>
+    <li>
+      <a href="bash-03-working-with-files.html">Working with Files</a>
+    </li>
+    <li>
+      <a href="bash-04-redirection.html">Redirection</a>
+    </li>
+    <li>
+      <a href="bash-05-writing-scripts.html">Writing Scripts and Working with Data</a>
+    </li>
+    <li>
+      <a href="bash-06-organization.html">Project Organization</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R and RStudio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio IDE</a>
+    </li>
+    <li>
+      <a href="r-02-r-basics.html">R Basics</a>
+    </li>
+    <li>
+      <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+    </li>
+    <li>
+      <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
+    </li>
+    <li>
+      <a href="r-06-data-visualization.html">Data Visualizations with ggplot2</a>
+    </li>
+    <li>
+      <a href="r-07-r-help.html">Getting Help with R</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Module99_Wrap_up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Navigating Files and Directories</h1>
+
+</div>
+
+
+<div id="moving-around-the-file-system" class="section level2">
+<h2>Moving around the file system</h2>
+<p>We’ve learned how to use <code>pwd</code> to find our current location within our file system. We’ve also learned how to use <code>cd</code> to change locations and <code>ls</code> to list the contents of a directory. Now we’re going to learn some additional commands for moving around within our file system.</p>
+<p>Use the commands we’ve learned so far to navigate to the <code>shell_data/untrimmed_fastq</code> directory, if you’re not already there.</p>
+<pre><code>$ cd
+$ cd shell_data
+$ cd untrimmed_fastq</code></pre>
+<p>{: .bash}</p>
+<p>What if we want to move back up and out of this directory and to our top level directory? Can we type <code>cd shell_data</code>? Try it and see what happens.</p>
+<pre><code>$ cd shell_data</code></pre>
+<p>{: .bash}</p>
+<pre><code>-bash: cd: shell_data: No such file or directory</code></pre>
+<p>{: .output}</p>
+<p>Your computer looked for a directory or file called <code>shell_data</code> within the directory you were already in. It didn’t know you wanted to look at a directory level above the one you were located in.</p>
+<p>We have a special command to tell the computer to move us back or up one directory level.</p>
+<pre><code>$ cd ..</code></pre>
+<p>{: .bash}</p>
+<p>Now we can use <code>pwd</code> to make sure that we are in the directory we intended to navigate to, and <code>ls</code> to check that the contents of the directory are correct.</p>
+<pre><code>$ pwd</code></pre>
+<p>{: .bash}</p>
+<pre><code>/home/dcuser/shell_data</code></pre>
+<p>{: .output}</p>
+<pre><code>$ ls</code></pre>
+<p>{: .bash}</p>
+<pre><code>sra_metadata  untrimmed_fastq</code></pre>
+<p>{: .output}</p>
+<p>From this output, we can see that <code>..</code> did indeed take us back one level in our file system.</p>
+<p>You can chain these together like so:</p>
+<pre><code>$ ls ../../</code></pre>
+<p>{: .bash}</p>
+<p>prints the contents of <code>/home</code>.</p>
+<blockquote>
+<h2 id="finding-hidden-directories">Finding hidden directories</h2>
+<p>First navigate to the <code>shell_data</code> directory. There is a hidden directory within this directory. Explore the options for <code>ls</code> to find out how to see hidden directories. List the contents of the directory and identify the name of the text file in that directory.</p>
+<p>Hint: hidden files and folders in Unix start with <code>.</code>, for example <code>.my_hidden_directory</code></p>
+<blockquote>
+<h2 id="solution">Solution</h2>
+<p>First use the <code>man</code> command to look at the options for <code>ls</code>. ~~~ $ man ls ~~~ {: .bash}</p>
+<p>The <code>-a</code> option is short for <code>all</code> and says that it causes <code>ls</code> to “not ignore entries starting with .” This is the option we want.</p>
+<pre><code>$ ls -a</code></pre>
+<p>{: .bash}</p>
+<pre><code>.  ..  .hidden  sra_metadata  untrimmed_fastq</code></pre>
+<p>{: .output}</p>
+<p>The name of the hidden directory is <code>.hidden</code>. We can navigate to that directory using <code>cd</code>.</p>
+<pre><code>$ cd .hidden</code></pre>
+<p>{: .bash}</p>
+<p>And then list the contents of the directory using <code>ls</code>.</p>
+<pre><code>$ ls</code></pre>
+<p>{: .bash}</p>
+<pre><code>youfoundit.txt</code></pre>
+<p>{: .output}</p>
+<p>The name of the text file is <code>youfoundit.txt</code>. {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<p>In most commands the flags can be combined together in no particular order to obtain the desired results/output. ~~~ $ ls -Fa $ ls -laF ~~~</p>
+</div>
+<div id="examining-the-contents-of-other-directories" class="section level2">
+<h2>Examining the contents of other directories</h2>
+<p>By default, the <code>ls</code> commands lists the contents of the working directory (i.e. the directory you are in). You can always find the directory you are in using the <code>pwd</code> command. However, you can also give <code>ls</code> the names of other directories to view. Navigate to your home directory if you are not already there.</p>
+<pre><code>$ cd</code></pre>
+<p>{: .bash}</p>
+<p>Then enter the command:</p>
+<pre><code>$ ls shell_data</code></pre>
+<p>{: .bash}</p>
+<pre><code>sra_metadata  untrimmed_fastq</code></pre>
+<p>{: .output}</p>
+<p>This will list the contents of the <code>shell_data</code> directory without you needing to navigate there.</p>
+<p>The <code>cd</code> command works in a similar way.</p>
+<p>Try entering:</p>
+<pre><code>$ cd
+$ cd shell_data/untrimmed_fastq</code></pre>
+<p>{: .bash}</p>
+<p>This will take you to the <code>untrimmed_fastq</code> directory without having to go through the intermediate directory.</p>
+<blockquote>
+<h2 id="navigating-practice">Navigating practice</h2>
+<p>Navigate to your home directory. From there, list the contents of the <code>untrimmed_fastq</code> directory.</p>
+<blockquote>
+<h2 id="solution-1">Solution</h2>
+<pre><code>$ cd
+$ ls shell_data/untrimmed_fastq/</code></pre>
+<p>{: .bash}</p>
+<pre><code>SRR097977.fastq  SRR098026.fastq </code></pre>
+<p>{: .output}</p>
+<p>{: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+</div>
+<div id="full-vs.-relative-paths" class="section level2">
+<h2>Full vs. Relative Paths</h2>
+<p>The <code>cd</code> command takes an argument which is a directory name. Directories can be specified using either a <em>relative</em> path or a full <em>absolute</em> path. The directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory, then enter the <code>pwd</code> command.</p>
+<pre><code>$ cd  
+$ pwd  </code></pre>
+<p>{: .bash}</p>
+<p>You will see:</p>
+<pre><code>/home/dcuser</code></pre>
+<p>{: .output}</p>
+<p>This is the full name of your home directory. This tells you that you are in a directory called <code>dcuser</code>, which sits inside a directory called <code>home</code> which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called <code>/</code> which is usually referred to as the <em>root directory</em>. So, to summarize: <code>dcuser</code> is a directory in <code>home</code> which is a directory in <code>/</code>. More on <code>root</code> and <code>home</code> in the next section.</p>
+<p>Now enter the following command:</p>
+<pre><code>$ cd /home/dcuser/shell_data/.hidden</code></pre>
+<p>{: .bash}</p>
+<p>This jumps forward multiple levels to the <code>.hidden</code> directory. Now go back to the home directory.</p>
+<pre><code>$ cd</code></pre>
+<p>{: .bash}</p>
+<p>You can also navigate to the <code>.hidden</code> directory using:</p>
+<pre><code>$ cd shell_data/.hidden</code></pre>
+<p>{: .bash}</p>
+<p>These two commands have the same effect, they both take us to the <code>.hidden</code> directory. The first uses the absolute path, giving the full address from the home directory. The second uses a relative path, giving only the address from the working directory. A full path always starts with a <code>/</code>. A relative path does not.</p>
+<p>A relative path is like getting directions from someone on the street. They tell you to “go right at the stop sign, and then turn left on Main Street”. That works great if you’re standing there together, but not so well if you’re trying to tell someone how to get there from another country. A full path is like GPS coordinates. It tells you exactly where something is no matter where you are right now.</p>
+<p>You can usually use either a full path or a relative path depending on what is most convenient. If we are in the home directory, it is more convenient to enter the full path. If we are in the working directory, it is more convenient to enter the relative path since it involves less typing.</p>
+<p>Over time, it will become easier for you to keep a mental note of the structure of the directories that you are using and how to quickly navigate amongst them.</p>
+<blockquote>
+<h2 id="relative-path-resolution">Relative path resolution</h2>
+<p>Using the filesystem diagram below, if <code>pwd</code> displays <code>/Users/thing</code>, what will <code>ls ../backup</code> display?</p>
+<ol style="list-style-type: decimal">
+<li><code>../backup: No such file or directory</code></li>
+<li><code>2012-12-01 2013-01-08 2013-01-27</code></li>
+<li><code>2012-12-01/ 2013-01-08/ 2013-01-27/</code></li>
+<li><code>original pnas_final pnas_sub</code></li>
+</ol>
+<div class="figure">
+<img src="images/filesystem-challenge.svg" alt="" />
+<p class="caption">File System for Challenge Questions</p>
+</div>
+<blockquote>
+<h2 id="solution-2">Solution</h2>
+<ol style="list-style-type: decimal">
+<li>No: there <em>is</em> a directory <code>backup</code> in <code>/Users</code>.</li>
+<li>No: this is the content of <code>Users/thing/backup</code>, but with <code>..</code> we asked for one level further up.</li>
+<li>No: see previous explanation. Also, we did not specify <code>-F</code> to display <code>/</code> at the end of the directory names.</li>
+<li>Yes: <code>../backup</code> refers to <code>/Users/backup</code>. {: .solution} {: .challenge}</li>
+</ol>
+</blockquote>
+</blockquote>
+<div id="navigational-shortcuts" class="section level3">
+<h3>Navigational Shortcuts</h3>
+<p>The root directory is the highest level directory in your file system and contains files that are important for your computer to perform its daily work. While you will be using the root (<code>/</code>) at the beginning of your absolute paths, it is important that you avoid working with data in these higher-level directories, as your commands can permanently alter files that the operating system needs to function. In many cases, trying to run commands in <code>root</code> directories will require special permissions which are not discussed here, so it’s best to avoid them and work within your home directory. Dealing with the <code>home</code> directory is very common. The tilde character, <code>~</code>, is a shortcut for your home directory. In our case, the <code>root</code> directory is <strong>two</strong> levels above our <code>home</code> directory, so <code>cd</code> or <code>cd ~</code> will take you to <code>/home/dcuser</code> and <code>cd /</code> will take you to <code>/</code>. Navigate to the <code>shell_data</code> directory:</p>
+<pre><code>$ cd
+$ cd shell_data</code></pre>
+<p>{: .bash}</p>
+<p>Then enter the command:</p>
+<pre><code>$ ls ~</code></pre>
+<p>{: .bash}</p>
+<pre><code>R  r_data  shell_data</code></pre>
+<p>{: .output}</p>
+<p>This prints the contents of your home directory, without you needing to type the full path.</p>
+<p>The commands <code>cd</code>, and <code>cd ~</code> are very useful for quickly navigating back to your home directory. We will be using the <code>~</code> character in later lessons to specify our home directory.</p>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Writing Scripts and Working with Data</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Computational Foundations</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Module00_Introduction.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Bash Shell
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="bash-01-introduction.html">Introducing the Shell</a>
+    </li>
+    <li>
+      <a href="bash-02-the-filesystem.html">Navigating Files and Directories</a>
+    </li>
+    <li>
+      <a href="bash-03-working-with-files.html">Working with Files</a>
+    </li>
+    <li>
+      <a href="bash-04-redirection.html">Redirection</a>
+    </li>
+    <li>
+      <a href="bash-05-writing-scripts.html">Writing Scripts and Working with Data</a>
+    </li>
+    <li>
+      <a href="bash-06-organization.html">Project Organization</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R and RStudio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio IDE</a>
+    </li>
+    <li>
+      <a href="r-02-r-basics.html">R Basics</a>
+    </li>
+    <li>
+      <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+    </li>
+    <li>
+      <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
+    </li>
+    <li>
+      <a href="r-06-data-visualization.html">Data Visualizations with ggplot2</a>
+    </li>
+    <li>
+      <a href="r-07-r-help.html">Getting Help with R</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Module99_Wrap_up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Writing Scripts and Working with Data</h1>
+
+</div>
+
+
+<script language="javascript" type="text/javascript">
+function set_page_view_defaults() {
+    document.getElementById('div_win').style.display = 'block';
+    document.getElementById('div_unix').style.display = 'none';
+};
+
+function change_content_by_platform(form_control){
+    if (!form_control || document.getElementById(form_control).value == 'win') {
+        set_page_view_defaults();
+    } else if (document.getElementById(form_control).value == 'unix') {
+        document.getElementById('div_win').style.display = 'none';
+        document.getElementById('div_unix').style.display = 'block';
+    } else {
+        alert("Error: Missing platform value for 'change_content_by_platform()' script!");
+    }
+}
+
+window.onload = set_page_view_defaults;
+</script>
+<div id="writing-files" class="section level2">
+<h2>Writing files</h2>
+<p>We’ve been able to do a lot of work with files that already exist, but what if we want to write our own files? We’re not going to type in a FASTA file, but we’ll see as we go through other tutorials, there are a lot of reasons we’ll want to write a file, or edit an existing file.</p>
+<p>To add text to files, we’re going to use a text editor called Nano. We’re going to create a file to take notes about what we’ve been doing with the data files in <code>~/shell_data/untrimmed_fastq</code>.</p>
+<p>This is good practice when working in bioinformatics. We can create a file called <code>README.txt</code> that describes the data files in the directory or documents how the files in that directory were generated. As the name suggests, it’s a file that we or others should read to understand the information in that directory.</p>
+<p>Let’s change our working directory to <code>~/shell_data/untrimmed_fastq</code> using <code>cd</code>, then run <code>nano</code> to create a file called <code>README.txt</code>:</p>
+<pre><code>$ cd ~/shell_data/untrimmed_fastq
+$ nano README.txt</code></pre>
+<p>{: .bash}</p>
+<p>You should see something like this:</p>
+<div class="figure">
+<img src="../img/nano201711.png" alt="" />
+<p class="caption">nano201711.png</p>
+</div>
+<p>The text at the bottom of the screen shows the keyboard shortcuts for performing various tasks in <code>nano</code>. We will talk more about how to interpret this information soon.</p>
+<blockquote>
+<h2 id="which-editor">Which Editor?</h2>
+<p>When we say, “<code>nano</code> is a text editor,” we really do mean “text”: <code>nano</code> can only work with plain character data, not tables, images, or any other human-friendly media. We use <code>nano</code> in examples because it is one of the least complex text editors. However, because of this trait, <code>nano</code> may not be powerful enough or flexible enough for the work you need to do after this workshop. On Unix systems (such as Linux and Mac OS X), many programmers use <a href="http://www.gnu.org/software/emacs/">Emacs</a> or <a href="http://www.vim.org/">Vim</a> (both of which require more time to learn), or a graphical editor such as <a href="http://projects.gnome.org/gedit/">Gedit</a>. On Windows, you may wish to use <a href="http://notepad-plus-plus.org/">Notepad++</a>. Windows also has a built-in editor called <code>notepad</code> that can be run from the command line in the same way as <code>nano</code> for the purposes of this lesson.</p>
+<p>No matter what editor you use, you will need to know the default location where it searches for files and where files are saved. If you start an editor from the shell, it will (probably) use your current working directory as its default location. If you use your computer’s start menu, the editor may want to save files in your desktop or documents directory instead. You can change this by navigating to another directory the first time you “Save As…” {: .callout}</p>
+</blockquote>
+<p>Let’s type in a few lines of text. Describe what the files in this directory are or what you’ve been doing with them. Once we’re happy with our text, we can press <kbd>Ctrl</kbd>-<kbd>O</kbd> (press the <kbd>Ctrl</kbd> or <kbd>Control</kbd> key and, while holding it down, press the <kbd>O</kbd> key) to write our data to disk. You’ll be asked what file we want to save this to: press <kbd>Return</kbd> to accept the suggested default of <code>README.txt</code>.</p>
+<p>Once our file is saved, we can use <kbd>Ctrl</kbd>-<kbd>X</kbd> to quit the <code>nano</code> editor and return to the shell.</p>
+<blockquote>
+<h2 id="control-ctrl-or-key">Control, Ctrl, or ^ Key</h2>
+<p>The Control key is also called the “Ctrl” key. There are various ways in which using the Control key may be described. For example, you may see an instruction to press the <kbd>Ctrl</kbd> key and, while holding it down, press the <kbd>X</kbd> key, described as any of:</p>
+<ul>
+<li><code>Control-X</code></li>
+<li><code>Control+X</code></li>
+<li><code>Ctrl-X</code></li>
+<li><code>Ctrl+X</code></li>
+<li><code>^X</code></li>
+<li><code>C-x</code></li>
+</ul>
+<p>In <code>nano</code>, along the bottom of the screen you’ll see <code>^G Get Help ^O WriteOut</code>. This means that you can use <kbd>Ctrl</kbd>-<kbd>G</kbd> to get help and <kbd>Ctrl</kbd>-<kbd>O</kbd> to save your file. {: .callout}</p>
+</blockquote>
+<p>Now you’ve written a file. You can take a look at it with <code>less</code> or <code>cat</code>, or open it up again and edit it with <code>nano</code>.</p>
+<blockquote>
+<h2 id="exercise">Exercise</h2>
+<p>Open <code>README.txt</code> and add the date to the top of the file and save the file.</p>
+<blockquote>
+<h2 id="solution">Solution</h2>
+<p>Use <code>nano README.txt</code> to open the file.<br />
+Add today’s date and then use <kbd>Ctrl</kbd>-<kbd>X</kbd> followed by <code>y</code> and <kbd>Enter</kbd> to save.</p>
+<p>{: .solution}</p>
+</blockquote>
+<p>{: .challenge}</p>
+</blockquote>
+</div>
+<div id="writing-scripts" class="section level2">
+<h2>Writing scripts</h2>
+<p>A really powerful thing about the command line is that you can write scripts. Scripts let you save commands to run them and also lets you put multiple commands together. Though writing scripts may require an additional time investment initially, this can save you time as you run them repeatedly. Scripts can also address the challenge of reproducibility: if you need to repeat an analysis, you retain a record of your command history within the script.</p>
+<p>One thing we will commonly want to do with sequencing results is pull out bad reads and write them to a file to see if we can figure out what’s going on with them. We’re going to look for reads with long sequences of N’s like we did before, but now we’re going to write a script, so we can run it each time we get new sequences, rather than type the code in by hand each time.</p>
+<p>We’re going to create a new file to put this command in. We’ll call it <code>bad-reads-script.sh</code>. The <code>sh</code> isn’t required, but using that extension tells us that it’s a shell script.</p>
+<pre><code>$ nano bad-reads-script.sh</code></pre>
+<p>{: .bash}</p>
+<p>Bad reads have a lot of N’s, so we’re going to look for <code>NNNNNNNNNN</code> with <code>grep</code>. We want the whole FASTQ record, so we’re also going to get the one line above the sequence and the two lines below. We also want to look in all the files that end with <code>.fastq</code>, so we’re going to use the <code>*</code> wildcard.</p>
+<pre><code>grep -B1 -A2 -h NNNNNNNNNN *.fastq | grep -v &#39;^--&#39; &gt; scripted_bad_reads.txt</code></pre>
+<p>{: .bash}</p>
+<blockquote>
+<h2 id="custom-grep-control">Custom <code>grep</code> control</h2>
+<p>We introduced the <code>-v</code> option in <a href="http://www.datacarpentry.org/shell-genomics/04-redirection/">the previous episode</a>, now we are using <code>-h</code> to “Suppress the prefixing of file names on output” according to the documentation shown by <code>man grep</code>.</p>
+<p>{: .callout}</p>
+</blockquote>
+<p>Type your <code>grep</code> command into the file and save it as before. Be careful that you did not add the <code>$</code> at the beginning of the line.</p>
+<p>Now comes the neat part. We can run this script. Type:</p>
+<pre><code>$ bash bad-reads-script.sh</code></pre>
+<p>{: .bash}</p>
+<p>It will look like nothing happened, but now if you look at <code>scripted_bad_reads.txt</code>, you can see that there are now reads in the file.</p>
+<blockquote>
+<h2 id="exercise-1">Exercise</h2>
+<p>We want the script to tell us when it’s done.<br />
+1. Open <code>bad-reads-script.sh</code> and add the line <code>echo "Script finished!"</code> after the <code>grep</code> command and save the file.<br />
+2. Run the updated script.</p>
+<blockquote>
+<h2 id="solution-1">Solution</h2>
+<pre><code>$ bash bad-reads-script.sh
+Script finished!</code></pre>
+<p>{: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+</div>
+<div id="making-the-script-into-a-program" class="section level2">
+<h2>Making the script into a program</h2>
+<p>We had to type <code>bash</code> because we needed to tell the computer what program to use to run this script. Instead, we can turn this script into its own program. We need to tell the computer that this script is a program by making the script file executable. We can do this by changing the file permissions. We talked about permissions in <a href="http://www.datacarpentry.org/shell-genomics/03-working-with-files/">an earlier episode</a>.</p>
+<p>First, let’s look at the current permissions.</p>
+<pre><code>$ ls -l bad-reads-script.sh</code></pre>
+<p>{: .bash}</p>
+<pre><code>-rw-rw-r-- 1 dcuser dcuser 0 Oct 25 21:46 bad-reads-script.sh</code></pre>
+<p>{: .output}</p>
+<p>We see that it says <code>-rw-r--r--</code>. This shows that the file can be read by any user and written to by the file owner (you). We want to change these permissions so that the file can be executed as a program. We use the command <code>chmod</code> like we did earlier when we removed write permissions. Here we are adding (<code>+</code>) executable permissions (<code>+x</code>).</p>
+<pre><code>$ chmod +x bad-reads-script.sh</code></pre>
+<p>{: .bash}</p>
+<p>Now let’s look at the permissions again.</p>
+<pre><code>$ ls -l bad-reads-script.sh</code></pre>
+<p>{: .bash}</p>
+<pre><code>-rwxrwxr-x 1 dcuser dcuser 0 Oct 25 21:46 bad-reads-script.sh</code></pre>
+<p>{: .output}</p>
+<p>Now we see that it says <code>-rwxr-xr-x</code>. The <code>x</code>’s that are there now tell us we can run it as a program. So, let’s try it! We’ll need to put <code>./</code> at the beginning so the computer knows to look here in this directory for the program.</p>
+<pre><code>$ ./bad-reads-script.sh</code></pre>
+<p>{: .bash}</p>
+<p>The script should run the same way as before, but now we’ve created our very own computer program!</p>
+<p>You will learn more about writing scripts in <a href="https://datacarpentry.org/wrangling-genomics/05-automation/index.html">a later lesson</a>.</p>
+</div>
+<div id="moving-and-downloading-data" class="section level2">
+<h2>Moving and Downloading Data</h2>
+<p>So far, we’ve worked with data that is pre-loaded on the instance in the cloud. Usually, however, most analyses begin with moving data onto the instance. Below we’ll show you some commands to download data onto your instance, or to move data between your computer and the cloud.</p>
+<div id="getting-data-from-the-cloud" class="section level3">
+<h3>Getting data from the cloud</h3>
+<p>There are two programs that will download data from a remote server to your local (or remote) machine: <code>wget</code> and <code>curl</code>. They were designed to do slightly different tasks by default, so you’ll need to give the programs somewhat different options to get the same behaviour, but they are mostly interchangeable.</p>
+<ul>
+<li><p><code>wget</code> is short for “world wide web get”, and it’s basic function is to <em>download</em> web pages or data at a web address.</p></li>
+<li><p><code>cURL</code> is a pun, it is supposed to be read as “see URL”, so its basic function is to <em>display</em> webpages or data at a web address.</p></li>
+</ul>
+<p>Which one you need to use mostly depends on your operating system, as most computers will only have one or the other installed by default.</p>
+<p>Let’s say you want to download some data from Ensembl. We’re going to download a very small tab-delimited file that just tells us what data is available on the Ensembl bacteria server. Before we can start our download, we need to know whether we’re using <code>curl</code> or <code>wget</code>.</p>
+<p>To see which program you have, type:</p>
+<pre><code>$ which curl
+$ which wget</code></pre>
+<p>{: .bash}</p>
+<p><code>which</code> is a BASH program that looks through everything you have installed, and tells you what folder it is installed to. If it can’t find the program you asked for, it returns nothing, i.e. gives you no results.</p>
+<p>On Mac OSX, you’ll likely get the following output:</p>
+<pre><code>$ which curl</code></pre>
+<p>{: .bash}</p>
+<pre><code>/usr/bin/curl</code></pre>
+<p>{: .output}</p>
+<pre><code>$ which wget</code></pre>
+<p>{: .bash}</p>
+<pre><code>$</code></pre>
+<p>{: .output}</p>
+<p>This output means that you have <code>curl</code> installed, but not <code>wget</code>.</p>
+<p>Once you know whether you have <code>curl</code> or <code>wget</code>, use one of the following commands to download the file:</p>
+<pre><code>$ cd
+$ wget ftp://ftp.ensemblgenomes.org/pub/release-37/bacteria/species_EnsemblBacteria.txt</code></pre>
+<p>{: .bash}</p>
+<p>or</p>
+<pre><code>$ cd
+$ curl -O ftp://ftp.ensemblgenomes.org/pub/release-37/bacteria/species_EnsemblBacteria.txt</code></pre>
+<p>{: .bash}</p>
+<p>Since we wanted to <em>download</em> the file rather than just view it, we used <code>wget</code> without any modifiers. With <code>curl</code> however, we had to use the -O flag, which simultaneously tells <code>curl</code> to download the page instead of showing it to us <strong>and</strong> specifies that it should save the file using the same name it had on the server: species_EnsemblBacteria.txt</p>
+<p>It’s important to note that both <code>curl</code> and <code>wget</code> download to the computer that the command line belongs to. So, if you are logged into AWS on the command line and execute the <code>curl</code> command above in the AWS terminal, the file will be downloaded to your AWS machine, not your local one.</p>
+</div>
+<div id="moving-files-between-your-laptop-and-your-instance" class="section level3">
+<h3>Moving files between your laptop and your instance</h3>
+<p>What if the data you need is on your local computer, but you need to get it <em>into</em> the cloud? There are also several ways to do this, but it’s <em>always</em> easier to start the transfer locally. <strong>This means if you’re typing into a terminal, the terminal should not be logged into your instance, it should be showing your local computer. If you’re using a transfer program, it needs to be installed on your local machine, not your instance.</strong></p>
+</div>
+</div>
+<div id="transferring-data-between-your-local-machine-and-the-cloud" class="section level2">
+<h2>Transferring Data Between your Local Machine and the Cloud</h2>
+<p>These directions are platform specific, so please follow the instructions for your system:</p>
+<p><strong>Please select the platform you wish to use for the exercises: <select id="id_platform" name="platformlist" onchange="change_content_by_platform('id_platform');return false;"><option value="unix" id="id_unix" selected> UNIX </option><option value="win" id="id_win" selected> Windows </option></select></strong></p>
+<div id="div_unix" style="display:block" markdown="1">
+<div id="uploading-data-to-your-virtual-machine-with-scp" class="section level3">
+<h3>Uploading Data to your Virtual Machine with scp</h3>
+<p><code>scp</code> stands for ‘secure copy protocol’, and is a widely used UNIX tool for moving files between computers. The simplest way to use <code>scp</code> is to run it in your local terminal, and use it to copy a single file:</p>
+<pre><code>scp &lt;file I want to move&gt; &lt;where I want to move it&gt;</code></pre>
+<p>{: .bash}</p>
+<p>Note that you are always running <code>scp</code> locally, but that <em>doesn’t</em> mean that you can only move files from your local computer. In order to move a file from your local computer to an AWS instance, the command would look like this:</p>
+<pre><code>$ scp &lt;local file&gt; &lt;AWS instance&gt;</code></pre>
+<p>{: .bash}</p>
+<p>To move it back to your local computer, you re-order the <code>to</code> and <code>from</code> fields:</p>
+<pre><code>$ scp &lt;AWS instance&gt; &lt;local file&gt;</code></pre>
+<p>{: .bash}</p>
+<div id="uploading-data-to-your-virtual-machine-with-scp-1" class="section level4">
+<h4>Uploading Data to your Virtual Machine with scp</h4>
+<p>Open the terminal and use the <code>scp</code> command to upload a file (e.g. local_file.txt) to the dcuser home directory:</p>
+<pre><code>$  scp local_file.txt dcuser@ip.address:/home/dcuser/</code></pre>
+<p>{: .bash}</p>
+</div>
+<div id="downloading-data-from-your-virtual-machine-with-scp" class="section level4">
+<h4>Downloading Data from your Virtual Machine with scp</h4>
+<p>Let’s download a text file from our remote machine. You should have a file that contains bad reads called ~/shell_data/scripted_bad_reads.txt.</p>
+<p><strong>Tip:</strong> If you are looking for another (or any really) text file in your home directory to use instead, try:</p>
+<pre><code>$ find ~ -name *.txt</code></pre>
+<p>{: .bash}</p>
+<p>Download the bad reads file in ~/shell_data/scripted_bad_reads.txt to your home ~/Download directory using the following command <strong>(make sure you substitute <a href="mailto:dcuser@ip.address" class="email">dcuser@ip.address</a> with your remote login credentials)</strong>:</p>
+<pre><code>$ scp dcuser@ip.address:/home/dcuser/shell_data/untrimmed_fastq/scripted_bad_reads.txt ~/Downloads</code></pre>
+<p>{: .bash}</p>
+<p>Remember that in both instances, the command is run from your local machine, we’ve just flipped the order of the to and from parts of the command.</p>
+</div>
+</div>
+</div>
+<div id="div_win" style="display:block" markdown="1">
+<div id="uploading-data-to-your-virtual-machine-with-pscp" class="section level3">
+<h3>Uploading Data to your Virtual Machine with PSCP</h3>
+<p>If you’re using a PC, we recommend you use the <em>PSCP</em> program. This program is from the same suite of tools as the PuTTY program we have been using to connect.</p>
+<ol style="list-style-type: decimal">
+<li>If you haven’t done so, download pscp from <a href="http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe">http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe</a></li>
+<li>Make sure the <em>PSCP</em> program is somewhere you know on your computer. In this case, your Downloads folder is appropriate.</li>
+<li>Open the windows <a href="https://en.wikipedia.org/wiki/Windows_PowerShell">PowerShell</a>; go to your start menu/search enter the term <strong>‘cmd’</strong>; you will be able to start the shell (the shell should start from C:-pc-username&gt;).</li>
+<li>Change to the Downloads directory:</li>
+</ol>
+<pre><code>&gt; cd Downloads</code></pre>
+<p>{: .bash}</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Locate a file on your computer that you wish to upload (be sure you know the path). Then upload it to your remote machine <strong>(you will need to know your AMI instance address (which starts with ec2), and login credentials)</strong>. You will be prompted to enter a password, and then your upload will begin. <strong>(make sure you substitute ‘your-pc-username’ for your actual pc username and ‘ec2-54-88-126-85.compute-1.amazonaws.com’ with your AMI instance address)</strong></li>
+</ol>
+<pre><code>C:\User\your-pc-username\Downloads&gt; pscp.exe local_file.txt dcuser@ec2-54-88-126-85.compute-1.amazonaws.com:/home/dcuser/</code></pre>
+<p>{: .bash}</p>
+</div>
+<div id="downloading-data-from-your-virtual-machine-with-pscp" class="section level3">
+<h3>Downloading Data from your Virtual Machine with PSCP</h3>
+<ol style="list-style-type: decimal">
+<li>Follow the instructions in the Upload section to download (if needed) and access the <em>PSCP</em> program (steps 1-3)</li>
+<li>Download the text file to your current working directory (represented by a .) using the following command <strong>(make sure you substitute ‘your-pc-username’ for your actual pc username and ‘ec2-54-88-126-85.compute-1.amazonaws.com’ with your AMI instance address)</strong></li>
+</ol>
+<pre><code>C:\User\your-pc-username\Downloads&gt; pscp.exe dcuser@ec2-54-88-126-85.compute-1.amazonaws.com:/home/dcuser/shell_data/untrimmed_fastq/scripted_bad_reads.txt .
+
+C:\User\your-pc-username\Downloads</code></pre>
+<p>{: .bash}</p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

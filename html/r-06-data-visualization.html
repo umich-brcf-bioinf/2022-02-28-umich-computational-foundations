@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Data Visualization with ggplot2</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Computational Foundations</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Module00_Introduction.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Bash Shell
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="bash-01-introduction.html">Introducing the Shell</a>
+    </li>
+    <li>
+      <a href="bash-02-the-filesystem.html">Navigating Files and Directories</a>
+    </li>
+    <li>
+      <a href="bash-03-working-with-files.html">Working with Files</a>
+    </li>
+    <li>
+      <a href="bash-04-redirection.html">Redirection</a>
+    </li>
+    <li>
+      <a href="bash-05-writing-scripts.html">Writing Scripts and Working with Data</a>
+    </li>
+    <li>
+      <a href="bash-06-organization.html">Project Organization</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R and RStudio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio IDE</a>
+    </li>
+    <li>
+      <a href="r-02-r-basics.html">R Basics</a>
+    </li>
+    <li>
+      <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+    </li>
+    <li>
+      <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
+    </li>
+    <li>
+      <a href="r-06-data-visualization.html">Data Visualizations with ggplot2</a>
+    </li>
+    <li>
+      <a href="r-07-r-help.html">Getting Help with R</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Module99_Wrap_up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Data Visualization with ggplot2</h1>
+
+</div>
+
+
+<p>We start by loading the package <strong><code>ggplot2</code></strong>.</p>
+<pre><code>library(ggplot2)</code></pre>
+<p>{: .language-r} ## Plotting with <strong><code>ggplot2</code></strong></p>
+<p><strong><code>ggplot2</code></strong> is a plotting package that makes it simple to create complex plots from data in a data frame. It provides a more programmatic interface for specifying what variables to plot, how they are displayed, and general visual properties. Therefore, we only need minimal changes if the underlying data change or if we decide to change from a bar plot to a scatter plot. This helps in creating publication quality plots with minimal amounts of adjustments and tweaking.</p>
+<p><strong><code>ggplot2</code></strong> functions like data in the ‘long’ format, i.e., a column for every dimension, and a row for every observation. Well-structured data will save you lots of time when making figures with <strong><code>ggplot2</code></strong></p>
+<p>ggplot graphics are built step by step by adding new elements. Adding layers in this fashion allows for extensive flexibility and customization of plots.</p>
+<p>To build a ggplot, we will use the following basic template that can be used for different types of plots:</p>
+<pre><code>ggplot(data = &lt;DATA&gt;, mapping = aes(&lt;MAPPINGS&gt;)) +  &lt;GEOM_FUNCTION&gt;()</code></pre>
+<p>{: .language-r}</p>
+<ul>
+<li>use the <code>ggplot()</code> function and bind the plot to a specific data frame using the <code>data</code> argument</li>
+</ul>
+<pre><code>ggplot(data = variants)</code></pre>
+<p>{: .language-r}</p>
+<ul>
+<li>define a mapping (using the aesthetic (<code>aes</code>) function), by selecting the variables to be plotted and specifying how to present them in the graph, e.g. as x/y positions or characteristics such as size, shape, color, etc.</li>
+</ul>
+<pre><code>ggplot(data = variants, aes(x = POS, y = DP))</code></pre>
+<p>{: .language-r}</p>
+<ul>
+<li><p>add ‘geoms’ – graphical representations of the data in the plot (points, lines, bars). <strong><code>ggplot2</code></strong> offers many different geoms; we will use some common ones today, including:</p>
+<pre><code>* `geom_point()` for scatter plots, dot plots, etc.
+* `geom_boxplot()` for, well, boxplots!
+* `geom_line()` for trend lines, time series, etc.</code></pre></li>
+</ul>
+<p>To add a geom to the plot use the <code>+</code> operator. Because we have two continuous variables, let’s use <code>geom_point()</code> first:</p>
+<pre><code>ggplot(data = variants, aes(x = POS, y = DP)) +
+  geom_point()</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-first-ggplot-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>The <code>+</code> in the <strong><code>ggplot2</code></strong> package is particularly useful because it allows you to modify existing <code>ggplot</code> objects. This means you can easily set up plot templates and conveniently explore different types of plots, so the above plot can also be generated with code like this:</p>
+<pre><code># Assign plot to a variable
+coverage_plot &lt;- ggplot(data = variants, aes(x = POS, y = DP))
+
+# Draw the plot
+coverage_plot +
+    geom_point()</code></pre>
+<p>{: .language-r}</p>
+<p><strong>Notes</strong></p>
+<ul>
+<li>Anything you put in the <code>ggplot()</code> function can be seen by any geom layers that you add (i.e., these are universal plot settings). This includes the x- and y-axis mapping you set up in <code>aes()</code>.</li>
+<li>You can also specify mappings for a given geom independently of the mappings defined globally in the <code>ggplot()</code> function.</li>
+<li>The <code>+</code> sign used to add new layers must be placed at the end of the line containing the <em>previous</em> layer. If, instead, the <code>+</code> sign is added at the beginning of the line containing the new layer, <strong><code>ggplot2</code></strong> will not add the new layer and will return an error message.</li>
+</ul>
+<pre><code># This is the correct syntax for adding layers
+coverage_plot +
+  geom_point()
+
+# This will not add the new layer and will return an error message
+coverage_plot
+  + geom_point()</code></pre>
+<p>{: .language-r}</p>
+<div id="building-your-plots-iteratively" class="section level2">
+<h2>Building your plots iteratively</h2>
+<p>Building plots with <strong><code>ggplot2</code></strong> is typically an iterative process. We start by defining the dataset we’ll use, lay out the axes, and choose a geom:</p>
+<pre><code>ggplot(data = variants, aes(x = POS, y = DP)) +
+  geom_point()</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-create-ggplot-object-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Then, we start modifying this plot to extract more information from it. For instance, we can add transparency (<code>alpha</code>) to avoid overplotting:</p>
+<pre><code>ggplot(data = variants, aes(x = POS, y = DP)) +
+    geom_point(alpha = 0.5)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-adding-transparency-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>We can also add colors for all the points:</p>
+<pre><code>ggplot(data = variants, aes(x = POS, y = DP)) +
+  geom_point(alpha = 0.5, color = &quot;blue&quot;)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-adding-colors-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Or to color each species in the plot differently, you could use a vector as an input to the argument <strong>color</strong>. <strong><code>ggplot2</code></strong> will provide a different color corresponding to different values in the vector. Here is an example where we color with <strong><code>sample_id</code></strong>:</p>
+<pre><code>ggplot(data = variants, aes(x = POS, y = DP, color = sample_id)) +
+  geom_point(alpha = 0.5)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-color-by-sample-1-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Notice that we can change the geom layer and colors will be still determined by <strong><code>sample_id</code></strong></p>
+<pre><code>ggplot(data = variants, aes(x = POS, y = DP, color = sample_id)) +
+  geom_jitter(alpha = 0.5)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-color-by-sample-2-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>To make our plot more readable, we can add axis labels:</p>
+<pre><code>ggplot(data = variants, aes(x = POS, y = DP, color = sample_id)) +
+  geom_jitter(alpha = 0.5) +
+  labs(x = &quot;Base Pair Position&quot;,
+       y = &quot;Read Depth (DP)&quot;)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-add-axis-labels-1.png" width="816" style="display: block; margin: auto;" /></p>
+<blockquote>
+<h2 id="challenge">Challenge</h2>
+<p>Use what you just learned to create a scatter plot of mapping quality (<code>MQ</code>) over position (<code>POS</code>) with the samples showing in different colors. Make sure to give your plot relevant axis labels.</p>
+<blockquote>
+<h2 id="solution">Solution</h2>
+<pre><code> ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) +
+  geom_point() +
+  labs(x = &quot;Base Pair Position&quot;,
+       y = &quot;Mapping Quality (MQ)&quot;)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-scatter-challenge-1.png" width="816" style="display: block; margin: auto;" /> {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+</div>
+<div id="faceting" class="section level2">
+<h2>Faceting</h2>
+<p><strong><code>ggplot2</code></strong> has a special technique called <em>faceting</em> that allows the user to split one plot into multiple plots based on a factor included in the dataset. We will use it to split our mapping quality plot into three panels, one for each sample.</p>
+<pre><code>ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) +
+ geom_point() +
+ labs(x = &quot;Base Pair Position&quot;,
+      y = &quot;Mapping Quality (MQ)&quot;) +
+ facet_grid(. ~ sample_id)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-first-facet-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>This looks ok, but it would be easier to read if the plot facets were stacked vertically rather than horizontally. The <code>facet_grid</code> geometry allows you to explicitly specify how you want your plots to be arranged via formula notation (<code>rows ~ columns</code>; a <code>.</code> can be used as a placeholder that indicates only one row or column).</p>
+<pre><code>ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) +
+ geom_point() +
+ labs(x = &quot;Base Pair Position&quot;,
+      y = &quot;Mapping Quality (MQ)&quot;) +
+ facet_grid(sample_id ~ .)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-second-facet-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Usually plots with white background look more readable when printed. We can set the background to white using the function <code>theme_bw()</code>. Additionally, you can remove the grid:</p>
+<pre><code>ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) +
+  geom_point() +
+  labs(x = &quot;Base Pair Position&quot;,
+       y = &quot;Mapping Quality (MQ)&quot;) +
+  facet_grid(sample_id ~ .) +
+  theme_bw() +
+  theme(panel.grid = element_blank())</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-facet-plot-white-bg-1.png" width="816" style="display: block; margin: auto;" /></p>
+<blockquote>
+<h2 id="challenge-1">Challenge</h2>
+<p>Use what you just learned to create a scatter plot of PHRED scaled quality (<code>QUAL</code>) over position (<code>POS</code>) with the samples showing in different colors. Make sure to give your plot relevant axis labels.</p>
+<blockquote>
+<h2 id="solution-1">Solution</h2>
+<pre><code> ggplot(data = variants, aes(x = POS, y = QUAL, color = sample_id)) +
+  geom_point() +
+  labs(x = &quot;Base Pair Position&quot;,
+       y = &quot;PHRED-sacled Quality (QUAL)&quot;) +
+  facet_grid(sample_id ~ .)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-scatter-challenge-2-1.png" width="816" style="display: block; margin: auto;" /> {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+</div>
+<div id="barplots" class="section level2">
+<h2>Barplots</h2>
+<p>We can create barplots using the <code>geom_bar</code> geom. Let’s make a barplot showing the number of variants for each sample that are indels.</p>
+<pre><code>ggplot(data = variants, aes(x = INDEL, fill = sample_id)) +
+  geom_bar() +
+  facet_grid(sample_id ~ .)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-barplot-1.png" width="816" style="display: block; margin: auto;" /></p>
+<blockquote>
+<h2 id="challenge-2">Challenge</h2>
+<p>Since we already have the sample_id labels on the individual plot facets, we don’t need the legend. Use the help file for <code>geom_bar</code> and any other online resources you want to use to remove the legend from the plot.</p>
+<blockquote>
+<h2 id="solution-2">Solution</h2>
+<pre><code>ggplot(data = variants, aes(x = INDEL, color = sample_id)) +
+   geom_bar(show.legend = F) +
+   facet_grid(sample_id ~ .)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-06-barplot-challenge-1.png" width="816" style="display: block; margin: auto;" /> {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+</div>
+<div id="ggplot2-themes" class="section level2">
+<h2><strong><code>ggplot2</code></strong> themes</h2>
+<p>In addition to <code>theme_bw()</code>, which changes the plot background to white, <strong><code>ggplot2</code></strong> comes with several other themes which can be useful to quickly change the look of your visualization. The complete list of themes is available at <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="uri">https://ggplot2.tidyverse.org/reference/ggtheme.html</a>. <code>theme_minimal()</code> and <code>theme_light()</code> are popular, and <code>theme_void()</code> can be useful as a starting point to create a new hand-crafted theme.</p>
+<p>The <a href="https://jrnold.github.io/ggthemes/reference/index.html">ggthemes</a> package provides a wide variety of options (including an Excel 2003 theme). The <a href="https://exts.ggplot2.tidyverse.org/"><strong><code>ggplot2</code></strong> extensions website</a> provides a list of packages that extend the capabilities of <strong><code>ggplot2</code></strong>, including additional themes.</p>
+<blockquote>
+<h2 id="challenge-3">Challenge</h2>
+<p>With all of this information in hand, please take another five minutes to either improve one of the plots generated in this exercise or create a beautiful graph of your own. Use the RStudio <a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf"><strong><code>ggplot2</code></strong> cheat sheet</a> for inspiration. Here are some ideas:</p>
+<ul>
+<li>See if you can change the size or shape of the plotting symbol.</li>
+<li>Can you find a way to change the name of the legend? What about its labels?</li>
+<li>Try using a different color palette (see <a href="http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/" class="uri">http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/</a>). {: .challenge}</li>
+</ul>
+</blockquote>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Introducing the Shell</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Computational Foundations</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Module00_Introduction.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Bash Shell
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="bash-01-introduction.html">Introducing the Shell</a>
+    </li>
+    <li>
+      <a href="bash-02-the-filesystem.html">Navigating Files and Directories</a>
+    </li>
+    <li>
+      <a href="bash-03-working-with-files.html">Working with Files</a>
+    </li>
+    <li>
+      <a href="bash-04-redirection.html">Redirection</a>
+    </li>
+    <li>
+      <a href="bash-05-writing-scripts.html">Writing Scripts and Working with Data</a>
+    </li>
+    <li>
+      <a href="bash-06-organization.html">Project Organization</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R and RStudio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio IDE</a>
+    </li>
+    <li>
+      <a href="r-02-r-basics.html">R Basics</a>
+    </li>
+    <li>
+      <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+    </li>
+    <li>
+      <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
+    </li>
+    <li>
+      <a href="r-06-data-visualization.html">Data Visualizations with ggplot2</a>
+    </li>
+    <li>
+      <a href="r-07-r-help.html">Getting Help with R</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Module99_Wrap_up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Introducing the Shell</h1>
+
+</div>
+
+
+<div id="what-is-a-shell-and-why-should-i-care" class="section level2">
+<h2>What is a shell and why should I care?</h2>
+<p>A <em>shell</em> is a computer program that presents a command line interface which allows you to control your computer using commands entered with a keyboard instead of controlling graphical user interfaces (GUIs) with a mouse/keyboard/touchscreen combination.</p>
+<p>There are many reasons to learn about the shell:</p>
+<ul>
+<li>Many bioinformatics tools can only be used through a command line interface. Many more have features and parameter options which are not available in the GUI. BLAST is an example. Many of the advanced functions are only accessible to users who know how to use a shell.<br />
+</li>
+<li>The shell makes your work less boring. In bioinformatics you often need to repeat tasks with a large number of files. With the shell, you can automate those repetitive tasks and leave you free to do more exciting things.<br />
+</li>
+<li>The shell makes your work less error-prone. When humans do the same thing a hundred different times (or even ten times), they’re likely to make a mistake. Your computer can do the same thing a thousand times with no mistakes.<br />
+</li>
+<li>The shell makes your work more reproducible. When you carry out your work in the command-line (rather than a GUI), your computer keeps a record of every step that you’ve carried out, which you can use to re-do your work when you need to. It also gives you a way to communicate unambiguously what you’ve done, so that others can inspect or apply your process to new data.<br />
+</li>
+<li>Many bioinformatic tasks require large amounts of computing power and can’t realistically be run on your own machine. These tasks are best performed using remote computers or cloud computing, which can only be accessed through a shell.</li>
+</ul>
+<p>In this lesson you will learn how to use the command line interface to move around in your file system.</p>
+</div>
+<div id="how-to-access-the-shell" class="section level2">
+<h2>How to access the shell</h2>
+<p>On a Mac or Linux machine, you can access a shell through a program called “Terminal”, which is already available on your computer. The Terminal is a window into which we will type commands. If you’re using Windows, you’ll need to download a separate program to access the shell.</p>
+<p>To save time, we are going to be working on a remote server where all the necessary data and software available. When we say a ‘remote sever’, we are talking about a computer that is not the one you are working on right now. You will access the Carpentries remote server where everything is prepared for the lesson. We will learn the basics of the shell by manipulating some data files. Some of these files are very large , and would take time to download to your computer. We will also be using several bioinformatic packages in later lessons and installing all of the software would take up time even more time. A ‘ready-to-go’ sever let’s us focus on learning.</p>
+</div>
+<div id="how-to-access-the-remote-server" class="section level2">
+<h2>How to access the remote server</h2>
+<p>You can log-in to the remote server using the instructions <a href="http://www.datacarpentry.org/cloud-genomics/02-logging-onto-cloud/#logging-onto-a-cloud-instance">here</a>. Your instructor will supply to you the <code>ip_address</code> and password that you need to login.</p>
+<p>Each of you will have a different <code>ip_address</code>. This will prevent us from accidentally changing each other’s files as we work through the exercises. The password will be the same for everyone.</p>
+<p>After logging in, you will see a screen showing something like this:</p>
+<pre><code>Welcome to Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-48-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Sat Feb  2 00:08:17 UTC 2019
+
+  System load: 0.0                Memory usage: 5%   Processes:       82
+  Usage of /:  29.9% of 98.30GB   Swap usage:   0%   Users logged in: 0
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+597 packages can be updated.
+444 updates are security updates.
+
+New release &#39;16.04.5 LTS&#39; available.
+Run &#39;do-release-upgrade&#39; to upgrade to it.
+
+
+Last login: Fri Feb  1 22:34:53 2019 from c-73-116-43-163.hsd1.ca.comcast.net</code></pre>
+<p>{: .output}</p>
+<p>This provides a lot of information about the remote server that you’re logging into. We’re not going to use most of this information for our workshop, so you can clear your screen using the <code>clear</code> command.</p>
+<p>Type the word <code>clear</code> into the terminal and press the <code>Enter</code> key.</p>
+<pre><code>$ clear</code></pre>
+<p>{: .bash}</p>
+<p>This will scroll your screen down to give you a fresh screen and will make it easier to read. You haven’t lost any of the information on your screen. If you scroll up, you can see everything that has been output to your screen up until this point.</p>
+<blockquote>
+<h2 id="tip">Tip</h2>
+<p>Hot-key combinations are shortcuts for performing common commands. The hot-key combination for clearing the console is <code>Ctrl+L</code>. Feel free to try it and see for yourself. {: .callout}</p>
+</blockquote>
+</div>
+<div id="navigating-your-file-system" class="section level2">
+<h2>Navigating your file system</h2>
+<p>The part of the operating system that manages files and directories is called the <strong>file system</strong>. It organizes our data into files, which hold information, and directories (also called “folders”), which hold files or other directories.</p>
+<p>Several commands are frequently used to create, inspect, rename, and delete files and directories.</p>
+<blockquote>
+<h2 id="preparation-magic">Preparation Magic</h2>
+<p>You may have a prompt (the characters to the left of the cursor) that looks different from the <code>$</code> sign character used here. If you would like to change your prompt to match the example prompt, first type the command: <code>echo $PS1</code> into your shell, followed by pressing the <kbd>Enter</kbd> key.</p>
+<p>This will print the bash special characters that are currently defining your prompt. To change the prompt to a <code>$</code> (followed by a space), enter the command: <code>PS1='$ '</code> Your window should look like our example in this lesson.</p>
+<p>To change back to your original prompt, type in the output of the previous command <code>echo $PS1</code> (this will be different depending on the original configuration) between the quotes in the following command: <code>PS1=""</code></p>
+<p>For example, if the output of <code>echo $PS1</code> was <code>\u@\h:\w $</code>, then type those characters between the quotes in the above command: <code>PS1="\u@\h:\w $ "</code>. Alternatively, you can reset your original prompt by exiting the shell and opening a new session.</p>
+<p>This isn’t necessary to follow along (in fact, your prompt may have other helpful information you want to know about). This is up to you!<br />
+{: .callout}</p>
+</blockquote>
+<pre><code>$</code></pre>
+<p>{: .bash}</p>
+<p>The dollar sign is a <strong>prompt</strong>, which shows us that the shell is waiting for input; your shell may use a different character as a prompt and may add information before the prompt. When typing commands, either from these lessons or from other sources, do not type the prompt, only the commands that follow it.</p>
+<p>Let’s find out where we are by running a command called <code>pwd</code> (which stands for “print working directory”). At any moment, our <strong>current working directory</strong> is our current default directory, i.e., the directory that the computer assumes we want to run commands in, unless we explicitly specify something else. Here, the computer’s response is <code>/home/dcuser</code>, which is the top level directory within our cloud system:</p>
+<pre><code>$ pwd</code></pre>
+<p>{: .bash}</p>
+<pre><code>/home/dcuser</code></pre>
+<p>{: .output}</p>
+<p>Let’s look at how our file system is organized. We can see what files and subdirectories are in this directory by running <code>ls</code>, which stands for “listing”:</p>
+<pre><code>$ ls</code></pre>
+<p>{: .bash}</p>
+<pre><code>R  r_data  shell_data</code></pre>
+<p>{: .output}</p>
+<p><code>ls</code> prints the names of the files and directories in the current directory in alphabetical order, arranged neatly into columns. We’ll be working within the <code>shell_data</code> subdirectory, and creating new subdirectories, throughout this workshop.</p>
+<p>The command to change locations in our file system is <code>cd</code>, followed by a directory name to change our working directory. <code>cd</code> stands for “change directory”.</p>
+<p>Let’s say we want to navigate to the <code>shell_data</code> directory we saw above. We can use the following command to get there:</p>
+<pre><code>$ cd shell_data</code></pre>
+<p>{: .bash}</p>
+<p>Let’s look at what is in this directory:</p>
+<pre><code>$ ls</code></pre>
+<p>{: .bash}</p>
+<pre><code>sra_metadata  untrimmed_fastq</code></pre>
+<p>{: .output}</p>
+<p>We can make the <code>ls</code> output more comprehensible by using the <strong>flag</strong> <code>-F</code>, which tells <code>ls</code> to add a trailing <code>/</code> to the names of directories:</p>
+<pre><code>$ ls -F</code></pre>
+<p>{: .bash}</p>
+<pre><code>sra_metadata/  untrimmed_fastq/</code></pre>
+<p>{: .output}</p>
+<p>Anything with a “/” after it is a directory. Things with a “*” after them are programs. If there are no decorations, it’s a file.</p>
+<p><code>ls</code> has lots of other options. To find out what they are, we can type:</p>
+<pre><code>$ man ls</code></pre>
+<p>{: .bash}</p>
+<p><code>man</code> (short for manual) displays detailed documentation (also referred as man page or man file) for <code>bash</code> commands. It is a powerful resource to explore <code>bash</code> commands, understand their usage and flags. Some manual files are very long. You can scroll through the file using your keyboard’s down arrow or use the <kbd>Space</kbd> key to go forward one page and the <kbd>b</kbd> key to go backwards one page. When you are done reading, hit <kbd>q</kbd> to quit.</p>
+<blockquote>
+<h2 id="challenge">Challenge</h2>
+<p>Use the <code>-l</code> option for the <code>ls</code> command to display more information for each item in the directory. What is one piece of additional information this long format gives you that you don’t see with the bare <code>ls</code> command?</p>
+<blockquote>
+<h2 id="solution">Solution</h2>
+<pre><code>$ ls -l</code></pre>
+<p>{: .bash}</p>
+<pre><code>total 8
+drwxr-x--- 2 dcuser dcuser 4096 Jul 30  2015 sra_metadata
+drwxr-xr-x 2 dcuser dcuser 4096 Nov 15  2017 untrimmed_fastq</code></pre>
+<p>{: .output}</p>
+<p>The additional information given includes the name of the owner of the file, when the file was last modified, and whether the current user has permission to read and write to the file.</p>
+<p>{: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<p>No one can possibly learn all of these arguments, that’s what the manual page is for. You can (and should) refer to the manual page or other help files as needed.</p>
+<p>Let’s go into the <code>untrimmed_fastq</code> directory and see what is in there.</p>
+<pre><code>$ cd untrimmed_fastq
+$ ls -F</code></pre>
+<p>{: .bash}</p>
+<pre><code>SRR097977.fastq  SRR098026.fastq</code></pre>
+<p>{: .output}</p>
+<p>This directory contains two files with <code>.fastq</code> extensions. FASTQ is a format for storing information about sequencing reads and their quality. We will be learning more about FASTQ files in a later lesson.</p>
+<div id="shortcut-tab-completion" class="section level3">
+<h3>Shortcut: Tab Completion</h3>
+<p>Typing out file or directory names can waste a lot of time and it’s easy to make typing mistakes. Instead we can use tab complete as a shortcut. When you start typing out the name of a directory or file, then hit the <kbd>Tab</kbd> key, the shell will try to fill in the rest of the directory or file name.</p>
+<p>Return to your home directory:</p>
+<pre><code>$ cd</code></pre>
+<p>{: .bash}</p>
+<p>then enter:</p>
+<pre><code>$ cd she&lt;tab&gt;</code></pre>
+<p>{: .bash}</p>
+<p>The shell will fill in the rest of the directory name for <code>shell_data</code>.</p>
+<p>Now change directories to <code>untrimmed_fastq</code> in <code>shell_data</code></p>
+<pre><code>$ cd shell_data
+$ cd untrimmed_fastq</code></pre>
+<p>{: .bash}</p>
+<p>Using tab complete can be very helpful. However, it will only autocomplete a file or directory name if you’ve typed enough characters to provide a unique identifier for the file or directory you are trying to access.</p>
+<p>For example, if we now try to list the files which names start with <code>SR</code> by using tab complete:</p>
+<pre><code>$ ls SR&lt;tab&gt;</code></pre>
+<p>{: .bash}</p>
+<p>The shell auto-completes your command to <code>SRR09</code>, because all file names in the directory begin with this prefix. When you hit <kbd>Tab</kbd> again, the shell will list the possible choices.</p>
+<pre><code>$ ls SRR09&lt;tab&gt;&lt;tab&gt;</code></pre>
+<p>{: .bash}</p>
+<pre><code>SRR097977.fastq  SRR098026.fastq</code></pre>
+<p>{: .output}</p>
+<p>Tab completion can also fill in the names of programs, which can be useful if you remember the beginning of a program name.</p>
+<pre><code>$ pw&lt;tab&gt;&lt;tab&gt;</code></pre>
+<p>{: .bash}</p>
+<pre><code>pwck      pwconv    pwd       pwdx      pwunconv</code></pre>
+<p>{: .output}</p>
+<p>Displays the name of every program that starts with <code>pw</code>.</p>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2>Summary</h2>
+<p>We now know how to move around our file system using the command line. This gives us an advantage over interacting with the file system through a GUI as it allows us to work on a remote server, carry out the same set of operations on a large number of files quickly, and opens up many opportunities for using bioinformatic software that is only available in command line versions.</p>
+<p>In the next few episodes, we’ll be expanding on these skills and seeing how using the command line shell enables us to make our workflow more efficient and reproducible.</p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
