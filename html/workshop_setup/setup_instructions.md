@@ -1,5 +1,5 @@
 ---
-title: "RNA-Seq Demystified: Setup instructions"
+title: "Computational Foundations Workshop: Setup instructions"
 author: "UM Bioinformatics Core Workshop Team"
 output:
         html_document:
@@ -24,7 +24,7 @@ this setup, you will need:
 
 -   A Macintosh or Windows workstation connected to the internet.
 -   An email invitation to the workshop Slack workspace.
--   An email titled **"RNA-Seq Demystified workshop setup"** containing your 
+-   An email titled **"Computational Foundations workshop setup"** containing your 
     individual login and password for the shared workshop server
 -   About 10 minutes.
 
