@@ -281,15 +281,15 @@ working with R objects.
 > 5. `pilot <- Earhart`
 >
 >> ## Solution
->> ```{r, echo = FALSE, purl = FALSE}
+>> ```{r, eval = FALSE, purl = FALSE}
 >> chromosome_name <- 'chr02'
 >> od_600_value <- 0.47
 >> chr_position <- '1001701'
 >> spock <- TRUE
 >> pilot <- Earhart
 >> ```
->> 
->> ```{r, purl = FALSE}
+>>
+>> ```{r, eval = FALSE, purl = FALSE}
 >> mode(chromosome_name)
 >> mode(od_600_value)
 >> mode(chr_position)
@@ -307,7 +307,7 @@ R looks for an object named `Earhart` but since there is no object, no assignmen
 be made. If `Earhart` did exist, then the mode of `pilot` would be whatever
 the mode of `Earhart` was originally. If we want to create an object
 called `pilot` that was the **name** "Earhart", we need to enclose
-`Earhart` in quotation marks. 
+`Earhart` in quotation marks.
 
 ```{r, purl = FALSE}
 pilot <- "Earhart"
@@ -368,8 +368,8 @@ human_chr_number * 2
 ## Vectors
 
 Vectors are probably the
-most used commonly used object type in R. 
-**A vector is a collection of values that are all of the same type (numbers, characters, etc.)**. 
+most used commonly used object type in R.
+**A vector is a collection of values that are all of the same type (numbers, characters, etc.)**.
 One of the most common
 ways to create a vector is to use the `c()` function - the "concatenate" or
 "combine" function. Inside the function you may enter one or more values; for
@@ -396,7 +396,7 @@ str(snp_genes)
 Vectors are quite important in R. Another data type that we will
 work with later in this lesson, data frames, are collections of
 vectors. What we learn here about vectors will pay off even more
-when we start working with data frames. 
+when we start working with data frames.
 
 ## Creating and subsetting vectors
 
@@ -496,22 +496,22 @@ Notice in the operation above that R inserts an `NA` value to extend our vector 
 > Answer the following questions to test your knowledge of vectors
 >
 > Which of the following are true of vectors in R?
-> A) All vectors have a mode **or** a length  
-> B) All vectors have a mode **and** a length  
-> C) Vectors may have different lengths  
-> D) Items within a vector may be of different modes  
-> E) You can use the `c()` to add one or more items to an existing vector  
-> F) You can use the `c()` to add a vector to an exiting vector  
+> A) All vectors have a mode **or** a length
+> B) All vectors have a mode **and** a length
+> C) Vectors may have different lengths
+> D) Items within a vector may be of different modes
+> E) You can use the `c()` to add one or more items to an existing vector
+> F) You can use the `c()` to add a vector to an exiting vector
 >>
 >> ## Solution
 >>
->> A) False - Vectors have both of these properties  
->> B) True  
->> C) True  
->> D) False - Vectors have only one mode (e.g. numeric, character); all items in  
+>> A) False - Vectors have both of these properties
+>> B) True
+>> C) True
+>> D) False - Vectors have only one mode (e.g. numeric, character); all items in
 >> a vector must be of this mode.
->> E) True  
->> F) True  
+>> E) True
+>> F) True
 > {: .solution}
 {: .challenge}
 
@@ -598,7 +598,7 @@ but the `is.NA()` function will return a logical vector, with TRUE for any NA
 value:
 
 ```{r, purl = FALSE}
-# current value of 'snp_genes': 
+# current value of 'snp_genes':
 # chr [1:7] "OXTR" "ACTN3" "AR" "OPRM1" "CYP1A1" NA "APOA5"
 
 is.na(snp_genes)
@@ -622,12 +622,12 @@ c("ACTN3","APOA5") %in% snp_genes
 > ## Review Exercise 1
 >
 > What data types/modes are the following vectors?
->    a. `snps`  
->    b. `snp_chromosomes`  
->    c. `snp_positions`  
-> 
+>    a. `snps`
+>    b. `snp_chromosomes`
+>    c. `snp_positions`
+>
 >> ## Solution
->> 
+>>
 >> ```{r, purl = FALSE}
 >> typeof(snps)
 >> typeof(snp_chromosomes)
@@ -639,12 +639,12 @@ c("ACTN3","APOA5") %in% snp_genes
 > ## Review Exercise 2
 >
 > Add the following values to the specified vectors:
->    a. To the `snps` vector add: 'rs662799'  
->    b. To the `snp_chromosomes` vector add: 11  
->    c. To the `snp_positions` vector add: 	116792991  
-> 
+>    a. To the `snps` vector add: 'rs662799'
+>    b. To the `snp_chromosomes` vector add: 11
+>    c. To the `snp_positions` vector add: 	116792991
+>
 >> ## Solution
->> 
+>>
 >> ```{r, purl = FALSE}
 >> snps <- c(snps, 'rs662799')
 >> snps
@@ -658,17 +658,17 @@ c("ACTN3","APOA5") %in% snp_genes
 
 > ## Review Exercise 3
 > Make the following change to the `snp_genes` vector:
-> 
+>
 > Hint: Your vector should look like this in 'Environment':
 > `chr [1:7] "OXTR" "ACTN3" "AR" "OPRM1" "CYP1A1" NA "APOA5"`. If not
 > recreate the vector by running this expression:
 > `snp_genes <- c("OXTR", "ACTN3", "AR", "OPRM1", "CYP1A1", NA, "APOA5")`
 >
->    a. Create a new version of `snp_genes` that does not contain CYP1A1 and then  
->    b. Add 2 NA values to the end of `snp_genes`  
-> 
+>    a. Create a new version of `snp_genes` that does not contain CYP1A1 and then
+>    b. Add 2 NA values to the end of `snp_genes`
+>
 >> ## Solution
->> 
+>>
 >> ```{r, purl = FALSE}
 >> snp_genes <- snp_genes[-5]
 >> snp_genes <- c(snp_genes, NA, NA)
@@ -678,15 +678,15 @@ c("ACTN3","APOA5") %in% snp_genes
 {: .challenge}
 
 > ## Review Exercise 4
-> 
+>
 > Using indexing, create a new vector named `combined` that contains:
 >    - The the 1st value in `snp_genes`
 >    - The 1st value in `snps`
 >    - The 1st value in `snp_chromosomes`
 >    - The 1st value in `snp_positions`
-> 
+>
 >> ## Solution
->> 
+>>
 >> ```{r, purl = FALSE}
 >> combined <- c(snp_genes[1], snps[1], snp_chromosomes[1], snp_positions[1])
 >> combined
@@ -697,9 +697,9 @@ c("ACTN3","APOA5") %in% snp_genes
 
 > ## Review Exercise 5
 > What type of data is `combined`?
-> 
+>
 >> ## Solution
->> 
+>>
 >> ```{r, purl = FALSE}
 >> typeof(combined)
 >> ```

@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>R Basics continued - factors and data frames</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Computational Foundations</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="Module00_Introduction.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Bash Shell
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="bash-01-introduction.html">Introducing the Shell</a>
+    </li>
+    <li>
+      <a href="bash-02-the-filesystem.html">Navigating Files and Directories</a>
+    </li>
+    <li>
+      <a href="bash-03-working-with-files.html">Working with Files</a>
+    </li>
+    <li>
+      <a href="bash-04-redirection.html">Redirection</a>
+    </li>
+    <li>
+      <a href="bash-05-writing-scripts.html">Writing Scripts and Working with Data</a>
+    </li>
+    <li>
+      <a href="bash-06-organization.html">Project Organization</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    R and RStudio
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio IDE</a>
+    </li>
+    <li>
+      <a href="r-02-r-basics.html">R Basics</a>
+    </li>
+    <li>
+      <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+    </li>
+    <li>
+      <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
+    </li>
+    <li>
+      <a href="r-06-data-visualization.html">Data Visualizations with ggplot2</a>
+    </li>
+    <li>
+      <a href="r-07-r-help.html">Getting Help with R</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="Module99_Wrap_up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">R Basics continued - factors and data
+frames</h1>
+
+</div>
+
+
+<div id="working-with-spreadsheets-tabular-data" class="section level2">
+<h2>Working with spreadsheets (tabular data)</h2>
+<p>A substantial amount of the data we work with in genomics will be
+tabular data, this is data arranged in rows and columns - also known as
+spreadsheets. We could write a whole lesson on how to work with
+spreadsheets effectively (<a
+href="https://datacarpentry.org/organization-genomics/">actually we
+did</a>). For our purposes, we want to remind you of a few principles
+before we work with our first set of example data:</p>
+<p><strong>1) Keep raw data separate from analyzed data</strong></p>
+<p>This is principle number one because if you can’t tell which files
+are the original raw data, you risk making some serious mistakes
+(e.g. drawing conclusion from data which have been manipulated in some
+unknown way).</p>
+<p><strong>2) Keep spreadsheet data Tidy</strong></p>
+<p>The simplest principle of <strong>Tidy data</strong> is that we have
+one row in our spreadsheet for each observation or sample, and one
+column for every variable that we measure or report on. As simple as
+this sounds, it’s very easily violated. Most data scientists agree that
+significant amounts of their time is spent tidying data for analysis.
+Read more about data organization in <a
+href="https://datacarpentry.org/organization-genomics/">our lesson</a>
+and in <a href="https://www.jstatsoft.org/article/view/v059i10">this
+paper</a>.</p>
+<p><strong>3) Trust but verify</strong></p>
+<p>Finally, while you don’t need to be paranoid about data, you should
+have a plan for how you will prepare it for analysis. <strong>This a
+focus of this lesson.</strong> You probably already have a lot of
+intuition, expectations, assumptions about your data - the range of
+values you expect, how many values should have been recorded, etc. Of
+course, as the data get larger our human ability to keep track will
+start to fail (and yes, it can fail for small data sets too). R will
+help you to examine your data so that you can have greater confidence in
+your analysis, and its reproducibility.</p>
+<blockquote>
+<h2 id="tip-keeping-you-raw-data-separate">Tip: Keeping you raw data
+separate</h2>
+<p>When you work with data in R, you are not changing the original file
+you loaded that data from. This is different than (for example) working
+with a spreadsheet program where changing the value of the cell leaves
+you one “save”-click away from overwriting the original file. You have
+to purposely use a writing function (e.g. <code>write.csv()</code>) to
+save data loaded into R. In that case, be sure to save the manipulated
+data into a new file. More on this later in the lesson. {: .callout}</p>
+</blockquote>
+</div>
+<div id="importing-tabular-data-into-r" class="section level2">
+<h2>Importing tabular data into R</h2>
+<p>There are several ways to import data into R. For our purpose here,
+we will focus on using the tools every R installation comes with (so
+called “base” R) to import a comma-delimited file containing the results
+of our variant calling workflow. We will need to load the sheet using a
+function called <code>read.csv()</code>.</p>
+<blockquote>
+<h2
+id="exercise-review-the-arguments-of-the-read.csv-function">Exercise:
+Review the arguments of the <code>read.csv()</code> function</h2>
+<p><strong>Before using the <code>read.csv()</code> function, use R’s
+help feature to answer the following questions</strong>.</p>
+<p><em>Hint</em>: Entering ‘?’ before the function name and then running
+that line will bring up the help documentation. Also, when reading this
+particular help be careful to pay attention to the ‘read.csv’ expression
+under the ‘Usage’ heading. Other answers will be in the ‘Arguments’
+heading.</p>
+<ol style="list-style-type: upper-alpha">
+<li><p>What is the default parameter for ‘header’ in the
+<code>read.csv()</code> function?</p></li>
+<li><p>What argument would you have to change to read a file that was
+delimited by semicolons (;) rather than commas?</p></li>
+<li><p>What argument would you have to change to read file in which
+numbers used commas for decimal separation (i.e. 1,00)?</p></li>
+<li><p>What argument would you have to change to read in only the first
+10,000 rows of a very large file?</p></li>
+</ol>
+<blockquote>
+<h2 id="solution">Solution</h2>
+<ol style="list-style-type: upper-alpha">
+<li><p>The <code>read.csv()</code> function has the argument ‘header’
+set to TRUE by default, this means the function always assumes the first
+row is header information, (i.e. column names)</p></li>
+<li><p>The <code>read.csv()</code> function has the argument ‘sep’ set
+to “,”. This means the function assumes commas are used as delimiters,
+as you would expect. Changing this parameter (e.g. <code>sep=";"</code>)
+would now interpret semicolons as delimiters.</p></li>
+<li><p>Although it is not listed in the <code>read.csv()</code> usage,
+<code>read.csv()</code> is a “version” of the function
+<code>read.table()</code> and accepts all its arguments. If you set
+<code>dec=","</code> you could change the decimal operator. We’d
+probably assume the delimiter is some other character.</p></li>
+<li><p>You can set <code>nrow</code> to a numeric value
+(e.g. <code>nrow=10000</code>) to choose how many rows of a file you
+read in. This may be useful for very large files where not all the data
+is needed to test some data cleaning steps you are applying.</p></li>
+</ol>
+<p>Hopefully, this exercise gets you thinking about using the provided
+help documentation in R. There are many arguments that exist, but which
+we wont have time to cover. Look here to get familiar with functions you
+use frequently, you may be surprised at what you find they can do. {:
+.solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<p>Now, let’s read in the file <code>combined_tidy_vcf.csv</code> which
+will be located in <code>/home/dcuser/r_data/</code>. Call this data
+<code>variants</code>. The first argument to pass to our
+<code>read.csv()</code> function is the file path for our data. The file
+path must be in quotes and now is a good time to remember to use tab
+autocompletion. <strong>If you use tab autocompletion you avoid typos
+and errors in file paths.</strong> Use it!</p>
+<pre><code>## read in a CSV file and save it as &#39;variants&#39;
+
+variants &lt;- read.csv(&quot;/home/dcuser/r_data/combined_tidy_vcf.csv&quot;)</code></pre>
+<p>{: .language-r}</p>
+<p>One of the first things you should notice is that in the Environment
+window, you have the <code>variants</code> object, listed as 801 obs.
+(observations/rows) of 29 variables (columns). Double-clicking on the
+name of the object will open a view of the data in a new tab.</p>
+<p><img src="images/rstudio_dataframeview.png" alt="rstudio data frame view" style="width: 1000px;"/></p>
+</div>
+<div
+id="summarizing-subsetting-and-determining-the-structure-of-a-data-frame."
+class="section level2">
+<h2>Summarizing, subsetting, and determining the structure of a data
+frame.</h2>
+<p>A <strong>data frame is the standard way in R to store tabular
+data</strong>. A data fame could also be thought of as a collection of
+vectors, all of which have the same length. Using only two functions, we
+can learn a lot about out data frame including some summary statistics
+as well as well as the “structure” of the data frame. Let’s examine what
+each of these functions can tell us:</p>
+<pre><code>## get summary statistics on a data frame
+
+summary(variants)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>  sample_id            CHROM                POS             ID         
+ Length:801         Length:801         Min.   :   1521   Mode:logical  
+ Class :character   Class :character   1st Qu.:1115970   NA&#39;s:801      
+ Mode  :character   Mode  :character   Median :2290361                 
+                                       Mean   :2243682                 
+                                       3rd Qu.:3317082                 
+                                       Max.   :4629225                 
+                                                                       
+     REF                ALT                 QUAL          FILTER       
+ Length:801         Length:801         Min.   :  4.385   Mode:logical  
+ Class :character   Class :character   1st Qu.:139.000   NA&#39;s:801      
+ Mode  :character   Mode  :character   Median :195.000                 
+                                       Mean   :172.276                 
+                                       3rd Qu.:225.000                 
+                                       Max.   :228.000                 
+                                                                       
+   INDEL              IDV              IMF               DP       
+ Mode :logical   Min.   : 2.000   Min.   :0.5714   Min.   : 2.00  
+ FALSE:700       1st Qu.: 7.000   1st Qu.:0.8824   1st Qu.: 7.00  
+ TRUE :101       Median : 9.000   Median :1.0000   Median :10.00  
+                 Mean   : 9.396   Mean   :0.9219   Mean   :10.57  
+                 3rd Qu.:11.000   3rd Qu.:1.0000   3rd Qu.:13.00  
+                 Max.   :20.000   Max.   :1.0000   Max.   :79.00  
+                 NA&#39;s   :700      NA&#39;s   :700                     
+      VDB                 RPB              MQB              BQB        
+ Min.   :0.0005387   Min.   :0.0000   Min.   :0.0000   Min.   :0.1153  
+ 1st Qu.:0.2180410   1st Qu.:0.3776   1st Qu.:0.1070   1st Qu.:0.6963  
+ Median :0.4827410   Median :0.8663   Median :0.2872   Median :0.8615  
+ Mean   :0.4926291   Mean   :0.6970   Mean   :0.5330   Mean   :0.7784  
+ 3rd Qu.:0.7598940   3rd Qu.:1.0000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   :0.9997130   Max.   :1.0000   Max.   :1.0000   Max.   :1.0000  
+                     NA&#39;s   :773      NA&#39;s   :773      NA&#39;s   :773     
+      MQSB              SGB               MQ0F           ICB         
+ Min.   :0.01348   Min.   :-0.6931   Min.   :0.00000   Mode:logical  
+ 1st Qu.:0.95494   1st Qu.:-0.6762   1st Qu.:0.00000   NA&#39;s:801      
+ Median :1.00000   Median :-0.6620   Median :0.00000                 
+ Mean   :0.96428   Mean   :-0.6444   Mean   :0.01127                 
+ 3rd Qu.:1.00000   3rd Qu.:-0.6364   3rd Qu.:0.00000                 
+ Max.   :1.01283   Max.   :-0.4536   Max.   :0.66667                 
+ NA&#39;s   :48                                                          
+   HOB                AC          AN        DP4                  MQ       
+ Mode:logical   Min.   :1   Min.   :1   Length:801         Min.   :10.00  
+ NA&#39;s:801       1st Qu.:1   1st Qu.:1   Class :character   1st Qu.:60.00  
+                Median :1   Median :1   Mode  :character   Median :60.00  
+                Mean   :1   Mean   :1                      Mean   :58.19  
+                3rd Qu.:1   3rd Qu.:1                      3rd Qu.:60.00  
+                Max.   :1   Max.   :1                      Max.   :60.00  
+                                                                          
+    Indiv              gt_PL               gt_GT   gt_GT_alleles     
+ Length:801         Length:801         Min.   :1   Length:801        
+ Class :character   Class :character   1st Qu.:1   Class :character  
+ Mode  :character   Mode  :character   Median :1   Mode  :character  
+                                       Mean   :1                     
+                                       3rd Qu.:1                     
+                                       Max.   :1                     
+                                                                     </code></pre>
+<p>{: .output}</p>
+<p>Our data frame had 29 variables, so we get 29 fields that summarize
+the data. The <code>QUAL</code>, <code>IMF</code>, and <code>VDB</code>
+variables (and several others) are numerical data and so you get summary
+statistics on the min and max values for these columns, as well as mean,
+median, and interquartile ranges. Many of the other variables
+(e.g. <code>sample_id</code>) are treated as characters data (more on
+this in a bit).</p>
+<p>There is a lot to work with, so we will subset the first three
+columns into a new data frame using the <code>data.frame()</code>
+function.</p>
+<pre><code>## put the first three columns of variants into a new data frame called subset
+
+subset&lt;-data.frame(variants[,c(1:3,6)])</code></pre>
+<p>{: .language-r}</p>
+<p>Now, let’s use the <code>str()</code> (structure) function to look a
+little more closely at how data frames work:</p>
+<pre><code>## get the structure of a data frame
+
+str(subset)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>&#39;data.frame&#39;:   801 obs. of  4 variables:
+ $ sample_id: chr  &quot;SRR2584863&quot; &quot;SRR2584863&quot; &quot;SRR2584863&quot; &quot;SRR2584863&quot; ...
+ $ CHROM    : chr  &quot;CP000819.1&quot; &quot;CP000819.1&quot; &quot;CP000819.1&quot; &quot;CP000819.1&quot; ...
+ $ POS      : int  9972 263235 281923 433359 473901 648692 1331794 1733343 2103887 2333538 ...
+ $ ALT      : chr  &quot;G&quot; &quot;T&quot; &quot;T&quot; &quot;CTTTTTTTT&quot; ...</code></pre>
+<p>{: .output}</p>
+<p>Ok, thats a lot up unpack! Some things to notice.</p>
+<ul>
+<li>the object type <code>data.frame</code> is displayed in the first
+row along with its dimensions, in this case 801 observations (rows) and
+4 variables (columns)</li>
+<li>Each variable (column) has a name (e.g. <code>sample_id</code>).
+This is followed by the object mode (e.g. chr, int, etc.). Notice that
+before each variable name there is a <code>$</code> - this will be
+important later.</li>
+</ul>
+</div>
+<div id="introducing-factors" class="section level2">
+<h2>Introducing Factors</h2>
+<p>Factors are the final major data structure we will introduce in our R
+genomics lessons. Factors can be thought of as vectors which are
+specialized for categorical data. Given R’s specialization for
+statistics, this make sense since categorial and continuous variables
+are usually treated differently. Sometimes you may want to have data
+treated as a factor, but in other cases, this may be undesirable.</p>
+<p>Let’s see the value of treating some of which are categorical in
+nature as factors. Let’s take a look at just the alternate alleles</p>
+<pre><code>## extract the &quot;ALT&quot; column to a new object
+
+alt_alleles &lt;- subset$ALT</code></pre>
+<p>{: .language-r}</p>
+<p>Let’s look at the first few items in our factor using
+<code>head()</code>:</p>
+<pre><code>head(alt_alleles)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;G&quot;         &quot;T&quot;         &quot;T&quot;         &quot;CTTTTTTTT&quot; &quot;CCGCGC&quot;    &quot;T&quot;        </code></pre>
+<p>{: .output}</p>
+<p>There are 801 alleles (one for each row). To simplify, lets look at
+just the single-nuleotide alleles (SNPs). We can use some of the vector
+indexing skills from the last episode.</p>
+<pre><code>snps &lt;- c(alt_alleles[alt_alleles==&quot;A&quot;],
+  alt_alleles[alt_alleles==&quot;T&quot;],
+  alt_alleles[alt_alleles==&quot;G&quot;],
+  alt_alleles[alt_alleles==&quot;C&quot;])</code></pre>
+<p>{: .language-r}</p>
+<p>This leaves us with a vector of the 701 alternative alleles which
+were single nucleotides. Right now, they are being treated a characters,
+but we could treat them as categories of SNP. Doing this will enable
+some nice features. For example, we can try to generate a plot of this
+character vector as it is right now:</p>
+<pre><code># plot(snps)</code></pre>
+<p>{: .language-r}</p>
+<p>Whoops! Though the <code>plot()</code> function will do its best to
+give us a quick plot, it is unable to do so here. One way to fix this it
+to tell R to treat the SNPs as categories (i.e. a factor vector); we
+will create a new object to avoid confusion using the
+<code>factor()</code> function:</p>
+<pre><code>factor_snps &lt;- factor(snps)</code></pre>
+<p>{: .language-r}</p>
+<p>Let’s learn a little more about this new type of vector:</p>
+<pre><code>str(factor_snps)</code></pre>
+<p>{: .language-r}</p>
+<pre><code> Factor w/ 4 levels &quot;A&quot;,&quot;C&quot;,&quot;G&quot;,&quot;T&quot;: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
+<p>{: .output}</p>
+<p>What we get back are the categories (“A”,“C”,“G”,“T”) in our factor;
+these are called “Levels”. <strong>Levels are the different categories
+contained in a factor</strong>. By default, R will organize the levels
+in a factor in alphabetical order. So the first level in this factor is
+“A”.</p>
+<p>For the sake of efficiency, R stores the content of a factor as a
+vector of integers, which an integer is assigned to each of the possible
+levels. Recall levels are assigned in alphabetical order. In this case,
+the first item in our <code>factor_snps</code> object is “A”, which
+happens to be the 1st level of our factor, ordered alphabetically. This
+explains the sequence of “1”s (“Factor w/ 4 levels”A”,“C”,“G”,“T”: 1 1 1
+1 1 1 1 1 1 1 …“), since”A” is the first level, and the first few items
+in our factor are all “A”s.</p>
+<p>We can see how many items in our vector fall into each category:</p>
+<pre><code>summary(factor_snps)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>  A   C   G   T 
+211 139 154 203 </code></pre>
+<p>{: .output}</p>
+<p>As you can imagine, this is already useful when you want to generate
+a tally.</p>
+<blockquote>
+<h2
+id="tip-treating-objects-as-categories-without-changing-their-mode">Tip:
+treating objects as categories without changing their mode</h2>
+<p>You don’t have to make an object a factor to get the benefits of
+treating an object as a factor. See what happens when you use the
+<code>as.factor()</code> function on <code>factor_snps</code>. To
+generate a tally, you can sometimes also use the <code>table()</code>
+function; though sometimes you may need to combine both (i.e.
+<code>table(as.factor(object))</code>) {: .callout}</p>
+</blockquote>
+</div>
+<div id="plotting-and-ordering-factors" class="section level2">
+<h2>Plotting and ordering factors</h2>
+<p>One of the most common uses for factors will be when you plot
+categorical values. For example, suppose we want to know how many of our
+variants had each possible SNP we could generate a plot:</p>
+<pre><code>plot(factor_snps)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-03-unnamed-chunk-14-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>This isn’t a particularly pretty example of a plot but it works.
+We’ll be learning much more about creating nice, publication-quality
+graphics later in this lesson.</p>
+<p>If you recall, factors are ordered alphabetically. That might make
+sense, but categories (e.g., “red”, “blue”, “green”) often do not have
+an intrinsic order. What if we wanted to order our plot according to the
+numerical value (i.e., in descending order of SNP frequency)? We can
+enforce an order on our factors:</p>
+<pre><code>ordered_factor_snps &lt;- factor(factor_snps, levels = names(sort(table(factor_snps))))</code></pre>
+<p>{: .language-r}</p>
+<p>Let’s deconstruct this from the inside out (you can try each of these
+commands to see why this works):</p>
+<ol style="list-style-type: decimal">
+<li>We create a table of <code>factor_snps</code> to get the frequency
+of each SNP: <code>table(factor_snps)</code></li>
+<li>We sort this table: <code>sort(table(factor_snps))</code>; use the
+<code>decreasing =</code> parameter for this function if you wanted to
+change from the default of FALSE</li>
+<li>Using the <code>names</code> function gives us just the character
+names of the table sorted by
+frequencies:<code>names(sort(table(factor_snps)))</code></li>
+<li>The <code>factor</code> function is what allows us to create a
+factor. We give it the <code>factor_snps</code> object as input, and use
+the <code>levels=</code> parameter to enforce the ordering of the
+levels.</li>
+</ol>
+<p>Now we see our plot has be reordered:</p>
+<pre><code>plot(ordered_factor_snps)</code></pre>
+<p>{: .language-r}</p>
+<p><img src="../fig/rmd-03-unnamed-chunk-16-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Factors come in handy in many places when using R. Even using more
+sophisticated plotting packages such as ggplot2 will sometimes require
+you to understand how to manipulate factors.</p>
+</div>
+<div id="subsetting-data-frames" class="section level2">
+<h2>Subsetting data frames</h2>
+<p>Next, we are going to talk about how you can get specific values from
+data frames, and where necessary, change the mode of a column of
+values.</p>
+<p>The first thing to remember is that a data frame is two-dimensional
+(rows and columns). Therefore, to select a specific value we will will
+once again use <code>[]</code> (bracket) notation, but we will specify
+more than one value (except in some cases where we are taking a
+range).</p>
+<blockquote>
+<h2 id="exercise-subsetting-a-data-frame">Exercise: Subsetting a data
+frame</h2>
+<p><strong>Try the following indices and functions and try to figure out
+what they return</strong></p>
+<ol style="list-style-type: lower-alpha">
+<li><p><code>variants[1,1]</code></p></li>
+<li><p><code>variants[2,4]</code></p></li>
+<li><p><code>variants[801,29]</code></p></li>
+<li><p><code>variants[2, ]</code></p></li>
+<li><p><code>variants[-1, ]</code></p></li>
+<li><p><code>variants[1:4,1]</code></p></li>
+<li><p><code>variants[1:10,c("REF","ALT")]</code></p></li>
+<li><p><code>variants[,c("sample_id")]</code></p></li>
+<li><p><code>head(variants)</code></p></li>
+<li><p><code>tail(variants)</code></p></li>
+<li><p><code>variants$sample_id</code></p></li>
+<li><p><code>variants[variants$REF == "A",]</code></p></li>
+</ol>
+<blockquote>
+<h2 id="solution-1">Solution</h2>
+<ol style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>variants[1,1]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;SRR2584863&quot;</code></pre>
+<p>{: .output}</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>variants[2,4]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] NA</code></pre>
+<p>{: .output}</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>variants[801,29]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;T&quot;</code></pre>
+<p>{: .output}</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>variants[2, ]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>   sample_id      CHROM    POS ID REF ALT QUAL FILTER INDEL IDV IMF DP      VDB
+2 SRR2584863 CP000819.1 263235 NA   G   T   85     NA FALSE  NA  NA  6 0.096133
+  RPB MQB BQB MQSB       SGB     MQ0F ICB HOB AC AN     DP4 MQ
+2   1   1   1   NA -0.590765 0.166667  NA  NA  1  1 0,1,0,5 33
+                                                               Indiv gt_PL
+2 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 112,0
+  gt_GT gt_GT_alleles
+2     1             T</code></pre>
+<p>{: .output}</p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>variants[-1, ]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>   sample_id      CHROM     POS ID      REF       ALT QUAL FILTER INDEL IDV IMF
+2 SRR2584863 CP000819.1  263235 NA        G         T   85     NA FALSE  NA  NA
+3 SRR2584863 CP000819.1  281923 NA        G         T  217     NA FALSE  NA  NA
+4 SRR2584863 CP000819.1  433359 NA CTTTTTTT CTTTTTTTT   64     NA  TRUE  12 1.0
+5 SRR2584863 CP000819.1  473901 NA     CCGC    CCGCGC  228     NA  TRUE   9 0.9
+6 SRR2584863 CP000819.1  648692 NA        C         T  210     NA FALSE  NA  NA
+7 SRR2584863 CP000819.1 1331794 NA        C         A  178     NA FALSE  NA  NA
+  DP      VDB RPB MQB BQB     MQSB       SGB     MQ0F ICB HOB AC AN     DP4 MQ
+2  6 0.096133   1   1   1       NA -0.590765 0.166667  NA  NA  1  1 0,1,0,5 33
+3 10 0.774083  NA  NA  NA 0.974597 -0.662043 0.000000  NA  NA  1  1 0,0,4,5 60
+4 12 0.477704  NA  NA  NA 1.000000 -0.676189 0.000000  NA  NA  1  1 0,1,3,8 60
+5 10 0.659505  NA  NA  NA 0.916482 -0.662043 0.000000  NA  NA  1  1 1,0,2,7 60
+6 10 0.268014  NA  NA  NA 0.916482 -0.670168 0.000000  NA  NA  1  1 0,0,7,3 60
+7  8 0.624078  NA  NA  NA 0.900802 -0.651104 0.000000  NA  NA  1  1 0,0,3,5 60
+                                                               Indiv gt_PL
+2 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 112,0
+3 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 247,0
+4 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam  91,0
+5 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 255,0
+6 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 240,0
+7 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 208,0
+  gt_GT gt_GT_alleles
+2     1             T
+3     1             T
+4     1     CTTTTTTTT
+5     1        CCGCGC
+6     1             T
+7     1             A</code></pre>
+<p>{: .output}</p>
+<ol start="6" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>variants[1:4,1]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;SRR2584863&quot; &quot;SRR2584863&quot; &quot;SRR2584863&quot; &quot;SRR2584863&quot;</code></pre>
+<p>{: .output}</p>
+<ol start="7" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>variants[1:10,c(&quot;REF&quot;,&quot;ALT&quot;)]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>                                REF
+1                                 T
+2                                 G
+3                                 G
+4                          CTTTTTTT
+5                              CCGC
+6                                 C
+7                                 C
+8                                 G
+9  ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG
+10                               AT
+                                                        ALT
+1                                                         G
+2                                                         T
+3                                                         T
+4                                                 CTTTTTTTT
+5                                                    CCGCGC
+6                                                         T
+7                                                         A
+8                                                         A
+9  ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG
+10                                                      ATT</code></pre>
+<p>{: .output}</p>
+<ol start="8" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>variants[,c(&quot;sample_id&quot;)]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;SRR2584863&quot; &quot;SRR2584863&quot; &quot;SRR2584863&quot; &quot;SRR2584863&quot; &quot;SRR2584863&quot;
+[6] &quot;SRR2584863&quot;</code></pre>
+<p>{: .output}</p>
+<ol style="list-style-type: lower-roman">
+<li></li>
+</ol>
+<pre><code>head(variants)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>   sample_id      CHROM    POS ID      REF       ALT QUAL FILTER INDEL IDV IMF
+1 SRR2584863 CP000819.1   9972 NA        T         G   91     NA FALSE  NA  NA
+2 SRR2584863 CP000819.1 263235 NA        G         T   85     NA FALSE  NA  NA
+3 SRR2584863 CP000819.1 281923 NA        G         T  217     NA FALSE  NA  NA
+4 SRR2584863 CP000819.1 433359 NA CTTTTTTT CTTTTTTTT   64     NA  TRUE  12 1.0
+5 SRR2584863 CP000819.1 473901 NA     CCGC    CCGCGC  228     NA  TRUE   9 0.9
+6 SRR2584863 CP000819.1 648692 NA        C         T  210     NA FALSE  NA  NA
+  DP       VDB RPB MQB BQB     MQSB       SGB     MQ0F ICB HOB AC AN     DP4 MQ
+1  4 0.0257451  NA  NA  NA       NA -0.556411 0.000000  NA  NA  1  1 0,0,0,4 60
+2  6 0.0961330   1   1   1       NA -0.590765 0.166667  NA  NA  1  1 0,1,0,5 33
+3 10 0.7740830  NA  NA  NA 0.974597 -0.662043 0.000000  NA  NA  1  1 0,0,4,5 60
+4 12 0.4777040  NA  NA  NA 1.000000 -0.676189 0.000000  NA  NA  1  1 0,1,3,8 60
+5 10 0.6595050  NA  NA  NA 0.916482 -0.662043 0.000000  NA  NA  1  1 1,0,2,7 60
+6 10 0.2680140  NA  NA  NA 0.916482 -0.670168 0.000000  NA  NA  1  1 0,0,7,3 60
+                                                               Indiv gt_PL
+1 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 121,0
+2 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 112,0
+3 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 247,0
+4 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam  91,0
+5 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 255,0
+6 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 240,0
+  gt_GT gt_GT_alleles
+1     1             G
+2     1             T
+3     1             T
+4     1     CTTTTTTTT
+5     1        CCGCGC
+6     1             T</code></pre>
+<p>{: .output}</p>
+<ol start="10" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>tail(variants)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>     sample_id      CHROM     POS ID REF ALT QUAL FILTER INDEL IDV IMF DP
+796 SRR2589044 CP000819.1 3444175 NA   G   T  184     NA FALSE  NA  NA  9
+797 SRR2589044 CP000819.1 3481820 NA   A   G  225     NA FALSE  NA  NA 12
+798 SRR2589044 CP000819.1 3893550 NA  AG AGG  101     NA  TRUE   4   1  4
+799 SRR2589044 CP000819.1 3901455 NA   A  AC   70     NA  TRUE   3   1  3
+800 SRR2589044 CP000819.1 4100183 NA   A   G  177     NA FALSE  NA  NA  8
+801 SRR2589044 CP000819.1 4431393 NA TGG   T  225     NA  TRUE  10   1 10
+          VDB RPB MQB BQB     MQSB       SGB MQ0F ICB HOB AC AN     DP4 MQ
+796 0.4714620  NA  NA  NA 0.992367 -0.651104    0  NA  NA  1  1 0,0,4,4 60
+797 0.8707240  NA  NA  NA 1.000000 -0.680642    0  NA  NA  1  1 0,0,4,8 60
+798 0.9182970  NA  NA  NA 1.000000 -0.556411    0  NA  NA  1  1 0,0,3,1 52
+799 0.0221621  NA  NA  NA       NA -0.511536    0  NA  NA  1  1 0,0,3,0 60
+800 0.9272700  NA  NA  NA 0.900802 -0.651104    0  NA  NA  1  1 0,0,3,5 60
+801 0.7488140  NA  NA  NA 1.007750 -0.670168    0  NA  NA  1  1 0,0,4,6 60
+                                                                 Indiv gt_PL
+796 /home/dcuser/dc_workshop/results/bam/SRR2589044.aligned.sorted.bam 214,0
+797 /home/dcuser/dc_workshop/results/bam/SRR2589044.aligned.sorted.bam 255,0
+798 /home/dcuser/dc_workshop/results/bam/SRR2589044.aligned.sorted.bam 131,0
+799 /home/dcuser/dc_workshop/results/bam/SRR2589044.aligned.sorted.bam 100,0
+800 /home/dcuser/dc_workshop/results/bam/SRR2589044.aligned.sorted.bam 207,0
+801 /home/dcuser/dc_workshop/results/bam/SRR2589044.aligned.sorted.bam 255,0
+    gt_GT gt_GT_alleles
+796     1             T
+797     1             G
+798     1           AGG
+799     1            AC
+800     1             G
+801     1             T</code></pre>
+<p>{: .output}</p>
+<ol start="11" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>variants$sample_id</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;SRR2584863&quot; &quot;SRR2584863&quot; &quot;SRR2584863&quot; &quot;SRR2584863&quot; &quot;SRR2584863&quot;
+[6] &quot;SRR2584863&quot;</code></pre>
+<p>{: .output}</p>
+<ol start="12" style="list-style-type: lower-alpha">
+<li></li>
+</ol>
+<pre><code>variants[variants$REF == &quot;A&quot;,]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>    sample_id      CHROM     POS ID REF ALT QUAL FILTER INDEL IDV IMF DP
+11 SRR2584863 CP000819.1 2407766 NA   A   C  104     NA FALSE  NA  NA  9
+12 SRR2584863 CP000819.1 2446984 NA   A   C  225     NA FALSE  NA  NA 20
+14 SRR2584863 CP000819.1 2665639 NA   A   T  225     NA FALSE  NA  NA 19
+16 SRR2584863 CP000819.1 3339313 NA   A   C  211     NA FALSE  NA  NA 10
+18 SRR2584863 CP000819.1 3481820 NA   A   G  200     NA FALSE  NA  NA  9
+19 SRR2584863 CP000819.1 3488669 NA   A   C  225     NA FALSE  NA  NA 13
+         VDB      RPB      MQB      BQB     MQSB       SGB     MQ0F ICB HOB AC
+11 0.0230738 0.900802 0.150134 0.750668 0.500000 -0.590765 0.333333  NA  NA  1
+12 0.0714027       NA       NA       NA 1.000000 -0.689466 0.000000  NA  NA  1
+14 0.9960390       NA       NA       NA 1.000000 -0.690438 0.000000  NA  NA  1
+16 0.4059360       NA       NA       NA 1.007750 -0.670168 0.000000  NA  NA  1
+18 0.1070810       NA       NA       NA 0.974597 -0.662043 0.000000  NA  NA  1
+19 0.0162706       NA       NA       NA 1.000000 -0.680642 0.000000  NA  NA  1
+   AN      DP4 MQ
+11  1  3,0,3,2 25
+12  1 0,0,10,6 60
+14  1 0,0,12,5 60
+16  1  0,0,4,6 60
+18  1  0,0,4,5 60
+19  1  0,0,8,4 60
+                                                                Indiv gt_PL
+11 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 131,0
+12 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 255,0
+14 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 255,0
+16 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 241,0
+18 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 230,0
+19 /home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam 255,0
+   gt_GT gt_GT_alleles
+11     1             C
+12     1             C
+14     1             T
+16     1             C
+18     1             G
+19     1             C</code></pre>
+<p>{: .output} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<p>The subsetting notation is very similar to what we learned for
+vectors. The key differences include:</p>
+<ul>
+<li>Typically provide two values separated by commas: data.frame[row,
+column]</li>
+<li>In cases where you are taking a continuous range of numbers use a
+colon between the numbers (start:stop, inclusive)</li>
+<li>For a non continuous set of numbers, pass a vector using
+<code>c()</code></li>
+<li>Index using the name of a column(s) by passing them as vectors using
+<code>c()</code></li>
+</ul>
+<p>Finally, in all of the subsetting exercises above, we printed values
+to the screen. You can create a new data frame object by assigning them
+to a new object name:</p>
+<pre><code># create a new data frame containing only observations from SRR2584863
+
+SRR2584863_variants &lt;- variants[variants$sample_id == &quot;SRR2584863&quot;,]
+
+# check the dimension of the data frame
+
+dim(SRR2584863_variants)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] 25 29</code></pre>
+<p>{: .output}</p>
+<pre><code># get a summary of the data frame
+
+summary(SRR2584863_variants)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>  sample_id            CHROM                POS             ID         
+ Length:25          Length:25          Min.   :   9972   Mode:logical  
+ Class :character   Class :character   1st Qu.:1331794   NA&#39;s:25       
+ Mode  :character   Mode  :character   Median :2618472                 
+                                       Mean   :2464989                 
+                                       3rd Qu.:3488669                 
+                                       Max.   :4616538                 
+                                                                       
+     REF                ALT                 QUAL         FILTER       
+ Length:25          Length:25          Min.   : 31.89   Mode:logical  
+ Class :character   Class :character   1st Qu.:104.00   NA&#39;s:25       
+ Mode  :character   Mode  :character   Median :211.00                 
+                                       Mean   :172.97                 
+                                       3rd Qu.:225.00                 
+                                       Max.   :228.00                 
+                                                                      
+   INDEL              IDV             IMF               DP      
+ Mode :logical   Min.   : 2.00   Min.   :0.6667   Min.   : 2.0  
+ FALSE:19        1st Qu.: 3.25   1st Qu.:0.9250   1st Qu.: 9.0  
+ TRUE :6         Median : 8.00   Median :1.0000   Median :10.0  
+                 Mean   : 7.00   Mean   :0.9278   Mean   :10.4  
+                 3rd Qu.: 9.75   3rd Qu.:1.0000   3rd Qu.:12.0  
+                 Max.   :12.00   Max.   :1.0000   Max.   :20.0  
+                 NA&#39;s   :19      NA&#39;s   :19                     
+      VDB               RPB              MQB               BQB        
+ Min.   :0.01627   Min.   :0.9008   Min.   :0.04979   Min.   :0.7507  
+ 1st Qu.:0.07140   1st Qu.:0.9275   1st Qu.:0.09996   1st Qu.:0.7627  
+ Median :0.37674   Median :0.9542   Median :0.15013   Median :0.7748  
+ Mean   :0.40429   Mean   :0.9517   Mean   :0.39997   Mean   :0.8418  
+ 3rd Qu.:0.65951   3rd Qu.:0.9771   3rd Qu.:0.57507   3rd Qu.:0.8874  
+ Max.   :0.99604   Max.   :1.0000   Max.   :1.00000   Max.   :1.0000  
+                   NA&#39;s   :22       NA&#39;s   :22        NA&#39;s   :22      
+      MQSB             SGB               MQ0F           ICB         
+ Min.   :0.5000   Min.   :-0.6904   Min.   :0.00000   Mode:logical  
+ 1st Qu.:0.9599   1st Qu.:-0.6762   1st Qu.:0.00000   NA&#39;s:25       
+ Median :0.9962   Median :-0.6620   Median :0.00000                 
+ Mean   :0.9442   Mean   :-0.6341   Mean   :0.04667                 
+ 3rd Qu.:1.0000   3rd Qu.:-0.6168   3rd Qu.:0.00000                 
+ Max.   :1.0128   Max.   :-0.4536   Max.   :0.66667                 
+ NA&#39;s   :3                                                          
+   HOB                AC          AN        DP4                  MQ       
+ Mode:logical   Min.   :1   Min.   :1   Length:25          Min.   :10.00  
+ NA&#39;s:25        1st Qu.:1   1st Qu.:1   Class :character   1st Qu.:60.00  
+                Median :1   Median :1   Mode  :character   Median :60.00  
+                Mean   :1   Mean   :1                      Mean   :55.52  
+                3rd Qu.:1   3rd Qu.:1                      3rd Qu.:60.00  
+                Max.   :1   Max.   :1                      Max.   :60.00  
+                                                                          
+    Indiv              gt_PL               gt_GT   gt_GT_alleles     
+ Length:25          Length:25          Min.   :1   Length:25         
+ Class :character   Class :character   1st Qu.:1   Class :character  
+ Mode  :character   Mode  :character   Median :1   Mode  :character  
+                                       Mean   :1                     
+                                       3rd Qu.:1                     
+                                       Max.   :1                     
+                                                                     </code></pre>
+<p>{: .output}</p>
+</div>
+<div id="coercing-values-in-data-frames" class="section level2">
+<h2>Coercing values in data frames</h2>
+<blockquote>
+<h2 id="tip-coercion-isnt-limited-to-data-frames">Tip: coercion isn’t
+limited to data frames</h2>
+<p>While we are going to address coercion in the context of data frames
+most of these methods apply to other data structures, such as vectors {:
+.callout}</p>
+</blockquote>
+<p>Sometimes, it is possible that R will misinterpret the type of data
+represented in a data frame, or store that data in a mode which prevents
+you from operating on the data the way you wish. For example, a long
+list of gene names isn’t usually thought of as a categorical variable,
+the way that your experimental condition (e.g. control, treatment) might
+be. More importantly, some R packages you use to analyze your data may
+expect characters as input, not factors. At other times (such as
+plotting or some statistical analyses) a factor may be more appropriate.
+Ultimately, you should know how to change the mode of an object.</p>
+<p>First, its very important to recognize that coercion happens in R all
+the time. This can be a good thing when R gets it right, or a bad thing
+when the result is not what you expect. Consider:</p>
+<pre><code>snp_chromosomes &lt;- c(&#39;3&#39;, &#39;11&#39;, &#39;X&#39;, &#39;6&#39;)
+typeof(snp_chromosomes)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<p>{: .output}</p>
+<p>Although there are several numbers in our vector, they are all in
+quotes, so we have explicitly told R to consider them as characters.
+However, even if we removed the quotes from the numbers, R would coerce
+everything into a character:</p>
+<pre><code>snp_chromosomes_2 &lt;- c(3, 11, &#39;X&#39;, 6)
+typeof(snp_chromosomes_2)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<p>{: .output}</p>
+<pre><code>snp_chromosomes_2[1]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;3&quot;</code></pre>
+<p>{: .output}</p>
+<p>We can use the <code>as.</code> functions to explicitly coerce values
+from one form into another. Consider the following vector of characters,
+which all happen to be valid numbers:</p>
+<pre><code>snp_positions_2 &lt;- c(&quot;8762685&quot;, &quot;66560624&quot;, &quot;67545785&quot;, &quot;154039662&quot;)
+typeof(snp_positions_2)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<p>{: .output}</p>
+<pre><code>snp_positions_2[1]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;8762685&quot;</code></pre>
+<p>{: .output}</p>
+<p>Now we can coerce <code>snp_positions_2</code> into a numeric type
+using <code>as.numeric()</code>:</p>
+<pre><code>snp_positions_2 &lt;- as.numeric(snp_positions_2)
+typeof(snp_positions_2)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;double&quot;</code></pre>
+<p>{: .output}</p>
+<pre><code>snp_positions_2[1]</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] 8762685</code></pre>
+<p>{: .output}</p>
+<p>Sometimes coercion is straight forward, but what would happen if we
+tried using <code>as.numeric()</code> on
+<code>snp_chromosomes_2</code></p>
+<pre><code>snp_chromosomes_2 &lt;- as.numeric(snp_chromosomes_2)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+<p>{: .warning}</p>
+<p>If we check, we will see that an <code>NA</code> value (R’s default
+value for missing data) has been introduced.</p>
+<pre><code>snp_chromosomes_2</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1]  3 11 NA  6</code></pre>
+<p>{: .output}</p>
+<p>Trouble can really start when we try to coerce a factor. For example,
+when we try to coerce the <code>sample_id</code> column in our data
+frame into a numeric mode look at the result:</p>
+<pre><code>as.numeric(variants$sample_id)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>Warning: NAs introduced by coercion</code></pre>
+<p>{: .warning}</p>
+<pre><code>  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+ [26] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+ [51] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+ [76] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[101] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[126] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[151] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[176] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[201] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[226] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[251] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[276] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[301] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[326] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[351] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[376] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[401] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[426] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[451] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[476] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[501] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[526] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[551] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[576] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[601] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[626] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[651] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[676] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[701] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[726] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[751] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[776] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
+[801] NA</code></pre>
+<p>{: .output}</p>
+<p>Strangely, it works! Almost. Instead of giving an error message, R
+returns numeric values, which in this case are the integers assigned to
+the levels in this factor. This kind of behavior can lead to
+hard-to-find bugs, for example when we do have numbers in a factor, and
+we get numbers from a coercion. If we don’t look carefully, we may not
+notice a problem.</p>
+<p>If you need to coerce an entire column you can overwrite it using an
+expression like this one:</p>
+<pre><code># make the &#39;REF&#39; column a character type column
+
+variants$REF &lt;- as.character(variants$REF)
+
+# check the type of the column
+typeof(variants$REF)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<p>{: .output}</p>
+</div>
+<div id="stringsasfactors" class="section level2">
+<h2>StringsAsFactors = ?</h2>
+<p>Lets summarize this section on coercion with a few take home
+messages.</p>
+<ul>
+<li>When you explicitly coerce one data type into another (this is known
+as <strong>explicit coercion</strong>), be careful to check the result.
+Ideally, you should try to see if its possible to avoid steps in your
+analysis that force you to coerce.</li>
+<li>R will sometimes coerce without you asking for it. This is called
+(appropriately) <strong>implicit coercion</strong>. For example when we
+tried to create a vector with multiple data types, R chose one type
+through implicit coercion.</li>
+<li>Check the structure (<code>str()</code>) of your data frames before
+working with them!</li>
+</ul>
+<blockquote>
+<h2 id="tip-coercion-isnt-limited-to-data-frames-1">Tip: coercion isn’t
+limited to data frames</h2>
+<p>Prior to R 4.0 when importing a data frame using any one of the
+<code>read.table()</code> functions such as <code>read.csv()</code> ,
+the argument <code>StringsAsFactors</code> was by default set to true
+TRUE. Setting it to FALSE will treat any non-numeric column to a
+character type. <code>read.csv()</code> documentation, you will also see
+you can explicitly type your columns using the <code>colClasses</code>
+argument. Other R packages (such as the Tidyverse “readr”) don’t have
+this particular conversion issue, but many packages will still try to
+guess a data type. {: .callout}</p>
+</blockquote>
+</div>
+<div id="data-frame-bonus-material-math-sorting-renaming"
+class="section level2">
+<h2>Data frame bonus material: math, sorting, renaming</h2>
+<p>Here are a few operations that don’t need much explanation, but which
+are good to know.</p>
+<p>There are lots of arithmetic functions you may want to apply to your
+data frame, covering those would be a course in itself (there is some
+starting material <a
+href="https://swcarpentry.github.io/r-novice-inflammation/15-supp-loops-in-depth/">here</a>).
+Our lessons will cover some additional summary statistical functions in
+a subsequent lesson, but overall we will focus on data cleaning and
+visualization.</p>
+<p>You can use functions like <code>mean()</code>, <code>min()</code>,
+<code>max()</code> on an individual column. Let’s look at the “DP” or
+filtered depth. This value shows the number of filtered reads that
+support each of the reported variants.</p>
+<pre><code>max(variants$DP)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] 79</code></pre>
+<p>{: .output}</p>
+<p>You can sort a data frame using the <code>order()</code>
+function:</p>
+<pre><code>sorted_by_DP &lt;- variants[order(variants$DP), ]
+head(sorted_by_DP$DP)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] 2 2 2 2 2 2</code></pre>
+<p>{: .output}</p>
+<blockquote>
+<h2 id="exercise">Exercise</h2>
+<p>The <code>order()</code> function lists values in increasing order by
+default. Look at the documentation for this function and change
+<code>sorted_by_DP</code> to start with variants with the greatest
+filtered depth (“DP”).</p>
+<blockquote>
+<h2 id="solution-2">Solution</h2>
+<pre><code>   sorted_by_DP &lt;- variants[order(variants$DP, decreasing = TRUE), ]
+   head(sorted_by_DP$DP)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] 79 46 41 29 29 27</code></pre>
+<p>{: .output} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+<p>You can rename columns:</p>
+<pre><code>colnames(variants)[colnames(variants) == &quot;sample_id&quot;] &lt;- &quot;strain&quot;
+
+# check the column name (hint names are returned as a vector)
+colnames(variants)</code></pre>
+<p>{: .language-r}</p>
+<pre><code> [1] &quot;strain&quot;        &quot;CHROM&quot;         &quot;POS&quot;           &quot;ID&quot;           
+ [5] &quot;REF&quot;           &quot;ALT&quot;           &quot;QUAL&quot;          &quot;FILTER&quot;       
+ [9] &quot;INDEL&quot;         &quot;IDV&quot;           &quot;IMF&quot;           &quot;DP&quot;           
+[13] &quot;VDB&quot;           &quot;RPB&quot;           &quot;MQB&quot;           &quot;BQB&quot;          
+[17] &quot;MQSB&quot;          &quot;SGB&quot;           &quot;MQ0F&quot;          &quot;ICB&quot;          
+[21] &quot;HOB&quot;           &quot;AC&quot;            &quot;AN&quot;            &quot;DP4&quot;          
+[25] &quot;MQ&quot;            &quot;Indiv&quot;         &quot;gt_PL&quot;         &quot;gt_GT&quot;        
+[29] &quot;gt_GT_alleles&quot;</code></pre>
+<p>{: .output}</p>
+</div>
+<div id="saving-your-data-frame-to-a-file" class="section level2">
+<h2>Saving your data frame to a file</h2>
+<p>We can save data to a file. We will save our
+<code>SRR2584863_variants</code> object to a .csv file using the
+<code>write.csv()</code> function:</p>
+<pre><code>write.csv(SRR2584863_variants, file = &quot;../data/SRR2584863_variants.csv&quot;)</code></pre>
+<p>{: .language-r}</p>
+<p>The <code>write.csv()</code> function has some additional arguments
+listed in the help, but at a minimum you need to tell it what data frame
+to write to file, and give a path to a file name in quotes (if you only
+provide a file name, the file will be written in the current working
+directory).</p>
+</div>
+<div id="importing-data-from-excel" class="section level2">
+<h2>Importing data from Excel</h2>
+<p>Excel is one of the most common formats, so we need to discuss how to
+make these files play nicely with R. The simplest way to import data
+from Excel is to <strong>save your Excel file in .csv format</strong>*.
+You can then import into R right away. Sometimes you may not be able to
+do this (imagine you have data in 300 Excel files, are you going to open
+and export all of them?).</p>
+<p>One common R package (a set of code with features you can download
+and add to your R installation) is the <a
+href="https://CRAN.R-project.org/package=readxl">readxl package</a>
+which can open and import Excel files. Rather than addressing package
+installation this second (we’ll discuss this soon!), we can take
+advantage of RStudio’s import feature which integrates this package.
+(Note: this feature is available only in the latest versions of RStudio
+such as is installed on our cloud instance).</p>
+<p>First, in the RStudio menu go to <strong>File</strong>, select
+<strong>Import Dataset</strong>, and choose <strong>From Excel…</strong>
+(notice there are several other options you can explore).</p>
+<p><img src="images/rstudio_import_menu.png " alt="rstudio import menu" style="width: 600px;"/></p>
+<p>Next, under <strong>File/Url:</strong> click the <KBD>Browse</KBD>
+button and navigate to the <strong>Ecoli_metadata.xlsx</strong> file
+located at <code>/home/dcuser/dc_sample_data/R</code>. You should now
+see a preview of the data to be imported:</p>
+<p><img src="images/rstudio_import_screen.png " alt="rstudio import screen" style="width: 1200px;"/></p>
+<p>Notice that you have the option to change the data type of each
+variable by clicking arrow (drop-down menu) next to each column title.
+Under <strong>Import Options</strong> you may also rename the data,
+choose a different sheet to import, and choose how you will handle
+headers and skipped rows. Under <strong>Code Preview</strong> you can
+see the code that will be used to import this file. We could have
+written this code and imported the Excel file without the RStudio import
+function, but now you can choose your preference.</p>
+<p>In this exercise, we will leave the title of the data frame as
+<strong>Ecoli_metadata</strong>, and there are no other options we need
+to adjust. Click the <KBD>Import</KBD> button to import the data.</p>
+<p>Finally, let’s check the first few lines of the
+<code>Ecoli_metadata</code> data frame:</p>
+<pre><code>head(Ecoli_metadata)</code></pre>
+<p>{: .language-r}</p>
+<pre><code># A tibble: 6 × 7
+  sample   generation clade   strain cit     run       genome_size
+  &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;           &lt;dbl&gt;
+1 REL606            0 NA      REL606 unknown &lt;NA&gt;             4.62
+2 REL1166A       2000 unknown REL606 unknown SRR098028        4.63
+3 ZDB409         5000 unknown REL606 unknown SRR098281        4.6 
+4 ZDB429        10000 UC      REL606 unknown SRR098282        4.59
+5 ZDB446        15000 UC      REL606 unknown SRR098283        4.66
+6 ZDB458        20000 (C1,C2) REL606 unknown SRR098284        4.63</code></pre>
+<p>{: .output}</p>
+<p>The type of this object is ‘tibble’, a type of data frame we will
+talk more about in the ‘dplyr’ section. If you needed a true R data
+frame you could coerce with <code>as.data.frame()</code>.</p>
+<blockquote>
+<h2 id="exercise-putting-it-all-together---data-frames">Exercise:
+Putting it all together - data frames</h2>
+<p><strong>Using the <code>Ecoli_metadata</code> data frame created
+above, answer the following questions</strong></p>
+<ol style="list-style-type: upper-alpha">
+<li><p>What are the dimensions (# rows, # columns) of the data
+frame?</p></li>
+<li><p>What are categories are there in the <code>cit</code> column?
+<em>hint</em>: treat column as factor</p></li>
+<li><p>How many of each of the <code>cit</code> categories are
+there?</p></li>
+<li><p>What is the genome size for the 7th observation in this data
+set?</p></li>
+<li><p>What is the median value of the variable
+<code>genome_size</code></p></li>
+<li><p>Rename the column <code>sample</code> to
+<code>sample_id</code></p></li>
+<li><p>Create a new column (name genome_size_bp) and set it equal to the
+genome_size multiplied by 1,000,000</p></li>
+<li><p>Save the edited Ecoli_metadata data frame as
+“exercise_solution.csv” in your current working directory.</p></li>
+</ol>
+<blockquote>
+<h2 id="solution-3">Solution</h2>
+<pre><code>dim(Ecoli_metadata)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] 30  7</code></pre>
+<p>{: .output}</p>
+<pre><code>levels(as.factor(Ecoli_metadata$cit))</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] &quot;minus&quot;   &quot;plus&quot;    &quot;unknown&quot;</code></pre>
+<p>{: .output}</p>
+<pre><code>table(as.factor(Ecoli_metadata$cit))</code></pre>
+<p>{: .language-r}</p>
+<pre><code>
+  minus    plus unknown 
+      9       9      12 </code></pre>
+<p>{: .output}</p>
+<pre><code>Ecoli_metadata[7,7]</code></pre>
+<p>{: .language-r}</p>
+<pre><code># A tibble: 1 × 1
+  genome_size
+        &lt;dbl&gt;
+1        4.62</code></pre>
+<p>{: .output}</p>
+<pre><code>median(Ecoli_metadata$genome_size)</code></pre>
+<p>{: .language-r}</p>
+<pre><code>[1] 4.625</code></pre>
+<p>{: .output}</p>
+<pre><code>colnames(Ecoli_metadata)[colnames(Ecoli_metadata) == &quot;sample&quot;] &lt;- &quot;sample_id&quot;
+Ecoli_metadata$genome_size_bp &lt;- Ecoli_metadata$genome_size * 1000000
+write.csv(Ecoli_metadata, file = &quot;exercise_solution.csv&quot;)</code></pre>
+<p>{: .language-r} {: .solution} {: .challenge}</p>
+</blockquote>
+</blockquote>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -254,7 +254,7 @@ example, we can try to generate a plot of this character vector as it is right
 now:
 
 ```{r, purl = FALSE, fig.show='hide'}
-plot(snps)
+# plot(snps)
 ```
 
 Whoops! Though the `plot()` function will do its best to give us a quick plot,
@@ -437,7 +437,7 @@ where we are taking a range).
 >>
 >> ```{r, echo = FALSE, eval = TRUE}
 >> head(variants[,c("sample_id")])
->>```
+>> ```
 >>
 >> i.
 >> ```{r}
