@@ -34,7 +34,6 @@ Navigate to your `untrimmed_fastq` directory:
 ~~~
 $ cd ~/shell_data/untrimmed_fastq
 ~~~
-{: .bash}
 
 We are interested in looking at the FASTQ files in this directory. We can list
 all files with the .fastq extension using the command:
@@ -42,12 +41,10 @@ all files with the .fastq extension using the command:
 ~~~
 $ ls *.fastq
 ~~~
-{: .bash}
 
 ~~~
 SRR097977.fastq  SRR098026.fastq
 ~~~
-{: .output}
 
 The `*` character is a special type of character called a wildcard, which can be used to represent any number of any type of character.
 Thus, `*.fastq` matches every file that ends with `.fastq`.
@@ -57,12 +54,10 @@ This command:
 ~~~
 $ ls *977.fastq
 ~~~
-{: .bash}
 
 ~~~
 SRR097977.fastq
 ~~~
-{: .output}
 
 lists only the file that ends with `977.fastq`.
 
@@ -71,12 +66,10 @@ This command:
 ~~~
 $ ls /usr/bin/*.sh
 ~~~
-{: .bash}
 
 ~~~
 /usr/bin/amuFormat.sh  /usr/bin/gettext.sh  /usr/bin/gvmap.sh
 ~~~
-{: .output}
 
 Lists every file in `/usr/bin` that ends in the characters `.sh`.
 Note that the output displays __full__ paths to files, since
@@ -103,8 +96,7 @@ each result starts with `/`.
 > > 3. `ls /usr/bin/*o`  
 > > Bonus: `ls /usr/bin/*[ac]*`
 > >
-> {: .solution}
-{: .challenge}
+
 
 > ## Exercise
 > `echo` is a built-in shell command that writes its arguments, like a line of text to standard output.
@@ -114,12 +106,10 @@ each result starts with `/`.
 > ~~~
 > $ echo *.fastq
 > ~~~
-> {: .bash}
 >
 > ~~~
 > SRR097977.fastq SRR098026.fastq
 > ~~~
-> {: .output}
 >
 > The `*` is expanded to include any file that ends with `.fastq`. We can see that the output of
 > `echo *.fastq` is the same as that of `ls *.fastq`.
@@ -131,25 +121,19 @@ each result starts with `/`.
 > > ~~~
 > > $ echo *.missing
 > > ~~~
-> > {: .bash}
 > >
 > > ~~~
 > > *.missing
 > > ~~~
-> > {: .output}
 > >
 > > ~~~
 > > $ ls *.missing
 > > ~~~
-> > {: .bash}
 > >
 > > ~~~
 > > ls: cannot access '*.missing': No such file or directory
 > > ~~~
-> > {: .output}
 > >
-> {: .solution}
-{: .challenge}
 
 
 ## Command History
@@ -171,7 +155,6 @@ You can also review your recent commands with the `history` command, by entering
 ~~~
 $ history
 ~~~
-{: .bash}
 
 to see a numbered list of recent commands. You can reuse one of these commands
 directly by referring to the number of that command.
@@ -183,14 +166,12 @@ For example, if your history looked like this:
 260  ls /usr/bin/*.sh
 261  ls *R1*fastq
 ~~~
-{: .output}
 
 then you could repeat command #260 by entering:
 
 ~~~
 $ !260
 ~~~
-{: .bash}
 
 Type `!` (exclamation point) and then the number of the command from your history.
 You will be glad you learned this when you need to re-run very complicated commands.
@@ -203,8 +184,6 @@ For more information on advanced usage of `history`, read section 9.3 of
 >
 > > ## Solution
 > > First type `history`. Then use `!` followed by the line number to rerun that command.
-> {: .solution}
-{: .challenge}
 
 
 ## Examining Files
@@ -220,7 +199,6 @@ Enter the following command from within the `untrimmed_fastq` directory:
 ~~~
 $ cat SRR098026.fastq
 ~~~
-{: .bash}
 
 This will print out all of the contents of the `SRR098026.fastq` to the screen.
 
@@ -235,8 +213,6 @@ This will print out all of the contents of the `SRR098026.fastq` to the screen.
 > > ## Solution
 > > 1. The last line of the file is `C:CCC::CCCCCCCC<8?6A:C28C<608'&&&,'$`.
 > > 2. `cat ~/shell_data/untrimmed_fastq/*`
-> {: .solution}
-{: .challenge}
 
 `cat` is a terrific program, but when the file is really big, it can
 be annoying to use. The program, `less`, is useful for this
@@ -248,7 +224,6 @@ Enter the following command:
 ~~~
 $ less SRR097977.fastq
 ~~~
-{: .bash}
 
 Some navigation commands in `less`:
 
@@ -285,8 +260,6 @@ return, you will search backwards and move up the file to previous examples of t
 >
 > > ## Solution
 > > `CAC`
-> {: .solution}
-{: .challenge}
 
 Remember, the `man` program actually uses `less` internally and
 therefore uses the same commands, so you can search documentation
@@ -302,7 +275,6 @@ the beginning and end of a file, respectively.
 ~~~
 $ head SRR098026.fastq
 ~~~
-{: .bash}
 
 ~~~
 @SRR098026.1 HWUSI-EAS1599_1:2:1:0:968 length=35
@@ -316,12 +288,10 @@ NNNNNNNNNNNNNNNNANNNNNNNNNNNNNNNNNN
 @SRR098026.3 HWUSI-EAS1599_1:2:1:0:570 length=35
 NNNNNNNNNNNNNNNNANNNNNNNNNNNNNNNNNN
 ~~~
-{: .output}
 
 ~~~
 $ tail SRR098026.fastq
 ~~~
-{: .bash}
 
 ~~~
 +SRR098026.247 HWUSI-EAS1599_1:2:1:2:1311 length=35
@@ -335,7 +305,6 @@ CNCTNTATGCGTACGGCAGTGANNNNNNNGGAGAT
 +SRR098026.249 HWUSI-EAS1599_1:2:1:2:1057 length=35
 A!@B!BBB@ABAB#########!!!!!!!######
 ~~~
-{: .output}
 
 The `-n` option to either of these commands can be used to print the
 first or last `n` lines of a file.
@@ -343,22 +312,18 @@ first or last `n` lines of a file.
 ~~~
 $ head -n 1 SRR098026.fastq
 ~~~
-{: .bash}
 
 ~~~
 @SRR098026.1 HWUSI-EAS1599_1:2:1:0:968 length=35
 ~~~
-{: .output}
 
 ~~~
 $ tail -n 1 SRR098026.fastq
 ~~~
-{: .bash}
 
 ~~~
 A!@B!BBB@ABAB#########!!!!!!!######
 ~~~
-{: .output}
 
 
 ## Viewing part of a FASTQ file
@@ -368,7 +333,6 @@ In a FASTQ file, each sequencing read is represented in a 4-line entry. This mea
 ~~~
 $ head -n 4 SRR098026.fastq
 ~~~
-{: .bash}
 
 ~~~
 @SRR098026.1 HWUSI-EAS1599_1:2:1:0:968 length=35
@@ -376,7 +340,6 @@ NNNNNNNNNNNNNNNNCNNNNNNNNNNNNNNNNNN
 +SRR098026.1 HWUSI-EAS1599_1:2:1:0:968 length=35
 !!!!!!!!!!!!!!!!#!!!!!!!!!!!!!!!!!!
 ~~~
-{: .output}
 
 We'll discuss the FASTQ format in detail in our upcoming RNA-Seq Demystified workshop, but for now we'll just look at the second line, which contains the nucleotides. All but one of the nucleotides in this read are unknown (`N`). This is a pretty bad read!
 
@@ -403,12 +366,10 @@ Navigate to the `shell_data/untrimmed_fastq` directory and enter:
 $ cp SRR098026.fastq SRR098026-copy.fastq
 $ ls -F
 ~~~
-{: .bash}
 
 ~~~
 SRR097977.fastq  SRR098026-copy.fastq  SRR098026.fastq
 ~~~
-{: .output}
 
 We now have two copies of the `SRR098026.fastq` file, one of them named `SRR098026-copy.fastq`. We'll move this file to a new directory
 called `backup` where we'll store our backup data files.
@@ -421,7 +382,6 @@ followed by a space, then the directory name you want to create:
 ~~~
 $ mkdir backup
 ~~~
-{: .bash}
 
 ### Moving / Renaming
 
@@ -432,12 +392,10 @@ move files around using the command `mv`:
 $ mv SRR098026-copy.fastq backup
 $ ls backup
 ~~~
-{: .bash}
 
 ~~~
 SRR098026-copy.fastq
 ~~~
-{: .output}
 
 The `mv` command is also how you rename files. Let's rename this file to make it clear that this is a backup:
 
@@ -446,12 +404,10 @@ $ cd backup
 $ mv SRR098026-copy.fastq SRR098026-backup.fastq
 $ ls
 ~~~
-{: .bash}
 
 ~~~
 SRR098026-backup.fastq
 ~~~
-{: .output}
 
 ### File Permissions
 
@@ -464,12 +420,10 @@ View the current permissions on a file using the `-l` (long) flag for the `ls` c
 ~~~
 $ ls -l
 ~~~
-{: .bash}
 
 ~~~
 -rw-r--r-- 1 dcuser dcuser 43332 Nov 15 23:02 SRR098026-backup.fastq
 ~~~
-{: .output}
 
 The first part of the output for the `-l` flag gives you information about the file's current permissions. There are ten slots in the
 permissions list. The first character in this list is related to file type, not permissions, so we'll ignore it for now. The next three
@@ -490,12 +444,10 @@ Our goal for now is to change permissions on this file so that you no longer hav
 $ chmod -w SRR098026-backup.fastq
 $ ls -l
 ~~~
-{: .bash}
 
 ~~~
 -r--r--r-- 1 dcuser dcuser 43332 Nov 15 23:02 SRR098026-backup.fastq
 ~~~
-{: .output}
 
 ### Removing
 
@@ -504,14 +456,12 @@ To prove to ourselves that you no longer have the ability to modify this file, t
 ~~~
 $ rm SRR098026-backup.fastq
 ~~~
-{: .bash}
 
 You'll be asked if you want to override your file permissions:
 
 ~~~
 rm: remove write-protected regular file ‘SRR098026-backup.fastq’?
 ~~~
-{: .output}
 
 You should enter `n` for no. If you enter `n` (for no), the file will not be deleted. If you enter `y`, you will delete the file. This gives us an extra
 measure of security, as there is one more step between us and deleting our data files.
@@ -529,7 +479,6 @@ Enter the following command:
 $ cd ..
 $ rm -r backup
 ~~~
-{: .bash}
 
 This will delete not only the directory, but all files within the directory. If you have write-protected files in the directory,
 you will be asked whether you want to override your permission settings.
@@ -556,6 +505,3 @@ you will be asked whether you want to override your permission settings.
 > > -r--r--r-- 1 dcuser dcuser 47552 Nov 15 23:06 SRR097977-backup.fastq
 > > -r--r--r-- 1 dcuser dcuser 43332 Nov 15 23:06 SRR098026-backup.fastq
 > > ~~~
-> > {: .output}
-> {: .solution}
-{: .challenge}
