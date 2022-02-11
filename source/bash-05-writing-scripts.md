@@ -57,7 +57,9 @@ You should see something like this:
 
 The text at the bottom of the screen shows the keyboard shortcuts for performing various tasks in `nano`. We will talk more about how to interpret this information soon.
 
-> ## Which Editor?
+<br>
+
+> Which Editor?
 >
 > When we say, "`nano` is a text editor," we really do mean "text": `nano` can
 > only work with plain character data, not tables, images, or any other
@@ -80,6 +82,8 @@ The text at the bottom of the screen shows the keyboard shortcuts for performing
 > documents directory instead. You can change this by navigating to
 > another directory the first time you "Save As..."
 
+<br>
+
 Let's type in a few lines of text. Describe what the files in this
 directory are or what you've been doing with them.
 Once we're happy with our text, we can press <kbd>Ctrl</kbd>-<kbd>O</kbd> (press the <kbd>Ctrl</kbd> or <kbd>Control</kbd> key and, while
@@ -89,7 +93,9 @@ press <kbd>Return</kbd> to accept the suggested default of `README.txt`.
 Once our file is saved, we can use <kbd>Ctrl</kbd>-<kbd>X</kbd> to quit the `nano` editor and
 return to the shell.
 
-> ## Control, Ctrl, or ^ Key
+<br>
+
+> Control, Ctrl, or ^ Key
 >
 > The Control key is also called the "Ctrl" key. There are various ways
 > in which using the Control key may be described. For example, you may
@@ -107,18 +113,27 @@ return to the shell.
 > This means that you can use <kbd>Ctrl</kbd>-<kbd>G</kbd> to get help and <kbd>Ctrl</kbd>-<kbd>O</kbd> to save your
 > file.
 
+<br>
+
 Now you've written a file. You can take a look at it with `less` or `cat`, or open it up again and edit it with `nano`.
 
-> ## Exercise
->
-> Open `README.txt` and add the date to the top of the file and save the file.
->
-> > ## Solution
-> >
-> > Use `nano README.txt` to open the file.  
-> > Add today's date and then use <kbd>Ctrl</kbd>-<kbd>X</kbd> followed by `y` and <kbd>Enter</kbd> to save.
-> >
+<br>
+<br>
 
+## Challenge - Editing with nano
+
+Open `README.txt` and add the date to the top of the file and save the file.
+
+<details>
+<summary>Solution - Editing with nano</summary>
+
+Use `nano README.txt` to open the file.  
+Add today's date and then use <kbd>Ctrl</kbd>-<kbd>X</kbd> followed by `y` and <kbd>Enter</kbd> to save.
+
+</details>
+
+<br>
+<br>
 
 ## Writing scripts
 
@@ -138,10 +153,14 @@ Bad reads have a lot of N's, so we're going to look for  `NNNNNNNNNN` with `grep
 grep -B1 -A2 -h NNNNNNNNNN *.fastq | grep -v '^--' > scripted_bad_reads.txt
 ~~~
 
-> ## Custom `grep` control
+<br>
+
+> Custom `grep` control
 >
 > We introduced the `-v` option in [the previous episode](http://www.datacarpentry.org/shell-genomics/04-redirection/), now we
 > are using `-h` to "Suppress the prefixing of file names on output" according to the documentation shown by `man grep`.
+
+<br>
 
 Type your `grep` command into the file and save it as before. Be careful that you did not add the `$` at the beginning of the line.
 
@@ -154,19 +173,23 @@ $ bash bad-reads-script.sh
 It will look like nothing happened, but now if you look at `scripted_bad_reads.txt`, you can see that there are now reads in the file.
 
 
-> ## Exercise
->
-> We want the script to tell us when it's done.  
-> 1. Open `bad-reads-script.sh` and add the line `echo "Script finished!"` after the `grep` command and save the file.  
-> 2. Run the updated script.
->
-> > ## Solution
-> >
-> >    ```
-> >   $ bash bad-reads-script.sh
-> >   Script finished!
-> >   ```
+Next we'll edit the script to tell us when it's done.
 
+Let's open `bad-reads-script.sh` and add the line `echo "Script finished!"` after the `grep` command and save the file.  
+
+~~~
+nano bad-reads-script.sh
+~~~
+
+Then we'll run the updated script
+
+~~~
+$ bash bad-reads-script.sh
+Script finished!
+~~~
+
+<br>
+<br>
 
 ## Making the script into a program
 
@@ -208,11 +231,16 @@ The script should run the same way as before, but now we've created our very own
 
 You will learn more about writing scripts in [a later lesson](https://datacarpentry.org/wrangling-genomics/05-automation/index.html).
 
+<br>
+<br>
+
 ## Moving and Downloading Data
 
 So far, we've worked with data that is pre-loaded on the instance in the cloud. Usually, however,
 most analyses begin with moving data onto the instance. Below we'll show you some commands to
 download data onto your instance, or to move data between your computer and the cloud.
+
+<br>
 
 ### Getting data from the cloud
 
@@ -291,6 +319,8 @@ command line belongs to. So, if you are logged into AWS on the command line and 
 the ``curl`` command above in the AWS terminal, the file will be downloaded to your AWS
 machine, not your local one.
 
+<br>
+
 ### Moving files between your laptop and your instance
 
 What if the data you need is on your local computer, but you need to get it *into* the
@@ -298,6 +328,9 @@ cloud? There are also several ways to do this, but it's *always* easier
 to start the transfer locally. **This means if you're typing into a terminal, the terminal
 should not be logged into your instance, it should be showing your local computer. If you're
 using a transfer program, it needs to be installed on your local machine, not your instance.**
+
+<br>
+<br>
 
 ## Transferring Data Between your Local Machine and the Cloud
 
@@ -308,6 +341,8 @@ These directions are platform specific, so please follow the instructions for yo
 
 
 <div id="div_unix" style="display:block" markdown="1">
+
+<br>
 
 ### Uploading Data to your Virtual Machine with scp
 
@@ -332,6 +367,8 @@ To move it back to your local computer, you re-order the `to` and `from` fields:
 $ scp <AWS instance> <local file>
 ~~~
 
+<br>
+
 #### Uploading Data to your Virtual Machine with scp
 
 Open the terminal and use the `scp` command to upload a file (e.g. local_file.txt) to the dcuser home directory:
@@ -339,6 +376,8 @@ Open the terminal and use the `scp` command to upload a file (e.g. local_file.tx
 ~~~
 $  scp local_file.txt dcuser@ip.address:/home/dcuser/
 ~~~
+
+<br>
 
 #### Downloading Data from your Virtual Machine with scp
 
@@ -363,6 +402,8 @@ Remember that in both instances, the command is run from your local machine, we'
 
 <div id="div_win" style="display:block" markdown="1">
 
+<br>
+
 ### Uploading Data to your Virtual Machine with PSCP
 
 If you're using a PC, we recommend you use the *PSCP* program. This program is from the same suite of
@@ -386,6 +427,8 @@ go to your start menu/search enter the term **'cmd'**; you will be able to start
 C:\User\your-pc-username\Downloads> pscp.exe local_file.txt dcuser@ec2-54-88-126-85.compute-1.amazonaws.com:/home/dcuser/
 ~~~
 
+<br>
+
 ### Downloading Data from your Virtual Machine with PSCP
 
 1. Follow the instructions in the Upload section to download (if needed) and access the *PSCP* program (steps 1-3)
@@ -398,3 +441,6 @@ C:\User\your-pc-username\Downloads
 ~~~
 
 </div>
+
+<br>
+<br>

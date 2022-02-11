@@ -75,66 +75,76 @@ Lists every file in `/usr/bin` that ends in the characters `.sh`.
 Note that the output displays __full__ paths to files, since
 each result starts with `/`.
 
-> ## Exercise
-> Do each of the following tasks from your current directory using a single
-> `ls` command for each:
->
-> 1.  List all of the files in `/usr/bin` that start with the letter 'c'.
-> 2.  List all of the files in `/usr/bin` that contain the letter 'a'.
-> 3.  List all of the files in `/usr/bin` that end with the letter 'o'.
->
-> Bonus: List all of the files in `/usr/bin` that contain the letter 'a' or the
-> letter 'c'.
->
-> Hint: The bonus question requires a Unix wildcard that we haven't talked about
-> yet. Try searching the internet for information about Unix wildcards to find
-> what you need to solve the bonus problem.
->
-> > ## Solution
-> > 1. `ls /usr/bin/c*`
-> > 2. `ls /usr/bin/*a*`
-> > 3. `ls /usr/bin/*o`  
-> > Bonus: `ls /usr/bin/*[ac]*`
-> >
+<br>
+<br>
 
+## Challenge - Using wildcards
+Do each of the following tasks from your current directory using a single
+`ls` command for each:
 
-> ## Exercise
-> `echo` is a built-in shell command that writes its arguments, like a line of text to standard output.
-> The `echo` command can also be used with pattern matching characters, such as wildcard characters.
+1.  List all of the files in `/usr/bin` that start with the letter 'c'.
+2.  List all of the files in `/usr/bin` that contain the letter 'a'.
+3.  List all of the files in `/usr/bin` that end with the letter 'o'.
+
+Bonus: List all of the files in `/usr/bin` that contain the letter 'a' or the
+letter 'c'.
+
+Hint: The bonus question requires a Unix wildcard that we haven't talked about
+yet. Try searching the internet for information about Unix wildcards to find
+what you need to solve the bonus problem.
+
+<details>
+<summary>Solution - Using wildcards</summary>
+
+1. `ls /usr/bin/c*`
+2. `ls /usr/bin/*a*`
+3. `ls /usr/bin/*o`
+
+Bonus: `ls /usr/bin/*[ac]*`
+
+</details>
+
+<br>
+<br>
+
+Next we'll introduce the command `echo`.
+
+`echo` is a built-in shell command that writes its arguments, like a line of text to standard output.
+The `echo` command can also be used with pattern matching characters, such as wildcard characters.
+
 > Here we will use the `echo` command to see how the wildcard character is interpreted by the shell.
->
-> ~~~
-> $ echo *.fastq
-> ~~~
->
-> ~~~
-> SRR097977.fastq SRR098026.fastq
-> ~~~
->
-> The `*` is expanded to include any file that ends with `.fastq`. We can see that the output of
-> `echo *.fastq` is the same as that of `ls *.fastq`.
->
-> What would the output look like if the wildcard could *not* be matched? Compare the outputs of
-> `echo *.missing` and `ls *.missing`.
->
-> > ## Solution
-> > ~~~
-> > $ echo *.missing
-> > ~~~
-> >
-> > ~~~
-> > *.missing
-> > ~~~
-> >
-> > ~~~
-> > $ ls *.missing
-> > ~~~
-> >
-> > ~~~
-> > ls: cannot access '*.missing': No such file or directory
-> > ~~~
-> >
 
+~~~
+$ echo *.fastq
+~~~
+
+~~~
+SRR097977.fastq SRR098026.fastq
+~~~
+
+The `*` is expanded to include any file that ends with `.fastq`. We can see that the output of
+`echo *.fastq` is the same as that of `ls *.fastq`.
+
+Let's see what the output looks like if the wildcard could *not* be matched. Let's compare the outputs of `echo *.missing` and `ls *.missing`.
+
+~~~
+$ echo *.missing
+~~~
+
+~~~
+*.missing
+~~~
+
+~~~
+$ ls *.missing
+~~~
+
+~~~
+ls: cannot access '*.missing': No such file or directory
+~~~
+
+<br>
+<br>
 
 ## Command History
 
@@ -178,13 +188,23 @@ You will be glad you learned this when you need to re-run very complicated comma
 For more information on advanced usage of `history`, read section 9.3 of
 [Bash manual](https://www.gnu.org/software/bash/manual/html_node/index.html).
 
-> ## Exercise
-> Find the line number in your history for the command that listed all the .sh
-> files in `/usr/bin`. Rerun that command.
->
-> > ## Solution
-> > First type `history`. Then use `!` followed by the line number to rerun that command.
+<br>
+<br>
 
+## Challenge - Command history
+
+Find the line number in your history for the command that listed all the .sh
+files in `/usr/bin`. Rerun that command.
+
+<details>
+<summary>Solution - Command history</summary>
+
+First type `history`. Find the line number Then use `!` followed by the line number to rerun that command.
+
+</details>
+
+<br>
+<br>
 
 ## Examining Files
 
@@ -202,17 +222,26 @@ $ cat SRR098026.fastq
 
 This will print out all of the contents of the `SRR098026.fastq` to the screen.
 
+<br>
+<br>
 
-> ## Exercise
->
-> 1. Print out the contents of the `~/shell_data/untrimmed_fastq/SRR097977.fastq` file. What is the last line of the file?
-> 2.  From your home directory, and without changing directories,
-> use one short command to print the contents of all of the files in
-> the `~/shell_data/untrimmed_fastq` directory.
->
-> > ## Solution
-> > 1. The last line of the file is `C:CCC::CCCCCCCC<8?6A:C28C<608'&&&,'$`.
-> > 2. `cat ~/shell_data/untrimmed_fastq/*`
+## Challenge - Viewing file contents
+
+1. Print out the contents of the `~/shell_data/untrimmed_fastq/SRR097977.fastq` file. What is the last line of the file?
+2.  From your home directory, and without changing directories,
+use one short command to print the contents of all of the files in
+the `~/shell_data/untrimmed_fastq` directory.
+
+<details>
+<summary>Solution - Viewing file contents</summary>
+
+1. The last line of the file is `C:CCC::CCCCCCCC<8?6A:C28C<608'&&&,'$`.
+2. `cat ~/shell_data/untrimmed_fastq/*`
+
+</details>
+
+<br>
+<br>
 
 `cat` is a terrific program, but when the file is really big, it can
 be annoying to use. The program, `less`, is useful for this
@@ -240,26 +269,37 @@ Some navigation commands in `less`:
 to search for and press `enter`. The screen will jump to the next location where
 that word is found.
 
-**Shortcut:** If you hit "/" then "enter", `less` will  repeat
-the previous search. `less` searches from the current location and
-works its way forward. Scroll up a couple lines on your terminal to verify
-you are at the beginning of the file. Note, if you are at the end of the file and search
-for the sequence "CAA", `less` will not find it. You either need to go to the
-beginning of the file (by typing `g`) and search again using `/` or you
-can use `?` to search backwards in the same way you used `/` previously.
-
-For instance, let's search forward for the sequence `TTTTT` in our file.
-You can see that we go right to that sequence, what it looks like,
-and where it is in the file. If you continue to type `/` and hit return, you will move
-forward to the next instance of this sequence motif. If you instead type `?` and hit
-return, you will search backwards and move up the file to previous examples of this motif.
-
-> ## Exercise
+> **Shortcut:** If you hit "/" then "enter", `less` will  repeat
+> the previous search. `less` searches from the current location and
+> works its way forward. Scroll up a couple lines on your terminal to verify
+> you are at the beginning of the file. Note, if you are at the end of the file and search
+> for the sequence "CAA", `less` will not find it. You either need to go to the
+> beginning of the file (by typing `g`) and search again using `/` or you
+> can use `?` to search backwards in the same way you used `/` previously.
 >
-> What are the next three nucleotides (characters) after the first instance of the sequence quoted above?
+> For instance, let's search forward for the sequence `TTTTT` in our file.
+> You can see that we go right to that sequence, what it looks like,
+> and where it is in the file. If you continue to type `/` and hit return, you will move
+> forward to the next instance of this sequence motif. If you instead type `?` and hit
+> return, you will search backwards and move up the file to previous examples of this motif.
 >
-> > ## Solution
-> > `CAC`
+
+<br>
+<br>
+
+## Challenge - Viewing file contents II
+
+What are the next three nucleotides (characters) after the first instance of the sequence quoted above?
+
+<details>
+<summary>Solution - Viewing file contents II</summary>
+
+`CAC`
+
+</details>
+
+<br>
+<br>
 
 Remember, the `man` program actually uses `less` internally and
 therefore uses the same commands, so you can search documentation
@@ -325,6 +365,8 @@ $ tail -n 1 SRR098026.fastq
 A!@B!BBB@ABAB#########!!!!!!!######
 ~~~
 
+<br>
+<br>
 
 ## Viewing part of a FASTQ file
 
@@ -341,8 +383,10 @@ NNNNNNNNNNNNNNNNCNNNNNNNNNNNNNNNNNN
 !!!!!!!!!!!!!!!!#!!!!!!!!!!!!!!!!!!
 ~~~
 
-We'll discuss the FASTQ format in detail in our upcoming RNA-Seq Demystified workshop, but for now we'll just look at the second line, which contains the nucleotides. All but one of the nucleotides in this read are unknown (`N`). This is a pretty bad read!
+We'll discuss the FASTQ format in detail in our upcoming RNA-Seq workshop, but for now we'll just look at the second line, which contains the nucleotides. All but one of the nucleotides in this read are unknown (`N`). This is a pretty bad read!
 
+<br>
+<br>
 
 ## Creating, moving, copying, and removing
 
@@ -351,6 +395,8 @@ them around or get rid of them? Most of the time, you can do these sorts of file
 but there will be some cases (like when you're working with a remote computer like we are for this lesson) where it will be
 impossible. You'll also find that you may be working with hundreds of files and want to do similar manipulations to all
 of those files. In cases like this, it's much faster to do these operations at the command line.
+
+<br>
 
 ### Copying Files
 
@@ -374,6 +420,8 @@ SRR097977.fastq  SRR098026-copy.fastq  SRR098026.fastq
 We now have two copies of the `SRR098026.fastq` file, one of them named `SRR098026-copy.fastq`. We'll move this file to a new directory
 called `backup` where we'll store our backup data files.
 
+<br>
+
 ### Creating Directories
 
 The `mkdir` command is used to make a directory. Enter `mkdir`
@@ -382,6 +430,8 @@ followed by a space, then the directory name you want to create:
 ~~~
 $ mkdir backup
 ~~~
+
+<br>
 
 ### Moving / Renaming
 
@@ -409,6 +459,8 @@ $ ls
 SRR098026-backup.fastq
 ~~~
 
+<br>
+
 ### File Permissions
 
 We've now made a backup copy of our file, but just because we have two copies, it doesn't make us safe. We can still accidentally delete or
@@ -433,6 +485,8 @@ that deal with your permissions (as the file owner).
 
 ![Permissions breakdown](images/rwx_figure.svg)
 
+<br>
+
 Here the three positions that relate to the file owner are `rw-`. The `r` means that you have permission to read the file, the `w`
 indicates that you have permission to write to (i.e. make changes to) the file, and the third position is a `-`, indicating that you
 don't have permission to carry out the ability encoded by that space (this is the space where `x` or executable ability is stored, we'll
@@ -448,6 +502,8 @@ $ ls -l
 ~~~
 -r--r--r-- 1 dcuser dcuser 43332 Nov 15 23:02 SRR098026-backup.fastq
 ~~~
+
+<br>
 
 ### Removing
 
@@ -483,25 +539,36 @@ $ rm -r backup
 This will delete not only the directory, but all files within the directory. If you have write-protected files in the directory,
 you will be asked whether you want to override your permission settings.
 
-> ## Exercise
->
-> Starting in the `shell_data/untrimmed_fastq/` directory, do the following:
-> 1. Make sure that you have deleted your backup directory and all files it contains.  
-> 2. Create a backup of each of your FASTQ files using `cp`. (Note: You'll need to do this individually for each of the two FASTQ files. We haven't
-> learned yet how to do this
-> with a wildcard.)  
-> 3. Use a wildcard to move all of your backup files to a new backup directory.   
-> 4. Change the permissions on all of your backup files to be write-protected.  
->
-> > ## Solution
-> >
-> > 1. `rm -r backup`  
-> > 2. `cp SRR098026.fastq SRR098026-backup.fastq` and `cp SRR097977.fastq SRR097977-backup.fastq`  
-> > 3. `mkdir backup` and `mv *-backup.fastq backup`
-> > 4. `chmod -w backup/*-backup.fastq`   
-> > It's always a good idea to check your work with `ls -l backup`. You should see something like:
-> >
-> > ~~~
-> > -r--r--r-- 1 dcuser dcuser 47552 Nov 15 23:06 SRR097977-backup.fastq
-> > -r--r--r-- 1 dcuser dcuser 43332 Nov 15 23:06 SRR098026-backup.fastq
-> > ~~~
+<br>
+<br>
+
+## Challenge - Working with files
+
+Starting in the `shell_data/untrimmed_fastq/` directory, do the following:
+1. Make sure that you have deleted your backup directory and all files it contains.  
+2. Create a backup of each of your FASTQ files using `cp`. (Note: You'll need to do this individually for each of the two FASTQ files. We haven't learned yet how to do this with a wildcard.)
+3. Use a wildcard to move all of your backup files to a new backup directory.   
+4. Change the permissions on all of your backup files to be write-protected.  
+
+<br>
+<br>
+
+<details>
+<summary>Solution - Working with files</summary>
+
+1. `rm -r backup`  
+2. `cp SRR098026.fastq SRR098026-backup.fastq` and `cp SRR097977.fastq SRR097977-backup.fastq`  
+3. `mkdir backup` and `mv *-backup.fastq backup`
+4. `chmod -w backup/*-backup.fastq`   
+
+It's always a good idea to check your work with `ls -l backup`. You should see something like:
+
+~~~
+-r--r--r-- 1 dcuser dcuser 47552 Nov 15 23:06 SRR097977-backup.fastq
+-r--r--r-- 1 dcuser dcuser 43332 Nov 15 23:06 SRR098026-backup.fastq
+~~~
+
+</details>
+
+<br>
+<br>

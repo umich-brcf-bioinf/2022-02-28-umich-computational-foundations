@@ -31,7 +31,7 @@ regular expressions in this lesson, and are instead going to specify the strings
 we are searching for.
 Let's give it a try!
 
-> ## Nucleotide abbreviations
+> Nucleotide abbreviations
 >
 > The four nucleotides that appear in DNA are abbreviated `A`, `C`, `T` and `G`.
 > Unknown nucleotides are represented with the letter `N`. An `N` appearing
@@ -39,7 +39,6 @@ Let's give it a try!
 > confidently determine the nucleotide in that position. You can think of an `N` as being aNy
 > nucleotide at that position in the DNA sequence.
 >
-{: .callout}
 
 We'll search for strings inside of our fastq files. Let's first make sure we are in the correct
 directory:
@@ -49,16 +48,6 @@ $ cd ~/shell_data/untrimmed_fastq
 ~~~
 
 Suppose we want to see how many reads in our file have really bad segments containing 10 consecutive unknown nucleotides (Ns).
-
-> ## Determining quality
->
-> In this lesson, we're going to be manually searching for strings of `N`s within our sequence
-> results to illustrate some principles of file searching. It can be really useful to do this
-> type of searching to get a feel for the quality of your sequencing results, however, in your
-> research you will most likely use a bioinformatics tool that has a built-in program for
-> filtering out low-quality reads. You'll learn how to use one such tool in
-> [a later lesson](https://datacarpentry.org/wrangling-genomics/02-quality-control/index.html).
->
 
 Let's search for the string NNNNNNNNNN in the SRR098026 file:
 ~~~
@@ -91,52 +80,62 @@ CNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ~~~
 
-> ## Exercise
->
-> 1. Search for the sequence `GNATNACCACTTCC` in the `SRR098026.fastq` file.
-> Have your search return all matching lines and the name (or identifier) for each sequence
-> that contains a match.
->
-> 2. Search for the sequence `AAGTT` in both FASTQ files.
-> Have your search return all matching lines and the name (or identifier) for each sequence
-> that contains a match.
->
-> > ## Solution  
-> > 1. `grep -B1 GNATNACCACTTCC SRR098026.fastq`
-> >
-> >     ```
-> >     @SRR098026.245 HWUSI-EAS1599_1:2:1:2:801 length=35
-> >     GNATNACCACTTCCAGTGCTGANNNNNNNGGGATG
-> >     ```
-> >
-> > 2. `grep -B1 AAGTT *.fastq`
-> >
-> >     ```
-> > SRR097977.fastq-@SRR097977.11 209DTAAXX_Lenski2_1_7:8:3:247:351 length=36
-> > SRR097977.fastq:GATTGCTTTAATGAAAAAGTCATATAAGTTGCCATG
-> > --
-> > SRR097977.fastq-@SRR097977.67 209DTAAXX_Lenski2_1_7:8:3:544:566 length=36
-> > SRR097977.fastq:TTGTCCACGCTTTTCTATGTAAAGTTTATTTGCTTT
-> > --
-> > SRR097977.fastq-@SRR097977.68 209DTAAXX_Lenski2_1_7:8:3:724:110 length=36
-> > SRR097977.fastq:TGAAGCCTGCTTTTTTATACTAAGTTTGCATTATAA
-> > --
-> > SRR097977.fastq-@SRR097977.80 209DTAAXX_Lenski2_1_7:8:3:258:281 length=36
-> > SRR097977.fastq:GTGGCGCTGCTGCATAAGTTGGGTTATCAGGTCGTT
-> > --
-> > SRR097977.fastq-@SRR097977.92 209DTAAXX_Lenski2_1_7:8:3:353:318 length=36
-> > SRR097977.fastq:GGCAAAATGGTCCTCCAGCCAGGCCAGAAGCAAGTT
-> > --
-> > SRR097977.fastq-@SRR097977.139 209DTAAXX_Lenski2_1_7:8:3:703:655 length=36
-> > SRR097977.fastq:TTTATTTGTAAAGTTTTGTTGAAATAAGGGTTGTAA
-> > --
-> > SRR097977.fastq-@SRR097977.238 209DTAAXX_Lenski2_1_7:8:3:592:919 length=36
-> > SRR097977.fastq:TTCTTACCATCCTGAAGTTTTTTCATCTTCCCTGAT
-> > --
-> > SRR098026.fastq-@SRR098026.158 HWUSI-EAS1599_1:2:1:1:1505 length=35
-> > SRR098026.fastq:GNNNNNNNNCAAAGTTGATCNNNNNNNNNTGTGCG
-> >     ```
-> >
+<br>
+<br>
+
+## Challenge - Search for sequence
+
+1. Search for the sequence `GNATNACCACTTCC` in the `SRR098026.fastq` file.
+Have your search return all matching lines and the name (or identifier) for each sequence
+that contains a match.
+
+2. Search for the sequence `AAGTT` in both FASTQ files.
+Have your search return all matching lines and the name (or identifier) for each sequence
+that contains a match.
+
+<br>
+
+<details>
+<summary>Solution - Search for sequence</summary>
+
+1. `grep -B1 GNATNACCACTTCC SRR098026.fastq`
+
+    ```
+    @SRR098026.245 HWUSI-EAS1599_1:2:1:2:801 length=35
+    GNATNACCACTTCCAGTGCTGANNNNNNNGGGATG
+    ```
+
+2. `grep -B1 AAGTT *.fastq`
+
+    ```
+    SRR097977.fastq-@SRR097977.11 209DTAAXX_Lenski2_1_7:8:3:247:351 length=36
+    SRR097977.fastq:GATTGCTTTAATGAAAAAGTCATATAAGTTGCCATG
+    --
+    SRR097977.fastq-@SRR097977.67 209DTAAXX_Lenski2_1_7:8:3:544:566 length=36
+    SRR097977.fastq:TTGTCCACGCTTTTCTATGTAAAGTTTATTTGCTTT
+    --
+    SRR097977.fastq-@SRR097977.68 209DTAAXX_Lenski2_1_7:8:3:724:110 length=36
+    SRR097977.fastq:TGAAGCCTGCTTTTTTATACTAAGTTTGCATTATAA
+    --
+    SRR097977.fastq-@SRR097977.80 209DTAAXX_Lenski2_1_7:8:3:258:281 length=36
+    SRR097977.fastq:GTGGCGCTGCTGCATAAGTTGGGTTATCAGGTCGTT
+    --
+    SRR097977.fastq-@SRR097977.92 209DTAAXX_Lenski2_1_7:8:3:353:318 length=36
+    SRR097977.fastq:GGCAAAATGGTCCTCCAGCCAGGCCAGAAGCAAGTT
+    --
+    SRR097977.fastq-@SRR097977.139 209DTAAXX_Lenski2_1_7:8:3:703:655 length=36
+    SRR097977.fastq:TTTATTTGTAAAGTTTTGTTGAAATAAGGGTTGTAA
+    --
+    SRR097977.fastq-@SRR097977.238 209DTAAXX_Lenski2_1_7:8:3:592:919 length=36
+    SRR097977.fastq:TTCTTACCATCCTGAAGTTTTTTCATCTTCCCTGAT
+    --
+    SRR098026.fastq-@SRR098026.158 HWUSI-EAS1599_1:2:1:1:1505 length=35
+    SRR098026.fastq:GNNNNNNNNCAAAGTTGATCNNNNNNNNNTGTGCG
+    ```
+</details>
+
+<br>
+<br>
 
 ## Redirecting output
 
@@ -160,7 +159,9 @@ in our FASTQ files that contain
 $ grep -B1 -A2 NNNNNNNNNN SRR098026.fastq > bad_reads.txt
 ~~~
 
-> ## File extensions
+<br>
+
+> File extensions
 >
 > You might be confused about why we're naming our output file with a `.txt` extension. After all,
 > it will be holding FASTQ formatted data that we're extracting from our FASTQ files. Won't it
@@ -169,6 +170,7 @@ $ grep -B1 -A2 NNNNNNNNNN SRR098026.fastq > bad_reads.txt
 > when we move to using wildcards later in this episode. We'll point out where this becomes
 > important. For now, it's good that you're thinking about file extensions!
 
+<br>
 
 The prompt should sit there a little bit, and then it should look like nothing
 happened. But type `ls`. You should see a new file called `bad_reads.txt`.
@@ -179,7 +181,6 @@ in a file. The FASTQ file may change over time, so given the potential for updat
 make sure your file matches your instructor's output.
 
 As of Sept. 2020, wc gives the following output:  
-
 
 
 ~~~
@@ -201,39 +202,51 @@ $ wc -l bad_reads.txt
 802 bad_reads.txt
 ~~~
 
-> ## Exercise
->
-> How many sequences are there in `SRR098026.fastq`? Remember that every sequence is formed by four lines.
->
->> ## Solution
->>
->>
->> ~~~
->> $ wc -l SRR098026.fastq
->> ~~~
->>
->> ~~~
->> 996
->> ~~~
->>
-> Now you can divide this number by four to get the number of sequences in your fastq file
+<br>
+<br>
 
+## Challenge - Using `wc`
 
-> ## Exercise
->
-> How many sequences in `SRR098026.fastq` contain at least 3 consecutive Ns?
->
->> ## Solution
->>  
->>
->> ~~~
->> $ grep NNN SRR098026.fastq > bad_reads.txt
->> $ wc -l bad_reads.txt
->> ~~~
->>
->> ~~~
->> 249
->> ~~~
+How many sequences are there in `SRR098026.fastq`? Remember that every sequence is formed by four lines.
+
+<details>
+<summary>Solution - Using `wc`</summary>
+
+~~~
+$ wc -l SRR098026.fastq
+~~~
+
+~~~
+996
+~~~
+
+Now you can divide this number by four to get the number of sequences in your fastq file
+
+</details>
+
+<br>
+<br>
+
+## Challenge - Using `wc` II
+
+How many sequences in `SRR098026.fastq` contain at least 3 consecutive Ns?
+
+<details>
+<summary>Solution - Using `wc` II</summary>
+
+~~~
+$ grep NNN SRR098026.fastq > bad_reads.txt
+$ wc -l bad_reads.txt
+~~~
+
+~~~
+249
+~~~
+
+</details>
+
+<br>
+<br>
 
 We might want to search multiple FASTQ files for sequences that match our search pattern.
 However, we need to be careful, because each time we use the `>` command to redirect output
@@ -297,7 +310,7 @@ $ wc -l bad_reads.txt
 802 bad_reads.txt
 ~~~
 
-> ## File extensions - part 2
+> File extensions - part 2
 >
 > This is where we would have trouble if we were naming our output file with a `.fastq` extension.
 > If we already had a file called `bad_reads.fastq` (from our previous `grep` practice)
@@ -400,10 +413,14 @@ lines which do not match the searched pattern, in this case `'^--'`. The caret (
 character matching the beginning of the line, and the pattern has to be enclose by single quotes so `grep` does
 not interpret the pattern as an extended option (starting with --).
 
-> ## Custom `grep` control
+<br>
+
+> Custom `grep` control
 >
 > Use `man grep` to read more about other options to customize the output of `grep` including extended options,
 > anchoring characters, and much more.
+
+<br>
 
 Redirecting output is often not intuitive, and can take some time to get used to. Once you're
 comfortable with redirection, however, you'll be able to combine any number of commands to
@@ -414,11 +431,15 @@ do anything all that impressive on their own, but when you start chaining
 them together, you can do some really powerful things very
 efficiently.
 
-> # File manipulation and more practices with pipes
+<br>
+
+> File manipulation and more practices with pipes
 >
 > To practice a bit more with the tools we’ve added to our tool kit so far and learn a few extra ones you can follow [this extra lesson](https://datacarpentry.org/shell-genomics/Extra_lesson/index.html) which uses the SRA metadata file.
 >
 
+<br>
+<br>
 
 ## Writing for loops
 
@@ -458,6 +479,9 @@ foo is abc
 $ echo foo is ${foo}EFG      # now it works!
 foo is abcEFG
 ~~~
+
+<br>
+<br>
 
 Let's write a for loop to show us the first two lines of the fastq files we downloaded earlier. You will notice the shell prompt changes from `$` to `>` and back again as we were typing in our loop. The second prompt, `>`, is different to remind us that we haven’t finished typing a complete command yet. A semicolon, `;`, can be used to separate two commands written on a single line.
 
@@ -532,22 +556,30 @@ $ for filename in *.fastq
 > done
 ~~~
 
+<br>
+<br>
 
+## Challenge - Using a for loop
 
-> ## Exercise
->
-> Print the file prefix of all of the `.txt` files in our current directory.
->
->> ## Solution
->>  
->>
->> ~~~
->> $ for filename in *.txt
->> > do
->> > name=$(basename ${filename} .txt)
->> > echo ${name}
->> > done
->> ~~~
+Print the file prefix of all of the `.txt` files in our current directory.
+
+<br>
+
+</details>
+</summary>Solution - Using a for loop</summary>
+
+~~~
+$ for filename in *.txt
+> do
+> name=$(basename ${filename} .txt)
+> echo ${name}
+> done
+~~~
+
+</details>
+
+<br>
+<br>
 
 One way this is really useful is to move files. Let's rename all of our .txt files using `mv` so that they have the years on them, which will document when we created them.
 
@@ -559,18 +591,27 @@ $ for filename in *.txt
 > done
 ~~~
 
+<br>
+<br>
 
-> ## Exercise
->
-> Remove `_2019` from all of the `.txt` files.
->
->> ## Solution
->>  
->>
->> ~~~
->> $ for filename in *_2019.txt
->> > do
->> > name=$(basename ${filename} _2019.txt)
->> > mv ${filename} ${name}.txt
->> > done
->> ~~~
+## Challenge - Using a for loop II
+
+Remove `_2019` from all of the `.txt` files.
+
+<br>
+
+<details>
+<summary>Solution - Using a for loop II</summary>
+
+~~~
+$ for filename in *_2019.txt
+> do
+> name=$(basename ${filename} _2019.txt)
+> mv ${filename} ${name}.txt
+> done
+~~~
+
+</details)
+
+<br>
+<br>

@@ -46,6 +46,9 @@ through a shell.
 
 In this lesson you will learn how to use the command line interface to move around in your file system.
 
+<br>
+<br>
+
 ## How to access the shell
 
 On a Mac or Linux machine, you can access a shell through a program called "Terminal", which is already available
@@ -55,6 +58,9 @@ To save time, we are going to be working on a remote server where all the necess
 We will learn the basics of the shell by manipulating some data files. Some of these files are very large
 , and would take time to download to your computer.
 We will also be using several bioinformatic packages in later lessons and installing all of the software would take up time even more time. A 'ready-to-go' sever let's us focus on learning.
+
+<br>
+<br>
 
 ## How to access the remote server
 
@@ -107,9 +113,14 @@ This will scroll your screen down to give you a fresh screen and will make it ea
 You haven't lost any of the information on your screen. If you scroll up, you can see everything that has been output to your screen
 up until this point.
 
-> ## Tip
+<br>
+
+> Tip:
 > Hot-key combinations are shortcuts for performing common commands.
 > The hot-key combination for clearing the console is `Ctrl+L`. Feel free to try it and see for yourself.
+
+<br>
+<br>
 
 ## Navigating your file system
 
@@ -122,27 +133,8 @@ which hold files or other directories.
 
 Several commands are frequently used to create, inspect, rename, and delete files and directories.
 
-> ## Preparation Magic
-> You may have a prompt (the characters to the left of the cursor) that looks different from the `$` sign character used here.
-> If you would like to change your prompt to match the example prompt, first type the command:
-> `echo $PS1`
-> into your shell, followed by pressing the <kbd>Enter</kbd> key.
->
-> This will print the bash special characters that are currently defining your prompt.
-> To change the prompt to a `$` (followed by a space), enter the command:
-> `PS1='$ '`
-> Your window should look like our example in this lesson.  
->
-> To change back to your original prompt, type in the output of the previous command `echo $PS1` (this will be different depending on the
-> original configuration) between the quotes in the following command:
-> `PS1=""`
->
-> For example, if the output of `echo $PS1` was `\u@\h:\w $ `,
-> then type those characters between the quotes in the above command: `PS1="\u@\h:\w $ "`.
-> Alternatively, you can reset your original prompt by exiting the shell and opening a new session.
->
-> This isn't necessary to follow along (in fact, your prompt may have other helpful information you want to know about).  This is up to you!  
-{: .callout}
+<br>
+<br>
 
 ~~~
 $
@@ -152,6 +144,34 @@ The dollar sign is a **prompt**, which shows us that the shell is waiting for in
 your shell may use a different character as a prompt and may add information before
 the prompt. When typing commands, either from these lessons or from other sources,
 do not type the prompt, only the commands that follow it.
+
+<br>
+
+<details>
+<summary>Preparation Magic - Customizing the prompt</summary>
+You may have a prompt (the characters to the left of the cursor) that looks different from the `$` sign character used here.
+If you would like to change your prompt to match the example prompt, first type the command:
+`echo $PS1`
+into your shell, followed by pressing the <kbd>Enter</kbd> key.
+
+This will print the bash special characters that are currently defining your prompt.
+To change the prompt to a `$` (followed by a space), enter the command:
+`PS1='$ '`
+Your window should look like our example in this lesson.  
+
+To change back to your original prompt, type in the output of the previous command `echo $PS1` (this will be different depending on the
+original configuration) between the quotes in the following command:
+`PS1=""`
+
+For example, if the output of `echo $PS1` was `\u@\h:\w $ `,
+then type those characters between the quotes in the above command: `PS1="\u@\h:\w $ "`.
+Alternatively, you can reset your original prompt by exiting the shell and opening a new session.
+
+This isn't necessary to follow along (in fact, your prompt may have other helpful information you want to know about).  This is up to you!
+
+</details>
+
+<br>
 
 Let's find out where we are by running a command called `pwd`
 (which stands for "print working directory").
@@ -236,26 +256,34 @@ file using your keyboard's down arrow or use the <kbd>Space</kbd> key to go forw
 and the <kbd>b</kbd> key to go backwards one page. When you are done reading, hit <kbd>q</kbd>
 to quit.
 
-> ## Challenge
-> Use the `-l` option for the `ls` command to display more information for each item
-> in the directory. What is one piece of additional information this long format
-> gives you that you don't see with the bare `ls` command?
->
-> > ## Solution
-> > ~~~
-> > $ ls -l
-> > ~~~
-> >
-> > ~~~
-> > total 8
-> > drwxr-x--- 2 dcuser dcuser 4096 Jul 30  2015 sra_metadata
-> > drwxr-xr-x 2 dcuser dcuser 4096 Nov 15  2017 untrimmed_fastq
-> > ~~~
-> >
-> > The additional information given includes the name of the owner of the file,
-> > when the file was last modified, and whether the current user has permission
-> > to read and write to the file.
-> >
+<br>
+<br>
+
+## Challenge - Inspecting the filesystem with `ls`
+Use the `-l` option for the `ls` command to display more information for each item
+in the directory. What is one piece of additional information this long format
+gives you that you don't see with the bare `ls` command?
+
+<details>
+<summary>Solution - Inspecting the filesystem with `ls`</summary>
+~~~
+$ ls -l
+~~~
+
+~~~
+total 8
+drwxr-x--- 2 dcuser dcuser 4096 Jul 30  2015 sra_metadata
+drwxr-xr-x 2 dcuser dcuser 4096 Nov 15  2017 untrimmed_fastq
+~~~
+
+The additional information given includes the name of the owner of the file,
+when the file was last modified, and whether the current user has permission
+to read and write to the file.
+
+</details>
+
+<br>
+<br>
 
 No one can possibly learn all of these arguments, that's what the manual page
 is for. You can (and should) refer to the manual page or other help files
@@ -275,6 +303,9 @@ SRR097977.fastq  SRR098026.fastq
 This directory contains two files with `.fastq` extensions. FASTQ is a format
 for storing information about sequencing reads and their quality.
 We will be learning more about FASTQ files in a later lesson.
+
+<br>
+<br>
 
 ### Shortcut: Tab Completion
 
@@ -341,6 +372,9 @@ pwck      pwconv    pwd       pwdx      pwunconv
 ~~~
 
 Displays the name of every program that starts with `pw`.
+
+<br>
+<br>
 
 ## Summary
 

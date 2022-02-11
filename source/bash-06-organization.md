@@ -65,26 +65,36 @@ You should see the output:
 /home/dcuser  
 ~~~
 
-> ## Tip  
-> If you aren't in your home directory, the easiest way to get there is to enter the command `cd`, which
-> always returns you to home.  
+> Tip  
+> If you aren't in your home directory, the easiest way to get there is to enter the command `cd`, which always returns you to home.
 
-> ## Exercise  
-> Use the `mkdir` command to make the following directories:   
-> - `dc_workshop`
-> - `dc_workshop/docs`
-> - `dc_workshop/data`
-> - `dc_workshop/results`
->
-> > ## Solution
-> >
-> > ~~~
-> > $ mkdir dc_workshop
-> > $ mkdir dc_workshop/docs
-> > $ mkdir dc_workshop/data
-> > $ mkdir dc_workshop/results
-> > ~~~
+<br>
+<br>
 
+## Challenge - A sensible folder structure
+
+Use the `mkdir` command to make the following directories:   
+
+- `dc_workshop`
+- `dc_workshop/docs`
+- `dc_workshop/data`
+- `dc_workshop/results`
+
+<br>
+<br>
+
+<details>
+<summary>Solution - A sensible folder structure</summary>
+~~~
+$ mkdir dc_workshop
+$ mkdir dc_workshop/docs
+$ mkdir dc_workshop/data
+$ mkdir dc_workshop/results
+~~~
+</details>
+
+<br>
+<br>
 
 Use `ls -R` to verify that you have created these directories. The `-R` option for `ls` stands for recursive. This option causes
 `ls` to return the contents of each subdirectory within the directory
@@ -106,6 +116,9 @@ dc_workshop/docs:
 
 dc_workshop/results:
 ~~~
+
+<br>
+<br>
 
 # Organizing your files
 
@@ -130,6 +143,9 @@ back through your files in preparation for publishing your study.
 The `docs` folder is the place to store any written analysis of your
 results, notes about how your analyses were carried out, and
 documents related to your eventual publication.
+
+<br>
+<br>
 
 # Documenting your activity on the project
 
@@ -160,17 +176,29 @@ View the last n lines of your history (where n = approximately the last few line
 $ history | tail -n 7
 ~~~
 
-> ## Exercise
-> Using your knowledge of the shell, use the append redirect `>>` to create a file called
-> `dc_workshop_log_XXXX_XX_XX.sh` (Use the four-digit year, two-digit month, and two digit day, e.g.
-> `dc_workshop_log_2017_10_27.sh`)  
-> >
-> > ## Solution
-> > ~~~
-> > $ history | tail -n 7 >> dc_workshop_log_2017_10_27.sh
-> > ~~~
-> > Note we used the last 7 lines as an example, the number of lines may vary.
+<br>
+<br>
 
+## Challenge - Use history to create a script
+Using your knowledge of the shell, use the append redirect `>>` to create a file called
+`dc_workshop_log_XXXX_XX_XX.sh` (Use the four-digit year, two-digit month, and two digit day, e.g.
+`dc_workshop_log_2017_10_27.sh`)  
+
+<br>
+<br>
+
+<details>
+<summary>Solution - Use history to create a script</summary>
+
+~~~
+$ history | tail -n 7 >> dc_workshop_log_2017_10_27.sh
+~~~
+
+Note we used the last 7 lines as an example, the number of lines may vary.
+</details>
+
+<br>
+<br>
 
 You may have noticed that your history contains the `history` command itself. To remove this redundancy
 from our log, let's use the `nano` text editor to fix the file:  
@@ -183,7 +211,7 @@ $ nano dc_workshop_log_2017_10_27.sh
 
 From the `nano` screen, you can use your cursor to navigate, type, and delete any redundant lines.   
 
-> ## Navigating in Nano
+> Navigating in Nano
 >
 > Although `nano` is useful, it can be frustrating to edit documents, as you
 > can't use your mouse to navigate to the part of the document you would like to edit.
@@ -259,6 +287,9 @@ skills to carrying out more sophisticated bioinformatics
 analysis work. Don't worry if everything doesn't feel perfectly comfortable yet. We're
 going to have many more opportunities for practice as we move forward on our
 bioinformatics journey!
+
+<br>
+<br>
 
 ## References
 [A Quick Guide to Organizing Computational Biology Projects](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424)

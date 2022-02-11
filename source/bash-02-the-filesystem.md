@@ -84,57 +84,71 @@ $ ls ../../
 
 prints the contents of `/home`.
 
-> ## Finding hidden directories
->
-> First navigate to the `shell_data` directory. There is a hidden directory within this directory. Explore the options for `ls` to
-> find out how to see hidden directories. List the contents of the directory and
-> identify the name of the text file in that directory.
->
-> Hint: hidden files and folders in Unix start with `.`, for example `.my_hidden_directory`
->
-> > ## Solution
-> >
-> > First use the `man` command to look at the options for `ls`.
-> > ~~~
-> > $ man ls
-> > ~~~
-> >
-> > The `-a` option is short for `all` and says that it causes `ls` to "not ignore
-> > entries starting with ." This is the option we want.
-> >
-> > ~~~
-> > $ ls -a
-> > ~~~
-> >
-> > ~~~
-> > .  ..  .hidden	sra_metadata  untrimmed_fastq
-> > ~~~
-> >
-> > The name of the hidden directory is `.hidden`. We can navigate to that directory
-> > using `cd`.
-> >
-> > ~~~
-> > $ cd .hidden
-> > ~~~
-> >
-> > And then list the contents of the directory using `ls`.
-> >
-> > ~~~
-> > $ ls
-> > ~~~
-> >
-> > ~~~
-> > youfoundit.txt
-> > ~~~
-> >
-> > The name of the text file is `youfoundit.txt`.
+<br>
+<br>
 
+## Challenge - Finding hidden directories
 
-In most commands the flags can be combined together in no particular order to obtain the desired results/output.
+First navigate to the `shell_data` directory. There is a hidden directory within this directory. Explore the options for `ls` to
+find out how to see hidden directories. List the contents of the directory and
+identify the name of the text file in that directory.
+Hint: hidden files and folders in Unix start with `.`, for example `.my_hidden_directory`
+
+<details>
+<summary>Solution - Finding hidden directories</summary>
+
+First use the `man` command to look at the options for `ls`.
 ~~~
-$ ls -Fa
-$ ls -laF
+$ man ls
 ~~~
+
+The `-a` option is short for `all` and says that it causes `ls` to "not ignore
+entries starting with ." This is the option we want.
+
+~~~
+$ ls -a
+~~~
+
+~~~
+.  ..  .hidden	sra_metadata  untrimmed_fastq
+~~~
+
+The name of the hidden directory is `.hidden`. We can navigate to that directory
+using `cd`.
+
+~~~
+$ cd .hidden
+~~~
+
+And then list the contents of the directory using `ls`.
+
+~~~
+$ ls
+~~~
+
+~~~
+youfoundit.txt
+~~~
+
+The name of the text file is `youfoundit.txt`.
+
+<br>
+<br>
+
+</details>
+
+<br>
+
+> Tip: In most commands the flags can be combined together in no particular order to obtain the desired results/output.
+>
+> ~~~
+> $ ls -Fa
+> $ ls -laF
+> ~~~
+>
+
+<br>
+<br>
 
 ## Examining the contents of other directories
 
@@ -173,22 +187,31 @@ $ cd shell_data/untrimmed_fastq
 This will take you to the `untrimmed_fastq` directory without having to go through
 the intermediate directory.
 
-> ## Navigating practice
->
-> Navigate to your home directory. From there, list the contents of the `untrimmed_fastq`
-> directory.
->
-> > ## Solution
-> >
-> > ~~~
-> > $ cd
-> > $ ls shell_data/untrimmed_fastq/
-> > ~~~
-> >
-> > ~~~
-> > SRR097977.fastq  SRR098026.fastq
-> > ~~~
-> >
+<br>
+<br>
+
+## Challenge - Navigating practice
+
+Navigate to your home directory. From there, list the contents of the `untrimmed_fastq`
+directory.
+
+<br>
+
+<details>
+<summary>Solution - Navigating practice</summary>
+
+~~~
+$ cd
+$ ls shell_data/untrimmed_fastq/
+~~~
+
+~~~
+SRR097977.fastq  SRR098026.fastq
+~~~
+</details
+
+<br>
+<br>
 
 ## Full vs. Relative Paths
 
@@ -258,25 +281,35 @@ Over time, it will become easier for you to keep a mental note of the
 structure of the directories that you are using and how to quickly
 navigate amongst them.
 
-> ## Relative path resolution
->
-> Using the filesystem diagram below, if `pwd` displays `/Users/thing`,
-> what will `ls ../backup` display?
->
-> 1.  `../backup: No such file or directory`
-> 2.  `2012-12-01 2013-01-08 2013-01-27`
-> 3.  `2012-12-01/ 2013-01-08/ 2013-01-27/`
-> 4.  `original pnas_final pnas_sub`
->
-> ![File System for Challenge Questions](images/filesystem-challenge.svg)
->
-> > ## Solution
-> >  1. No: there *is* a directory `backup` in `/Users`.
-> >  2. No: this is the content of `Users/thing/backup`,
-> >   but with `..` we asked for one level further up.
-> >  3. No: see previous explanation.
-> >    Also, we did not specify `-F` to display `/` at the end of the directory names.
-> >  4. Yes: `../backup` refers to `/Users/backup`.
+## Challenge - Relative path resolution
+
+Using the filesystem diagram below, if `pwd` displays `/Users/thing`,
+what will `ls ../backup` display?
+
+1.  `../backup: No such file or directory`
+2.  `2012-12-01 2013-01-08 2013-01-27`
+3.  `2012-12-01/ 2013-01-08/ 2013-01-27/`
+4.  `original pnas_final pnas_sub`
+
+![File System for Challenge Questions](images/filesystem-challenge.svg)
+
+<br>
+<br>
+
+<details>
+<summary>Solution - Relative path resolution</summary>
+
+ 1. No: there *is* a directory `backup` in `/Users`.
+ 2. No: this is the content of `Users/thing/backup`,
+  but with `..` we asked for one level further up.
+ 3. No: see previous explanation.
+   Also, we did not specify `-F` to display `/` at the end of the directory names.
+ 4. Yes: `../backup` refers to `/Users/backup`.
+
+</details>
+
+<br>
+<br>
 
 ### Navigational Shortcuts
 
