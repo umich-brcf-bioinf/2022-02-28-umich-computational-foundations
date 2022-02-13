@@ -81,7 +81,7 @@ in your analysis, and its reproducibility.
 > use a writing function (e.g. `write.csv()`) to save data loaded into R. In
 > that case, be sure to save the manipulated data into a new file. More on this
 > later in the lesson.
- {: .callout}
+ 
 
 ## Importing tabular data into R
 There are several ways to import data into R. For our purpose here, we will
@@ -135,8 +135,8 @@ We will need to load the sheet using a function called `read.csv()`.
 >> documentation in R. There are many arguments that exist, but which we wont
 >> have time to cover. Look here to get familiar with functions you use
 >> frequently, you may be surprised at what you find they can do.
-> {: .solution}
-{: .challenge}
+> 
+
 
 Now, let's read in the file `combined_tidy_vcf.csv` which will be located in
 `/home/dcuser/r_data/`. Call this data `variants`. The
@@ -302,7 +302,7 @@ As you can imagine, this is already useful when you want to generate a tally.
 > function on `factor_snps`. To generate a tally, you can sometimes also use
 > the `table()` function; though sometimes you may need to combine both (i.e.
 > `table(as.factor(object))`)
-{: .callout}
+
 
 
 
@@ -466,8 +466,8 @@ where we are taking a range).
 >> ```{r, echo = FALSE, eval = TRUE}
 >> head(variants[variants$REF == "A",])
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 The subsetting notation is very similar to what we learned for
 vectors. The key differences include:
@@ -502,7 +502,7 @@ summary(SRR2584863_variants)
 >
 > While we are going to address coercion in the context of data frames
 > most of these methods apply to other data structures, such as vectors
-{: .callout}
+
 
 Sometimes, it is possible that R will misinterpret the type of data represented
 in a data frame, or store that data in a mode which prevents you from
@@ -615,7 +615,7 @@ Lets summarize this section on coercion with a few take home messages.
 > explicitly type your columns using the `colClasses` argument. Other R packages
 > (such as the Tidyverse "readr") don't have this particular conversion issue,
 > but many packages will still try to guess a data type.
-{: .callout}
+
 
 
 ## Data frame bonus material: math, sorting, renaming
@@ -655,8 +655,8 @@ head(sorted_by_DP$DP)
 > >    sorted_by_DP <- variants[order(variants$DP, decreasing = TRUE), ]
 > >    head(sorted_by_DP$DP)
 > > ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 
 
@@ -770,5 +770,4 @@ a true R data frame you could coerce with `as.data.frame()`.
 >> Ecoli_metadata$genome_size_bp <- Ecoli_metadata$genome_size * 1000000
 >> write.csv(Ecoli_metadata, file = "exercise_solution.csv")
 >> ```
-> {: .solution}
-{: .challenge}
+> 

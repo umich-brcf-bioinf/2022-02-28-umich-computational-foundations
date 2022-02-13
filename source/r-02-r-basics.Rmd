@@ -82,7 +82,7 @@ below.
     and applications for R
 > - [Programming in R Software Carpentry lesson](https://software-carpentry.org/lessons/):
     There are several Software Carpentry lessons in R to choose from
-{: .callout}
+
 
 ## Creating objects in R
 
@@ -91,7 +91,7 @@ below.
 > At this point you should be coding along in the "**genomics_r_basics.R**"
 > script we created in the last episode. Writing your commands in the script
 > (and commenting it) will make it easier to record what you did and why.
-{: .prereq}
+
 
 What might be called a variable in many languages is called an **object**
 in R.
@@ -128,7 +128,7 @@ In the RStudio 'Console' you should see:
 a <- 1
 >
 ~~~
-{: .output}
+
 
 The 'Console' will display lines of code run from a script and any outputs or
 status/warning/error messages (usually in red).
@@ -162,8 +162,8 @@ created in R.
 >> ensemble_url <- 'ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/'
 >> human_diploid_chr_num <-  2 * human_chr_number
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 ## Naming objects in R
 
@@ -205,7 +205,7 @@ have advice, and one to start with is the [tidyverse R style guide](http://style
 > want is "human_chr_number".
 >
 > <img src="images/rstudio_script_warning.png" alt="rstudio script warning" style="width: 600px;"/>
-{: .callout}
+
 
 ## Reassigning object names or deleting objects
 
@@ -235,7 +235,7 @@ longer exists.
 ~~~
 Error: object 'gene_name' not found
 ~~~
-{: .error}
+
 
 ## Understanding object data types (modes)
 
@@ -296,8 +296,8 @@ working with R objects.
 >> mode(spock)
 >> mode(pilot)
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 Notice from the solution that even if a series of numbers is given as a value
 R will consider them to be in the "character" mode if they are enclosed as
@@ -362,8 +362,8 @@ human_chr_number * 2
 >> round((1 + sqrt(5))/2, digits = 3)
 >> ```
 >> Notice that you can place one function inside of another.
-> {: .solution}
-{: .challenge}
+> 
+
 
 ## Vectors
 
@@ -512,8 +512,8 @@ Notice in the operation above that R inserts an `NA` value to extend our vector 
 >> a vector must be of this mode.
 >> E) True
 >> F) True
-> {: .solution}
-{: .challenge}
+> 
+
 
 ## Logical Subsetting
 
@@ -587,7 +587,7 @@ In the square brackets you place the name of the vector followed by the comparis
 >
 > Ultimately, it's putting together flexible, reusable code like this that gets
 > at the "magic" of programming!
-{: .callout}
+
 
 ## A few final vector tricks
 
@@ -633,8 +633,8 @@ c("ACTN3","APOA5") %in% snp_genes
 >> typeof(snp_chromosomes)
 >> typeof(snp_positions)
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 > ## Review Exercise 2
 >
@@ -653,8 +653,8 @@ c("ACTN3","APOA5") %in% snp_genes
 >> snp_positions <- c(snp_positions, 116792991)
 >> snp_positions
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 > ## Review Exercise 3
 > Make the following change to the `snp_genes` vector:
@@ -674,8 +674,8 @@ c("ACTN3","APOA5") %in% snp_genes
 >> snp_genes <- c(snp_genes, NA, NA)
 >> snp_genes
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 > ## Review Exercise 4
 >
@@ -691,8 +691,8 @@ c("ACTN3","APOA5") %in% snp_genes
 >> combined <- c(snp_genes[1], snps[1], snp_chromosomes[1], snp_positions[1])
 >> combined
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 
 > ## Review Exercise 5
@@ -703,8 +703,8 @@ c("ACTN3","APOA5") %in% snp_genes
 >> ```{r, purl = FALSE}
 >> typeof(combined)
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 ## Bonus material: Lists
 

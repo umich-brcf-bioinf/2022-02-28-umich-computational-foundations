@@ -130,8 +130,8 @@ select(variants, ends_with("B"))
 >> ```{r}
 >> select(variants, contains("i"), -Indiv, -FILTER, POS)
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 To choose rows, use `filter()`:
 
@@ -172,8 +172,8 @@ filter(variants, sample_id == "SRR2584863", (INDEL | QUAL >= 100))
 >> ```{r}
 >> filter(variants, POS >= 1e6 & POS <= 2e6, !INDEL, QUAL > 200)
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 
 ### Pipes
@@ -248,8 +248,8 @@ SRR2584863_variants %>% slice(10:25)
 >>  slice(5:11) %>%
 >>  select(REF, ALT, POS)
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 ### Mutate
 
@@ -286,8 +286,8 @@ variants %>%
 >>  select(sample_id, POS, QUAL, POLPROB)
 >> ```
 >>
-> {: .solution}
-{: .challenge}
+> 
+
 
 ### group_by() and  summarize() functions
 
@@ -342,8 +342,8 @@ variants %>%
 >> variants %>%
 >>   count(sample_id)
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 We can also apply many other functions to individual columns to get other
 summary statistics. For example,we can use built-in functions like `mean()`,

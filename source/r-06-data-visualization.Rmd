@@ -189,8 +189,8 @@ ggplot(data = variants, aes(x = POS, y = DP, color = sample_id)) +
 > >   labs(x = "Base Pair Position",
 > >        y = "Mapping Quality (MQ)")
 > > ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 ## Faceting
 
@@ -248,8 +248,8 @@ ggplot(data = variants, aes(x = POS, y = MQ, color = sample_id)) +
 > >        y = "PHRED-sacled Quality (QUAL)") +
 > >   facet_grid(sample_id ~ .)
 > > ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 ## Barplots
 
@@ -273,8 +273,8 @@ ggplot(data = variants, aes(x = INDEL, fill = sample_id)) +
 >>    geom_bar(show.legend = F) +
 >>    facet_grid(sample_id ~ .)
 >> ```
-> {: .solution}
-{: .challenge}
+> 
+
 
 ## **`ggplot2`** themes
 
@@ -303,4 +303,3 @@ themes.
 > * Can you find a way to change the name of the legend? What about its labels?
 > * Try using a different color palette (see
 >   http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/).
-{: .challenge}

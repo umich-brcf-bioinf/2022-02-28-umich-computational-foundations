@@ -58,7 +58,7 @@ a popular online forum.
 > - See the [How to ask for R help](http://blog.revolutionanalytics.com/2014/01/how-to-ask-for-r-help.html)
 >   blog post for more useful tips
 >
-{: .callout}
+
 
 ## Help people help you
 
@@ -95,7 +95,7 @@ upgraded R and forget to check your script.
 > loaded via a namespace (and not attached):
 > [1] tools_3.2.3     packrat_0.4.9-1
 > ~~~
-{: .output}
+
 
 Many times, there may be some issues with your data and the way it is formatted.
 In that case, you may want to share that data with someone else. However, you
@@ -126,7 +126,7 @@ how the data is formatted and possibly revealing problematic issues.
 > "Sepal.Width", "Petal.Length", "Petal.Width", "Species"), row.names = c(NA,
 > 6L), class = "data.frame")
 > ~~~
-{: .output}
+
 
 Alternatively, you can also save objects in R memory to a file by specifying
 the name of the object, in this case the `iris` data frame, and passing a
