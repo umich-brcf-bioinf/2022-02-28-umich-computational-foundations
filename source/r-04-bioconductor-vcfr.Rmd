@@ -60,18 +60,8 @@ BiocManager::install("vcfR")
 You may need to also allow it to install some dependencies or update installed packages in order to successfully complete the process.
 
 > ## Note: Installing packages from Bioconductor vs from CRAN
-> Some packages begin by being available only on Bioconductor, and then later
-> move to CRAN. `vcfR` is one such package, which originally was only available
-> from Bioconductor, but is currently available from CRAN. The other thing to
-> know is that `BiocManager::install()` will also install packages from CRAN (it
-> is a wrapper around `install.packages()` that adds some extra features). There
-> are other benefits to using `BiocManager::install()` for Bioconductor
-> packages, many of which are outlined
-> [here](https://www.bioconductor.org/install/). In short, Bioconductor packages
-> have a release cycle that is different from CRAN and the `install()` function
-> is aware of that difference, so it helps to keep package versions in line with
-> one another in a way that doesn't generally happen with the base R
-> `install.packages()`.
+>
+> Some packages begin by being available only on Bioconductor, and then later move to CRAN. `vcfR` is one such package, which originally was only available from Bioconductor, but is currently available from CRAN. The other thing to know is that `BiocManager::install()` will also install packages from CRAN (it is a wrapper around `install.packages()` that adds some extra features). There are other benefits to using `BiocManager::install()` for Bioconductor packages, many of which are outlined [here](https://www.bioconductor.org/install/). In short, Bioconductor packages have a release cycle that is different from CRAN and the `install()` function is aware of that difference, so it helps to keep package versions in line with one another in a way that doesn't generally happen with the base R `install.packages()`.
 >
 
 
@@ -84,19 +74,11 @@ While we are only focusing in this workshop on VCF analyses, there are hundreds 
 
 > ## Tip: Searching for packages on the Bioconductor website
 >
-> There are several thousand packages available through the Bioconductor website.
-> It can be a bit of a challenge to find what you want, but one helpful resource
-> is the [package search page](https://bioconductor.org/packages/release/BiocViews.html#___Software).
+> There are several thousand packages available through the Bioconductor website. It can be a bit of a challenge to find what you want, but one helpful resource is the [package search page](https://bioconductor.org/packages/release/BiocViews.html#___Software).
 >
 
 
-In bioinformatics, there are often many different tools that can be used in a
-particular instance. The authors of `vcfR` have [compiled some of
-them](https://github.com/knausb/vcfR#software-that-produce-vcf-files). One of
-those packages that [is available from
-Bioconductor](https://bioconductor.org/packages/release/bioc/html/VariantAnnotation.html)
-is called `VariantAnnotation` and may also be of interest to those working with
-vcf files in R.
+In bioinformatics, there are often many different tools that can be used in a particular instance. The authors of `vcfR` have [compiled some of them](https://github.com/knausb/vcfR#software-that-produce-vcf-files). One of those packages that [is available from Bioconductor](https://bioconductor.org/packages/release/bioc/html/VariantAnnotation.html) is called `VariantAnnotation` and may also be of interest to those working with vcf files in R.
 
 > ## Challenge
 >

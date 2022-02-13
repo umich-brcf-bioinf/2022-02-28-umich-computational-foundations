@@ -316,14 +316,23 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Data Wrangling and Analyses with Tidyverse</h1>
+<h1 class="title toc-ignore">Data Wrangling and Analyses with
+Tidyverse</h1>
 
 </div>
 
 
-<p>Bracket subsetting is handy, but it can be cumbersome and difficult to read, especially for complicated operations.</p>
-<p>Luckily, the <a href="https://cran.r-project.org/package=dplyr"><code>dplyr</code></a> package provides a number of very useful functions for manipulating data frames in a way that will reduce repetition, reduce the probability of making errors, and probably even save you some typing. As an added bonus, you might even find the <code>dplyr</code> grammar easier to read.</p>
-<p>Here we’re going to cover some of the most commonly used functions as well as using pipes (<code>%&gt;%</code>) to combine them:</p>
+<p>Bracket subsetting is handy, but it can be cumbersome and difficult
+to read, especially for complicated operations.</p>
+<p>Luckily, the <a
+href="https://cran.r-project.org/package=dplyr"><code>dplyr</code></a>
+package provides a number of very useful functions for manipulating data
+frames in a way that will reduce repetition, reduce the probability of
+making errors, and probably even save you some typing. As an added
+bonus, you might even find the <code>dplyr</code> grammar easier to
+read.</p>
+<p>Here we’re going to cover some of the most commonly used functions as
+well as using pipes (<code>%&gt;%</code>) to combine them:</p>
 <ol style="list-style-type: decimal">
 <li><code>glimpse()</code></li>
 <li><code>select()</code></li>
@@ -333,59 +342,91 @@ $(document).ready(function () {
 <li><code>mutate()</code></li>
 <li><code>pivot_longer</code> and <code>pivot_wider</code></li>
 </ol>
-<p>Packages in R are sets of additional functions that let you do more stuff in R. The functions we’ve been using, like <code>str()</code>, come built into R; packages give you access to more functions. You need to install a package and then load it to be able to use it.</p>
-<pre><code>install.packages(&quot;dplyr&quot;) ## install</code></pre>
-<p>{: .language-r}</p>
-<p>You might get asked to choose a CRAN mirror – this is asking you to choose a site to download the package from. The choice doesn’t matter too much; I’d recommend choosing the RStudio mirror.</p>
-<pre><code>library(&quot;dplyr&quot;)          ## load</code></pre>
-<p>{: .language-r}</p>
-<p>You only need to install a package once per computer, but you need to load it every time you open a new R session and want to use that package.</p>
+<p>Packages in R are sets of additional functions that let you do more
+stuff in R. The functions we’ve been using, like <code>str()</code>,
+come built into R; packages give you access to more functions. You need
+to install a package and then load it to be able to use it.</p>
+<pre class="r"><code>install.packages(&quot;dplyr&quot;) ## install</code></pre>
+<p>You might get asked to choose a CRAN mirror – this is asking you to
+choose a site to download the package from. The choice doesn’t matter
+too much; I’d recommend choosing the RStudio mirror.</p>
+<pre class="r"><code>library(&quot;dplyr&quot;)          ## load</code></pre>
+<p>You only need to install a package once per computer, but you need to
+load it every time you open a new R session and want to use that
+package.</p>
 <div id="what-is-dplyr" class="section level2">
 <h2>What is dplyr?</h2>
-<p>The package <code>dplyr</code> is a fairly new (2014) package that tries to provide easy tools for the most common data manipulation tasks. This package is also included in the <a href="https://www.tidyverse.org/"><code>tidyverse</code> package</a>, which is a collection of eight different packages (<code>dplyr</code>, <code>ggplot2</code>, <code>tibble</code>, <code>tidyr</code>, <code>readr</code>, <code>purrr</code>, <code>stringr</code>, and <code>forcats</code>). It is built to work directly with data frames. The thinking behind it was largely inspired by the package <code>plyr</code> which has been in use for some time but suffered from being slow in some cases.<code>dplyr</code> addresses this by porting much of the computation to C++. An additional feature is the ability to work with data stored directly in an external database. The benefits of doing this are that the data can be managed natively in a relational database, queries can be conducted on that database, and only the results of the query returned.</p>
-<p>This addresses a common problem with R in that all operations are conducted in memory and thus the amount of data you can work with is limited by available memory. The database connections essentially remove that limitation in that you can have a database that is over 100s of GB, conduct queries on it directly and pull back just what you need for analysis in R.</p>
+<p>The package <code>dplyr</code> is a fairly new (2014) package that
+tries to provide easy tools for the most common data manipulation tasks.
+This package is also included in the <a
+href="https://www.tidyverse.org/"><code>tidyverse</code> package</a>,
+which is a collection of eight different packages (<code>dplyr</code>,
+<code>ggplot2</code>, <code>tibble</code>, <code>tidyr</code>,
+<code>readr</code>, <code>purrr</code>, <code>stringr</code>, and
+<code>forcats</code>). It is built to work directly with data frames.
+The thinking behind it was largely inspired by the package
+<code>plyr</code> which has been in use for some time but suffered from
+being slow in some cases.<code>dplyr</code> addresses this by porting
+much of the computation to C++. An additional feature is the ability to
+work with data stored directly in an external database. The benefits of
+doing this are that the data can be managed natively in a relational
+database, queries can be conducted on that database, and only the
+results of the query returned.</p>
+<p>This addresses a common problem with R in that all operations are
+conducted in memory and thus the amount of data you can work with is
+limited by available memory. The database connections essentially remove
+that limitation in that you can have a database that is over 100s of GB,
+conduct queries on it directly and pull back just what you need for
+analysis in R.</p>
 <div id="taking-a-quick-look-at-data-frames" class="section level3">
 <h3>Taking a quick look at data frames</h3>
-<p>Similar to <code>str()</code>, which comes built into R, <code>glimpse()</code> is a <code>dplyr</code> function that (as the name suggests) gives a glimpse of the data frame.</p>
+<p>Similar to <code>str()</code>, which comes built into R,
+<code>glimpse()</code> is a <code>dplyr</code> function that (as the
+name suggests) gives a glimpse of the data frame.</p>
 <pre><code>Rows: 801
 Columns: 29
-$ sample_id     &lt;chr&gt; &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863…
-$ CHROM         &lt;chr&gt; &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1…
-$ POS           &lt;dbl&gt; 9972, 263235, 281923, 433359, 473901, 648692, 1331794, 1733343, 2103887, 2333538, 2407766, 2446984, 2618472, 2665639, 29993…
-$ ID            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-$ REF           &lt;chr&gt; &quot;T&quot;, &quot;G&quot;, &quot;G&quot;, &quot;CTTTTTTT&quot;, &quot;CCGC&quot;, &quot;C&quot;, &quot;C&quot;, &quot;G&quot;, &quot;ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG&quot;, &quot;AT&quot;, &quot;A&quot;, &quot;A&quot;, &quot;G&quot;, &quot;A&quot;, &quot;G&quot;, &quot;A&quot;, &quot;…
-$ ALT           &lt;chr&gt; &quot;G&quot;, &quot;T&quot;, &quot;T&quot;, &quot;CTTTTTTTT&quot;, &quot;CCGCGC&quot;, &quot;T&quot;, &quot;A&quot;, &quot;A&quot;, &quot;ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG&quot;, &quot;ATT&quot;, &quot;C&quot;…
-$ QUAL          &lt;dbl&gt; 91.0000, 85.0000, 217.0000, 64.0000, 228.0000, 210.0000, 178.0000, 225.0000, 56.0000, 167.0000, 104.0000, 225.0000, 31.8923…
-$ FILTER        &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-$ INDEL         &lt;lgl&gt; FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, F…
-$ IDV           &lt;dbl&gt; NA, NA, NA, 12, 9, NA, NA, NA, 2, 7, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2, NA, NA, NA, 10, NA, NA, NA, NA, NA, NA, NA, NA,…
-$ IMF           &lt;dbl&gt; NA, NA, NA, 1.000000, 0.900000, NA, NA, NA, 0.666667, 1.000000, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1.000000, NA, NA, NA, 1…
-$ DP            &lt;dbl&gt; 4, 6, 10, 12, 10, 10, 8, 11, 3, 7, 9, 20, 12, 19, 15, 10, 14, 9, 13, 2, 10, 16, 11, 10, 9, 9, 13, 14, 10, 11, 5, 14, 15, 15…
-$ VDB           &lt;dbl&gt; 0.0257451, 0.0961330, 0.7740830, 0.4777040, 0.6595050, 0.2680140, 0.6240780, 0.9924030, 0.9016520, 0.5681730, 0.0230738, 0.…
-$ RPB           &lt;dbl&gt; NA, 1.000000, NA, NA, NA, NA, NA, NA, NA, NA, 0.900802, NA, 0.954207, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-$ MQB           &lt;dbl&gt; NA, 1.0000000, NA, NA, NA, NA, NA, NA, NA, NA, 0.1501340, NA, 0.0497871, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-$ BQB           &lt;dbl&gt; NA, 1.000000, NA, NA, NA, NA, NA, NA, NA, NA, 0.750668, NA, 0.774755, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-$ MQSB          &lt;dbl&gt; NA, NA, 0.974597, 1.000000, 0.916482, 0.916482, 0.900802, 1.007750, 1.000000, 1.012830, 0.500000, 1.000000, 0.655816, 1.000…
-$ SGB           &lt;dbl&gt; -0.556411, -0.590765, -0.662043, -0.676189, -0.662043, -0.670168, -0.651104, -0.670168, -0.453602, -0.616816, -0.590765, -0…
-$ MQ0F          &lt;dbl&gt; 0.000000, 0.166667, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.333333, 0.000000, 0.6…
-$ ICB           &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-$ HOB           &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-$ AC            &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ AN            &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ DP4           &lt;chr&gt; &quot;0,0,0,4&quot;, &quot;0,1,0,5&quot;, &quot;0,0,4,5&quot;, &quot;0,1,3,8&quot;, &quot;1,0,2,7&quot;, &quot;0,0,7,3&quot;, &quot;0,0,3,5&quot;, &quot;0,0,4,6&quot;, &quot;0,1,1,1&quot;, &quot;0,1,3,3&quot;, &quot;3,0,3,2&quot;, &quot;0…
-$ MQ            &lt;dbl&gt; 60, 33, 60, 60, 60, 60, 60, 60, 60, 60, 25, 60, 10, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60,…
-$ Indiv         &lt;chr&gt; &quot;/home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam&quot;, &quot;/home/dcuser/dc_workshop/results/bam/SRR2584863.alig…
-$ gt_PL         &lt;dbl&gt; 1210, 1120, 2470, 910, 2550, 2400, 2080, 2550, 11128, 1940, 1310, 2550, 601, 2550, 2550, 2410, 2550, 2300, 2550, 730, 2550,…
-$ gt_GT         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ gt_GT_alleles &lt;chr&gt; &quot;G&quot;, &quot;T&quot;, &quot;T&quot;, &quot;CTTTTTTTT&quot;, &quot;CCGCGC&quot;, &quot;T&quot;, &quot;A&quot;, &quot;A&quot;, &quot;ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG&quot;, &quot;ATT&quot;, &quot;C&quot;…</code></pre>
-<p>{: .output}</p>
-<p>In the above output, we can already gather some information about <code>variants</code>, such as the number of rows and columns, column names, type of vector in the columns, and the first few entries of each column. Although what we see is similar to outputs of <code>str()</code>, this method gives a cleaner visual output.</p>
+$ sample_id     &lt;chr&gt; &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR258486…
+$ CHROM         &lt;chr&gt; &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.…
+$ POS           &lt;dbl&gt; 9972, 263235, 281923, 433359, 473901, 648692, 1331794, 1733343, 2103887, 2333538, 2407766, 2446984, 2618472,…
+$ ID            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ REF           &lt;chr&gt; &quot;T&quot;, &quot;G&quot;, &quot;G&quot;, &quot;CTTTTTTT&quot;, &quot;CCGC&quot;, &quot;C&quot;, &quot;C&quot;, &quot;G&quot;, &quot;ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG&quot;, &quot;AT&quot;, &quot;A&quot;, &quot;A&quot;, &quot;G&quot;, &quot;…
+$ ALT           &lt;chr&gt; &quot;G&quot;, &quot;T&quot;, &quot;T&quot;, &quot;CTTTTTTTT&quot;, &quot;CCGCGC&quot;, &quot;T&quot;, &quot;A&quot;, &quot;A&quot;, &quot;ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCC…
+$ QUAL          &lt;dbl&gt; 91.0000, 85.0000, 217.0000, 64.0000, 228.0000, 210.0000, 178.0000, 225.0000, 56.0000, 167.0000, 104.0000, 22…
+$ FILTER        &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ INDEL         &lt;lgl&gt; FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, …
+$ IDV           &lt;dbl&gt; NA, NA, NA, 12, 9, NA, NA, NA, 2, 7, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2, NA, NA, NA, 10, NA, NA, NA, NA, …
+$ IMF           &lt;dbl&gt; NA, NA, NA, 1.000000, 0.900000, NA, NA, NA, 0.666667, 1.000000, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1.000000…
+$ DP            &lt;dbl&gt; 4, 6, 10, 12, 10, 10, 8, 11, 3, 7, 9, 20, 12, 19, 15, 10, 14, 9, 13, 2, 10, 16, 11, 10, 9, 9, 13, 14, 10, 11…
+$ VDB           &lt;dbl&gt; 0.0257451, 0.0961330, 0.7740830, 0.4777040, 0.6595050, 0.2680140, 0.6240780, 0.9924030, 0.9016520, 0.5681730…
+$ RPB           &lt;dbl&gt; NA, 1.000000, NA, NA, NA, NA, NA, NA, NA, NA, 0.900802, NA, 0.954207, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ MQB           &lt;dbl&gt; NA, 1.0000000, NA, NA, NA, NA, NA, NA, NA, NA, 0.1501340, NA, 0.0497871, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+$ BQB           &lt;dbl&gt; NA, 1.000000, NA, NA, NA, NA, NA, NA, NA, NA, 0.750668, NA, 0.774755, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ MQSB          &lt;dbl&gt; NA, NA, 0.974597, 1.000000, 0.916482, 0.916482, 0.900802, 1.007750, 1.000000, 1.012830, 0.500000, 1.000000, …
+$ SGB           &lt;dbl&gt; -0.556411, -0.590765, -0.662043, -0.676189, -0.662043, -0.670168, -0.651104, -0.670168, -0.453602, -0.616816…
+$ MQ0F          &lt;dbl&gt; 0.000000, 0.166667, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.333333…
+$ ICB           &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ HOB           &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
+$ AC            &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ AN            &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ DP4           &lt;chr&gt; &quot;0,0,0,4&quot;, &quot;0,1,0,5&quot;, &quot;0,0,4,5&quot;, &quot;0,1,3,8&quot;, &quot;1,0,2,7&quot;, &quot;0,0,7,3&quot;, &quot;0,0,3,5&quot;, &quot;0,0,4,6&quot;, &quot;0,1,1,1&quot;, &quot;0,1,3,3&quot;…
+$ MQ            &lt;dbl&gt; 60, 33, 60, 60, 60, 60, 60, 60, 60, 60, 25, 60, 10, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, …
+$ Indiv         &lt;chr&gt; &quot;/home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam&quot;, &quot;/home/dcuser/dc_workshop/results/bam/…
+$ gt_PL         &lt;dbl&gt; 1210, 1120, 2470, 910, 2550, 2400, 2080, 2550, 11128, 1940, 1310, 2550, 601, 2550, 2550, 2410, 2550, 2300, 2…
+$ gt_GT         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ gt_GT_alleles &lt;chr&gt; &quot;G&quot;, &quot;T&quot;, &quot;T&quot;, &quot;CTTTTTTTT&quot;, &quot;CCGCGC&quot;, &quot;T&quot;, &quot;A&quot;, &quot;A&quot;, &quot;ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCC…</code></pre>
+<p>In the above output, we can already gather some information about
+<code>variants</code>, such as the number of rows and columns, column
+names, type of vector in the columns, and the first few entries of each
+column. Although what we see is similar to outputs of
+<code>str()</code>, this method gives a cleaner visual output.</p>
 </div>
 <div id="selecting-columns-and-filtering-rows" class="section level3">
 <h3>Selecting columns and filtering rows</h3>
-<p>To select columns of a data frame, use <code>select()</code>. The first argument to this function is the data frame (<code>variants</code>), and the subsequent arguments are the columns to keep.</p>
-<pre><code>select(variants, sample_id, REF, ALT, DP)</code></pre>
-<p>{: .language-r}</p>
+<p>To select columns of a data frame, use <code>select()</code>. The
+first argument to this function is the data frame
+(<code>variants</code>), and the subsequent arguments are the columns to
+keep.</p>
+<pre class="r"><code>select(variants, sample_id, REF, ALT, DP)</code></pre>
 <pre><code># A tibble: 801 × 4
    sample_id  REF                              ALT                                                         DP
    &lt;chr&gt;      &lt;chr&gt;                            &lt;chr&gt;                                                    &lt;dbl&gt;
@@ -400,28 +441,29 @@ $ gt_GT_alleles &lt;chr&gt; &quot;G&quot;, &quot;T&quot;, &quot;T&quot;, &quot;C
  9 SRR2584863 ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG     3
 10 SRR2584863 AT                               ATT                                                          7
 # … with 791 more rows</code></pre>
-<p>{: .output}</p>
-<p>To select all columns <em>except</em> certain ones, put a “-” in front of the variable to exclude it.</p>
-<pre><code>select(variants, -CHROM)</code></pre>
-<p>{: .language-r}</p>
+<p>To select all columns <em>except</em> certain ones, put a “-” in
+front of the variable to exclude it.</p>
+<pre class="r"><code>select(variants, -CHROM)</code></pre>
 <pre><code># A tibble: 801 × 28
-   sample_id      POS ID    REF    ALT    QUAL FILTER INDEL   IDV    IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB   HOB      AC    AN
-   &lt;chr&gt;        &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 SRR2584863    9972 NA    T      G        91 NA     FALSE    NA NA         4 0.0257    NA    NA    NA NA     -0.556 0     NA    NA        1     1
- 2 SRR2584863  263235 NA    G      T        85 NA     FALSE    NA NA         6 0.0961     1     1     1 NA     -0.591 0.167 NA    NA        1     1
- 3 SRR2584863  281923 NA    G      T       217 NA     FALSE    NA NA        10 0.774     NA    NA    NA  0.975 -0.662 0     NA    NA        1     1
- 4 SRR2584863  433359 NA    CTTTT… CTTT…    64 NA     TRUE     12  1        12 0.478     NA    NA    NA  1     -0.676 0     NA    NA        1     1
- 5 SRR2584863  473901 NA    CCGC   CCGC…   228 NA     TRUE      9  0.9      10 0.660     NA    NA    NA  0.916 -0.662 0     NA    NA        1     1
- 6 SRR2584863  648692 NA    C      T       210 NA     FALSE    NA NA        10 0.268     NA    NA    NA  0.916 -0.670 0     NA    NA        1     1
- 7 SRR2584863 1331794 NA    C      A       178 NA     FALSE    NA NA         8 0.624     NA    NA    NA  0.901 -0.651 0     NA    NA        1     1
- 8 SRR2584863 1733343 NA    G      A       225 NA     FALSE    NA NA        11 0.992     NA    NA    NA  1.01  -0.670 0     NA    NA        1     1
- 9 SRR2584863 2103887 NA    ACAGC… ACAG…    56 NA     TRUE      2  0.667     3 0.902     NA    NA    NA  1     -0.454 0     NA    NA        1     1
-10 SRR2584863 2333538 NA    AT     ATT     167 NA     TRUE      7  1         7 0.568     NA    NA    NA  1.01  -0.617 0     NA    NA        1     1
-# … with 791 more rows, and 6 more variables: DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<p>{: .output}</p>
-<p><code>dplyr</code> also provides useful functions to select columns based on their names. For instance, <code>ends_with()</code> allows you to select columns that ends with specific letters. For instance, if you wanted to select columns that end with the letter “B”:</p>
-<pre><code>select(variants, ends_with(&quot;B&quot;))</code></pre>
-<p>{: .language-r}</p>
+   sample_id    POS ID    REF   ALT    QUAL FILTER INDEL   IDV    IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB   HOB  
+   &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt;
+ 1 SRR25848… 9.97e3 NA    T     G        91 NA     FALSE    NA NA         4 0.0257    NA    NA    NA NA     -0.556 0     NA    NA   
+ 2 SRR25848… 2.63e5 NA    G     T        85 NA     FALSE    NA NA         6 0.0961     1     1     1 NA     -0.591 0.167 NA    NA   
+ 3 SRR25848… 2.82e5 NA    G     T       217 NA     FALSE    NA NA        10 0.774     NA    NA    NA  0.975 -0.662 0     NA    NA   
+ 4 SRR25848… 4.33e5 NA    CTTT… CTTT…    64 NA     TRUE     12  1        12 0.478     NA    NA    NA  1     -0.676 0     NA    NA   
+ 5 SRR25848… 4.74e5 NA    CCGC  CCGC…   228 NA     TRUE      9  0.9      10 0.660     NA    NA    NA  0.916 -0.662 0     NA    NA   
+ 6 SRR25848… 6.49e5 NA    C     T       210 NA     FALSE    NA NA        10 0.268     NA    NA    NA  0.916 -0.670 0     NA    NA   
+ 7 SRR25848… 1.33e6 NA    C     A       178 NA     FALSE    NA NA         8 0.624     NA    NA    NA  0.901 -0.651 0     NA    NA   
+ 8 SRR25848… 1.73e6 NA    G     A       225 NA     FALSE    NA NA        11 0.992     NA    NA    NA  1.01  -0.670 0     NA    NA   
+ 9 SRR25848… 2.10e6 NA    ACAG… ACAG…    56 NA     TRUE      2  0.667     3 0.902     NA    NA    NA  1     -0.454 0     NA    NA   
+10 SRR25848… 2.33e6 NA    AT    ATT     167 NA     TRUE      7  1         7 0.568     NA    NA    NA  1.01  -0.617 0     NA    NA   
+# … with 791 more rows, and 8 more variables: AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;,
+#   gt_GT_alleles &lt;chr&gt;</code></pre>
+<p><code>dplyr</code> also provides useful functions to select columns
+based on their names. For instance, <code>ends_with()</code> allows you
+to select columns that ends with specific letters. For instance, if you
+wanted to select columns that end with the letter “B”:</p>
+<pre class="r"><code>select(variants, ends_with(&quot;B&quot;))</code></pre>
 <pre><code># A tibble: 801 × 8
       VDB   RPB   MQB   BQB   MQSB    SGB ICB   HOB  
     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt;
@@ -436,14 +478,14 @@ $ gt_GT_alleles &lt;chr&gt; &quot;G&quot;, &quot;T&quot;, &quot;T&quot;, &quot;C
  9 0.902     NA    NA    NA  1     -0.454 NA    NA   
 10 0.568     NA    NA    NA  1.01  -0.617 NA    NA   
 # … with 791 more rows</code></pre>
-<p>{: .output}</p>
 <blockquote>
 <h2 id="challenge">Challenge</h2>
-<p>Create a table that contains all the columns with the letter “i” and column “POS”, without columns “Indiv” and “FILTER”. Hint: look at the help function <code>ends_with()</code> we’ve just covered.</p>
+<p>Create a table that contains all the columns with the letter “i” and
+column “POS”, without columns “Indiv” and “FILTER”. Hint: look at the
+help function <code>ends_with()</code> we’ve just covered.</p>
 <blockquote>
 <h2 id="solution">Solution</h2>
-<pre><code>select(variants, contains(&quot;i&quot;), -Indiv, -FILTER, POS)</code></pre>
-<p>{: .language-r}</p>
+<pre class="r"><code>select(variants, contains(&quot;i&quot;), -Indiv, -FILTER, POS)</code></pre>
 <pre><code># A tibble: 801 × 7
    sample_id  ID    INDEL   IDV    IMF ICB       POS
    &lt;chr&gt;      &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;   &lt;dbl&gt;
@@ -458,179 +500,186 @@ $ gt_GT_alleles &lt;chr&gt; &quot;G&quot;, &quot;T&quot;, &quot;T&quot;, &quot;C
  9 SRR2584863 NA    TRUE      2  0.667 NA    2103887
 10 SRR2584863 NA    TRUE      7  1     NA    2333538
 # … with 791 more rows</code></pre>
-<p>{: .output} {: .solution} {: .challenge}</p>
 </blockquote>
 </blockquote>
 <p>To choose rows, use <code>filter()</code>:</p>
-<pre><code>filter(variants, sample_id == &quot;SRR2584863&quot;)</code></pre>
-<p>{: .language-r}</p>
+<pre class="r"><code>filter(variants, sample_id == &quot;SRR2584863&quot;)</code></pre>
 <pre><code># A tibble: 25 × 29
-   sample_id  CHROM     POS ID    REF   ALT     QUAL FILTER INDEL   IDV    IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB   HOB      AC
-   &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP000… 9.97e3 NA    T     G         91 NA     FALSE    NA NA         4 0.0257    NA    NA    NA NA     -0.556 0     NA    NA        1
- 2 SRR2584863 CP000… 2.63e5 NA    G     T         85 NA     FALSE    NA NA         6 0.0961     1     1     1 NA     -0.591 0.167 NA    NA        1
- 3 SRR2584863 CP000… 2.82e5 NA    G     T        217 NA     FALSE    NA NA        10 0.774     NA    NA    NA  0.975 -0.662 0     NA    NA        1
- 4 SRR2584863 CP000… 4.33e5 NA    CTTT… CTTTT…    64 NA     TRUE     12  1        12 0.478     NA    NA    NA  1     -0.676 0     NA    NA        1
- 5 SRR2584863 CP000… 4.74e5 NA    CCGC  CCGCGC   228 NA     TRUE      9  0.9      10 0.660     NA    NA    NA  0.916 -0.662 0     NA    NA        1
- 6 SRR2584863 CP000… 6.49e5 NA    C     T        210 NA     FALSE    NA NA        10 0.268     NA    NA    NA  0.916 -0.670 0     NA    NA        1
- 7 SRR2584863 CP000… 1.33e6 NA    C     A        178 NA     FALSE    NA NA         8 0.624     NA    NA    NA  0.901 -0.651 0     NA    NA        1
- 8 SRR2584863 CP000… 1.73e6 NA    G     A        225 NA     FALSE    NA NA        11 0.992     NA    NA    NA  1.01  -0.670 0     NA    NA        1
- 9 SRR2584863 CP000… 2.10e6 NA    ACAG… ACAGC…    56 NA     TRUE      2  0.667     3 0.902     NA    NA    NA  1     -0.454 0     NA    NA        1
-10 SRR2584863 CP000… 2.33e6 NA    AT    ATT      167 NA     TRUE      7  1         7 0.568     NA    NA    NA  1.01  -0.617 0     NA    NA        1
-# … with 15 more rows, and 7 more variables: AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<p>{: .output}</p>
-<p><code>filter()</code> will keep all the rows that match the conditions that are provided. Here are a few examples:</p>
-<pre><code># rows for which the reference genome has T or G
+   sample_id CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV    IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB  
+   &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
+ 1 SRR25848… CP00… 9.97e3 NA    T     G        91 NA     FALSE    NA NA         4 0.0257    NA    NA    NA NA     -0.556 0     NA   
+ 2 SRR25848… CP00… 2.63e5 NA    G     T        85 NA     FALSE    NA NA         6 0.0961     1     1     1 NA     -0.591 0.167 NA   
+ 3 SRR25848… CP00… 2.82e5 NA    G     T       217 NA     FALSE    NA NA        10 0.774     NA    NA    NA  0.975 -0.662 0     NA   
+ 4 SRR25848… CP00… 4.33e5 NA    CTTT… CTTT…    64 NA     TRUE     12  1        12 0.478     NA    NA    NA  1     -0.676 0     NA   
+ 5 SRR25848… CP00… 4.74e5 NA    CCGC  CCGC…   228 NA     TRUE      9  0.9      10 0.660     NA    NA    NA  0.916 -0.662 0     NA   
+ 6 SRR25848… CP00… 6.49e5 NA    C     T       210 NA     FALSE    NA NA        10 0.268     NA    NA    NA  0.916 -0.670 0     NA   
+ 7 SRR25848… CP00… 1.33e6 NA    C     A       178 NA     FALSE    NA NA         8 0.624     NA    NA    NA  0.901 -0.651 0     NA   
+ 8 SRR25848… CP00… 1.73e6 NA    G     A       225 NA     FALSE    NA NA        11 0.992     NA    NA    NA  1.01  -0.670 0     NA   
+ 9 SRR25848… CP00… 2.10e6 NA    ACAG… ACAG…    56 NA     TRUE      2  0.667     3 0.902     NA    NA    NA  1     -0.454 0     NA   
+10 SRR25848… CP00… 2.33e6 NA    AT    ATT     167 NA     TRUE      7  1         7 0.568     NA    NA    NA  1.01  -0.617 0     NA   
+# … with 15 more rows, and 9 more variables: HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;,
+#   gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
+<p><code>filter()</code> will keep all the rows that match the
+conditions that are provided. Here are a few examples:</p>
+<pre class="r"><code># rows for which the reference genome has T or G
 filter(variants, REF %in% c(&quot;T&quot;, &quot;G&quot;))</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 340 × 29
-   sample_id CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB    RPB     MQB    BQB   MQSB    SGB  MQ0F ICB   HOB      AC
-   &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt;
- 1 SRR25848… CP00… 9.97e3 NA    T     G      91   NA     FALSE    NA    NA     4 0.0257 NA     NA      NA     NA     -0.556 0     NA    NA        1
- 2 SRR25848… CP00… 2.63e5 NA    G     T      85   NA     FALSE    NA    NA     6 0.0961  1      1       1     NA     -0.591 0.167 NA    NA        1
- 3 SRR25848… CP00… 2.82e5 NA    G     T     217   NA     FALSE    NA    NA    10 0.774  NA     NA      NA      0.975 -0.662 0     NA    NA        1
- 4 SRR25848… CP00… 1.73e6 NA    G     A     225   NA     FALSE    NA    NA    11 0.992  NA     NA      NA      1.01  -0.670 0     NA    NA        1
- 5 SRR25848… CP00… 2.62e6 NA    G     T      31.9 NA     FALSE    NA    NA    12 0.149   0.954  0.0498  0.775  0.656 -0.512 0.667 NA    NA        1
- 6 SRR25848… CP00… 3.00e6 NA    G     A     225   NA     FALSE    NA    NA    15 0.377  NA     NA      NA      1     -0.686 0     NA    NA        1
- 7 SRR25848… CP00… 3.91e6 NA    G     T     225   NA     FALSE    NA    NA    10 0.0699 NA     NA      NA      0.975 -0.662 0     NA    NA        1
- 8 SRR25848… CP00… 9.97e3 NA    T     G     214   NA     FALSE    NA    NA    10 0.0221 NA     NA      NA      1     -0.670 0     NA    NA        1
- 9 SRR25848… CP00… 1.06e4 NA    G     A     225   NA     FALSE    NA    NA    11 0.959  NA     NA      NA      0.952 -0.670 0     NA    NA        1
-10 SRR25848… CP00… 6.40e4 NA    G     A     225   NA     FALSE    NA    NA    18 0.451  NA     NA      NA      1     -0.689 0     NA    NA        1
-# … with 330 more rows, and 7 more variables: AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<p>{: .output}</p>
-<pre><code># rows with QUAL values greater than or equal to 100
+   sample_id  CHROM      POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB    RPB     MQB    BQB   MQSB    SGB  MQ0F
+   &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+ 1 SRR2584863 CP0008… 9.97e3 NA    T     G      91   NA     FALSE    NA    NA     4 0.0257 NA     NA      NA     NA     -0.556 0    
+ 2 SRR2584863 CP0008… 2.63e5 NA    G     T      85   NA     FALSE    NA    NA     6 0.0961  1      1       1     NA     -0.591 0.167
+ 3 SRR2584863 CP0008… 2.82e5 NA    G     T     217   NA     FALSE    NA    NA    10 0.774  NA     NA      NA      0.975 -0.662 0    
+ 4 SRR2584863 CP0008… 1.73e6 NA    G     A     225   NA     FALSE    NA    NA    11 0.992  NA     NA      NA      1.01  -0.670 0    
+ 5 SRR2584863 CP0008… 2.62e6 NA    G     T      31.9 NA     FALSE    NA    NA    12 0.149   0.954  0.0498  0.775  0.656 -0.512 0.667
+ 6 SRR2584863 CP0008… 3.00e6 NA    G     A     225   NA     FALSE    NA    NA    15 0.377  NA     NA      NA      1     -0.686 0    
+ 7 SRR2584863 CP0008… 3.91e6 NA    G     T     225   NA     FALSE    NA    NA    10 0.0699 NA     NA      NA      0.975 -0.662 0    
+ 8 SRR2584866 CP0008… 9.97e3 NA    T     G     214   NA     FALSE    NA    NA    10 0.0221 NA     NA      NA      1     -0.670 0    
+ 9 SRR2584866 CP0008… 1.06e4 NA    G     A     225   NA     FALSE    NA    NA    11 0.959  NA     NA      NA      0.952 -0.670 0    
+10 SRR2584866 CP0008… 6.40e4 NA    G     A     225   NA     FALSE    NA    NA    18 0.451  NA     NA      NA      1     -0.689 0    
+# … with 330 more rows, and 10 more variables: ICB &lt;lgl&gt;, HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;,
+#   gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
+<pre class="r"><code># rows with QUAL values greater than or equal to 100
 filter(variants, QUAL &gt;= 100)</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 666 × 29
-   sample_id  CHROM     POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB    RPB    MQB    BQB  MQSB    SGB  MQ0F ICB   HOB      AC
-   &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP000… 2.82e5 NA    G     T       217 NA     FALSE    NA  NA      10 0.774  NA     NA     NA     0.975 -0.662 0     NA    NA        1
- 2 SRR2584863 CP000… 4.74e5 NA    CCGC  CCGC…   228 NA     TRUE      9   0.9    10 0.660  NA     NA     NA     0.916 -0.662 0     NA    NA        1
- 3 SRR2584863 CP000… 6.49e5 NA    C     T       210 NA     FALSE    NA  NA      10 0.268  NA     NA     NA     0.916 -0.670 0     NA    NA        1
- 4 SRR2584863 CP000… 1.33e6 NA    C     A       178 NA     FALSE    NA  NA       8 0.624  NA     NA     NA     0.901 -0.651 0     NA    NA        1
- 5 SRR2584863 CP000… 1.73e6 NA    G     A       225 NA     FALSE    NA  NA      11 0.992  NA     NA     NA     1.01  -0.670 0     NA    NA        1
- 6 SRR2584863 CP000… 2.33e6 NA    AT    ATT     167 NA     TRUE      7   1       7 0.568  NA     NA     NA     1.01  -0.617 0     NA    NA        1
- 7 SRR2584863 CP000… 2.41e6 NA    A     C       104 NA     FALSE    NA  NA       9 0.0231  0.901  0.150  0.751 0.5   -0.591 0.333 NA    NA        1
- 8 SRR2584863 CP000… 2.45e6 NA    A     C       225 NA     FALSE    NA  NA      20 0.0714 NA     NA     NA     1     -0.689 0     NA    NA        1
- 9 SRR2584863 CP000… 2.67e6 NA    A     T       225 NA     FALSE    NA  NA      19 0.996  NA     NA     NA     1     -0.690 0     NA    NA        1
-10 SRR2584863 CP000… 3.00e6 NA    G     A       225 NA     FALSE    NA  NA      15 0.377  NA     NA     NA     1     -0.686 0     NA    NA        1
-# … with 656 more rows, and 7 more variables: AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<p>{: .output}</p>
-<pre><code># rows that have TRUE in the column INDEL
+   sample_id  CHROM        POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB    RPB    MQB    BQB  MQSB    SGB  MQ0F
+   &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+ 1 SRR2584863 CP00081…  281923 NA    G     T       217 NA     FALSE    NA  NA      10 0.774  NA     NA     NA     0.975 -0.662 0    
+ 2 SRR2584863 CP00081…  473901 NA    CCGC  CCGC…   228 NA     TRUE      9   0.9    10 0.660  NA     NA     NA     0.916 -0.662 0    
+ 3 SRR2584863 CP00081…  648692 NA    C     T       210 NA     FALSE    NA  NA      10 0.268  NA     NA     NA     0.916 -0.670 0    
+ 4 SRR2584863 CP00081… 1331794 NA    C     A       178 NA     FALSE    NA  NA       8 0.624  NA     NA     NA     0.901 -0.651 0    
+ 5 SRR2584863 CP00081… 1733343 NA    G     A       225 NA     FALSE    NA  NA      11 0.992  NA     NA     NA     1.01  -0.670 0    
+ 6 SRR2584863 CP00081… 2333538 NA    AT    ATT     167 NA     TRUE      7   1       7 0.568  NA     NA     NA     1.01  -0.617 0    
+ 7 SRR2584863 CP00081… 2407766 NA    A     C       104 NA     FALSE    NA  NA       9 0.0231  0.901  0.150  0.751 0.5   -0.591 0.333
+ 8 SRR2584863 CP00081… 2446984 NA    A     C       225 NA     FALSE    NA  NA      20 0.0714 NA     NA     NA     1     -0.689 0    
+ 9 SRR2584863 CP00081… 2665639 NA    A     T       225 NA     FALSE    NA  NA      19 0.996  NA     NA     NA     1     -0.690 0    
+10 SRR2584863 CP00081… 2999330 NA    G     A       225 NA     FALSE    NA  NA      15 0.377  NA     NA     NA     1     -0.686 0    
+# … with 656 more rows, and 10 more variables: ICB &lt;lgl&gt;, HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;,
+#   gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
+<pre class="r"><code># rows that have TRUE in the column INDEL
 filter(variants, INDEL)</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 101 × 29
-   sample_id  CHROM      POS ID    REF   ALT     QUAL FILTER INDEL   IDV   IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB   HOB      AC
-   &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP000…  433359 NA    CTTT… CTTTT…  64   NA     TRUE     12 1        12 0.478     NA    NA    NA  1     -0.676     0 NA    NA        1
- 2 SRR2584863 CP000…  473901 NA    CCGC  CCGCGC 228   NA     TRUE      9 0.9      10 0.660     NA    NA    NA  0.916 -0.662     0 NA    NA        1
- 3 SRR2584863 CP000… 2103887 NA    ACAG… ACAGC…  56   NA     TRUE      2 0.667     3 0.902     NA    NA    NA  1     -0.454     0 NA    NA        1
- 4 SRR2584863 CP000… 2333538 NA    AT    ATT    167   NA     TRUE      7 1         7 0.568     NA    NA    NA  1.01  -0.617     0 NA    NA        1
- 5 SRR2584863 CP000… 3901455 NA    A     AC      43.4 NA     TRUE      2 1         2 0.02      NA    NA    NA NA     -0.454     0 NA    NA        1
- 6 SRR2584863 CP000… 4431393 NA    TGG   T      228   NA     TRUE     10 1        10 0.863     NA    NA    NA  1.01  -0.662     0 NA    NA        1
- 7 SRR2584866 CP000…  148134 NA    AGGGG AGGGGG 122   NA     TRUE      8 1         8 0.0462    NA    NA    NA  0.901 -0.651     0 NA    NA        1
- 8 SRR2584866 CP000…  157998 NA    GTTT… GTTTT…  19.5 NA     TRUE      6 1         6 0.358     NA    NA    NA  1     -0.617     0 NA    NA        1
- 9 SRR2584866 CP000…  172553 NA    CAA   CA     180   NA     TRUE     11 1        11 0.294     NA    NA    NA  1     -0.670     0 NA    NA        1
-10 SRR2584866 CP000…  175213 NA    GAA   GA     194   NA     TRUE     10 1        10 0.958     NA    NA    NA  0.952 -0.662     0 NA    NA        1
-# … with 91 more rows, and 7 more variables: AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<p>{: .output}</p>
-<pre><code># rows that don&#39;t have missing data in the IDV column
+   sample_id  CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB  
+   &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
+ 1 SRR2584863 CP00… 4.33e5 NA    CTTT… CTTT…  64   NA     TRUE     12 1        12 0.478     NA    NA    NA  1     -0.676     0 NA   
+ 2 SRR2584863 CP00… 4.74e5 NA    CCGC  CCGC… 228   NA     TRUE      9 0.9      10 0.660     NA    NA    NA  0.916 -0.662     0 NA   
+ 3 SRR2584863 CP00… 2.10e6 NA    ACAG… ACAG…  56   NA     TRUE      2 0.667     3 0.902     NA    NA    NA  1     -0.454     0 NA   
+ 4 SRR2584863 CP00… 2.33e6 NA    AT    ATT   167   NA     TRUE      7 1         7 0.568     NA    NA    NA  1.01  -0.617     0 NA   
+ 5 SRR2584863 CP00… 3.90e6 NA    A     AC     43.4 NA     TRUE      2 1         2 0.02      NA    NA    NA NA     -0.454     0 NA   
+ 6 SRR2584863 CP00… 4.43e6 NA    TGG   T     228   NA     TRUE     10 1        10 0.863     NA    NA    NA  1.01  -0.662     0 NA   
+ 7 SRR2584866 CP00… 1.48e5 NA    AGGGG AGGG… 122   NA     TRUE      8 1         8 0.0462    NA    NA    NA  0.901 -0.651     0 NA   
+ 8 SRR2584866 CP00… 1.58e5 NA    GTTT… GTTT…  19.5 NA     TRUE      6 1         6 0.358     NA    NA    NA  1     -0.617     0 NA   
+ 9 SRR2584866 CP00… 1.73e5 NA    CAA   CA    180   NA     TRUE     11 1        11 0.294     NA    NA    NA  1     -0.670     0 NA   
+10 SRR2584866 CP00… 1.75e5 NA    GAA   GA    194   NA     TRUE     10 1        10 0.958     NA    NA    NA  0.952 -0.662     0 NA   
+# … with 91 more rows, and 9 more variables: HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;,
+#   gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
+<pre class="r"><code># rows that don&#39;t have missing data in the IDV column
 filter(variants, !is.na(IDV))</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 101 × 29
-   sample_id  CHROM      POS ID    REF   ALT     QUAL FILTER INDEL   IDV   IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB   HOB      AC
-   &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP000…  433359 NA    CTTT… CTTTT…  64   NA     TRUE     12 1        12 0.478     NA    NA    NA  1     -0.676     0 NA    NA        1
- 2 SRR2584863 CP000…  473901 NA    CCGC  CCGCGC 228   NA     TRUE      9 0.9      10 0.660     NA    NA    NA  0.916 -0.662     0 NA    NA        1
- 3 SRR2584863 CP000… 2103887 NA    ACAG… ACAGC…  56   NA     TRUE      2 0.667     3 0.902     NA    NA    NA  1     -0.454     0 NA    NA        1
- 4 SRR2584863 CP000… 2333538 NA    AT    ATT    167   NA     TRUE      7 1         7 0.568     NA    NA    NA  1.01  -0.617     0 NA    NA        1
- 5 SRR2584863 CP000… 3901455 NA    A     AC      43.4 NA     TRUE      2 1         2 0.02      NA    NA    NA NA     -0.454     0 NA    NA        1
- 6 SRR2584863 CP000… 4431393 NA    TGG   T      228   NA     TRUE     10 1        10 0.863     NA    NA    NA  1.01  -0.662     0 NA    NA        1
- 7 SRR2584866 CP000…  148134 NA    AGGGG AGGGGG 122   NA     TRUE      8 1         8 0.0462    NA    NA    NA  0.901 -0.651     0 NA    NA        1
- 8 SRR2584866 CP000…  157998 NA    GTTT… GTTTT…  19.5 NA     TRUE      6 1         6 0.358     NA    NA    NA  1     -0.617     0 NA    NA        1
- 9 SRR2584866 CP000…  172553 NA    CAA   CA     180   NA     TRUE     11 1        11 0.294     NA    NA    NA  1     -0.670     0 NA    NA        1
-10 SRR2584866 CP000…  175213 NA    GAA   GA     194   NA     TRUE     10 1        10 0.958     NA    NA    NA  0.952 -0.662     0 NA    NA        1
-# … with 91 more rows, and 7 more variables: AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<p>{: .output}</p>
-<p><code>filter()</code> allows you to combine multiple conditions. You can separate them using a <code>,</code> as arguments to the function, they will be combined using the <code>&amp;</code> (AND) logical operator. If you need to use the <code>|</code> (OR) logical operator, you can specify it explicitly:</p>
-<pre><code># this is equivalent to:
+   sample_id  CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB  
+   &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
+ 1 SRR2584863 CP00… 4.33e5 NA    CTTT… CTTT…  64   NA     TRUE     12 1        12 0.478     NA    NA    NA  1     -0.676     0 NA   
+ 2 SRR2584863 CP00… 4.74e5 NA    CCGC  CCGC… 228   NA     TRUE      9 0.9      10 0.660     NA    NA    NA  0.916 -0.662     0 NA   
+ 3 SRR2584863 CP00… 2.10e6 NA    ACAG… ACAG…  56   NA     TRUE      2 0.667     3 0.902     NA    NA    NA  1     -0.454     0 NA   
+ 4 SRR2584863 CP00… 2.33e6 NA    AT    ATT   167   NA     TRUE      7 1         7 0.568     NA    NA    NA  1.01  -0.617     0 NA   
+ 5 SRR2584863 CP00… 3.90e6 NA    A     AC     43.4 NA     TRUE      2 1         2 0.02      NA    NA    NA NA     -0.454     0 NA   
+ 6 SRR2584863 CP00… 4.43e6 NA    TGG   T     228   NA     TRUE     10 1        10 0.863     NA    NA    NA  1.01  -0.662     0 NA   
+ 7 SRR2584866 CP00… 1.48e5 NA    AGGGG AGGG… 122   NA     TRUE      8 1         8 0.0462    NA    NA    NA  0.901 -0.651     0 NA   
+ 8 SRR2584866 CP00… 1.58e5 NA    GTTT… GTTT…  19.5 NA     TRUE      6 1         6 0.358     NA    NA    NA  1     -0.617     0 NA   
+ 9 SRR2584866 CP00… 1.73e5 NA    CAA   CA    180   NA     TRUE     11 1        11 0.294     NA    NA    NA  1     -0.670     0 NA   
+10 SRR2584866 CP00… 1.75e5 NA    GAA   GA    194   NA     TRUE     10 1        10 0.958     NA    NA    NA  0.952 -0.662     0 NA   
+# … with 91 more rows, and 9 more variables: HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;,
+#   gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
+<p><code>filter()</code> allows you to combine multiple conditions. You
+can separate them using a <code>,</code> as arguments to the function,
+they will be combined using the <code>&amp;</code> (AND) logical
+operator. If you need to use the <code>|</code> (OR) logical operator,
+you can specify it explicitly:</p>
+<pre class="r"><code># this is equivalent to:
 #   filter(variants, sample_id == &quot;SRR2584863&quot; &amp; QUAL &gt;= 100)
 filter(variants, sample_id == &quot;SRR2584863&quot;, QUAL &gt;= 100)</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 19 × 29
-   sample_id  CHROM     POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB    RPB    MQB    BQB  MQSB    SGB  MQ0F ICB   HOB      AC
-   &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP000… 2.82e5 NA    G     T       217 NA     FALSE    NA  NA      10 0.774  NA     NA     NA     0.975 -0.662 0     NA    NA        1
- 2 SRR2584863 CP000… 4.74e5 NA    CCGC  CCGC…   228 NA     TRUE      9   0.9    10 0.660  NA     NA     NA     0.916 -0.662 0     NA    NA        1
- 3 SRR2584863 CP000… 6.49e5 NA    C     T       210 NA     FALSE    NA  NA      10 0.268  NA     NA     NA     0.916 -0.670 0     NA    NA        1
- 4 SRR2584863 CP000… 1.33e6 NA    C     A       178 NA     FALSE    NA  NA       8 0.624  NA     NA     NA     0.901 -0.651 0     NA    NA        1
- 5 SRR2584863 CP000… 1.73e6 NA    G     A       225 NA     FALSE    NA  NA      11 0.992  NA     NA     NA     1.01  -0.670 0     NA    NA        1
- 6 SRR2584863 CP000… 2.33e6 NA    AT    ATT     167 NA     TRUE      7   1       7 0.568  NA     NA     NA     1.01  -0.617 0     NA    NA        1
- 7 SRR2584863 CP000… 2.41e6 NA    A     C       104 NA     FALSE    NA  NA       9 0.0231  0.901  0.150  0.751 0.5   -0.591 0.333 NA    NA        1
- 8 SRR2584863 CP000… 2.45e6 NA    A     C       225 NA     FALSE    NA  NA      20 0.0714 NA     NA     NA     1     -0.689 0     NA    NA        1
- 9 SRR2584863 CP000… 2.67e6 NA    A     T       225 NA     FALSE    NA  NA      19 0.996  NA     NA     NA     1     -0.690 0     NA    NA        1
-10 SRR2584863 CP000… 3.00e6 NA    G     A       225 NA     FALSE    NA  NA      15 0.377  NA     NA     NA     1     -0.686 0     NA    NA        1
-11 SRR2584863 CP000… 3.34e6 NA    A     C       211 NA     FALSE    NA  NA      10 0.406  NA     NA     NA     1.01  -0.670 0     NA    NA        1
-12 SRR2584863 CP000… 3.40e6 NA    C     A       225 NA     FALSE    NA  NA      14 0.168  NA     NA     NA     0.955 -0.681 0     NA    NA        1
-13 SRR2584863 CP000… 3.48e6 NA    A     G       200 NA     FALSE    NA  NA       9 0.107  NA     NA     NA     0.975 -0.662 0     NA    NA        1
-14 SRR2584863 CP000… 3.49e6 NA    A     C       225 NA     FALSE    NA  NA      13 0.0163 NA     NA     NA     1     -0.681 0     NA    NA        1
-15 SRR2584863 CP000… 3.91e6 NA    G     T       225 NA     FALSE    NA  NA      10 0.0699 NA     NA     NA     0.975 -0.662 0     NA    NA        1
-16 SRR2584863 CP000… 4.10e6 NA    A     G       225 NA     FALSE    NA  NA      16 0.829  NA     NA     NA     1     -0.689 0     NA    NA        1
-17 SRR2584863 CP000… 4.20e6 NA    A     C       225 NA     FALSE    NA  NA      11 0.0492 NA     NA     NA     0.975 -0.662 0     NA    NA        1
-18 SRR2584863 CP000… 4.43e6 NA    TGG   T       228 NA     TRUE     10   1      10 0.863  NA     NA     NA     1.01  -0.662 0     NA    NA        1
-19 SRR2584863 CP000… 4.62e6 NA    A     C       185 NA     FALSE    NA  NA       9 0.576  NA     NA     NA     0.992 -0.651 0     NA    NA        1
-# … with 7 more variables: AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<p>{: .output}</p>
-<pre><code># using `|` logical operator
+   sample_id  CHROM        POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB    RPB    MQB    BQB  MQSB    SGB  MQ0F
+   &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+ 1 SRR2584863 CP00081…  281923 NA    G     T       217 NA     FALSE    NA  NA      10 0.774  NA     NA     NA     0.975 -0.662 0    
+ 2 SRR2584863 CP00081…  473901 NA    CCGC  CCGC…   228 NA     TRUE      9   0.9    10 0.660  NA     NA     NA     0.916 -0.662 0    
+ 3 SRR2584863 CP00081…  648692 NA    C     T       210 NA     FALSE    NA  NA      10 0.268  NA     NA     NA     0.916 -0.670 0    
+ 4 SRR2584863 CP00081… 1331794 NA    C     A       178 NA     FALSE    NA  NA       8 0.624  NA     NA     NA     0.901 -0.651 0    
+ 5 SRR2584863 CP00081… 1733343 NA    G     A       225 NA     FALSE    NA  NA      11 0.992  NA     NA     NA     1.01  -0.670 0    
+ 6 SRR2584863 CP00081… 2333538 NA    AT    ATT     167 NA     TRUE      7   1       7 0.568  NA     NA     NA     1.01  -0.617 0    
+ 7 SRR2584863 CP00081… 2407766 NA    A     C       104 NA     FALSE    NA  NA       9 0.0231  0.901  0.150  0.751 0.5   -0.591 0.333
+ 8 SRR2584863 CP00081… 2446984 NA    A     C       225 NA     FALSE    NA  NA      20 0.0714 NA     NA     NA     1     -0.689 0    
+ 9 SRR2584863 CP00081… 2665639 NA    A     T       225 NA     FALSE    NA  NA      19 0.996  NA     NA     NA     1     -0.690 0    
+10 SRR2584863 CP00081… 2999330 NA    G     A       225 NA     FALSE    NA  NA      15 0.377  NA     NA     NA     1     -0.686 0    
+11 SRR2584863 CP00081… 3339313 NA    A     C       211 NA     FALSE    NA  NA      10 0.406  NA     NA     NA     1.01  -0.670 0    
+12 SRR2584863 CP00081… 3401754 NA    C     A       225 NA     FALSE    NA  NA      14 0.168  NA     NA     NA     0.955 -0.681 0    
+13 SRR2584863 CP00081… 3481820 NA    A     G       200 NA     FALSE    NA  NA       9 0.107  NA     NA     NA     0.975 -0.662 0    
+14 SRR2584863 CP00081… 3488669 NA    A     C       225 NA     FALSE    NA  NA      13 0.0163 NA     NA     NA     1     -0.681 0    
+15 SRR2584863 CP00081… 3909807 NA    G     T       225 NA     FALSE    NA  NA      10 0.0699 NA     NA     NA     0.975 -0.662 0    
+16 SRR2584863 CP00081… 4100183 NA    A     G       225 NA     FALSE    NA  NA      16 0.829  NA     NA     NA     1     -0.689 0    
+17 SRR2584863 CP00081… 4201958 NA    A     C       225 NA     FALSE    NA  NA      11 0.0492 NA     NA     NA     0.975 -0.662 0    
+18 SRR2584863 CP00081… 4431393 NA    TGG   T       228 NA     TRUE     10   1      10 0.863  NA     NA     NA     1.01  -0.662 0    
+19 SRR2584863 CP00081… 4616538 NA    A     C       185 NA     FALSE    NA  NA       9 0.576  NA     NA     NA     0.992 -0.651 0    
+# … with 10 more variables: ICB &lt;lgl&gt;, HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;,
+#   gt_GT_alleles &lt;chr&gt;</code></pre>
+<pre class="r"><code># using `|` logical operator
 filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 22 × 29
-   sample_id  CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV    IMF    DP    VDB    RPB    MQB    BQB  MQSB    SGB  MQ0F ICB   HOB      AC
-   &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP00… 2.82e5 NA    G     T       217 NA     FALSE    NA NA        10 0.774  NA     NA     NA     0.975 -0.662 0     NA    NA        1
- 2 SRR2584863 CP00… 4.33e5 NA    CTTT… CTTT…    64 NA     TRUE     12  1        12 0.478  NA     NA     NA     1     -0.676 0     NA    NA        1
- 3 SRR2584863 CP00… 4.74e5 NA    CCGC  CCGC…   228 NA     TRUE      9  0.9      10 0.660  NA     NA     NA     0.916 -0.662 0     NA    NA        1
- 4 SRR2584863 CP00… 6.49e5 NA    C     T       210 NA     FALSE    NA NA        10 0.268  NA     NA     NA     0.916 -0.670 0     NA    NA        1
- 5 SRR2584863 CP00… 1.33e6 NA    C     A       178 NA     FALSE    NA NA         8 0.624  NA     NA     NA     0.901 -0.651 0     NA    NA        1
- 6 SRR2584863 CP00… 1.73e6 NA    G     A       225 NA     FALSE    NA NA        11 0.992  NA     NA     NA     1.01  -0.670 0     NA    NA        1
- 7 SRR2584863 CP00… 2.10e6 NA    ACAG… ACAG…    56 NA     TRUE      2  0.667     3 0.902  NA     NA     NA     1     -0.454 0     NA    NA        1
- 8 SRR2584863 CP00… 2.33e6 NA    AT    ATT     167 NA     TRUE      7  1         7 0.568  NA     NA     NA     1.01  -0.617 0     NA    NA        1
- 9 SRR2584863 CP00… 2.41e6 NA    A     C       104 NA     FALSE    NA NA         9 0.0231  0.901  0.150  0.751 0.5   -0.591 0.333 NA    NA        1
-10 SRR2584863 CP00… 2.45e6 NA    A     C       225 NA     FALSE    NA NA        20 0.0714 NA     NA     NA     1     -0.689 0     NA    NA        1
-# … with 12 more rows, and 7 more variables: AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<p>{: .output}</p>
+   sample_id  CHROM      POS ID    REF   ALT     QUAL FILTER INDEL   IDV    IMF    DP    VDB    RPB    MQB    BQB  MQSB    SGB  MQ0F
+   &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+ 1 SRR2584863 CP000…  281923 NA    G     T        217 NA     FALSE    NA NA        10 0.774  NA     NA     NA     0.975 -0.662 0    
+ 2 SRR2584863 CP000…  433359 NA    CTTT… CTTTT…    64 NA     TRUE     12  1        12 0.478  NA     NA     NA     1     -0.676 0    
+ 3 SRR2584863 CP000…  473901 NA    CCGC  CCGCGC   228 NA     TRUE      9  0.9      10 0.660  NA     NA     NA     0.916 -0.662 0    
+ 4 SRR2584863 CP000…  648692 NA    C     T        210 NA     FALSE    NA NA        10 0.268  NA     NA     NA     0.916 -0.670 0    
+ 5 SRR2584863 CP000… 1331794 NA    C     A        178 NA     FALSE    NA NA         8 0.624  NA     NA     NA     0.901 -0.651 0    
+ 6 SRR2584863 CP000… 1733343 NA    G     A        225 NA     FALSE    NA NA        11 0.992  NA     NA     NA     1.01  -0.670 0    
+ 7 SRR2584863 CP000… 2103887 NA    ACAG… ACAGC…    56 NA     TRUE      2  0.667     3 0.902  NA     NA     NA     1     -0.454 0    
+ 8 SRR2584863 CP000… 2333538 NA    AT    ATT      167 NA     TRUE      7  1         7 0.568  NA     NA     NA     1.01  -0.617 0    
+ 9 SRR2584863 CP000… 2407766 NA    A     C        104 NA     FALSE    NA NA         9 0.0231  0.901  0.150  0.751 0.5   -0.591 0.333
+10 SRR2584863 CP000… 2446984 NA    A     C        225 NA     FALSE    NA NA        20 0.0714 NA     NA     NA     1     -0.689 0    
+# … with 12 more rows, and 10 more variables: ICB &lt;lgl&gt;, HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;,
+#   gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
 <blockquote>
 <h2 id="challenge-1">Challenge</h2>
-<p>Select all the mutations that occurred between the positions 1e6 (one million) and 2e6 (included) that are not indels and have QUAL greater than 200.</p>
+<p>Select all the mutations that occurred between the positions 1e6 (one
+million) and 2e6 (included) that are not indels and have QUAL greater
+than 200.</p>
 <blockquote>
 <h2 id="solution-1">Solution</h2>
-<pre><code>filter(variants, POS &gt;= 1e6 &amp; POS &lt;= 2e6, !INDEL, QUAL &gt; 200)</code></pre>
-<p>{: .language-r}</p>
+<pre class="r"><code>filter(variants, POS &gt;= 1e6 &amp; POS &lt;= 2e6, !INDEL, QUAL &gt; 200)</code></pre>
 <pre><code># A tibble: 77 × 29
-   sample_id CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP   VDB   RPB   MQB   BQB  MQSB    SGB  MQ0F ICB   HOB      AC    AN
-   &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 SRR25848… CP00… 1.73e6 NA    G     A       225 NA     FALSE    NA    NA    11 0.992    NA    NA    NA 1.01  -0.670     0 NA    NA        1     1
- 2 SRR25848… CP00… 1.00e6 NA    A     G       225 NA     FALSE    NA    NA    15 0.481    NA    NA    NA 0.966 -0.686     0 NA    NA        1     1
- 3 SRR25848… CP00… 1.02e6 NA    A     G       225 NA     FALSE    NA    NA    12 0.242    NA    NA    NA 1     -0.676     0 NA    NA        1     1
- 4 SRR25848… CP00… 1.06e6 NA    C     T       225 NA     FALSE    NA    NA    17 0.346    NA    NA    NA 1     -0.681     0 NA    NA        1     1
- 5 SRR25848… CP00… 1.06e6 NA    A     G       206 NA     FALSE    NA    NA     9 0.630    NA    NA    NA 0.925 -0.662     0 NA    NA        1     1
- 6 SRR25848… CP00… 1.07e6 NA    G     T       225 NA     FALSE    NA    NA    11 0.349    NA    NA    NA 0.975 -0.662     0 NA    NA        1     1
- 7 SRR25848… CP00… 1.07e6 NA    T     C       225 NA     FALSE    NA    NA    12 0.196    NA    NA    NA 0.975 -0.662     0 NA    NA        1     1
- 8 SRR25848… CP00… 1.10e6 NA    C     T       225 NA     FALSE    NA    NA    15 0.454    NA    NA    NA 1     -0.681     0 NA    NA        1     1
- 9 SRR25848… CP00… 1.11e6 NA    C     T       212 NA     FALSE    NA    NA     9 0.179    NA    NA    NA 0.992 -0.651     0 NA    NA        1     1
-10 SRR25848… CP00… 1.11e6 NA    A     G       225 NA     FALSE    NA    NA    14 0.909    NA    NA    NA 0.951 -0.676     0 NA    NA        1     1
-# … with 67 more rows, and 6 more variables: DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<p>{: .output} {: .solution} {: .challenge}</p>
+   sample_id  CHROM      POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP   VDB   RPB   MQB   BQB  MQSB    SGB  MQ0F ICB  
+   &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
+ 1 SRR2584863 CP0008… 1.73e6 NA    G     A       225 NA     FALSE    NA    NA    11 0.992    NA    NA    NA 1.01  -0.670     0 NA   
+ 2 SRR2584866 CP0008… 1.00e6 NA    A     G       225 NA     FALSE    NA    NA    15 0.481    NA    NA    NA 0.966 -0.686     0 NA   
+ 3 SRR2584866 CP0008… 1.02e6 NA    A     G       225 NA     FALSE    NA    NA    12 0.242    NA    NA    NA 1     -0.676     0 NA   
+ 4 SRR2584866 CP0008… 1.06e6 NA    C     T       225 NA     FALSE    NA    NA    17 0.346    NA    NA    NA 1     -0.681     0 NA   
+ 5 SRR2584866 CP0008… 1.06e6 NA    A     G       206 NA     FALSE    NA    NA     9 0.630    NA    NA    NA 0.925 -0.662     0 NA   
+ 6 SRR2584866 CP0008… 1.07e6 NA    G     T       225 NA     FALSE    NA    NA    11 0.349    NA    NA    NA 0.975 -0.662     0 NA   
+ 7 SRR2584866 CP0008… 1.07e6 NA    T     C       225 NA     FALSE    NA    NA    12 0.196    NA    NA    NA 0.975 -0.662     0 NA   
+ 8 SRR2584866 CP0008… 1.10e6 NA    C     T       225 NA     FALSE    NA    NA    15 0.454    NA    NA    NA 1     -0.681     0 NA   
+ 9 SRR2584866 CP0008… 1.11e6 NA    C     T       212 NA     FALSE    NA    NA     9 0.179    NA    NA    NA 0.992 -0.651     0 NA   
+10 SRR2584866 CP0008… 1.11e6 NA    A     G       225 NA     FALSE    NA    NA    14 0.909    NA    NA    NA 0.951 -0.676     0 NA   
+# … with 67 more rows, and 9 more variables: HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;,
+#   gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
 </blockquote>
 </blockquote>
 </div>
 <div id="pipes" class="section level3">
 <h3>Pipes</h3>
-<p>But what if you wanted to select and filter? We can do this with pipes. Pipes, are a fairly recent addition to R. Pipes let you take the output of one function and send it directly to the next, which is useful when you need to many things to the same data set. It was possible to do this before pipes were added to R, but it was much messier and more difficult. Pipes in R look like <code>%&gt;%</code> and are made available via the <code>magrittr</code> package, which is installed as part of <code>dplyr</code>. If you use RStudio, you can type the pipe with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you’re using a PC, or <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you’re using a Mac.</p>
-<pre><code>variants %&gt;%
+<p>But what if you wanted to select and filter? We can do this with
+pipes. Pipes, are a fairly recent addition to R. Pipes let you take the
+output of one function and send it directly to the next, which is useful
+when you need to many things to the same data set. It was possible to do
+this before pipes were added to R, but it was much messier and more
+difficult. Pipes in R look like <code>%&gt;%</code> and are made
+available via the <code>magrittr</code> package, which is installed as
+part of <code>dplyr</code>. If you use RStudio, you can type the pipe
+with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you’re using a
+PC, or <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you’re using
+a Mac.</p>
+<pre class="r"><code>variants %&gt;%
   filter(sample_id == &quot;SRR2584863&quot;) %&gt;%
   select(REF, ALT, DP)</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 25 × 3
    REF                              ALT                                                         DP
    &lt;chr&gt;                            &lt;chr&gt;                                                    &lt;dbl&gt;
@@ -645,17 +694,33 @@ filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))<
  9 ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG     3
 10 AT                               ATT                                                          7
 # … with 15 more rows</code></pre>
-<p>{: .output}</p>
-<p>In the above code, we use the pipe to send the <code>variants</code> dataset first through <code>filter()</code>, to keep rows where <code>sample_id</code> matches a particular sample, and then through <code>select()</code> to keep only the <code>REF</code>, <code>ALT</code>, and <code>DP</code> columns. Since <code>%&gt;%</code> takes the object on its left and passes it as the first argument to the function on its right, we don’t need to explicitly include the data frame as an argument to the <code>filter()</code> and <code>select()</code> functions any more.</p>
-<p>Some may find it helpful to read the pipe like the word “then”. For instance, in the above example, we took the data frame <code>variants</code>, <em>then</em> we <code>filter</code>ed for rows where <code>sample_id</code> was SRR2584863, <em>then</em> we <code>select</code>ed the <code>REF</code>, <code>ALT</code>, and <code>DP</code> columns, <em>then</em> we showed only the first six rows. The <strong><code>dplyr</code></strong> functions by themselves are somewhat simple, but by combining them into linear workflows with the pipe, we can accomplish more complex manipulations of data frames.</p>
-<p>If we want to create a new object with this smaller version of the data we can do so by assigning it a new name:</p>
-<pre><code>SRR2584863_variants &lt;- variants %&gt;%
+<p>In the above code, we use the pipe to send the <code>variants</code>
+dataset first through <code>filter()</code>, to keep rows where
+<code>sample_id</code> matches a particular sample, and then through
+<code>select()</code> to keep only the <code>REF</code>,
+<code>ALT</code>, and <code>DP</code> columns. Since <code>%&gt;%</code>
+takes the object on its left and passes it as the first argument to the
+function on its right, we don’t need to explicitly include the data
+frame as an argument to the <code>filter()</code> and
+<code>select()</code> functions any more.</p>
+<p>Some may find it helpful to read the pipe like the word “then”. For
+instance, in the above example, we took the data frame
+<code>variants</code>, <em>then</em> we <code>filter</code>ed for rows
+where <code>sample_id</code> was SRR2584863, <em>then</em> we
+<code>select</code>ed the <code>REF</code>, <code>ALT</code>, and
+<code>DP</code> columns, <em>then</em> we showed only the first six
+rows. The <strong><code>dplyr</code></strong> functions by themselves
+are somewhat simple, but by combining them into linear workflows with
+the pipe, we can accomplish more complex manipulations of data
+frames.</p>
+<p>If we want to create a new object with this smaller version of the
+data we can do so by assigning it a new name:</p>
+<pre class="r"><code>SRR2584863_variants &lt;- variants %&gt;%
   filter(sample_id == &quot;SRR2584863&quot;) %&gt;%
   select(REF, ALT, DP)</code></pre>
-<p>{: .language-r}</p>
-<p>This new object includes all of the data from this sample. Let’s look at just the first six rows to confirm it’s what we want:</p>
-<pre><code>SRR2584863_variants</code></pre>
-<p>{: .language-r}</p>
+<p>This new object includes all of the data from this sample. Let’s look
+at just the first six rows to confirm it’s what we want:</p>
+<pre class="r"><code>SRR2584863_variants</code></pre>
 <pre><code># A tibble: 25 × 3
    REF                              ALT                                                         DP
    &lt;chr&gt;                            &lt;chr&gt;                                                    &lt;dbl&gt;
@@ -670,10 +735,11 @@ filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))<
  9 ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG     3
 10 AT                               ATT                                                          7
 # … with 15 more rows</code></pre>
-<p>{: .output}</p>
-<p>Similar to <code>head()</code> and <code>tail()</code> functions, we can also look at the first or last six rows using tidyverse function <code>slice()</code>. Slice is a more versatile function that allows users to specify a range to view:</p>
-<pre><code>SRR2584863_variants %&gt;% slice(1:6)</code></pre>
-<p>{: .language-r}</p>
+<p>Similar to <code>head()</code> and <code>tail()</code> functions, we
+can also look at the first or last six rows using tidyverse function
+<code>slice()</code>. Slice is a more versatile function that allows
+users to specify a range to view:</p>
+<pre class="r"><code>SRR2584863_variants %&gt;% slice(1:6)</code></pre>
 <pre><code># A tibble: 6 × 3
   REF      ALT          DP
   &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;
@@ -683,9 +749,7 @@ filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))<
 4 CTTTTTTT CTTTTTTTT    12
 5 CCGC     CCGCGC       10
 6 C        T            10</code></pre>
-<p>{: .output}</p>
-<pre><code>SRR2584863_variants %&gt;% slice(10:25)</code></pre>
-<p>{: .language-r}</p>
+<pre class="r"><code>SRR2584863_variants %&gt;% slice(10:25)</code></pre>
 <pre><code># A tibble: 16 × 3
    REF   ALT      DP
    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
@@ -705,17 +769,19 @@ filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))<
 14 A     C        11
 15 TGG   T        10
 16 A     C         9</code></pre>
-<p>{: .output}</p>
 <blockquote>
 <h2 id="exercise-pipe-and-filter">Exercise: Pipe and filter</h2>
-<p>Starting with the <code>variants</code> data frame, use pipes to subset the data to include only observations from SRR2584863 sample, where the filtered depth (DP) is at least 10. Shwoing only 5th through 11th rows of columns <code>REF</code>, <code>ALT</code>, and <code>POS</code>.</p>
+<p>Starting with the <code>variants</code> data frame, use pipes to
+subset the data to include only observations from SRR2584863 sample,
+where the filtered depth (DP) is at least 10. Shwoing only 5th through
+11th rows of columns <code>REF</code>, <code>ALT</code>, and
+<code>POS</code>.</p>
 <blockquote>
 <h2 id="solution-2">Solution</h2>
-<pre><code> variants %&gt;%
+<pre class="r"><code> variants %&gt;%
  filter(sample_id == &quot;SRR2584863&quot; &amp; DP &gt;= 10) %&gt;%
  slice(5:11) %&gt;%
  select(REF, ALT, POS)</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 7 × 3
   REF   ALT       POS
   &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;
@@ -726,44 +792,52 @@ filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))<
 5 G     A     2999330
 6 A     C     3339313
 7 C     A     3401754</code></pre>
-<p>{: .output} {: .solution} {: .challenge}</p>
 </blockquote>
 </blockquote>
 </div>
 <div id="mutate" class="section level3">
 <h3>Mutate</h3>
-<p>Frequently you’ll want to create new columns based on the values in existing columns, for example to do unit conversions or find the ratio of values in two columns. For this we’ll use the <code>dplyr</code> function <code>mutate()</code>.</p>
-<p>We have a column titled “QUAL”. This is a Phred-scaled confidence score that a polymorphism exists at this position given the sequencing data. Lower QUAL scores indicate low probability of a polymorphism existing at that site. We can convert the confidence value QUAL to a probability value according to the formula:</p>
+<p>Frequently you’ll want to create new columns based on the values in
+existing columns, for example to do unit conversions or find the ratio
+of values in two columns. For this we’ll use the <code>dplyr</code>
+function <code>mutate()</code>.</p>
+<p>We have a column titled “QUAL”. This is a Phred-scaled confidence
+score that a polymorphism exists at this position given the sequencing
+data. Lower QUAL scores indicate low probability of a polymorphism
+existing at that site. We can convert the confidence value QUAL to a
+probability value according to the formula:</p>
 <p>Probability = 1- 10 ^ -(QUAL/10)</p>
-<p>Let’s add a column (<code>POLPROB</code>) to our <code>variants</code> data frame that shows the probability of a polymorphism at that site given the data.</p>
-<pre><code>variants %&gt;%
+<p>Let’s add a column (<code>POLPROB</code>) to our
+<code>variants</code> data frame that shows the probability of a
+polymorphism at that site given the data.</p>
+<pre class="r"><code>variants %&gt;%
   mutate(POLPROB = 1 - (10 ^ -(QUAL/10)))</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 801 × 30
-   sample_id  CHROM     POS ID    REF   ALT     QUAL FILTER INDEL   IDV    IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB   HOB      AC
-   &lt;chr&gt;      &lt;chr&gt;   &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP000… 9.97e3 NA    T     G         91 NA     FALSE    NA NA         4 0.0257    NA    NA    NA NA     -0.556 0     NA    NA        1
- 2 SRR2584863 CP000… 2.63e5 NA    G     T         85 NA     FALSE    NA NA         6 0.0961     1     1     1 NA     -0.591 0.167 NA    NA        1
- 3 SRR2584863 CP000… 2.82e5 NA    G     T        217 NA     FALSE    NA NA        10 0.774     NA    NA    NA  0.975 -0.662 0     NA    NA        1
- 4 SRR2584863 CP000… 4.33e5 NA    CTTT… CTTTT…    64 NA     TRUE     12  1        12 0.478     NA    NA    NA  1     -0.676 0     NA    NA        1
- 5 SRR2584863 CP000… 4.74e5 NA    CCGC  CCGCGC   228 NA     TRUE      9  0.9      10 0.660     NA    NA    NA  0.916 -0.662 0     NA    NA        1
- 6 SRR2584863 CP000… 6.49e5 NA    C     T        210 NA     FALSE    NA NA        10 0.268     NA    NA    NA  0.916 -0.670 0     NA    NA        1
- 7 SRR2584863 CP000… 1.33e6 NA    C     A        178 NA     FALSE    NA NA         8 0.624     NA    NA    NA  0.901 -0.651 0     NA    NA        1
- 8 SRR2584863 CP000… 1.73e6 NA    G     A        225 NA     FALSE    NA NA        11 0.992     NA    NA    NA  1.01  -0.670 0     NA    NA        1
- 9 SRR2584863 CP000… 2.10e6 NA    ACAG… ACAGC…    56 NA     TRUE      2  0.667     3 0.902     NA    NA    NA  1     -0.454 0     NA    NA        1
-10 SRR2584863 CP000… 2.33e6 NA    AT    ATT      167 NA     TRUE      7  1         7 0.568     NA    NA    NA  1.01  -0.617 0     NA    NA        1
-# … with 791 more rows, and 8 more variables: AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;,
-#   POLPROB &lt;dbl&gt;</code></pre>
-<p>{: .output}</p>
+   sample_id CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV    IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB  
+   &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
+ 1 SRR25848… CP00… 9.97e3 NA    T     G        91 NA     FALSE    NA NA         4 0.0257    NA    NA    NA NA     -0.556 0     NA   
+ 2 SRR25848… CP00… 2.63e5 NA    G     T        85 NA     FALSE    NA NA         6 0.0961     1     1     1 NA     -0.591 0.167 NA   
+ 3 SRR25848… CP00… 2.82e5 NA    G     T       217 NA     FALSE    NA NA        10 0.774     NA    NA    NA  0.975 -0.662 0     NA   
+ 4 SRR25848… CP00… 4.33e5 NA    CTTT… CTTT…    64 NA     TRUE     12  1        12 0.478     NA    NA    NA  1     -0.676 0     NA   
+ 5 SRR25848… CP00… 4.74e5 NA    CCGC  CCGC…   228 NA     TRUE      9  0.9      10 0.660     NA    NA    NA  0.916 -0.662 0     NA   
+ 6 SRR25848… CP00… 6.49e5 NA    C     T       210 NA     FALSE    NA NA        10 0.268     NA    NA    NA  0.916 -0.670 0     NA   
+ 7 SRR25848… CP00… 1.33e6 NA    C     A       178 NA     FALSE    NA NA         8 0.624     NA    NA    NA  0.901 -0.651 0     NA   
+ 8 SRR25848… CP00… 1.73e6 NA    G     A       225 NA     FALSE    NA NA        11 0.992     NA    NA    NA  1.01  -0.670 0     NA   
+ 9 SRR25848… CP00… 2.10e6 NA    ACAG… ACAG…    56 NA     TRUE      2  0.667     3 0.902     NA    NA    NA  1     -0.454 0     NA   
+10 SRR25848… CP00… 2.33e6 NA    AT    ATT     167 NA     TRUE      7  1         7 0.568     NA    NA    NA  1.01  -0.617 0     NA   
+# … with 791 more rows, and 10 more variables: HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;,
+#   gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;, POLPROB &lt;dbl&gt;</code></pre>
 <blockquote>
 <h2 id="exercise">Exercise</h2>
-<p>There are a lot of columns in our dataset, so let’s just look at the <code>sample_id</code>, <code>POS</code>, <code>QUAL</code>, and <code>POLPROB</code> columns for now. Add a line to the above code to only show those columns.</p>
+<p>There are a lot of columns in our dataset, so let’s just look at the
+<code>sample_id</code>, <code>POS</code>, <code>QUAL</code>, and
+<code>POLPROB</code> columns for now. Add a line to the above code to
+only show those columns.</p>
 <blockquote>
 <h2 id="solution-3">Solution</h2>
-<pre><code>variants %&gt;%
+<pre class="r"><code>variants %&gt;%
  mutate(POLPROB = 1 - 10 ^ -(QUAL/10)) %&gt;%
  select(sample_id, POS, QUAL, POLPROB)</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 801 × 4
    sample_id      POS  QUAL POLPROB
    &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
@@ -778,35 +852,43 @@ filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))<
  9 SRR2584863 2103887    56    1.00
 10 SRR2584863 2333538   167    1   
 # … with 791 more rows</code></pre>
-<p>{: .output}</p>
-<p>{: .solution} {: .challenge}</p>
 </blockquote>
 </blockquote>
 </div>
 <div id="group_by-and-summarize-functions" class="section level3">
 <h3>group_by() and summarize() functions</h3>
-<p>Many data analysis tasks can be approached using the “split-apply-combine” paradigm: split the data into groups, apply some analysis to each group, and then combine the results. <code>dplyr</code> makes this very easy through the use of the <code>group_by()</code> function, which splits the data into groups. When the data is grouped in this way <code>summarize()</code> can be used to collapse each group into a single-row summary. <code>summarize()</code> does this by applying an aggregating or summary function to each group. For example, if we wanted to group by sample_id and find the number of rows of data for each sample, we would do:</p>
-<pre><code>variants %&gt;%
+<p>Many data analysis tasks can be approached using the
+“split-apply-combine” paradigm: split the data into groups, apply some
+analysis to each group, and then combine the results. <code>dplyr</code>
+makes this very easy through the use of the <code>group_by()</code>
+function, which splits the data into groups. When the data is grouped in
+this way <code>summarize()</code> can be used to collapse each group
+into a single-row summary. <code>summarize()</code> does this by
+applying an aggregating or summary function to each group. For example,
+if we wanted to group by sample_id and find the number of rows of data
+for each sample, we would do:</p>
+<pre class="r"><code>variants %&gt;%
   group_by(sample_id) %&gt;%
   summarize(n())</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 3 × 2
   sample_id  `n()`
   &lt;chr&gt;      &lt;int&gt;
 1 SRR2584863    25
 2 SRR2584866   766
 3 SRR2589044    10</code></pre>
-<p>{: .output}</p>
-<p>It can be a bit tricky at first, but we can imagine physically splitting the data frame by groups and applying a certain function to summarize the data.</p>
+<p>It can be a bit tricky at first, but we can imagine physically
+splitting the data frame by groups and applying a certain function to
+summarize the data.</p>
 <center>
 <img src="images/split_apply_combine.png" alt="rstudio default session" style="width: 500px;"/>
 </center>
 <p><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-<p>Here the summary function used was <code>n()</code> to find the count for each group. Since this is a quite a common operation, there is a simpler method called <code>tally()</code>:</p>
-<pre><code>variants %&gt;%
+<p>Here the summary function used was <code>n()</code> to find the count
+for each group. Since this is a quite a common operation, there is a
+simpler method called <code>tally()</code>:</p>
+<pre class="r"><code>variants %&gt;%
   group_by(ALT) %&gt;%
   tally()</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 57 × 2
    ALT                                                          n
    &lt;chr&gt;                                                    &lt;int&gt;
@@ -821,11 +903,11 @@ filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))<
  9 AGGGGG                                                       2
 10 AGGGGGG                                                      2
 # … with 47 more rows</code></pre>
-<p>{: .output}</p>
-<p>To show that there are many ways to achieve the same results, there is another way to approach this, which bypasses <code>group_by()</code> using the function <code>count()</code>:</p>
-<pre><code>variants %&gt;%
+<p>To show that there are many ways to achieve the same results, there
+is another way to approach this, which bypasses <code>group_by()</code>
+using the function <code>count()</code>:</p>
+<pre class="r"><code>variants %&gt;%
   count(ALT)</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 57 × 2
    ALT                                                          n
    &lt;chr&gt;                                                    &lt;int&gt;
@@ -840,7 +922,6 @@ filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))<
  9 AGGGGG                                                       2
 10 AGGGGGG                                                      2
 # … with 47 more rows</code></pre>
-<p>{: .output}</p>
 <blockquote>
 <h2 id="challenge-2">Challenge</h2>
 <ul>
@@ -848,75 +929,95 @@ filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))<
 </ul>
 <blockquote>
 <h2 id="solution-4">Solution</h2>
-<pre><code>variants %&gt;%
+<pre class="r"><code>variants %&gt;%
   count(sample_id)</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 3 × 2
   sample_id      n
   &lt;chr&gt;      &lt;int&gt;
 1 SRR2584863    25
 2 SRR2584866   766
 3 SRR2589044    10</code></pre>
-<p>{: .output} {: .solution} {: .challenge}</p>
 </blockquote>
 </blockquote>
-<p>We can also apply many other functions to individual columns to get other summary statistics. For example,we can use built-in functions like <code>mean()</code>, <code>median()</code>, <code>min()</code>, and <code>max()</code>. These are called “built-in functions” because they come with R and don’t require that you install any additional packages. By default, all <strong>R functions operating on vectors that contains missing data will return NA</strong>. It’s a way to make sure that users know they have missing data, and make a conscious decision on how to deal with it. When dealing with simple statistics like the mean, the easiest way to ignore <code>NA</code> (the missing data) is to use <code>na.rm = TRUE</code> (<code>rm</code> stands for remove).</p>
-<p>So to view the mean, median, maximum, and minimum filtered depth (<code>DP</code>) for each sample:</p>
-<pre><code>variants %&gt;%
+<p>We can also apply many other functions to individual columns to get
+other summary statistics. For example,we can use built-in functions like
+<code>mean()</code>, <code>median()</code>, <code>min()</code>, and
+<code>max()</code>. These are called “built-in functions” because they
+come with R and don’t require that you install any additional packages.
+By default, all <strong>R functions operating on vectors that contains
+missing data will return NA</strong>. It’s a way to make sure that users
+know they have missing data, and make a conscious decision on how to
+deal with it. When dealing with simple statistics like the mean, the
+easiest way to ignore <code>NA</code> (the missing data) is to use
+<code>na.rm = TRUE</code> (<code>rm</code> stands for remove).</p>
+<p>So to view the mean, median, maximum, and minimum filtered depth
+(<code>DP</code>) for each sample:</p>
+<pre class="r"><code>variants %&gt;%
   group_by(sample_id) %&gt;%
   summarize(
     mean_DP = mean(DP),
     median_DP = median(DP),
     min_DP = min(DP),
     max_DP = max(DP))</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 3 × 5
   sample_id  mean_DP median_DP min_DP max_DP
   &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 1 SRR2584863    10.4      10        2     20
 2 SRR2584866    10.6      10        2     79
 3 SRR2589044     9.3       9.5      3     16</code></pre>
-<p>{: .output}</p>
 </div>
 <div id="reshaping-data-frames" class="section level3">
 <h3>Reshaping data frames</h3>
-<p>It can sometimes be useful to transform the “long” tidy format, into the wide format. This transformation can be done with the <code>pivot_wider()</code> function provided by the <code>tidyr</code> package (also part of the <code>tidyverse</code>).</p>
-<p><code>pivot_wider()</code> takes a data frame as the first argument, and two arguments: the column name that will become the columns and the column name that will become the cells in the wide data.</p>
-<pre><code>variants_wide &lt;- variants %&gt;%
+<p>It can sometimes be useful to transform the “long” tidy format, into
+the wide format. This transformation can be done with the
+<code>pivot_wider()</code> function provided by the <code>tidyr</code>
+package (also part of the <code>tidyverse</code>).</p>
+<p><code>pivot_wider()</code> takes a data frame as the first argument,
+and two arguments: the column name that will become the columns and the
+column name that will become the cells in the wide data.</p>
+<pre class="r"><code>variants_wide &lt;- variants %&gt;%
   group_by(sample_id, CHROM) %&gt;%
   summarize(mean_DP = mean(DP)) %&gt;%
   pivot_wider(names_from = sample_id, values_from = mean_DP)</code></pre>
-<p>{: .language-r}</p>
 <pre><code>`summarise()` has grouped output by &#39;sample_id&#39;. You can override using the `.groups` argument.</code></pre>
-<p>{: .output}</p>
-<pre><code>variants_wide</code></pre>
-<p>{: .language-r}</p>
+<pre class="r"><code>variants_wide</code></pre>
 <pre><code># A tibble: 1 × 4
   CHROM      SRR2584863 SRR2584866 SRR2589044
   &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
 1 CP000819.1       10.4       10.6        9.3</code></pre>
-<p>{: .output}</p>
-<p>The opposite operation of <code>pivot_wider()</code> is taken care by <code>pivot_longer()</code>. We specify the names of the new columns, and here add <code>-CHROM</code> as this column shouldn’t be affected by the reshaping:</p>
-<pre><code>variants_wide %&gt;%
+<p>The opposite operation of <code>pivot_wider()</code> is taken care by
+<code>pivot_longer()</code>. We specify the names of the new columns,
+and here add <code>-CHROM</code> as this column shouldn’t be affected by
+the reshaping:</p>
+<pre class="r"><code>variants_wide %&gt;%
   pivot_longer(-CHROM, names_to = &quot;sample_id&quot;, values_to = &quot;mean_DP&quot;)</code></pre>
-<p>{: .language-r}</p>
 <pre><code># A tibble: 3 × 3
   CHROM      sample_id  mean_DP
   &lt;chr&gt;      &lt;chr&gt;        &lt;dbl&gt;
 1 CP000819.1 SRR2584863    10.4
 2 CP000819.1 SRR2584866    10.6
 3 CP000819.1 SRR2589044     9.3</code></pre>
-<p>{: .output} ### Resources</p>
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
 <ul>
-<li><p><a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">Handy dplyr cheatsheet</a></p></li>
-<li><p><a href="http://usepa.github.io/introR/2015/01/14/03-Clean/">Much of this lesson was copied or adapted from Jeff Hollister’s materials</a></p></li>
+<li><p><a
+href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf">Handy
+dplyr cheatsheet</a></p></li>
+<li><p><a href="http://usepa.github.io/introR/2015/01/14/03-Clean/">Much
+of this lesson was copied or adapted from Jeff Hollister’s
+materials</a></p></li>
 </ul>
 </div>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
-<li id="fn1"><p>The figure was adapted from the Software Carpentry lesson, <a href="https://swcarpentry.github.io/r-novice-gapminder/13-dplyr/">R for Reproducible Scientific Analysis</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p>The figure was adapted from the Software Carpentry
+lesson, <a
+href="https://swcarpentry.github.io/r-novice-gapminder/13-dplyr/">R for
+Reproducible Scientific Analysis</a><a href="#fnref1"
+class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
