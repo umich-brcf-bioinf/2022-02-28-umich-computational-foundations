@@ -43,8 +43,7 @@ To add text to files, we're going to use a text editor called Nano. We're going 
 
 This is good practice when working in bioinformatics. We can create a file called `README.txt` that describes the data files in the directory or documents how the files in that directory were generated.  As the name suggests, it's a file that we or others should read to understand the information in that directory.
 
-Let's change our working directory to `~/shell_data/untrimmed_fastq` using `cd`,
-then run `nano` to create a file called `README.txt`:
+Let's change our working directory to `~/shell_data/untrimmed_fastq` using `cd`, then run `nano` to create a file called `README.txt`:
 
 ~~~
 $ cd ~/shell_data/untrimmed_fastq
@@ -84,14 +83,9 @@ The text at the bottom of the screen shows the keyboard shortcuts for performing
 
 <br>
 
-Let's type in a few lines of text. Describe what the files in this
-directory are or what you've been doing with them.
-Once we're happy with our text, we can press <kbd>Ctrl</kbd>-<kbd>O</kbd> (press the <kbd>Ctrl</kbd> or <kbd>Control</kbd> key and, while
-holding it down, press the <kbd>O</kbd> key) to write our data to disk. You'll be asked what file we want to save this to:
-press <kbd>Return</kbd> to accept the suggested default of `README.txt`.
+Let's type in a few lines of text. Describe what the files in this directory are or what you've been doing with them. Once we're happy with our text, we can press <kbd>Ctrl</kbd>-<kbd>O</kbd> (press the <kbd>Ctrl</kbd> or <kbd>Control</kbd> key and, while holding it down, press the <kbd>O</kbd> key) to write our data to disk. You'll be asked what file we want to save this to: press <kbd>Return</kbd> to accept the suggested default of `README.txt`.
 
-Once our file is saved, we can use <kbd>Ctrl</kbd>-<kbd>X</kbd> to quit the `nano` editor and
-return to the shell.
+Once our file is saved, we can use <kbd>Ctrl</kbd>-<kbd>X</kbd> to quit the `nano` editor and return to the shell.
 
 <br>
 
@@ -127,8 +121,7 @@ Open `README.txt` and add the date to the top of the file and save the file.
 <details>
 <summary>Solution - Editing with nano</summary>
 
-Use `nano README.txt` to open the file.  
-Add today's date and then use <kbd>Ctrl</kbd>-<kbd>X</kbd> followed by `y` and <kbd>Enter</kbd> to save.
+Use `nano README.txt` to open the file. Add today's date and then use <kbd>Ctrl</kbd>-<kbd>X</kbd> followed by `y` and <kbd>Enter</kbd> to save.
 
 </details>
 
@@ -236,31 +229,21 @@ You will learn more about writing scripts in [a later lesson](https://datacarpen
 
 ## Moving and Downloading Data
 
-So far, we've worked with data that is pre-loaded on the instance in the cloud. Usually, however,
-most analyses begin with moving data onto the instance. Below we'll show you some commands to
-download data onto your instance, or to move data between your computer and the cloud.
+So far, we've worked with data that is pre-loaded on the instance in the cloud. Usually, however, most analyses begin with moving data onto the instance. Below we'll show you some commands to download data onto your instance, or to move data between your computer and the cloud.
 
 <br>
 
 ### Getting data from the cloud
 
-There are two programs that will download data from a remote server to your local
-(or remote) machine: ``wget`` and ``curl``. They were designed to do slightly different
-tasks by default, so you'll need to give the programs somewhat different options to get
-the same behaviour, but they are mostly interchangeable.
+There are two programs that will download data from a remote server to your local (or remote) machine: ``wget`` and ``curl``. They were designed to do slightly different tasks by default, so you'll need to give the programs somewhat different options to get the same behaviour, but they are mostly interchangeable.
 
- - ``wget`` is short for "world wide web get", and it's basic function is to *download*
- web pages or data at a web address.
+ - ``wget`` is short for "world wide web get", and it's basic function is to *download*  web pages or data at a web address.
 
- - ``cURL`` is a pun, it is supposed to be read as "see URL", so its basic function is
- to *display* webpages or data at a web address.
+ - ``cURL`` is a pun, it is supposed to be read as "see URL", so its basic function is  to *display* webpages or data at a web address.
 
-Which one you need to use mostly depends on your operating system, as most computers will
-only have one or the other installed by default.
+Which one you need to use mostly depends on your operating system, as most computers will only have one or the other installed by default.
 
-Let's say you want to download some data from Ensembl. We're going to download a very small
-tab-delimited file that just tells us what data is available on the Ensembl bacteria server.
-Before we can start our download, we need to know whether we're using ``curl`` or ``wget``.
+Let's say you want to download some data from Ensembl. We're going to download a very small tab-delimited file that just tells us what data is available on the Ensembl bacteria server. Before we can start our download, we need to know whether we're using ``curl`` or ``wget``.
 
 To see which program you have, type:
 
@@ -269,10 +252,7 @@ $ which curl
 $ which wget
 ~~~
 
-``which`` is a BASH program that looks through everything you have
-installed, and tells you what folder it is installed to. If it can't
-find the program you asked for, it returns nothing, i.e. gives you no
-results.
+``which`` is a BASH program that looks through everything you have installed, and tells you what folder it is installed to. If it can't find the program you asked for, it returns nothing, i.e. gives you no results.
 
 On Mac OSX, you'll likely get the following output:
 
@@ -294,8 +274,7 @@ $
 
 This output means that you have ``curl`` installed, but not ``wget``.
 
-Once you know whether you have ``curl`` or ``wget``, use one of the
-following commands to download the file:
+Once you know whether you have ``curl`` or ``wget``, use one of the following commands to download the file:
 
 ~~~
 $ cd
@@ -309,25 +288,15 @@ $ cd
 $ curl -O ftp://ftp.ensemblgenomes.org/pub/release-37/bacteria/species_EnsemblBacteria.txt
 ~~~
 
-Since we wanted to *download* the file rather than just view it, we used ``wget`` without
-any modifiers. With ``curl`` however, we had to use the -O flag, which simultaneously tells ``curl`` to
-download the page instead of showing it to us **and** specifies that it should save the
-file using the same name it had on the server: species_EnsemblBacteria.txt
+Since we wanted to *download* the file rather than just view it, we used ``wget`` without any modifiers. With ``curl`` however, we had to use the -O flag, which simultaneously tells ``curl`` to download the page instead of showing it to us **and** specifies that it should save the file using the same name it had on the server: species_EnsemblBacteria.txt
 
-It's important to note that both ``curl`` and ``wget`` download to the computer that the
-command line belongs to. So, if you are logged into AWS on the command line and execute
-the ``curl`` command above in the AWS terminal, the file will be downloaded to your AWS
-machine, not your local one.
+It's important to note that both ``curl`` and ``wget`` download to the computer that the command line belongs to. So, if you are logged into AWS on the command line and execute the ``curl`` command above in the AWS terminal, the file will be downloaded to your AWS machine, not your local one.
 
 <br>
 
 ### Moving files between your laptop and your instance
 
-What if the data you need is on your local computer, but you need to get it *into* the
-cloud? There are also several ways to do this, but it's *always* easier
-to start the transfer locally. **This means if you're typing into a terminal, the terminal
-should not be logged into your instance, it should be showing your local computer. If you're
-using a transfer program, it needs to be installed on your local machine, not your instance.**
+What if the data you need is on your local computer, but you need to get it *into* the cloud? There are also several ways to do this, but it's *always* easier to start the transfer locally. **This means if you're typing into a terminal, the terminal should not be logged into your instance, it should be showing your local computer. If you're using a transfer program, it needs to be installed on your local machine, not your instance.**
 
 <br>
 <br>
@@ -346,16 +315,13 @@ These directions are platform specific, so please follow the instructions for yo
 
 ### Uploading Data to your Virtual Machine with scp
 
-`scp` stands for 'secure copy protocol', and is a widely used UNIX tool for moving files
-between computers. The simplest way to use `scp` is to run it in your local terminal,
-and use it to copy a single file:
+`scp` stands for 'secure copy protocol', and is a widely used UNIX tool for moving files between computers. The simplest way to use `scp` is to run it in your local terminal, and use it to copy a single file:
 
 ~~~
 scp <file I want to move> <where I want to move it>
 ~~~
 
-Note that you are always running `scp` locally, but that *doesn't* mean that
-you can only move files from your local computer. In order to move a file from your local computer to an AWS instance, the command would look like this:
+Note that you are always running `scp` locally, but that *doesn't* mean that you can only move files from your local computer. In order to move a file from your local computer to an AWS instance, the command would look like this:
 
 ~~~
 $ scp <local file> <AWS instance>
@@ -406,8 +372,7 @@ Remember that in both instances, the command is run from your local machine, we'
 
 ### Uploading Data to your Virtual Machine with PSCP
 
-If you're using a PC, we recommend you use the *PSCP* program. This program is from the same suite of
-tools as the PuTTY program we have been using to connect.
+If you're using a PC, we recommend you use the *PSCP* program. This program is from the same suite of tools as the PuTTY program we have been using to connect.
 
 1. If you haven't done so, download pscp from [http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe](http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe)
 2. Make sure the *PSCP* program is somewhere you know on your computer. In this case,
