@@ -336,7 +336,8 @@ simplify workshop setup requirements, and to get you familiar with using
 the cloud (a common requirement for working with big data). Visit the <a
 href="http://www.datacarpentry.org/genomics-workshop/setup.html">Genomics
 Workshop setup page</a> for details on getting this instance running on
-your own, or for the info you need to do this on your own computer.</p>
+your own, or for the info you need to do this on your own computer.
+<br></p>
 </blockquote>
 </div>
 <div id="a-brief-history-of-r" class="section level2">
@@ -382,7 +383,7 @@ and other areas of life science.</li>
 <h2 id="discussion-your-experience">Discussion: Your experience</h2>
 <p>What has motivated you to learn R? Have you had a research question
 for which spreadsheet programs such as Excel have proven difficult to
-use, or where the size of the data set created issues?</p>
+use, or where the size of the data set created issues? <br></p>
 </blockquote>
 </div>
 <div id="introducing-rstudio-server" class="section level2">
@@ -402,11 +403,8 @@ RStudio you could download as standalone software.</p>
 </div>
 <div id="log-on-to-rstudio-server" class="section level2">
 <h2>Log on to RStudio Server</h2>
-<p>Open a web browser and enter the URL you used to log in at the
-terminal (provided by your instructors), followed by <code>:8787</code>.
-For example, if your URL was ec2.12.2.45.678.compute-1.amazonaws.com,
-you should enter:</p>
-<pre><code>http://ec2.12.2.45.678.compute-1.amazonaws.com:8787</code></pre>
+<p>Open a web browser and enter the following URL.</p>
+<pre><code>http://bfx-workshop01.med.umich.edu</code></pre>
 <blockquote>
 <h2
 id="tip-make-sure-there-are-no-spaces-before-or-after-your-url-or-your-web-browser-may-interpret-it-as-a-search-query.">Tip:
@@ -417,8 +415,8 @@ browser may interpret it as a search query.</h2>
 the RStudio server:</p>
 <p><img src="images/rstudio_login_screen.png" alt="rstudio default session" style="width: 1000px;"/></p>
 <p>Enter your user credentials and click <kbd>Sign In</kbd>. The
-credentials for the genomics Data Carpentry instances will be provided
-by your instructors.</p>
+credentials were provided via email, but if you forget yours, a helper
+can retrieve it for you.</p>
 <p>You should now see the RStudio interface:</p>
 <p><img src="images/rstudio_session_default.png" alt="rstudio default session" style="width:1000px;"/></p>
 </div>
@@ -436,38 +434,29 @@ href="http://swcarpentry.github.io/git-novice/">git</a>.</li>
 </ul>
 <ol style="list-style-type: decimal">
 <li>To create a project, go to the <kbd>File</kbd> menu, and click
-<kbd>New Project…</kbd>.</li>
+<kbd>New Project…</kbd>. The following window will appear:</li>
 </ol>
 <p><img src="images/new_project_window.png" alt="rstudio default session" style="width: 600px;"/></p>
 <ol start="2" style="list-style-type: decimal">
-<li><p>In the window that opens select <strong>New Directory</strong>,
-then <strong>New Project</strong>. For “Directory name:” enter
-<strong>dc_genomics_r</strong>. For “Create project as subdirectory of”,
-click <kbd>Browse…</kbd> and then click <kbd>Choose</kbd> which will
-select your home directory “~”.</p></li>
+<li><p>In this window, select <strong>Existing Directory</strong>. For
+“Project working directory”, click <kbd>Browse…</kbd>, select the “CF_R”
+folder, and click <kbd>Choose</kbd>. This will use the
+<code>/home/user/CF_R</code> folder as the project directory.</p></li>
 <li><p>Finally click <kbd>Create Project</kbd>. In the “Files” tab of
 your output pane (more about the RStudio layout in a moment), you should
-see an RStudio project file, <strong>dc_genomics_r.Rproj</strong>. All
-RStudio projects end with the “<strong>.Rproj</strong>” file
-extension.</p></li>
+see an RStudio project file, <strong>CF_R.Rproj</strong>. All RStudio
+projects end with the “<strong>.Rproj</strong>” file extension.</p></li>
 </ol>
-<blockquote>
-<h2 id="tip-make-your-project-more-reproducible-with-renv">Tip: Make
-your project more reproducible with renv</h2>
-<p>One of the most wonderful and also frustrating aspects of working
-with R is managing packages. We will talk more about them, but packages
-(e.g. ggplot2) are add-ons that extend what you can do with R.
-Unfortunately it is very common that you may run into versions of R
-and/or R packages that are not compatible. This may make it difficult
-for someone to run your R script using their version of R or a given R
-package, and/or make it more difficult to run their scripts on your
-machine. <a href="https://rstudio.github.io/renv/">renv</a> is an
-RStudio add-on that will associate your packages and project so that
-your work is more portable and reproducible. To turn on renv click on
-the <KBD>Tools</KBD> menu and select <KBD>Project Options</KBD>. Under
-<strong>Enviornments</strong> check off “<strong>Use renv with this
-project</strong>” and follow any installation instructions.</p>
-</blockquote>
+<p>Note there are already some folders in this directory to help us
+organize our work.</p>
+<ul>
+<li><code>data/</code> is where any input data will go.</li>
+<li><code>docs/</code> is where any documentation will go.</li>
+<li><code>results/</code> is where figures, tables, and processed data
+will go.</li>
+<li><code>scripts/</code> is where files containing our analysis code
+will go.</li>
+</ul>
 </div>
 <div id="creating-your-first-r-script" class="section level2">
 <h2>Creating your first R script</h2>
@@ -478,10 +467,14 @@ script:</p>
 then <kbd>R Script</kbd>. Before we go any further, save your script by
 clicking the save/disk icon that is in the bar above the first line in
 the script editor, or click the <kbd>File</kbd> menu and select
-<kbd>save</kbd>. In the “Save File” window that opens, name your file
-<strong>“genomics_r_basics”</strong>. The new script
-<strong>genomics_r_basics.R</strong> should appear under “files” in the
-output pane. By convention, R scripts end with the file extension
+<kbd>Save</kbd>. In the “Save File” window that opens, name your file
+<strong>“r_basics”</strong> in the “File name” field, and double click
+the <code>scripts</code> folder to place the new R script there. The new
+script <strong>r_basics.R</strong> is now in the <code>scripts</code>
+folder. You can see that by clicking the <code>scripts</code> folder in
+the “Files” pane. And you can go back up to the main project folder by
+clicking the <code>..</code> to the right of the up arrow in the “Files”
+pane. By convention, R scripts end with the file extension
 <strong>.R</strong>.</p>
 </div>
 <div id="overview-and-customization-of-the-rstudio-layout"
@@ -520,9 +513,10 @@ outputs).</li>
 <blockquote>
 <h2 id="tip-uploads-and-downloads-in-the-cloud">Tip: Uploads and
 downloads in the cloud</h2>
-<p>In the “Files” tab you can select a file and download it from your
-cloud instance (click the “more” button) to your local computer. Uploads
-are also possible.</p>
+<p>In the “Files” tab you can select a file (using the check box to the
+left) and download it to your local computer by clicking <KBD>More</KBD>
+and then <KBD>Export</KBD>. Uploads are also possible with the
+<KBD>Upload</KBD> button.</p>
 </blockquote>
 <p>All of the panes in RStudio have configuration options. For example,
 you can minimize/maximize a pane, or by moving your mouse in the space
@@ -546,16 +540,16 @@ class="section level2">
 <h2>Getting to work with R: navigating directories</h2>
 <p>Now that we have covered the more aesthetic aspects of RStudio, we
 can get to work using some commands. We will write, execute, and save
-the commands we learn in our <strong>genomics_r_basics.R</strong> script
-that is loaded in the Source pane. First, lets see what directory we are
-in. To do so, type the following command into the script:</p>
+the commands we learn in our <strong>r_basics.R</strong> script that is
+loaded in the Source pane. First, lets see what directory we are in. To
+do so, type the following command into the script:</p>
 <pre class="r"><code>getwd()</code></pre>
 <p>To execute this command, make sure your cursor is on the same line
 the command is written. Then click the <KBD>Run</KBD> button that is
 just above the first line of your script in the header of the Source
 pane.</p>
 <p>In the console, we expect to see the following output*:</p>
-<pre><code>[1] &quot;/home/dcuser/dc_genomics_r&quot;</code></pre>
+<pre><code>[1] &quot;/home/user/CF_R&quot;</code></pre>
 <p>* Notice, at the Console, you will also see the instruction you
 executed above the output in blue.</p>
 <p>Since we will be learning several commands, we may already want to
@@ -571,18 +565,21 @@ getwd()</code></pre>
 in R</h2>
 <p>What happens when you try to enter the <code>getwd()</code> command
 in the Console pane?</p>
-<blockquote>
-<h2 id="solution">Solution</h2>
+</blockquote>
+<details>
+<summary>
+Solution
+</summary>
 <p>You will get the same output you did as when you ran
 <code>getwd()</code> from the source. You can run any command in the
 Console, however, executing it from the source script will make it
 easier for us to record what we have done, and ultimately run an entire
 script, instead of entering commands one-by-one.</p>
-</blockquote>
-</blockquote>
+</details>
+<p><br></p>
 <p>For the purposes of this exercise we want you to be in the directory
-<code>"/home/dcuser/R_data"</code>. What if you weren’t? You can set
-your home directory using the <code>setwd()</code> command. Enter this
+<code>"/home/user/CF_R"</code>. What if you weren’t? You can set your
+home directory using the <code>setwd()</code> command. Enter this
 command in your script, but <em>don’t run</em> this yet.</p>
 <pre class="r"><code># This sets the working directory
 setwd()</code></pre>
@@ -592,10 +589,10 @@ so, inside of the parentheses, open a set of quotes. Inside the quotes
 enter a <code>/</code> which is the root directory for Linux. Next, use
 the <KBD>Tab</KBD> key, to take advantage of RStudio’s
 Tab-autocompletion method, to select <code>home</code>,
-<code>dcuser</code>, and <code>dc_genomics_r</code> directory. The path
-in your script should look like this:</p>
+<code>user</code>, and <code>CF_R</code> directory. The path in your
+script should look like this:</p>
 <pre class="r"><code># This sets the working directory
-setwd(&quot;/home/dcuser/dc_genomics_r&quot;)</code></pre>
+setwd(&quot;/home/user/CF_r&quot;)</code></pre>
 <p>When you run this command, the console repeats the command, but gives
 you no output. Instead, you see the blank R prompt: <code>&gt;</code>.
 Congratulations! Although it seems small, knowing what your working
@@ -606,7 +603,7 @@ step to analyzing your data.</p>
 <p>Wait, what was the last 2 minutes about? Well, setting your working
 directory is something you need to do, you need to be very careful about
 using this as a step in your script. For example, what if your script is
-being on a computer that has a different directory structure? The
+being run on a computer that has a different directory structure? The
 top-level path in a Unix file system is root <code>/</code>, but on
 Windows it is likely <code>C:\</code>. This is one of several ways you
 might cause a script to break because a file path is configured
@@ -616,7 +613,7 @@ href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/file.pa
 allow you to specify file paths is a way that is more operating system
 independent. See Jenny Bryan’s <a
 href="https://www.tidyverse.org/articles/2017/12/workflow-vs-script/">blog
-post</a> for this and other R tips.</p>
+post</a> for this and other R tips. <br></p>
 </blockquote>
 </div>
 <div id="using-functions-in-r-without-needing-to-master-them"
@@ -635,8 +632,11 @@ you can guess what they do, and make sure to add comments to your script
 about your assumed purpose. - <code>dir()</code> -
 <code>sessionInfo()</code> - <code>date()</code> -
 <code>Sys.time()</code></p>
-<blockquote>
-<h2 id="solution-1">Solution</h2>
+</blockquote>
+<details>
+<summary>
+Solution
+</summary>
 <ul>
 <li><code>dir()</code> # Lists files in the working directory</li>
 <li><code>sessionInfo()</code> # Gives the version of R and additional
@@ -645,8 +645,8 @@ info including on attached packages</li>
 <li><code>Sys.time()</code> # Gives the current time</li>
 </ul>
 <p><em>Notice</em>: Commands are case sensitive!</p>
-</blockquote>
-</blockquote>
+</details>
+<p><br></p>
 <p>You have hopefully noticed a pattern - an R function has three key
 properties: - Functions have a name (e.g. <code>dir</code>,
 <code>getwd</code>); note that functions are case sensitive! - Following
@@ -690,13 +690,22 @@ order you saw when we used <code>args()</code>. In the case below that
 means that <code>x</code> is 3.14159 and digits is 2.</p>
 <pre class="r"><code>round(3.14159, 2)</code></pre>
 <pre><code>[1] 3.14</code></pre>
+<blockquote>
+<h2 id="tip-avoid-relying-on-positional-arguments">Tip: Avoid relying on
+positional arguments</h2>
+<p>For the <code>round()</code> example above, we only used two
+arguments, and their meaning is relatively clear. But functions can have
+many arguments, and your code will be more readable if you specify
+argument values along with argument names, as in
+<code>round(3.14159, digits = 2)</code>. <br></p>
+</blockquote>
 <p>Finally, what if you are using <code>?</code> to get help for a
 function in a package not installed on your system, such as when you are
 running a script which has dependencies.</p>
 <pre class="r"><code>?geom_point()</code></pre>
 <p>will return an error:</p>
-<pre><code>Error in .helpForCall(topicExpr, parent.frame()) :
-   no methods for ‘geom_point’ and no documentation for it as a function</code></pre>
+<pre><code>No documentation for ‘geom_point’ in specified packages and libraries:
+you could try ‘??geom_point’</code></pre>
 <p>Use two question marks (i.e. <code>??geom_point()</code>) and R will
 return results from a search of the documentation for packages you have
 installed on your computer in the “Help” tab. Finally, if you think
@@ -714,8 +723,11 @@ inside the function’s parentheses.</p>
 <li>Student t-test</li>
 <li>mixed linear model</li>
 </ul>
-<blockquote>
-<h2 id="solution-2">Solution</h2>
+</blockquote>
+<details>
+<summary>
+Solution
+</summary>
 <p>While your search results may return several tests, we list a few you
 might find:</p>
 <ul>
@@ -723,8 +735,8 @@ might find:</p>
 <li>Student t-test: <code>stats::t.test</code></li>
 <li>mixed linear model: <code>stats::lm.glm</code></li>
 </ul>
-</blockquote>
-</blockquote>
+</details>
+<p><br></p>
 <p>We will discuss more on where to look for the libraries and packages
 that contain functions you want to use. For now, be aware that two
 important ones are <a href="https://cran.r-project.org/">CRAN</a> - the
@@ -739,7 +751,8 @@ to remember all of the arguments and definitions associated with a given
 function. When you start typing the name of a function and hit the
 <KBD>Tab</KBD> key, RStudio will display functions and associated
 help:</p>
-<p><img src="images/studio_contexthelp1.png" alt="rstudio default session" style="width: 600px;"/></p>
+<p><img src="images/studio_contexthelp1.png" alt="rstudio default session" style="width: 600px;"/>
+<br></p>
 <p>Once you type a function, hitting the <KBD>Tab</KBD> inside the
 parentheses will show you the function’s arguments and provide
 additional help for each of these arguments.</p>
