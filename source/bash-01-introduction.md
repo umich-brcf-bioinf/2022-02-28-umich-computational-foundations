@@ -47,53 +47,31 @@ To save time, we are going to be working on a remote server where all the necess
 
 ## How to access the remote server
 
-You can log-in to the remote server using the instructions [here](http://www.datacarpentry.org/cloud-genomics/02-logging-onto-cloud/#logging-onto-a-cloud-instance). Your instructor will supply to you the `ip_address` and password that you need to login.
+You can log-in to the remote server using the instructions [here](http://www.datacarpentry.org/cloud-genomics/02-logging-onto-cloud/#logging-onto-a-cloud-instance). There is a drop-down menu where you can view instructions for connecting to the AWS instance from a Windows or Mac/Linux computer. Where it says `dc_user`, you should use your username. Anywhere that refers to `ip_address`, we'll use the following:
 
-Each of you will have a different `ip_address`. This will prevent us from accidentally changing each other's files as we work through the exercises. The password will be the same for everyone.
+~~~
+bfx-workshop01.med.umich.edu
+~~~
+
+For example, I'll use this command to connect to the AWS instance:
+
+~~~
+ssh trsaari@bfx-workshop01.med.umich.edu
+~~~
+
+You will need to use the password that you were provided before the workshop.
 
 After logging in, you will see a screen showing something like this:
 
 ~~~
-Welcome to Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-48-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com/
-
-  System information as of Sat Feb  2 00:08:17 UTC 2019
-
-  System load: 0.0                Memory usage: 5%   Processes:       82
-  Usage of /:  29.9% of 98.30GB   Swap usage:   0%   Users logged in: 0
-
-  Graph this data and manage this system at:
-    https://landscape.canonical.com/
-
-  Get cloud support with Ubuntu Advantage Cloud Guest:
-    http://www.ubuntu.com/business/services/cloud
-
-597 packages can be updated.
-444 updates are security updates.
-
-New release '16.04.5 LTS' available.
-Run 'do-release-upgrade' to upgrade to it.
-
-
-Last login: Fri Feb  1 22:34:53 2019 from c-73-116-43-163.hsd1.ca.comcast.net
+------------------------------------
+Welcome to Computational Foundations
+------------------------------------
+Last login: Tue Feb 1 07:56:36 2022 from 68.40.57.162
+trsaari@ip-172-31-28-61:~$
 ~~~
 
-This provides a lot of information about the remote server that you're logging into. We're not going to use most of this information for our workshop, so you can clear your screen using the `clear` command.
-
-Type the word `clear` into the terminal and press the `Enter` key.
-
-~~~
-$ clear
-~~~
-
-This will scroll your screen down to give you a fresh screen and will make it easier to read. You haven't lost any of the information on your screen. If you scroll up, you can see everything that has been output to your screen up until this point.
-
-<br>
-
-> Tip:
-> Hot-key combinations are shortcuts for performing common commands.
-> The hot-key combination for clearing the console is `Ctrl+L`. Feel free to try it and see for yourself.
+This shows our login message "Welcome to Computational Foundations", some information about our last login, and our prompt. We should take a moment to become familiar with the appearance of our remote shell.
 
 <br>
 <br>
