@@ -161,9 +161,9 @@ be happy to lend a hand to get things working.
        ------------------------------------
        YOUR_USERNAME@cf: $
 
-   If you see a the text above, you have successfully logged into the shared server. 
-   You can close this window by typing exit **exit** or simply closing the 
-   command window
+   If you see the text above, you have successfully logged into the shared server. 
+   (You can close this window by typing **exit** or simply closing the 
+   command window.)
 
 
 ### **Launch R/RStudio (from the web)**
