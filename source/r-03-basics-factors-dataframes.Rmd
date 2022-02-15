@@ -33,7 +33,7 @@ knitr_fig_path("03-")
 
 ## Working with spreadsheets (tabular data)
 
-A substantial amount of the data we work with in genomics will be tabular data, this is data arranged in rows and columns - also known as spreadsheets. We could write a whole lesson on how to work with spreadsheets effectively ([actually we did](https://datacarpentry.org/organization-genomics/)). For our purposes, we want to remind you of a few principles before we work with our first set of example data:
+A substantial amount of the data is tabular in form, this is data arranged in rows and columns - also known as spreadsheets. We could write a whole lesson on how to work with spreadsheets effectively ([actually we did](https://datacarpentry.org/organization-genomics/)). For our purposes, we want to remind you of a few principles before we work with our first set of example data:
 
 **1) Keep raw data separate from analyzed data**
 
@@ -62,44 +62,39 @@ There are several ways to import data into R. For our purpose here, we will focu
 >
 > *Hint*: Entering '?' before the function name and then running that line will bring up the help documentation. Also, when reading this particular help be careful to pay attention to the 'read.csv' expression under the 'Usage' heading. Other answers will be in the 'Arguments' heading.
 >
-> A) What is the default parameter for 'header' in the `read.csv()` function?
->
-> B) What argument would you have to change to read a file that was delimited by semicolons (;) rather than commas?
->
-> C) What argument would you have to change to read file in which numbers used commas for decimal separation (i.e. 1,00)?
->
-> D) What argument would you have to change to read in only the first 10,000 rows of a very large file?
->
->> ## Solution
->>
->> A) The `read.csv()` function has the argument 'header' set to TRUE by default, this means the function always assumes the first row is header information, (i.e. column names)
->>
->> B) The `read.csv()` function has the argument 'sep' set to ",". This means the function assumes commas are used as delimiters, as you would expect. Changing this parameter (e.g. `sep=";"`) would now interpret semicolons as delimiters.
->>
->> C) Although it is not listed in the `read.csv()` usage, `read.csv()` is a "version" of the function `read.table()` and accepts all its arguments. If you set `dec=","` you could change the decimal operator. We'd probably assume the delimiter is some other character.
->>
->> D) You can set `nrow` to a numeric value (e.g. `nrow=10000`) to choose how many rows of a file you read in. This may be useful for very large files where not all the data is needed to test some data cleaning steps you are applying.
->>
->> Hopefully, this exercise gets you thinking about using the provided help documentation in R. There are many arguments that exist, but which we wont have time to cover. Look here to get familiar with functions you use frequently, you may be surprised at what you find they can do.
->
+> 1. What is the default parameter for 'header' in the `read.csv()` function?
+> 2. What argument would you have to change to read a file that was delimited by semicolons (;) rather than commas?
+> 3. What argument would you have to change to read file in which numbers used commas for decimal separation (i.e. 1,00)?
+> 4. What argument would you have to change to read in only the first 10,000 rows of a very large file?
 
+<details>
+<summary>Solution</summary>
 
-Now, let's read in the file `combined_tidy_vcf.csv` which will be located in `/home/dcuser/r_data/`. Call this data `variants`. The first argument to pass to our `read.csv()` function is the file path for our data. The file path must be in quotes and now is a good time to remember to use tab autocompletion. **If you use tab autocompletion you avoid typos and errors in file paths.** Use it!
+1. The `read.csv()` function has the argument 'header' set to TRUE by default, this means the function always assumes the first row is header information, (i.e. column names)
+2. The `read.csv()` function has the argument 'sep' set to ",". This means the function assumes commas are used as delimiters, as you would expect. Changing this parameter (e.g. `sep=";"`) would now interpret semicolons as delimiters.
+3. Although it is not listed in the `read.csv()` usage, `read.csv()` is a "version" of the function `read.table()` and accepts all its arguments. If you set `dec=","` you could change the decimal operator. We'd probably assume the delimiter is some other character.
+4. You can set `nrow` to a numeric value (e.g. `nrow=10000`) to choose how many rows of a file you read in. This may be useful for very large files where not all the data is needed to test some data cleaning steps you are applying.
+
+Hopefully, this exercise gets you thinking about using the provided help documentation in R. There are many arguments that exist, but which we wont have time to cover. Look here to get familiar with functions you use frequently, you may be surprised at what you find they can do.
+</details>
+<br>
+
+Now, let's read in the file `data/gapminder_data.csv` which will be located in `/home/user/CF_R/data/gapminder_data.csv`. Call this data `gapminder`. The first argument to pass to our `read.csv()` function is the file path for our data. The file path must be in quotes and now is a good time to remember to use tab autocompletion. **If you use tab autocompletion you avoid typos and errors in file paths.** Use it!
 
 ```{r, eval = FALSE, purl = FALSE}
-## read in a CSV file and save it as 'variants'
+## read in a CSV file and save it as 'gapminder'
 
-variants <- read.csv("/home/dcuser/r_data/combined_tidy_vcf.csv")
+gapminder <- read.csv("/home/user/CF_R/data/gapminder_data.csvdata/gapminder_data.csv")
 ```
 
 
 ```{r, echo = FALSE, eval = TRUE, purl = FALSE}
 ## silently read in CSV file from FigShare
 
-variants <- read.csv("https://ndownloader.figshare.com/files/14632895")
+gapminder <- read.csv("/home/workshop/rcavalca/CF_R/data/gapminder_data.csv")
 ```
 
-One of the first things you should notice is that in the Environment window, you have the `variants` object, listed as 801 obs. (observations/rows) of 29 variables (columns). Double-clicking on the name of the object will open a view of the data in a new tab.
+One of the first things you should notice is that in the Environment window, you have the `gapminder` object, listed as 1704 obs. (observations/rows) of 6 variables (columns). Double-clicking on the name of the object will open a view of the data in a new tab.
 
 <img src="images/rstudio_dataframeview.png" alt="rstudio data frame view" style="width: 1000px;"/>
 
@@ -110,17 +105,17 @@ A **data frame is the standard way in R to store tabular data**. A data fame cou
 ```{r, purl = FALSE}
 ## get summary statistics on a data frame
 
-summary(variants)
+summary(gapminder)
 ```
 
-Our data frame had 29 variables, so we get 29 fields that summarize the data. The `QUAL`, `IMF`, and `VDB` variables (and several others) are numerical data and so you get summary statistics on the min and max values for these columns, as well as mean, median, and interquartile ranges. Many of the other variables (e.g. `sample_id`) are treated as characters data (more on this in a bit).
+Our data frame had 6 variables, so we get 6 fields that summarize the data. The `year`, `pop`, `lifeExp` and `gyearPercap` variables are numerical data and so you get summary statistics on the min and max values for these columns, as well as mean, median, and interquartile ranges. The other variables, `country` and `continent`, are treated as characters data (more on this in a bit).
 
 There is a lot to work with, so we will subset the first three columns into a new data frame using the `data.frame()` function.
 
 ```{r, purl = FALSE}
-## put the first three columns of variants into a new data frame called subset
+## put the first three columns of gapminder into a new data frame called subset
 
-subset<-data.frame(variants[,c(1:3,6)])
+subset <- data.frame(gapminder[,c(1:3,6)])
 ```
 
 Now, let's use the `str()` (structure) function to look a little more closely at how data frames work:
@@ -133,99 +128,107 @@ str(subset)
 
 Ok, thats a lot up unpack! Some things to notice.
 
-- the object type `data.frame` is displayed in the first row along with its dimensions, in this case 801 observations (rows) and 4 variables (columns)
-- Each variable (column) has a name (e.g. `sample_id`). This is followed by the object mode (e.g. chr, int, etc.). Notice that before each variable name there is a `$` - this will be important later.
+- the object type `data.frame` is displayed in the first row along with its dimensions, in this case 1704 observations (rows) and 4 variables (columns)
+- Each variable (column) has a name (e.g. `country`). This is followed by the object mode (e.g. chr, int, etc.). Notice that before each variable name there is a `$` - this will be important later.
 
 ## Introducing Factors
 
 Factors are the final major data structure we will introduce in our R genomics lessons. Factors can be thought of as vectors which are specialized for categorical data. Given R's specialization for statistics, this make sense since categorial and continuous variables are usually treated differently. Sometimes you may want to have data treated as a factor, but in other cases, this may be undesirable.
 
-Let's see the value of treating some of which are categorical in nature as factors. Let's take a look at just the alternate alleles
+Let's see the value of treating variables, some of which are categorical in nature, as factors. Let's take a look at just the continents.
 
 ```{r, purl = FALSE}
-## extract the "ALT" column to a new object
+## extract the "continent" column to a new object
 
-alt_alleles <- subset$ALT
+continents <- gapminder$continent
 ```
 
-Let's look at the first few items in our factor using `head()`:
+Let's take a look at continents and see what we get:
 
 ```{r, purl = FALSE}
-head(alt_alleles)
+continents
 ```
 
-There are 801 alleles (one for each row). To simplify, lets look at just the single-nuleotide alleles (SNPs). We can use some of the vector indexing skills from the last episode.
+There are 1704 continents (one for each row), and it looks like a lot of them are repeated. Let's determine what the unique values are.
 
 ```{r, purl = FALSE}
-snps <- c(alt_alleles[alt_alleles=="A"],
-  alt_alleles[alt_alleles=="T"],
-  alt_alleles[alt_alleles=="G"],
-  alt_alleles[alt_alleles=="C"])
+unique(continents)
 ```
 
-This leaves us with a vector of the 701 alternative alleles which were single nucleotides. Right now, they are being treated a characters, but we could treat them as categories of SNP. Doing this will enable some nice features. For example, we can try to generate a plot of this character vector as it is right now:
+This leaves us with just 5 continents. Right now, they are being treated as characters, but we could treat them as categories (after all, the name and number of continents is fixed). Doing this will have some nice downstream effects. Let's try to generate a plot of the `continents` character vector as it is right now:
 
-```{r, purl = FALSE, fig.show='hide'}
-# plot(snps)
+```{r, error = TRUE, purl = FALSE, fig.show='hide'}
+plot(continents)
 ```
 
-Whoops! Though the `plot()` function will do its best to give us a quick plot, it is unable to do so here. One way to fix this it to tell R to treat the SNPs as categories (i.e. a factor vector); we will create a new object to avoid confusion using the `factor()` function:
+Whoops! Though the `plot()` function will do its best to give us a quick plot, it is unable to do so here. One way to fix this it to tell R to treat the continents as categories (i.e. a factor vector); we will create a new object to avoid confusion using the `factor()` function:
 
 ```{r, purl = FALSE}
-factor_snps <- factor(snps)
+factor_continents <- factor(continents)
 ```
 
 Let's learn a little more about this new type of vector:
 
 
 ```{r, purl = FALSE}
-str(factor_snps)
+str(factor_continents)
 ```
 
-What we get back are the categories ("A","C","G","T") in our factor; these are called "Levels". **Levels are the different categories contained in a factor**. By default, R will organize the levels in a factor in alphabetical order. So the first level in this factor is "A".
+The categories ("Africa", "Americas", etc.) of the factor are returned; these are called "Levels". **Levels are the different categories contained in a factor**. By default, R will organize the levels in a factor in alphabetical order. So the first level in this factor is "Africa".
 
-For the sake of efficiency, R stores the content of a factor as a vector of integers, which an integer is assigned to each of the possible levels. Recall levels are assigned in alphabetical order. In this case, the first item in our `factor_snps` object is "A", which happens to be the 1st level of our factor, ordered alphabetically. This explains the sequence of "1"s ("Factor w/ 4 levels "A","C","G","T": 1 1 1 1 1 1 1 1 1 1 ..."), since "A" is the first level, and the first few items in our factor are all "A"s.
+For the sake of efficiency, R stores the content of a factor as a vector of integers, where an integer is assigned to each of the possible levels. We can see that by the output:
+
+~~~
+Factor w/ 5 levels "Africa","Americas",..: 3 3 3 3 3 3 3 3 3 3 ...
+~~~
+
+But why does `str()` display `3 3 3 3 3 ...`? Let's take a look at the head of `factor_continents`:
+
+```{r, purl = FALSE}
+head(factor_continents)
+```
+
+We see repeated values of "Asia". Notice the levels of the factor are also displayed, and "Asia" is the third in the list, hence the 3.
 
 We can see how many items in our vector fall into each category:
 
 ```{r, purl = FALSE}
-summary(factor_snps)
+summary(factor_continents)
 ```
 
-As you can imagine, this is already useful when you want to generate a tally.
-
+As you can imagine, this is useful when you want to generate a tally.
 
 > ## Tip: treating objects as categories without changing their mode
 >
-> You don't have to make an object a factor to get the benefits of treating an object as a factor. See what happens when you use the `as.factor()` function on `factor_snps`. To generate a tally, you can sometimes also use the `table()` function; though sometimes you may need to combine both (i.e. `table(as.factor(object))`)
+> You don't have to make an object a factor to get the benefits of treating an object as a factor. See what happens when you use the `as.factor()` function on `continents`. To generate a tally, you can sometimes also use the `table()` function; though sometimes you may need to combine both (i.e. `table(as.factor(object))`)
 
 ## Plotting and ordering factors
 
-One of the most common uses for factors will be when you plot categorical values. For example, suppose we want to know how many of our variants had each possible SNP we could generate a plot:
+One of the most common uses for factors will be when you plot categorical values. For example, suppose we want to know how many of our gapminder had each possible SNP we could generate a plot:
 
 ```{r, purl = FALSE}
-plot(factor_snps)
+plot(factor_continents)
 ```
 
-This isn't a particularly pretty example of a plot but it works. We'll be learning much more about creating nice, publication-quality graphics later in this lesson.
+This isn't a particularly spectacular example of a plot but it works, and it recapitulates the table from `summary()`. We'll be learning much more about creating nice, publication-quality graphics later in this lesson.
 
-If you recall, factors are ordered alphabetically. That might make sense, but categories (e.g., "red", "blue", "green") often do not have an intrinsic order. What if we wanted to order our plot according to the numerical value (i.e., in descending order of SNP frequency)? We can enforce an order on our factors:
+If you recall, factors are ordered alphabetically. That might make sense, but categories (e.g., "red", "blue", "green") often do not have an intrinsic order. What if we wanted to order our plot according to the numerical value (i.e., in ascending order of continent frequency)? We can enforce an order on our factors:
 
 ```{r, purl = FALSE}
-ordered_factor_snps <- factor(factor_snps, levels = names(sort(table(factor_snps))))
+ordered_factor_continents <- factor(factor_continents, levels = names(sort(table(factor_continents))))
 ```
 
 Let's deconstruct this from the inside out (you can try each of these commands to see why this works):
 
-1. We create a table of `factor_snps` to get the frequency of each SNP: `table(factor_snps)`
-2. We sort this table: `sort(table(factor_snps))`; use the `decreasing =` parameter for this function if you wanted to change from the default of FALSE
-3. Using the `names` function gives us just the character names of the table sorted by frequencies:`names(sort(table(factor_snps)))`
-4. The `factor` function is what allows us to create a factor. We give it the `factor_snps` object as input, and use the `levels=` parameter to enforce the ordering of the levels.
+1. We create a table of `factor_continents` to get the frequency of each continent: `table(factor_continents)`
+2. We sort this table: `sort(table(factor_continents))`; use the `decreasing =` parameter for this function if you wanted to change from the default of FALSE
+3. Using the `names` function gives us just the character names of the table sorted by frequencies:`names(sort(table(factor_continents)))`
+4. The `factor` function is what allows us to create a factor. We give it the `factor_continents` object as input, and use the `levels=` parameter to enforce the ordering of the levels.
 
 Now we see our plot has be reordered:
 
 ```{r, purl = FALSE}
-plot(ordered_factor_snps)
+plot(ordered_factor_continents)
 ```
 
 Factors come in handy in many places when using R. Even using more sophisticated plotting packages such as ggplot2 will sometimes require you to understand how to manipulate factors.
@@ -238,109 +241,90 @@ The first thing to remember is that a data frame is two-dimensional (rows and co
 
 > ## Exercise: Subsetting a data frame
 >
-> **Try the following indices and functions and try to figure out what they return**
+> Try the following indices and functions and try to figure out what they return.
 >
-> a. `variants[1,1]`
+> 1. `gapminder[1,1]`
+> 2. `gapminder[2,4]`
+> 3. `gapminder[801,29]`
+> 4. `gapminder[2, ]`
+> 5. `gapminder[-1, ]`
+> 6. `gapminder[1:4,1]`
+> 7. `gapminder[1:10, c("country","continent")]`
+> 8. `gapminder[,c("country")]`
+> 9. `head(gapminder)`
+> 10. `tail(gapminder)`
+> 11. `gapminder$country`
+> 12. `gapminder[gapminder$country == "Italy",]`
 >
-> b. `variants[2,4]`
->
-> c. `variants[801,29]`
->
-> d. `variants[2, ]`
->
-> e. `variants[-1, ]`
->
-> f. `variants[1:4,1]`
->
-> g. `variants[1:10,c("REF","ALT")]`
->
-> h. `variants[,c("sample_id")]`
->
-> i. `head(variants)`
->
-> j. `tail(variants)`
->
-> k. `variants$sample_id`
->
-> l. `variants[variants$REF == "A",]`
->
->> ## Solution
->> a.
->> ```{r}
->> variants[1,1]
->> ```
->>
->> b.
->> ```{r}
->> variants[2,4]
->> ```
->>
->> c.
->> ```{r}
->> variants[801,29]
->> ```
->>
->> d.
->> ```{r}
->> variants[2, ]
->> ```
->>
->> e.
->> ```{r, echo = TRUE, eval = FALSE}
->> variants[-1, ]
->> ```
->>
->> ```{r, echo = FALSE, eval = TRUE}
->> head(variants[-1, ])
->> ```
->>
->> f.
->> ```{r}
->> variants[1:4,1]
->> ```
->>
->> g.
->> ```{r}
->> variants[1:10,c("REF","ALT")]
->> ```
->>
->> h.
->> ```{r, echo = TRUE, eval = FALSE}
->> variants[,c("sample_id")]
->> ```
->>
->> ```{r, echo = FALSE, eval = TRUE}
->> head(variants[,c("sample_id")])
->> ```
->>
->> i.
->> ```{r}
->> head(variants)
->> ```
->>
->> j.
->> ```{r}
->> tail(variants)
->> ```
->>
->> k.
->> ```{r, echo = TRUE, eval = FALSE}
->> variants$sample_id
->> ```
->>
->> ```{r, echo = FALSE, eval = TRUE}
->> head(variants$sample_id)
->> ```
->>
->> l.
->> ```{r, echo = TRUE, eval = FALSE}
->> variants[variants$REF == "A",]
->> ```
->>
->> ```{r, echo = FALSE, eval = TRUE}
->> head(variants[variants$REF == "A",])
->> ```
->
+<details>
+<summary>Solution</summary>
+
+1.
+```{r}
+gapminder[1,1]
+```
+2.
+```{r}
+gapminder[2,4]
+```
+3.
+```{r}
+gapminder[801,29]
+```
+4.
+```{r}
+gapminder[2, ]
+```
+5.
+```{r, echo = TRUE, eval = FALSE}
+gapminder[-1, ]
+```
+
+```{r, echo = FALSE, eval = TRUE}
+head(gapminder[-1, ])
+```
+6.
+```{r}
+gapminder[1:4,1]
+```
+7.
+```{r}
+gapminder[1:10, c("country","continent")]
+```
+8.
+```{r, echo = TRUE, eval = FALSE}
+gapminder[,c("country")]
+```
+
+```{r, echo = FALSE, eval = TRUE}
+head(gapminder[,c("country")])
+```
+9.
+```{r}
+head(gapminder)
+```
+10.
+```{r}
+tail(gapminder)
+```
+11..
+```{r, echo = TRUE, eval = FALSE}
+gapminder$country
+```
+
+```{r, echo = FALSE, eval = TRUE}
+head(gapminder$country)
+```
+12.
+```{r, echo = TRUE, eval = FALSE}
+gapminder[gapminder$country == "Italy",]
+```
+
+```{r, echo = FALSE, eval = TRUE}
+head(gapminder[gapminder$country == "Italy",])
+```
+</details>
+<br>
 
 
 The subsetting notation is very similar to what we learned for vectors. The key differences include:
@@ -353,24 +337,24 @@ The subsetting notation is very similar to what we learned for vectors. The key 
 Finally, in all of the subsetting exercises above, we printed values to the screen. You can create a new data frame object by assigning them to a new object name:
 
 ```{r, purl = FALSE}
-# create a new data frame containing only observations from SRR2584863
+# create a new data frame containing only observations from India
 
-SRR2584863_variants <- variants[variants$sample_id == "SRR2584863",]
+india_gapminder <- gapminder[gapminder$country == "India",]
 
 # check the dimension of the data frame
 
-dim(SRR2584863_variants)
+dim(india_gapminder)
 
 # get a summary of the data frame
 
-summary(SRR2584863_variants)
+summary(india_gapminder)
 ```
 
 ## Coercing values in data frames
 
 > ## Tip: coercion isn't limited to data frames
 >
-> While we are going to address coercion in the context of data frames most of these methods apply to other data structures, such as vectors
+> While we are going to address coercion in the context of data frames most of these methods apply to other data structures, such as vectors, as we saw when we coerced a character vector into a factor vector.
 
 
 Sometimes, it is possible that R will misinterpret the type of data represented in a data frame, or store that data in a mode which prevents you from operating on the data the way you wish. For example, a long list of gene names isn't usually thought of as a categorical variable, the way that your experimental condition (e.g. control, treatment) might be. More importantly, some R packages you use to analyze your data may expect characters as input, not factors. At other times (such as plotting or some statistical analyses) a factor may be more appropriate. Ultimately, you should know how to change the mode of an object.
@@ -421,7 +405,7 @@ snp_chromosomes_2
 Trouble can really start when we try to coerce a factor. For example, when we try to coerce the `sample_id` column in our data frame into a numeric mode look at the result:
 
 ```{r, purl = FALSE}
-as.numeric(variants$sample_id)
+as.numeric(gapminder$country)
 ```
 
 Strangely, it works! Almost. Instead of giving an error message, R returns numeric values, which in this case are the integers assigned to the levels in this factor. This kind of behavior can lead to hard-to-find bugs, for example when we do have numbers in a factor, and we get numbers from a coercion. If we don't look carefully, we may not notice a problem.
@@ -431,10 +415,10 @@ If you need to coerce an entire column you can overwrite it using an expression 
 ```{r, purl = FALSE}
 # make the 'REF' column a character type column
 
-variants$REF <- as.character(variants$REF)
+gapminder$REF <- as.character(gapminder$REF)
 
 # check the type of the column
-typeof(variants$REF)
+typeof(gapminder$REF)
 ```
 
 ## StringsAsFactors = ?
@@ -451,56 +435,56 @@ Lets summarize this section on coercion with a few take home messages.
 > Prior to R 4.0 when importing a data frame using any one of the `read.table()` functions such as `read.csv()` , the argument `StringsAsFactors` was by default set to true TRUE. Setting it to FALSE will treat any non-numeric column to a character type. `read.csv()` documentation, you will also see you can explicitly type your columns using the `colClasses` argument. Other R packages (such as the Tidyverse "readr") don't have this particular conversion issue, but many packages will still try to guess a data type.
 
 
-
 ## Data frame bonus material: math, sorting, renaming
 
 Here are a few operations that don't need much explanation, but which are good to know.
 
 There are lots of arithmetic functions you may want to apply to your data frame, covering those would be a course in itself (there is some starting material [here](https://swcarpentry.github.io/r-novice-inflammation/15-supp-loops-in-depth/)). Our lessons will cover some additional summary statistical functions in a subsequent lesson, but overall we will focus on data cleaning and visualization.
 
-You can use functions like `mean()`, `min()`, `max()` on an individual column. Let's look at the "DP" or filtered depth. This value shows the number of filtered reads that support each of the reported variants.
+You can use functions like `mean()`, `min()`, `max()` on an individual column. Let's look at the "year" or filtered depth. This value shows the number of filtered reads that support each of the reported gapminder.
 
 ```{r, purl = FALSE}
-max(variants$DP)
+max(gapminder$year)
 ```
 
 You can sort a data frame using the `order()` function:
 
 ```{r, purl = FALSE}
-sorted_by_DP <- variants[order(variants$DP), ]
-head(sorted_by_DP$DP)
+sorted_by_year <- gapminder[order(gapminder$year), ]
+head(sorted_by_year$year)
 ```
 
 
 > ## Exercise
 >
-> The `order()` function lists values in increasing order by default. Look at the documentation for this function and change `sorted_by_DP` to start with variants with the greatest filtered depth ("DP").
->
-> > ## Solution
-> > ```{r, purl = FALSE}
-> >    sorted_by_DP <- variants[order(variants$DP, decreasing = TRUE), ]
-> >    head(sorted_by_DP$DP)
-> > ```
->
+> The `order()` function lists values in increasing order by default. Look at the documentation for this function and change `sorted_by_year` to start have the latest year at the top.
 
+<details>
+<summary>Solution</summary>
 
-
+```{r, purl = FALSE}
+sorted_by_year <- gapminder[order(gapminder$year, decreasing = TRUE), ]
+head(sorted_by_year$year)
+```
+</details>
+<br>
 
 You can rename columns:
 
 ```{r, purl = FALSE}
-colnames(variants)[colnames(variants) == "sample_id"] <- "strain"
+colnames(gapminder)[colnames(gapminder) == "lifeExp"] <- "life_exp"
+colnames(gapminder)[colnames(gapminder) == "gdpPercap"] <- "gdp_per_cap"
 
 # check the column name (hint names are returned as a vector)
-colnames(variants)
+colnames(gapminder)
 ```
 
 ## Saving your data frame to a file
 
-We can save data to a file. We will save our `SRR2584863_variants` object to a .csv file using the `write.csv()` function:
+We can save data to a file. We will save our `india_gapminder` object to a .csv file using the `write.csv()` function:
 
 ```{r, purl = FALSE}
-write.csv(SRR2584863_variants, file = "../data/SRR2584863_variants.csv")
+write.csv(india_gapminder, file = "../data/india_gapminder.csv")
 ```
 
 The `write.csv()` function has some additional arguments listed in the help, but at a minimum you need to tell it what data frame to write to file, and give a path to a file name in quotes (if you only provide a file name, the file will be written in the current working directory).
@@ -536,37 +520,33 @@ Ecoli_metadata <- readxl::read_xlsx("Ecoli_metadata.xlsx")
 head(Ecoli_metadata)
 ```
 
-The type of this object is 'tibble', a type of data frame we will talk more about in the 'dplyr' section. If you needed a true R data frame you could coerce with `as.data.frame()`.
+The type of this object is 'tibble', a type of data frame we will talk more about in the 'yearlyr' section. If you needed a true R data frame you could coerce with `as.data.frame()`.
 
 > ## Exercise: Putting it all together - data frames
 >
 > **Using the `Ecoli_metadata` data frame created above, answer the following questions**
 >
-> A) What are the dimensions (# rows, # columns) of the data frame?
->
-> B) What are categories are there in the `cit` column? *hint*: treat column as factor
->
-> C) How many of each of the `cit` categories are there?
->
-> D) What is the genome size for the 7th observation in this data set?
->
-> E) What is the median value of the variable `genome_size`
->
-> F) Rename the column `sample` to `sample_id`
->
-> G) Create a new column (name genome_size_bp) and set it equal to the genome_size multiplied by 1,000,000
->
-> H) Save the edited Ecoli_metadata data frame as "exercise_solution.csv" in your current working directory.
->
->> ## Solution
->> ```{r, purl = FALSE}
->> dim(Ecoli_metadata)
->> levels(as.factor(Ecoli_metadata$cit))
->> table(as.factor(Ecoli_metadata$cit))
->> Ecoli_metadata[7,7]
->> median(Ecoli_metadata$genome_size)
->> colnames(Ecoli_metadata)[colnames(Ecoli_metadata) == "sample"] <- "sample_id"
->> Ecoli_metadata$genome_size_bp <- Ecoli_metadata$genome_size * 1000000
->> write.csv(Ecoli_metadata, file = "exercise_solution.csv")
->> ```
->
+> 1. What are the dimensions (# rows, # columns) of the data frame?
+> 2. What are categories are there in the `cit` column? *hint*: treat column as factor
+> 3. How many of each of the `cit` categories are there?
+> 4. What is the genome size for the 7th observation in this data set?
+> 5. What is the median value of the variable `genome_size`
+> 6. Rename the column `sample` to `sample_id`
+> 7. Create a new column (name genome_size_bp) and set it equal to the genome_size multiplied by 1,000,000
+> 8. Save the edited Ecoli_metadata data frame as "exercise_solution.csv" in your current working directory.
+
+<details>
+<summary>Solution</summary>
+
+```{r, purl = FALSE}
+dim(Ecoli_metadata)
+levels(as.factor(Ecoli_metadata$cit))
+table(as.factor(Ecoli_metadata$cit))
+Ecoli_metadata[7,7]
+median(Ecoli_metadata$genome_size)
+colnames(Ecoli_metadata)[colnames(Ecoli_metadata) == "sample"] <- "sample_id"
+Ecoli_metadata$genome_size_bp <- Ecoli_metadata$genome_size * 1000000
+write.csv(Ecoli_metadata, file = "exercise_solution.csv")
+```
+</details>
+<br>
