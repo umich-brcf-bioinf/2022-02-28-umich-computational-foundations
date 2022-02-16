@@ -6,7 +6,7 @@
 
 library("knitr")
 
-fix_fig_path <- function(pth) file.path("..", pth)
+fix_fig_path <- function(pth) file.path(pth)
 
 
 ## We set the path for the figures globally below, so if we want to
@@ -15,7 +15,7 @@ fix_fig_path <- function(pth) file.path("..", pth)
 ## first episode of the lesson, it will generate the figures in
 ## `fig/rmd-01-`
 knitr_fig_path <- function(prefix) {
-    new_path <- paste0(opts_chunk$get("fig.path"),
+    new_path <- paste0('fig/',
                       prefix)
     opts_chunk$set(fig.path = new_path)
 }

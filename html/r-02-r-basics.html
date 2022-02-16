@@ -631,7 +631,7 @@ pilot &lt;- Earhart</code></pre>
 <pre class="r"><code>mode(spock)</code></pre>
 <pre><code>[1] &quot;logical&quot;</code></pre>
 <pre class="r"><code>mode(pilot)</code></pre>
-<pre><code>[1] &quot;character&quot;</code></pre>
+<pre><code>Error in mode(pilot): object &#39;pilot&#39; not found</code></pre>
 </details>
 <p><br></p>
 <p>Notice from the solution that even if a series of numbers is given as
@@ -1013,7 +1013,8 @@ country_tld</code></pre>
 <pre><code>[1] &quot;th&quot; &quot;ls&quot; &quot;sr&quot; &quot;ca&quot; &quot;bo&quot;</code></pre>
 <pre class="r"><code>continents &lt;- c(continents, &quot;South America&quot;) # did you use quotes?
 continents</code></pre>
-<pre><code>[1] &quot;Asia&quot;          &quot;Africa&quot;        &quot;South America&quot; &quot;North America&quot; &quot;South America&quot;</code></pre>
+<pre><code>[1] &quot;Asia&quot;          &quot;Africa&quot;        &quot;South America&quot; &quot;North America&quot;
+[5] &quot;South America&quot;</code></pre>
 <pre class="r"><code>country_population &lt;- c(country_population, 11428245)
 country_population</code></pre>
 <pre><code>[1] 69950850  2108328   575990 38436447 11428245</code></pre>
@@ -1040,7 +1041,8 @@ Solution
 <pre class="r"><code>countries &lt;- countries[-5]
 countries &lt;- c(countries, NA, NA)
 countries</code></pre>
-<pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   NA         &quot;Estonia&quot;  NA         NA        </code></pre>
+<pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   NA         &quot;Estonia&quot;  NA        
+[8] NA        </code></pre>
 </details>
 <p><br></p>
 <blockquote>

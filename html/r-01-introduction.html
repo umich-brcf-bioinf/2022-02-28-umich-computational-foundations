@@ -441,7 +441,8 @@ href="http://swcarpentry.github.io/git-novice/">git</a>.</li>
 <li><p>In this window, select <strong>Existing Directory</strong>. For
 “Project working directory”, click <kbd>Browse…</kbd>, select the “CF_R”
 folder, and click <kbd>Choose</kbd>. This will use the
-<code>/home/user/CF_R</code> folder as the project directory.</p></li>
+<code>/home/workshop/user/CF_R</code> folder as the project
+directory.</p></li>
 <li><p>Finally click <kbd>Create Project</kbd>. In the “Files” tab of
 your output pane (more about the RStudio layout in a moment), you should
 see an RStudio project file, <strong>CF_R.Rproj</strong>. All RStudio
@@ -549,7 +550,7 @@ the command is written. Then click the <KBD>Run</KBD> button that is
 just above the first line of your script in the header of the Source
 pane.</p>
 <p>In the console, we expect to see the following output*:</p>
-<pre><code>[1] &quot;/home/user/CF_R&quot;</code></pre>
+<pre><code>[1] &quot;/home/workshop/user/CF_R&quot;</code></pre>
 <p>* Notice, at the Console, you will also see the instruction you
 executed above the output in blue.</p>
 <p>Since we will be learning several commands, we may already want to
@@ -578,9 +579,9 @@ script, instead of entering commands one-by-one.</p>
 </details>
 <p><br></p>
 <p>For the purposes of this exercise we want you to be in the directory
-<code>"/home/user/CF_R"</code>. What if you weren’t? You can set your
-home directory using the <code>setwd()</code> command. Enter this
-command in your script, but <em>don’t run</em> this yet.</p>
+<code>"/home/workshop/user/CF_R"</code>. What if you weren’t? You can
+set your home directory using the <code>setwd()</code> command. Enter
+this command in your script, but <em>don’t run</em> this yet.</p>
 <pre class="r"><code># This sets the working directory
 setwd()</code></pre>
 <p>You may have guessed, you need to tell the <code>setwd()</code>
@@ -592,7 +593,7 @@ Tab-autocompletion method, to select <code>home</code>,
 <code>user</code>, and <code>CF_R</code> directory. The path in your
 script should look like this:</p>
 <pre class="r"><code># This sets the working directory
-setwd(&quot;/home/user/CF_r&quot;)</code></pre>
+setwd(&quot;/home/workshop/user/CF_R&quot;)</code></pre>
 <p>When you run this command, the console repeats the command, but gives
 you no output. Instead, you see the blank R prompt: <code>&gt;</code>.
 Congratulations! Although it seems small, knowing what your working

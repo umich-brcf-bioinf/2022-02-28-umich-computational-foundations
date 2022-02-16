@@ -26,7 +26,7 @@ keypoints:
 source: Rmd
 ---
 
-```{r, include = FALSE}
+```{r chunk_options, include = FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("03-")
 ```
@@ -79,19 +79,18 @@ Hopefully, this exercise gets you thinking about using the provided help documen
 </details>
 <br>
 
-Now, let's read in the file `data/gapminder_data.csv` which will be located in `/home/user/CF_R/data/gapminder_data.csv`. Call this data `gapminder`. The first argument to pass to our `read.csv()` function is the file path for our data. The file path must be in quotes and now is a good time to remember to use tab autocompletion. **If you use tab autocompletion you avoid typos and errors in file paths.** Use it!
+Now, let's read in the file `data/gapminder_data.csv` which will be located in `/home/workshop/user/CF_R/data/gapminder_data.csv`. Call this data `gapminder`. The first argument to pass to our `read.csv()` function is the file path for our data. The file path must be in quotes and now is a good time to remember to use tab autocompletion. **If you use tab autocompletion you avoid typos and errors in file paths.** Use it!
 
-```{r, eval = FALSE, purl = FALSE}
+```{r display_read, eval = FALSE, purl = FALSE}
 ## read in a CSV file and save it as 'gapminder'
 
-gapminder <- read.csv("/home/user/CF_R/data/gapminder_data.csvdata/gapminder_data.csv")
+gapminder <- read.csv("/home/workshop/user/CF_R/data/gapminder_data.csv")
 ```
 
 
-```{r, echo = FALSE, eval = TRUE, purl = FALSE}
-## silently read in CSV file from FigShare
-
-gapminder <- read.csv("/home/workshop/rcavalca/CF_R/data/gapminder_data.csv")
+```{r real_read, echo = FALSE, eval = TRUE, purl = FALSE}
+## silently read in CSV file from data/ folder
+gapminder <- read.csv("../data/gapminder_data.csv")
 ```
 
 One of the first things you should notice is that in the Environment window, you have the `gapminder` object, listed as 1704 obs. (observations/rows) of 6 variables (columns). Double-clicking on the name of the object will open a view of the data in a new tab.
@@ -108,12 +107,12 @@ A **data frame is the standard way in R to store tabular data**. A data fame cou
 summary(gapminder)
 ```
 
-Our data frame had 6 variables, so we get 6 fields that summarize the data. The `year`, `pop`, `lifeExp` and `gyearPercap` variables are numerical data and so you get summary statistics on the min and max values for these columns, as well as mean, median, and interquartile ranges. The other variables, `country` and `continent`, are treated as characters data (more on this in a bit).
+Our data frame had 6 variables, so we get 6 fields that summarize the data. The `year`, `pop`, `lifeExp` and `gdpPercap` variables are numerical data and so you get summary statistics on the min and max values for these columns, as well as mean, median, and interquartile ranges. The other variables, `country` and `continent`, are treated as characters data (more on this in a bit).
 
 There is a lot to work with, so we will subset the first three columns into a new data frame using the `data.frame()` function.
 
 ```{r, purl = FALSE}
-## put the first three columns of gapminder into a new data frame called subset
+## put the first three, and the last, columns of gapminder into a new data frame called subset
 
 subset <- data.frame(gapminder[,c(1:3,6)])
 ```
@@ -126,7 +125,7 @@ Now, let's use the `str()` (structure) function to look a little more closely at
 str(subset)
 ```
 
-Ok, thats a lot up unpack! Some things to notice.
+Some things to notice.
 
 - the object type `data.frame` is displayed in the first row along with its dimensions, in this case 1704 observations (rows) and 4 variables (columns)
 - Each variable (column) has a name (e.g. `country`). This is followed by the object mode (e.g. chr, int, etc.). Notice that before each variable name there is a `$` - this will be important later.
@@ -146,7 +145,7 @@ continents <- gapminder$continent
 Let's take a look at continents and see what we get:
 
 ```{r, purl = FALSE}
-continents
+head(continents, 30)
 ```
 
 There are 1704 continents (one for each row), and it looks like a lot of them are repeated. Let's determine what the unique values are.
@@ -155,13 +154,13 @@ There are 1704 continents (one for each row), and it looks like a lot of them ar
 unique(continents)
 ```
 
-This leaves us with just 5 continents. Right now, they are being treated as characters, but we could treat them as categories (after all, the name and number of continents is fixed). Doing this will have some nice downstream effects. Let's try to generate a plot of the `continents` character vector as it is right now:
+This leaves us with just 5 continents. Right now, they are being treated as characters, but we could treat them as categories (after all, the number of continents is fixed, as well as their names, for the time being). Doing this will have some nice downstream effects. Let's try to generate a plot of the `continents` character vector as it is right now:
 
 ```{r, error = TRUE, purl = FALSE, fig.show='hide'}
 plot(continents)
 ```
 
-Whoops! Though the `plot()` function will do its best to give us a quick plot, it is unable to do so here. One way to fix this it to tell R to treat the continents as categories (i.e. a factor vector); we will create a new object to avoid confusion using the `factor()` function:
+Nope! Though the `plot()` function will do its best to give us a quick plot, it is unable to do so here. One way to fix this it to tell R to treat the continents as categories (i.e. a factor vector); we will create a new object to avoid confusion using the `factor()` function:
 
 ```{r, purl = FALSE}
 factor_continents <- factor(continents)
@@ -190,7 +189,7 @@ head(factor_continents)
 
 We see repeated values of "Asia". Notice the levels of the factor are also displayed, and "Asia" is the third in the list, hence the 3.
 
-We can see how many items in our vector fall into each category:
+We can see how many items in our vector are in each category:
 
 ```{r, purl = FALSE}
 summary(factor_continents)
@@ -212,11 +211,16 @@ plot(factor_continents)
 
 This isn't a particularly spectacular example of a plot but it works, and it recapitulates the table from `summary()`. We'll be learning much more about creating nice, publication-quality graphics later in this lesson.
 
-If you recall, factors are ordered alphabetically. That might make sense, but categories (e.g., "red", "blue", "green") often do not have an intrinsic order. What if we wanted to order our plot according to the numerical value (i.e., in ascending order of continent frequency)? We can enforce an order on our factors:
+If you recall, factors are ordered alphabetically. That might make sense, but some categories (e.g., "red", "blue", "green") often do not have an intrinsic order. What if we wanted to order our plot according to the numerical value (i.e., in ascending order of continent frequency)? We can enforce an order on our factors:
 
 ```{r, purl = FALSE}
 ordered_factor_continents <- factor(factor_continents, levels = names(sort(table(factor_continents))))
+
+# And let's quickly look at the result
+head(ordered_factor_continents, 20)
 ```
+
+Notice here that the order of the elements in the factor didn't change, but the order of the **levels** did.
 
 Let's deconstruct this from the inside out (you can try each of these commands to see why this works):
 
@@ -255,7 +259,7 @@ The first thing to remember is that a data frame is two-dimensional (rows and co
 > 10. `tail(gapminder)`
 > 11. `gapminder$country`
 > 12. `gapminder[gapminder$country == "Italy",]`
->
+
 <details>
 <summary>Solution</summary>
 
@@ -269,7 +273,7 @@ gapminder[2,4]
 ```
 3.
 ```{r}
-gapminder[801,29]
+gapminder[801,4]
 ```
 4.
 ```{r}
@@ -319,17 +323,13 @@ head(gapminder$country)
 ```{r, echo = TRUE, eval = FALSE}
 gapminder[gapminder$country == "Italy",]
 ```
-
-```{r, echo = FALSE, eval = TRUE}
-head(gapminder[gapminder$country == "Italy",])
-```
 </details>
 <br>
 
 
 The subsetting notation is very similar to what we learned for vectors. The key differences include:
 
-- Typically provide two values separated by commas: data.frame[row, column]
+- We typically provide two values separated by commas: data.frame[row, column]
 - In cases where you are taking a continuous range of numbers use a colon between the numbers (start:stop, inclusive)
 - For a non continuous set of numbers, pass a vector using `c()`
 - Index using the name of a column(s) by passing them as vectors using `c()`
@@ -339,15 +339,15 @@ Finally, in all of the subsetting exercises above, we printed values to the scre
 ```{r, purl = FALSE}
 # create a new data frame containing only observations from India
 
-india_gapminder <- gapminder[gapminder$country == "India",]
+india_subset <- gapminder[gapminder$country == "India",]
 
 # check the dimension of the data frame
 
-dim(india_gapminder)
+dim(india_subset)
 
 # get a summary of the data frame
 
-summary(india_gapminder)
+summary(india_subset)
 ```
 
 ## Coercing values in data frames
@@ -357,55 +357,55 @@ summary(india_gapminder)
 > While we are going to address coercion in the context of data frames most of these methods apply to other data structures, such as vectors, as we saw when we coerced a character vector into a factor vector.
 
 
-Sometimes, it is possible that R will misinterpret the type of data represented in a data frame, or store that data in a mode which prevents you from operating on the data the way you wish. For example, a long list of gene names isn't usually thought of as a categorical variable, the way that your experimental condition (e.g. control, treatment) might be. More importantly, some R packages you use to analyze your data may expect characters as input, not factors. At other times (such as plotting or some statistical analyses) a factor may be more appropriate. Ultimately, you should know how to change the mode of an object.
+Sometimes, it is possible that R will misinterpret the type of data represented in a data frame, or store that data in a mode which prevents you from operating on the data the way you wish. For example, a long list of gene names isn't usually thought of as a categorical variable, the way that your experimental condition (e.g. control, treatment) might be. More importantly, some R packages you use to analyze your data may expect characters as input, not factors (the results can be beguiling). At other times (such as plotting or some statistical analyses) a factor may be more appropriate (as we saw above). Ultimately, you should know how to change the mode of an object.
 
 First, its very important to recognize that coercion happens in R all the time. This can be a good thing when R gets it right, or a bad thing when the result is not what you expect. Consider:
 
 ```{r, purl = FALSE}
-snp_chromosomes <- c('3', '11', 'X', '6')
-typeof(snp_chromosomes)
+chromosomes <- c('3', '11', 'X', '6')
+typeof(chromosomes)
 ```
 
 Although there are several numbers in our vector, they are all in quotes, so we have explicitly told R to consider them as characters. However, even if we removed the quotes from the numbers, R would coerce everything into a character:
 
 ```{r, purl = FALSE}
-snp_chromosomes_2 <- c(3, 11, 'X', 6)
-typeof(snp_chromosomes_2)
-snp_chromosomes_2[1]
+chromosomes_2 <- c(3, 11, 'X', 6)
+typeof(chromosomes_2)
+chromosomes_2[1]
 ```
 
 We can use the `as.` functions to explicitly coerce values from one form into another. Consider the following vector of characters, which all happen to be valid numbers:
 
 ```{r, purl = FALSE}
-snp_positions_2 <- c("8762685", "66560624", "67545785", "154039662")
-typeof(snp_positions_2)
-snp_positions_2[1]
+positions <- c("8762685", "66560624", "67545785", "154039662")
+typeof(positions)
+positions[1]
 ```
 
-Now we can coerce `snp_positions_2` into a numeric type using `as.numeric()`:
+Now we can coerce `positions` into a numeric type using `as.numeric()`:
 
 ```{r, purl = FALSE}
-snp_positions_2 <- as.numeric(snp_positions_2)
-typeof(snp_positions_2)
-snp_positions_2[1]
+positions <- as.numeric(positions)
+typeof(positions)
+positions[1]
 ```
 
-Sometimes coercion is straight forward, but what would happen if we tried using `as.numeric()` on `snp_chromosomes_2`
+Sometimes coercion is straight forward, but what would happen if we tried using `as.numeric()` on `chromosomes_2`
 
 ```{r, purl = FALSE}
-snp_chromosomes_2 <- as.numeric(snp_chromosomes_2)
+chromosomes_2 <- as.numeric(chromosomes_2)
 ```
 
 If we check, we will see that an `NA` value (R's default value for missing data) has been introduced.
 
 ```{r, purl = FALSE}
-snp_chromosomes_2
+chromosomes_2
 ```
 
-Trouble can really start when we try to coerce a factor. For example, when we try to coerce the `sample_id` column in our data frame into a numeric mode look at the result:
+Trouble can really start when we try to coerce a factor. For example, when we try to coerce the `factor_continents` factor from above into a numeric mode look at the result:
 
 ```{r, purl = FALSE}
-as.numeric(gapminder$country)
+head(as.numeric(factor_continents))
 ```
 
 Strangely, it works! Almost. Instead of giving an error message, R returns numeric values, which in this case are the integers assigned to the levels in this factor. This kind of behavior can lead to hard-to-find bugs, for example when we do have numbers in a factor, and we get numbers from a coercion. If we don't look carefully, we may not notice a problem.
@@ -413,13 +413,18 @@ Strangely, it works! Almost. Instead of giving an error message, R returns numer
 If you need to coerce an entire column you can overwrite it using an expression like this one:
 
 ```{r, purl = FALSE}
-# make the 'REF' column a character type column
+# make the 'continent' column a factor
 
-gapminder$REF <- as.character(gapminder$REF)
+gapminder$continent <- as.factor(gapminder$continent)
 
 # check the type of the column
-typeof(gapminder$REF)
+typeof(gapminder$continent)
+
+# look at summary() again
+summary(gapminder)
 ```
+
+Notice that the `continent` column is summarized more informatively now that it is a factor.
 
 ## StringsAsFactors = ?
 
@@ -481,72 +486,10 @@ colnames(gapminder)
 
 ## Saving your data frame to a file
 
-We can save data to a file. We will save our `india_gapminder` object to a .csv file using the `write.csv()` function:
+We can save data to a file. We will save our `india_subset` object to a .csv file using the `write.csv()` function:
 
-```{r, purl = FALSE}
-write.csv(india_gapminder, file = "../data/india_gapminder.csv")
+```{r, eval = FALSE, purl = FALSE}
+write.csv(india_subset, file = "../results/india_subset.csv")
 ```
 
 The `write.csv()` function has some additional arguments listed in the help, but at a minimum you need to tell it what data frame to write to file, and give a path to a file name in quotes (if you only provide a file name, the file will be written in the current working directory).
-
-## Importing data from Excel
-
-Excel is one of the most common formats, so we need to discuss how to make these files play nicely with R. The simplest way to import data from Excel is to **save your Excel file in .csv format***. You can then import into R right away. Sometimes you may not be able to do this (imagine you have data in 30 Excel files, are you going to open and export all of them?).
-
-One common R package (a set of code with features you can download and add to your R installation) is the [readxl package](https://CRAN.R-project.org/package=readxl) which can open and import Excel files. Rather than addressing package installation this second (we'll discuss this soon!), we can take advantage of RStudio's import feature which integrates this package. (Note: this feature is available only in the latest versions of RStudio such as is installed on our cloud instance).
-
-First, in the RStudio menu go to **File**, select **Import Dataset**, and choose **From Excel...** (notice there are several other options you can explore).
-
-<img src="images/rstudio_import_menu.png " alt="rstudio import menu" style="width: 600px;"/>
-
-Next, under **File/Url:** click the <KBD>Browse</KBD> button and navigate to the **Ecoli_metadata.xlsx** file located at `/home/dcuser/dc_sample_data/R`. You should now see a preview of the data to be imported:
-
-<img src="images/rstudio_import_screen.png " alt="rstudio import screen" style="width: 1200px;"/>
-
-Notice that you have the option to change the data type of each variable by clicking arrow (drop-down menu) next to each column title. Under **Import Options** you may also rename the data, choose a different sheet to import, and choose how you will handle headers and skipped rows. Under **Code Preview** you can see the code that will be used to import this file. We could have written this code and imported the Excel file without the RStudio import function, but now you can choose your preference.
-
-In this exercise, we will leave the title of the data frame as **Ecoli_metadata**, and there are no other options we need to adjust. Click the <KBD>Import</KBD> button to import the data.
-
-Finally, let's check the first few lines of the `Ecoli_metadata` data frame:
-
-```{r, echo = FALSE, eval = TRUE, purl = FALSE, warning = FALSE}
-## silently read in CSV file from CyVerse
-download.file("https://de.cyverse.org/dl/d/17FAE062-2673-417B-8544-77CC46974A37/Ecoli_metadata.xlsx",
-              destfile = "Ecoli_metadata.xlsx")
-Ecoli_metadata <- readxl::read_xlsx("Ecoli_metadata.xlsx")
-```
-
-```{r, purl = FALSE}
-head(Ecoli_metadata)
-```
-
-The type of this object is 'tibble', a type of data frame we will talk more about in the 'yearlyr' section. If you needed a true R data frame you could coerce with `as.data.frame()`.
-
-> ## Exercise: Putting it all together - data frames
->
-> **Using the `Ecoli_metadata` data frame created above, answer the following questions**
->
-> 1. What are the dimensions (# rows, # columns) of the data frame?
-> 2. What are categories are there in the `cit` column? *hint*: treat column as factor
-> 3. How many of each of the `cit` categories are there?
-> 4. What is the genome size for the 7th observation in this data set?
-> 5. What is the median value of the variable `genome_size`
-> 6. Rename the column `sample` to `sample_id`
-> 7. Create a new column (name genome_size_bp) and set it equal to the genome_size multiplied by 1,000,000
-> 8. Save the edited Ecoli_metadata data frame as "exercise_solution.csv" in your current working directory.
-
-<details>
-<summary>Solution</summary>
-
-```{r, purl = FALSE}
-dim(Ecoli_metadata)
-levels(as.factor(Ecoli_metadata$cit))
-table(as.factor(Ecoli_metadata$cit))
-Ecoli_metadata[7,7]
-median(Ecoli_metadata$genome_size)
-colnames(Ecoli_metadata)[colnames(Ecoli_metadata) == "sample"] <- "sample_id"
-Ecoli_metadata$genome_size_bp <- Ecoli_metadata$genome_size * 1000000
-write.csv(Ecoli_metadata, file = "exercise_solution.csv")
-```
-</details>
-<br>

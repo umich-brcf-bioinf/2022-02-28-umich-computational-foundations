@@ -91,7 +91,7 @@ One of the first benefits we will take advantage of in RStudio is something call
 
 <img src="images/new_project_window.png" alt="rstudio default session" style="width: 600px;"/>
 
-2. In this window, select **Existing Directory**. For "Project working directory", click <kbd>Browse...</kbd>, select the "CF_R" folder, and click <kbd>Choose</kbd>. This will use the `/home/user/CF_R` folder as the project directory.
+2. In this window, select **Existing Directory**. For "Project working directory", click <kbd>Browse...</kbd>, select the "CF_R" folder, and click <kbd>Choose</kbd>. This will use the `/home/workshop/user/CF_R` folder as the project directory.
 
 3. Finally click <kbd>Create Project</kbd>. In the "Files" tab of your output pane (more about the RStudio layout in a moment), you should see an RStudio project file, **CF_R.Rproj**. All RStudio projects end with the "**.Rproj**" file extension.
 
@@ -143,7 +143,7 @@ To execute this command, make sure your cursor is on the same line the command i
 In the console, we expect to see the following output*:
 
 ~~~
-[1] "/home/user/CF_R"
+[1] "/home/workshop/user/CF_R"
 ~~~
 
 
@@ -169,7 +169,7 @@ You will get the same output you did as when you ran `getwd()` from the source. 
 <br>
 
 
-For the purposes of this exercise we want you to be in the directory `"/home/user/CF_R"`. What if you weren't? You can set your home directory using the `setwd()` command. Enter this command in your script, but *don't run* this yet.
+For the purposes of this exercise we want you to be in the directory `"/home/workshop/user/CF_R"`. What if you weren't? You can set your home directory using the `setwd()` command. Enter this command in your script, but *don't run* this yet.
 
 ```{r, eval = FALSE, purl = FALSE}
 # This sets the working directory
@@ -180,7 +180,7 @@ You may have guessed, you need to tell the `setwd()` command what directory you 
 
 ```{r, eval = FALSE, purl = FALSE}
 # This sets the working directory
-setwd("/home/user/CF_r")
+setwd("/home/workshop/user/CF_R")
 ```
 
 When you run this command, the console repeats the command, but gives you no output. Instead, you see the blank R prompt: `>`. Congratulations! Although it seems small, knowing what your working directory is and being able to set your working directory is the first step to analyzing your data.
