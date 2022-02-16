@@ -55,7 +55,7 @@ $ pwd
 ~~~
 
 ~~~
-/home/dcuser/shell_data
+/home/<username>/shell_data
 ~~~
 
 ~~~
@@ -68,13 +68,19 @@ sra_metadata  untrimmed_fastq
 
 From this output, we can see that `..` did indeed take us back one level in our file system.
 
-You can chain these together like so:
+You can chain these together as well. Let's demonstrate this idea. First we'll return to the `untrimmed_fastq` directory, and then we'll chain two `..`'s together, to bring us back to our home directory:
 
 ~~~
-$ ls ../../
+$ cd untrimmed_fastq/
 ~~~
 
-prints the contents of `/home`.
+~~~
+$ cd ../../
+~~~
+
+<br>
+
+We've moved up two directories from `untrimmed_fastq`. Where are we? What are the expected contents of this location?
 
 <br>
 <br>
@@ -120,11 +126,6 @@ youfoundit.txt
 The name of the text file is `youfoundit.txt`.
 
 <br>
-<br>
-
-</details>
-
-<br>
 
 > Tip: In most commands the flags can be combined together in no particular order to obtain the desired results/output.
 >
@@ -133,6 +134,8 @@ The name of the text file is `youfoundit.txt`.
 > $ ls -laF
 > ~~~
 >
+
+</details>
 
 <br>
 <br>
@@ -205,15 +208,15 @@ $ pwd
 You will see:
 
 ~~~
-/home/dcuser
+/home/workshop/<username>
 ~~~
 
-This is the full name of your home directory. This tells you that you are in a directory called `dcuser`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the *root directory*. So, to summarize: `dcuser` is a directory in `home` which is a directory in `/`. More on `root` and `home` in the next section.
+This is the full name of your home directory. This tells you that you are in a directory named with your username. This is inside a directory `workshop`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called `/` which is usually referred to as the **root directory**. There will be more on `root` and `home` in the next section.
 
 Now enter the following command:
 
 ~~~
-$ cd /home/dcuser/shell_data/.hidden
+$ cd /home/<username>/shell_data/.hidden
 ~~~
 
 This jumps forward multiple levels to the `.hidden` directory. Now go back to the home directory.
@@ -268,7 +271,7 @@ Using the filesystem diagram below, if `pwd` displays `/Users/thing`, what will 
 
 ### Navigational Shortcuts
 
-The root directory is the highest level directory in your file system and contains files that are important for your computer to perform its daily work. While you will be using the root (`/`) at the beginning of your absolute paths, it is important that you avoid working with data in these higher-level directories, as your commands can permanently alter files that the operating system needs to function. In many cases, trying to run commands in `root` directories will require special permissions which are not discussed here, so it’s best to avoid them and work within your home directory. Dealing with the `home` directory is very common. The tilde character, `~`, is a shortcut for your home directory. In our case, the `root` directory is __two__ levels above our `home` directory, so `cd` or `cd ~` will take you to `/home/dcuser` and `cd /` will take you to `/`. Navigate to the `shell_data` directory:
+The root directory is the highest level directory in your file system and contains files that are important for your computer to perform its daily work. While you will be using the root (`/`) at the beginning of your absolute paths, it is important that you avoid working with data in these higher-level directories, as your commands can permanently alter files that the operating system needs to function. In many cases, trying to run commands in `root` directories will require special permissions which are not discussed here, so it’s best to avoid them and work within your home directory. Dealing with the `home` directory is very common. The tilde character, `~`, is a shortcut for your home directory. In our case, the `root` directory is __two__ levels above our `home` directory, so `cd` or `cd ~` will take you to `/home/workshop/<username>` and `cd /` will take you to `/`. Navigate to the `shell_data` directory:
 
 ~~~
 $ cd
@@ -282,7 +285,7 @@ $ ls ~
 ~~~
 
 ~~~
-R  r_data  shell_data
+ r_data  shell_data
 ~~~
 
 This prints the contents of your home directory, without you needing to type the full path.

@@ -64,7 +64,7 @@ $ ls /usr/bin/*.sh
 ~~~
 
 ~~~
-/usr/bin/amuFormat.sh  /usr/bin/gettext.sh  /usr/bin/gvmap.sh
+/usr/bin/gettext.sh  /usr/bin/gvmap.sh
 ~~~
 
 Lists every file in `/usr/bin` that ends in the characters `.sh`. Note that the output displays __full__ paths to files, since each result starts with `/`.
@@ -485,6 +485,7 @@ This will delete not only the directory, but all files within the directory. If 
 ## Challenge - Working with files
 
 Starting in the `shell_data/untrimmed_fastq/` directory, do the following:
+
 1. Make sure that you have deleted your backup directory and all files it contains.  
 2. Create a backup of each of your FASTQ files using `cp`. (Note: You'll need to do this individually for each of the two FASTQ files. We haven't learned yet how to do this with a wildcard.)
 3. Use a wildcard to move all of your backup files to a new backup directory.   

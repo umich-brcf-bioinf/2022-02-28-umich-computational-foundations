@@ -364,13 +364,6 @@ Redirecting output is often not intuitive, and can take some time to get used to
 None of the command line programs we've been learning do anything all that impressive on their own, but when you start chaining them together, you can do some really powerful things very efficiently.
 
 <br>
-
-> File manipulation and more practices with pipes
->
-> To practice a bit more with the tools we’ve added to our tool kit so far and learn a few extra ones you can follow [this extra lesson](https://datacarpentry.org/shell-genomics/Extra_lesson/index.html) which uses the SRA metadata file.
->
-
-<br>
 <br>
 
 ## Writing for loops
@@ -524,7 +517,7 @@ $ for filename in *_2019.txt
 > done
 ~~~
 
-</details)
+</details>
 
 <br>
 <br>

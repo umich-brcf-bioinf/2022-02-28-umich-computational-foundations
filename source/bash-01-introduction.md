@@ -53,10 +53,10 @@ You can log-in to the remote server using the instructions [here](http://www.dat
 bfx-workshop01.med.umich.edu
 ~~~
 
-For example, I'll use this command to connect to the AWS instance:
+e.g.:
 
 ~~~
-ssh trsaari@bfx-workshop01.med.umich.edu
+ssh <username>@bfx-workshop01.med.umich.edu
 ~~~
 
 You will need to use the password that you were provided before the workshop.
@@ -67,8 +67,8 @@ After logging in, you will see a screen showing something like this:
 ------------------------------------
 Welcome to Computational Foundations
 ------------------------------------
-Last login: Tue Feb 1 07:56:36 2022 from 68.40.57.162
-trsaari@ip-172-31-28-61:~$
+Last login: Tue Feb 1 07:56:36 2022 from 68.40.57.123
+<username>@ip-172-31-28-61:~$
 ~~~
 
 This shows our login message "Welcome to Computational Foundations", some information about our last login, and our prompt. We should take a moment to become familiar with the appearance of our remote shell.
@@ -109,14 +109,14 @@ This isn't necessary to follow along (in fact, your prompt may have other helpfu
 
 <br>
 
-Let's find out where we are by running a command called `pwd` (which stands for "print working directory"). At any moment, our **current working directory** is our current default directory, i.e., the directory that the computer assumes we want to run commands in, unless we explicitly specify something else. Here, the computer's response is `/home/dcuser`, which is the top level directory within our cloud system:
+Let's find out where we are by running a command called `pwd` (which stands for "print working directory"). At any moment, our **current working directory** is our current default directory, i.e., the directory that the computer assumes we want to run commands in, unless we explicitly specify something else. Here, the computer's response is `/home/workshop/<username>`, which is the top level of your home directory on the remote system:
 
 ~~~
 $ pwd
 ~~~
 
 ~~~
-/home/dcuser
+/home/workshop/<username>
 ~~~
 
 Let's look at how our file system is organized. We can see what files and subdirectories are in this directory by running `ls`, which stands for "listing":
