@@ -288,7 +288,7 @@ $(document).ready(function () {
       <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
     </li>
     <li>
-      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+      <a href="r-04-bioconductor.html">Using Packages from Bioconductor</a>
     </li>
     <li>
       <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
@@ -356,9 +356,9 @@ load it every time you open a new R session and want to use that
 package.</p>
 <div id="what-is-dplyr" class="section level2">
 <h2>What is dplyr?</h2>
-<p>The package <code>dplyr</code> is a fairly new (2014) package that
-tries to provide easy tools for the most common data manipulation tasks.
-This package is also included in the <a
+<p>The package <code>dplyr</code> is a package that tries to provide
+easy tools for the most common data manipulation tasks. This package is
+also included in the <a
 href="https://www.tidyverse.org/"><code>tidyverse</code> package</a>,
 which is a collection of eight different packages (<code>dplyr</code>,
 <code>ggplot2</code>, <code>tibble</code>, <code>tidyr</code>,
@@ -383,417 +383,377 @@ analysis in R.</p>
 <p>Similar to <code>str()</code>, which comes built into R,
 <code>glimpse()</code> is a <code>dplyr</code> function that (as the
 name suggests) gives a glimpse of the data frame.</p>
-<pre><code>Rows: 801
-Columns: 29
-$ sample_id     &lt;chr&gt; &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR2584863&quot;, &quot;SRR258486…
-$ CHROM         &lt;chr&gt; &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.1&quot;, &quot;CP000819.…
-$ POS           &lt;dbl&gt; 9972, 263235, 281923, 433359, 473901, 648692, 1331794, 1733343, 2103887, 2333538, 2407766, 2446984, 2618472,…
-$ ID            &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-$ REF           &lt;chr&gt; &quot;T&quot;, &quot;G&quot;, &quot;G&quot;, &quot;CTTTTTTT&quot;, &quot;CCGC&quot;, &quot;C&quot;, &quot;C&quot;, &quot;G&quot;, &quot;ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG&quot;, &quot;AT&quot;, &quot;A&quot;, &quot;A&quot;, &quot;G&quot;, &quot;…
-$ ALT           &lt;chr&gt; &quot;G&quot;, &quot;T&quot;, &quot;T&quot;, &quot;CTTTTTTTT&quot;, &quot;CCGCGC&quot;, &quot;T&quot;, &quot;A&quot;, &quot;A&quot;, &quot;ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCC…
-$ QUAL          &lt;dbl&gt; 91.0000, 85.0000, 217.0000, 64.0000, 228.0000, 210.0000, 178.0000, 225.0000, 56.0000, 167.0000, 104.0000, 22…
-$ FILTER        &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-$ INDEL         &lt;lgl&gt; FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, …
-$ IDV           &lt;dbl&gt; NA, NA, NA, 12, 9, NA, NA, NA, 2, 7, NA, NA, NA, NA, NA, NA, NA, NA, NA, 2, NA, NA, NA, 10, NA, NA, NA, NA, …
-$ IMF           &lt;dbl&gt; NA, NA, NA, 1.000000, 0.900000, NA, NA, NA, 0.666667, 1.000000, NA, NA, NA, NA, NA, NA, NA, NA, NA, 1.000000…
-$ DP            &lt;dbl&gt; 4, 6, 10, 12, 10, 10, 8, 11, 3, 7, 9, 20, 12, 19, 15, 10, 14, 9, 13, 2, 10, 16, 11, 10, 9, 9, 13, 14, 10, 11…
-$ VDB           &lt;dbl&gt; 0.0257451, 0.0961330, 0.7740830, 0.4777040, 0.6595050, 0.2680140, 0.6240780, 0.9924030, 0.9016520, 0.5681730…
-$ RPB           &lt;dbl&gt; NA, 1.000000, NA, NA, NA, NA, NA, NA, NA, NA, 0.900802, NA, 0.954207, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-$ MQB           &lt;dbl&gt; NA, 1.0000000, NA, NA, NA, NA, NA, NA, NA, NA, 0.1501340, NA, 0.0497871, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-$ BQB           &lt;dbl&gt; NA, 1.000000, NA, NA, NA, NA, NA, NA, NA, NA, 0.750668, NA, 0.774755, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
-$ MQSB          &lt;dbl&gt; NA, NA, 0.974597, 1.000000, 0.916482, 0.916482, 0.900802, 1.007750, 1.000000, 1.012830, 0.500000, 1.000000, …
-$ SGB           &lt;dbl&gt; -0.556411, -0.590765, -0.662043, -0.676189, -0.662043, -0.670168, -0.651104, -0.670168, -0.453602, -0.616816…
-$ MQ0F          &lt;dbl&gt; 0.000000, 0.166667, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.000000, 0.333333…
-$ ICB           &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-$ HOB           &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, …
-$ AC            &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ AN            &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ DP4           &lt;chr&gt; &quot;0,0,0,4&quot;, &quot;0,1,0,5&quot;, &quot;0,0,4,5&quot;, &quot;0,1,3,8&quot;, &quot;1,0,2,7&quot;, &quot;0,0,7,3&quot;, &quot;0,0,3,5&quot;, &quot;0,0,4,6&quot;, &quot;0,1,1,1&quot;, &quot;0,1,3,3&quot;…
-$ MQ            &lt;dbl&gt; 60, 33, 60, 60, 60, 60, 60, 60, 60, 60, 25, 60, 10, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, …
-$ Indiv         &lt;chr&gt; &quot;/home/dcuser/dc_workshop/results/bam/SRR2584863.aligned.sorted.bam&quot;, &quot;/home/dcuser/dc_workshop/results/bam/…
-$ gt_PL         &lt;dbl&gt; 1210, 1120, 2470, 910, 2550, 2400, 2080, 2550, 11128, 1940, 1310, 2550, 601, 2550, 2550, 2410, 2550, 2300, 2…
-$ gt_GT         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ gt_GT_alleles &lt;chr&gt; &quot;G&quot;, &quot;T&quot;, &quot;T&quot;, &quot;CTTTTTTTT&quot;, &quot;CCGCGC&quot;, &quot;T&quot;, &quot;A&quot;, &quot;A&quot;, &quot;ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCC…</code></pre>
+<pre><code>Rows: 1,704
+Columns: 6
+$ country     &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;…
+$ year        &lt;int&gt; 1952, 1957, 1962, 1967, 1972, 1977, 1982, 1987, 1992, 1997…
+$ pop         &lt;dbl&gt; 8425333, 9240934, 10267083, 11537966, 13079460, 14880372, …
+$ continent   &lt;chr&gt; &quot;Asia&quot;, &quot;Asia&quot;, &quot;Asia&quot;, &quot;Asia&quot;, &quot;Asia&quot;, &quot;Asia&quot;, &quot;Asia&quot;, &quot;A…
+$ life_exp    &lt;dbl&gt; 28.801, 30.332, 31.997, 34.020, 36.088, 38.438, 39.854, 40…
+$ gdp_per_cap &lt;dbl&gt; 779.4453, 820.8530, 853.1007, 836.1971, 739.9811, 786.1134…</code></pre>
 <p>In the above output, we can already gather some information about
-<code>variants</code>, such as the number of rows and columns, column
+<code>gapminder</code>, such as the number of rows and columns, column
 names, type of vector in the columns, and the first few entries of each
 column. Although what we see is similar to outputs of
 <code>str()</code>, this method gives a cleaner visual output.</p>
+<blockquote>
+<h2 id="note-what-is-a-tibble">Note: What is a <code>tibble</code>?</h2>
+<p>In the <code>tidyverse</code> there is a specialized version of a
+<code>data.frame</code> called a <code>tibble</code>. It largely behaves
+like a <code>data.frame</code>, but it has some considerate defaults
+when displaying its contents. We shall encounter some differences as we
+work through this section, and will highlight them as we go.</p>
+</blockquote>
+</div>
+<div id="coercing-to-a-tibble" class="section level3">
+<h3>Coercing to a <code>tibble</code></h3>
+<p>Let’s coerce our <code>gapminder</code> <code>data.frame</code> into
+a <code>tibble</code> using the <code>as_tibble()</code> function. Let’s
+first do this without assigning the result:</p>
+<pre class="r"><code>as_tibble(gapminder)</code></pre>
+<pre><code># A tibble: 1,704 × 6
+   country      year      pop continent life_exp gdp_per_cap
+   &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Afghanistan  1952  8425333 Asia          28.8        779.
+ 2 Afghanistan  1957  9240934 Asia          30.3        821.
+ 3 Afghanistan  1962 10267083 Asia          32.0        853.
+ 4 Afghanistan  1967 11537966 Asia          34.0        836.
+ 5 Afghanistan  1972 13079460 Asia          36.1        740.
+ 6 Afghanistan  1977 14880372 Asia          38.4        786.
+ 7 Afghanistan  1982 12881816 Asia          39.9        978.
+ 8 Afghanistan  1987 13867957 Asia          40.8        852.
+ 9 Afghanistan  1992 16317921 Asia          41.7        649.
+10 Afghanistan  1997 22227415 Asia          41.8        635.
+# … with 1,694 more rows</code></pre>
+<p>What do you notice?</p>
+<ul>
+<li>The preview helpfully tells us the dimensions at the top
+<code># A tibble: 1,704 × 6</code>.</li>
+<li>The preview helpfully truncates the output as if we used
+<code>head()</code>.</li>
+<li>The preview tells us the <code>mode()</code> of each of the
+columns.</li>
+</ul>
+<p>To drive home the difference, do the following:</p>
+<pre class="r"><code>gapminder</code></pre>
+<p>And notice that no such conveniences are afforded to us. So for the
+remainder, we will coerce <code>gapminder</code> into a
+<code>tibble</code>. However, we may interchangeably refer to a
+<code>tibble</code> or a <code>data.frame</code>.</p>
+<pre class="r"><code>gapminder &lt;- as_tibble(gapminder)</code></pre>
 </div>
 <div id="selecting-columns-and-filtering-rows" class="section level3">
 <h3>Selecting columns and filtering rows</h3>
 <p>To select columns of a data frame, use <code>select()</code>. The
 first argument to this function is the data frame
-(<code>variants</code>), and the subsequent arguments are the columns to
-keep.</p>
-<pre class="r"><code>select(variants, sample_id, REF, ALT, DP)</code></pre>
-<pre><code># A tibble: 801 × 4
-   sample_id  REF                              ALT                                                         DP
-   &lt;chr&gt;      &lt;chr&gt;                            &lt;chr&gt;                                                    &lt;dbl&gt;
- 1 SRR2584863 T                                G                                                            4
- 2 SRR2584863 G                                T                                                            6
- 3 SRR2584863 G                                T                                                           10
- 4 SRR2584863 CTTTTTTT                         CTTTTTTTT                                                   12
- 5 SRR2584863 CCGC                             CCGCGC                                                      10
- 6 SRR2584863 C                                T                                                           10
- 7 SRR2584863 C                                A                                                            8
- 8 SRR2584863 G                                A                                                           11
- 9 SRR2584863 ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG     3
-10 SRR2584863 AT                               ATT                                                          7
-# … with 791 more rows</code></pre>
+(<code>gapminder</code>), and the subsequent arguments are the columns
+to keep.</p>
+<pre class="r"><code>select(gapminder, country, year, gdp_per_cap)</code></pre>
+<pre><code># A tibble: 1,704 × 3
+   country      year gdp_per_cap
+   &lt;chr&gt;       &lt;int&gt;       &lt;dbl&gt;
+ 1 Afghanistan  1952        779.
+ 2 Afghanistan  1957        821.
+ 3 Afghanistan  1962        853.
+ 4 Afghanistan  1967        836.
+ 5 Afghanistan  1972        740.
+ 6 Afghanistan  1977        786.
+ 7 Afghanistan  1982        978.
+ 8 Afghanistan  1987        852.
+ 9 Afghanistan  1992        649.
+10 Afghanistan  1997        635.
+# … with 1,694 more rows</code></pre>
 <p>To select all columns <em>except</em> certain ones, put a “-” in
 front of the variable to exclude it.</p>
-<pre class="r"><code>select(variants, -CHROM)</code></pre>
-<pre><code># A tibble: 801 × 28
-   sample_id    POS ID    REF   ALT    QUAL FILTER INDEL   IDV    IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB   HOB  
-   &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt;
- 1 SRR25848… 9.97e3 NA    T     G        91 NA     FALSE    NA NA         4 0.0257    NA    NA    NA NA     -0.556 0     NA    NA   
- 2 SRR25848… 2.63e5 NA    G     T        85 NA     FALSE    NA NA         6 0.0961     1     1     1 NA     -0.591 0.167 NA    NA   
- 3 SRR25848… 2.82e5 NA    G     T       217 NA     FALSE    NA NA        10 0.774     NA    NA    NA  0.975 -0.662 0     NA    NA   
- 4 SRR25848… 4.33e5 NA    CTTT… CTTT…    64 NA     TRUE     12  1        12 0.478     NA    NA    NA  1     -0.676 0     NA    NA   
- 5 SRR25848… 4.74e5 NA    CCGC  CCGC…   228 NA     TRUE      9  0.9      10 0.660     NA    NA    NA  0.916 -0.662 0     NA    NA   
- 6 SRR25848… 6.49e5 NA    C     T       210 NA     FALSE    NA NA        10 0.268     NA    NA    NA  0.916 -0.670 0     NA    NA   
- 7 SRR25848… 1.33e6 NA    C     A       178 NA     FALSE    NA NA         8 0.624     NA    NA    NA  0.901 -0.651 0     NA    NA   
- 8 SRR25848… 1.73e6 NA    G     A       225 NA     FALSE    NA NA        11 0.992     NA    NA    NA  1.01  -0.670 0     NA    NA   
- 9 SRR25848… 2.10e6 NA    ACAG… ACAG…    56 NA     TRUE      2  0.667     3 0.902     NA    NA    NA  1     -0.454 0     NA    NA   
-10 SRR25848… 2.33e6 NA    AT    ATT     167 NA     TRUE      7  1         7 0.568     NA    NA    NA  1.01  -0.617 0     NA    NA   
-# … with 791 more rows, and 8 more variables: AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;,
-#   gt_GT_alleles &lt;chr&gt;</code></pre>
+<pre class="r"><code>select(gapminder, -life_exp)</code></pre>
+<pre><code># A tibble: 1,704 × 5
+   country      year      pop continent gdp_per_cap
+   &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;
+ 1 Afghanistan  1952  8425333 Asia             779.
+ 2 Afghanistan  1957  9240934 Asia             821.
+ 3 Afghanistan  1962 10267083 Asia             853.
+ 4 Afghanistan  1967 11537966 Asia             836.
+ 5 Afghanistan  1972 13079460 Asia             740.
+ 6 Afghanistan  1977 14880372 Asia             786.
+ 7 Afghanistan  1982 12881816 Asia             978.
+ 8 Afghanistan  1987 13867957 Asia             852.
+ 9 Afghanistan  1992 16317921 Asia             649.
+10 Afghanistan  1997 22227415 Asia             635.
+# … with 1,694 more rows</code></pre>
 <p><code>dplyr</code> also provides useful functions to select columns
 based on their names. For instance, <code>ends_with()</code> allows you
 to select columns that ends with specific letters. For instance, if you
-wanted to select columns that end with the letter “B”:</p>
-<pre class="r"><code>select(variants, ends_with(&quot;B&quot;))</code></pre>
-<pre><code># A tibble: 801 × 8
-      VDB   RPB   MQB   BQB   MQSB    SGB ICB   HOB  
-    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;lgl&gt;
- 1 0.0257    NA    NA    NA NA     -0.556 NA    NA   
- 2 0.0961     1     1     1 NA     -0.591 NA    NA   
- 3 0.774     NA    NA    NA  0.975 -0.662 NA    NA   
- 4 0.478     NA    NA    NA  1     -0.676 NA    NA   
- 5 0.660     NA    NA    NA  0.916 -0.662 NA    NA   
- 6 0.268     NA    NA    NA  0.916 -0.670 NA    NA   
- 7 0.624     NA    NA    NA  0.901 -0.651 NA    NA   
- 8 0.992     NA    NA    NA  1.01  -0.670 NA    NA   
- 9 0.902     NA    NA    NA  1     -0.454 NA    NA   
-10 0.568     NA    NA    NA  1.01  -0.617 NA    NA   
-# … with 791 more rows</code></pre>
+wanted to select columns that end with the letter “p”:</p>
+<pre class="r"><code>select(gapminder, ends_with(&quot;p&quot;))</code></pre>
+<pre><code># A tibble: 1,704 × 3
+        pop life_exp gdp_per_cap
+      &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+ 1  8425333     28.8        779.
+ 2  9240934     30.3        821.
+ 3 10267083     32.0        853.
+ 4 11537966     34.0        836.
+ 5 13079460     36.1        740.
+ 6 14880372     38.4        786.
+ 7 12881816     39.9        978.
+ 8 13867957     40.8        852.
+ 9 16317921     41.7        649.
+10 22227415     41.8        635.
+# … with 1,694 more rows</code></pre>
 <blockquote>
 <h2 id="challenge">Challenge</h2>
-<p>Create a table that contains all the columns with the letter “i” and
-column “POS”, without columns “Indiv” and “FILTER”. Hint: look at the
-help function <code>ends_with()</code> we’ve just covered.</p>
-<blockquote>
-<h2 id="solution">Solution</h2>
-<pre class="r"><code>select(variants, contains(&quot;i&quot;), -Indiv, -FILTER, POS)</code></pre>
-<pre><code># A tibble: 801 × 7
-   sample_id  ID    INDEL   IDV    IMF ICB       POS
-   &lt;chr&gt;      &lt;lgl&gt; &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;lgl&gt;   &lt;dbl&gt;
- 1 SRR2584863 NA    FALSE    NA NA     NA       9972
- 2 SRR2584863 NA    FALSE    NA NA     NA     263235
- 3 SRR2584863 NA    FALSE    NA NA     NA     281923
- 4 SRR2584863 NA    TRUE     12  1     NA     433359
- 5 SRR2584863 NA    TRUE      9  0.9   NA     473901
- 6 SRR2584863 NA    FALSE    NA NA     NA     648692
- 7 SRR2584863 NA    FALSE    NA NA     NA    1331794
- 8 SRR2584863 NA    FALSE    NA NA     NA    1733343
- 9 SRR2584863 NA    TRUE      2  0.667 NA    2103887
-10 SRR2584863 NA    TRUE      7  1     NA    2333538
-# … with 791 more rows</code></pre>
+<p>Create a table that contains all the columns with the letter “e” and
+column “country”, without columns “life_exp”. Hint: look at the help
+function <code>tidyselect::ends_with()</code> we’ve just covered.</p>
 </blockquote>
-</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>select(gapminder, contains(&quot;i&quot;), -life_exp, country)</code></pre>
+<pre><code># A tibble: 1,704 × 2
+   continent country    
+   &lt;chr&gt;     &lt;chr&gt;      
+ 1 Asia      Afghanistan
+ 2 Asia      Afghanistan
+ 3 Asia      Afghanistan
+ 4 Asia      Afghanistan
+ 5 Asia      Afghanistan
+ 6 Asia      Afghanistan
+ 7 Asia      Afghanistan
+ 8 Asia      Afghanistan
+ 9 Asia      Afghanistan
+10 Asia      Afghanistan
+# … with 1,694 more rows</code></pre>
+</details>
+<p><br></p>
 <p>To choose rows, use <code>filter()</code>:</p>
-<pre class="r"><code>filter(variants, sample_id == &quot;SRR2584863&quot;)</code></pre>
-<pre><code># A tibble: 25 × 29
-   sample_id CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV    IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB  
-   &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
- 1 SRR25848… CP00… 9.97e3 NA    T     G        91 NA     FALSE    NA NA         4 0.0257    NA    NA    NA NA     -0.556 0     NA   
- 2 SRR25848… CP00… 2.63e5 NA    G     T        85 NA     FALSE    NA NA         6 0.0961     1     1     1 NA     -0.591 0.167 NA   
- 3 SRR25848… CP00… 2.82e5 NA    G     T       217 NA     FALSE    NA NA        10 0.774     NA    NA    NA  0.975 -0.662 0     NA   
- 4 SRR25848… CP00… 4.33e5 NA    CTTT… CTTT…    64 NA     TRUE     12  1        12 0.478     NA    NA    NA  1     -0.676 0     NA   
- 5 SRR25848… CP00… 4.74e5 NA    CCGC  CCGC…   228 NA     TRUE      9  0.9      10 0.660     NA    NA    NA  0.916 -0.662 0     NA   
- 6 SRR25848… CP00… 6.49e5 NA    C     T       210 NA     FALSE    NA NA        10 0.268     NA    NA    NA  0.916 -0.670 0     NA   
- 7 SRR25848… CP00… 1.33e6 NA    C     A       178 NA     FALSE    NA NA         8 0.624     NA    NA    NA  0.901 -0.651 0     NA   
- 8 SRR25848… CP00… 1.73e6 NA    G     A       225 NA     FALSE    NA NA        11 0.992     NA    NA    NA  1.01  -0.670 0     NA   
- 9 SRR25848… CP00… 2.10e6 NA    ACAG… ACAG…    56 NA     TRUE      2  0.667     3 0.902     NA    NA    NA  1     -0.454 0     NA   
-10 SRR25848… CP00… 2.33e6 NA    AT    ATT     167 NA     TRUE      7  1         7 0.568     NA    NA    NA  1.01  -0.617 0     NA   
-# … with 15 more rows, and 9 more variables: HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;,
-#   gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
+<pre class="r"><code>filter(gapminder, country == &#39;Nigeria&#39;)</code></pre>
+<pre><code># A tibble: 12 × 6
+   country  year       pop continent life_exp gdp_per_cap
+   &lt;chr&gt;   &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Nigeria  1952  33119096 Africa        36.3       1077.
+ 2 Nigeria  1957  37173340 Africa        37.8       1101.
+ 3 Nigeria  1962  41871351 Africa        39.4       1151.
+ 4 Nigeria  1967  47287752 Africa        41.0       1015.
+ 5 Nigeria  1972  53740085 Africa        42.8       1698.
+ 6 Nigeria  1977  62209173 Africa        44.5       1982.
+ 7 Nigeria  1982  73039376 Africa        45.8       1577.
+ 8 Nigeria  1987  81551520 Africa        46.9       1385.
+ 9 Nigeria  1992  93364244 Africa        47.5       1620.
+10 Nigeria  1997 106207839 Africa        47.5       1625.
+11 Nigeria  2002 119901274 Africa        46.6       1615.
+12 Nigeria  2007 135031164 Africa        46.9       2014.</code></pre>
 <p><code>filter()</code> will keep all the rows that match the
 conditions that are provided. Here are a few examples:</p>
-<pre class="r"><code># rows for which the reference genome has T or G
-filter(variants, REF %in% c(&quot;T&quot;, &quot;G&quot;))</code></pre>
-<pre><code># A tibble: 340 × 29
-   sample_id  CHROM      POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB    RPB     MQB    BQB   MQSB    SGB  MQ0F
-   &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP0008… 9.97e3 NA    T     G      91   NA     FALSE    NA    NA     4 0.0257 NA     NA      NA     NA     -0.556 0    
- 2 SRR2584863 CP0008… 2.63e5 NA    G     T      85   NA     FALSE    NA    NA     6 0.0961  1      1       1     NA     -0.591 0.167
- 3 SRR2584863 CP0008… 2.82e5 NA    G     T     217   NA     FALSE    NA    NA    10 0.774  NA     NA      NA      0.975 -0.662 0    
- 4 SRR2584863 CP0008… 1.73e6 NA    G     A     225   NA     FALSE    NA    NA    11 0.992  NA     NA      NA      1.01  -0.670 0    
- 5 SRR2584863 CP0008… 2.62e6 NA    G     T      31.9 NA     FALSE    NA    NA    12 0.149   0.954  0.0498  0.775  0.656 -0.512 0.667
- 6 SRR2584863 CP0008… 3.00e6 NA    G     A     225   NA     FALSE    NA    NA    15 0.377  NA     NA      NA      1     -0.686 0    
- 7 SRR2584863 CP0008… 3.91e6 NA    G     T     225   NA     FALSE    NA    NA    10 0.0699 NA     NA      NA      0.975 -0.662 0    
- 8 SRR2584866 CP0008… 9.97e3 NA    T     G     214   NA     FALSE    NA    NA    10 0.0221 NA     NA      NA      1     -0.670 0    
- 9 SRR2584866 CP0008… 1.06e4 NA    G     A     225   NA     FALSE    NA    NA    11 0.959  NA     NA      NA      0.952 -0.670 0    
-10 SRR2584866 CP0008… 6.40e4 NA    G     A     225   NA     FALSE    NA    NA    18 0.451  NA     NA      NA      1     -0.689 0    
-# … with 330 more rows, and 10 more variables: ICB &lt;lgl&gt;, HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;,
-#   gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<pre class="r"><code># rows with QUAL values greater than or equal to 100
-filter(variants, QUAL &gt;= 100)</code></pre>
-<pre><code># A tibble: 666 × 29
-   sample_id  CHROM        POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB    RPB    MQB    BQB  MQSB    SGB  MQ0F
-   &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP00081…  281923 NA    G     T       217 NA     FALSE    NA  NA      10 0.774  NA     NA     NA     0.975 -0.662 0    
- 2 SRR2584863 CP00081…  473901 NA    CCGC  CCGC…   228 NA     TRUE      9   0.9    10 0.660  NA     NA     NA     0.916 -0.662 0    
- 3 SRR2584863 CP00081…  648692 NA    C     T       210 NA     FALSE    NA  NA      10 0.268  NA     NA     NA     0.916 -0.670 0    
- 4 SRR2584863 CP00081… 1331794 NA    C     A       178 NA     FALSE    NA  NA       8 0.624  NA     NA     NA     0.901 -0.651 0    
- 5 SRR2584863 CP00081… 1733343 NA    G     A       225 NA     FALSE    NA  NA      11 0.992  NA     NA     NA     1.01  -0.670 0    
- 6 SRR2584863 CP00081… 2333538 NA    AT    ATT     167 NA     TRUE      7   1       7 0.568  NA     NA     NA     1.01  -0.617 0    
- 7 SRR2584863 CP00081… 2407766 NA    A     C       104 NA     FALSE    NA  NA       9 0.0231  0.901  0.150  0.751 0.5   -0.591 0.333
- 8 SRR2584863 CP00081… 2446984 NA    A     C       225 NA     FALSE    NA  NA      20 0.0714 NA     NA     NA     1     -0.689 0    
- 9 SRR2584863 CP00081… 2665639 NA    A     T       225 NA     FALSE    NA  NA      19 0.996  NA     NA     NA     1     -0.690 0    
-10 SRR2584863 CP00081… 2999330 NA    G     A       225 NA     FALSE    NA  NA      15 0.377  NA     NA     NA     1     -0.686 0    
-# … with 656 more rows, and 10 more variables: ICB &lt;lgl&gt;, HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;,
-#   gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<pre class="r"><code># rows that have TRUE in the column INDEL
-filter(variants, INDEL)</code></pre>
-<pre><code># A tibble: 101 × 29
-   sample_id  CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB  
-   &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
- 1 SRR2584863 CP00… 4.33e5 NA    CTTT… CTTT…  64   NA     TRUE     12 1        12 0.478     NA    NA    NA  1     -0.676     0 NA   
- 2 SRR2584863 CP00… 4.74e5 NA    CCGC  CCGC… 228   NA     TRUE      9 0.9      10 0.660     NA    NA    NA  0.916 -0.662     0 NA   
- 3 SRR2584863 CP00… 2.10e6 NA    ACAG… ACAG…  56   NA     TRUE      2 0.667     3 0.902     NA    NA    NA  1     -0.454     0 NA   
- 4 SRR2584863 CP00… 2.33e6 NA    AT    ATT   167   NA     TRUE      7 1         7 0.568     NA    NA    NA  1.01  -0.617     0 NA   
- 5 SRR2584863 CP00… 3.90e6 NA    A     AC     43.4 NA     TRUE      2 1         2 0.02      NA    NA    NA NA     -0.454     0 NA   
- 6 SRR2584863 CP00… 4.43e6 NA    TGG   T     228   NA     TRUE     10 1        10 0.863     NA    NA    NA  1.01  -0.662     0 NA   
- 7 SRR2584866 CP00… 1.48e5 NA    AGGGG AGGG… 122   NA     TRUE      8 1         8 0.0462    NA    NA    NA  0.901 -0.651     0 NA   
- 8 SRR2584866 CP00… 1.58e5 NA    GTTT… GTTT…  19.5 NA     TRUE      6 1         6 0.358     NA    NA    NA  1     -0.617     0 NA   
- 9 SRR2584866 CP00… 1.73e5 NA    CAA   CA    180   NA     TRUE     11 1        11 0.294     NA    NA    NA  1     -0.670     0 NA   
-10 SRR2584866 CP00… 1.75e5 NA    GAA   GA    194   NA     TRUE     10 1        10 0.958     NA    NA    NA  0.952 -0.662     0 NA   
-# … with 91 more rows, and 9 more variables: HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;,
-#   gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
-<pre class="r"><code># rows that don&#39;t have missing data in the IDV column
-filter(variants, !is.na(IDV))</code></pre>
-<pre><code># A tibble: 101 × 29
-   sample_id  CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB  
-   &lt;chr&gt;      &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
- 1 SRR2584863 CP00… 4.33e5 NA    CTTT… CTTT…  64   NA     TRUE     12 1        12 0.478     NA    NA    NA  1     -0.676     0 NA   
- 2 SRR2584863 CP00… 4.74e5 NA    CCGC  CCGC… 228   NA     TRUE      9 0.9      10 0.660     NA    NA    NA  0.916 -0.662     0 NA   
- 3 SRR2584863 CP00… 2.10e6 NA    ACAG… ACAG…  56   NA     TRUE      2 0.667     3 0.902     NA    NA    NA  1     -0.454     0 NA   
- 4 SRR2584863 CP00… 2.33e6 NA    AT    ATT   167   NA     TRUE      7 1         7 0.568     NA    NA    NA  1.01  -0.617     0 NA   
- 5 SRR2584863 CP00… 3.90e6 NA    A     AC     43.4 NA     TRUE      2 1         2 0.02      NA    NA    NA NA     -0.454     0 NA   
- 6 SRR2584863 CP00… 4.43e6 NA    TGG   T     228   NA     TRUE     10 1        10 0.863     NA    NA    NA  1.01  -0.662     0 NA   
- 7 SRR2584866 CP00… 1.48e5 NA    AGGGG AGGG… 122   NA     TRUE      8 1         8 0.0462    NA    NA    NA  0.901 -0.651     0 NA   
- 8 SRR2584866 CP00… 1.58e5 NA    GTTT… GTTT…  19.5 NA     TRUE      6 1         6 0.358     NA    NA    NA  1     -0.617     0 NA   
- 9 SRR2584866 CP00… 1.73e5 NA    CAA   CA    180   NA     TRUE     11 1        11 0.294     NA    NA    NA  1     -0.670     0 NA   
-10 SRR2584866 CP00… 1.75e5 NA    GAA   GA    194   NA     TRUE     10 1        10 0.958     NA    NA    NA  0.952 -0.662     0 NA   
-# … with 91 more rows, and 9 more variables: HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;,
-#   gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
+<pre class="r"><code># rows for which the country column contains Vietnam or Indonesia
+filter(gapminder, country %in% c(&#39;Vietnam&#39;, &#39;Indonesia&#39;))</code></pre>
+<pre><code># A tibble: 24 × 6
+   country    year       pop continent life_exp gdp_per_cap
+   &lt;chr&gt;     &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Indonesia  1952  82052000 Asia          37.5        750.
+ 2 Indonesia  1957  90124000 Asia          39.9        859.
+ 3 Indonesia  1962  99028000 Asia          42.5        849.
+ 4 Indonesia  1967 109343000 Asia          46.0        762.
+ 5 Indonesia  1972 121282000 Asia          49.2       1111.
+ 6 Indonesia  1977 136725000 Asia          52.7       1383.
+ 7 Indonesia  1982 153343000 Asia          56.2       1517.
+ 8 Indonesia  1987 169276000 Asia          60.1       1748.
+ 9 Indonesia  1992 184816000 Asia          62.7       2383.
+10 Indonesia  1997 199278000 Asia          66.0       3119.
+# … with 14 more rows</code></pre>
+<pre class="r"><code># rows with life_exp greater than or equal to 70
+filter(gapminder, life_exp &gt;= 70)</code></pre>
+<pre><code># A tibble: 494 × 6
+   country    year      pop continent life_exp gdp_per_cap
+   &lt;chr&gt;     &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Albania    1982  2780097 Europe        70.4       3631.
+ 2 Albania    1987  3075321 Europe        72         3739.
+ 3 Albania    1992  3326498 Europe        71.6       2497.
+ 4 Albania    1997  3428038 Europe        73.0       3193.
+ 5 Albania    2002  3508512 Europe        75.7       4604.
+ 6 Albania    2007  3600523 Europe        76.4       5937.
+ 7 Algeria    2002 31287142 Africa        71.0       5288.
+ 8 Algeria    2007 33333216 Africa        72.3       6223.
+ 9 Argentina  1987 31620918 Americas      70.8       9140.
+10 Argentina  1992 33958947 Americas      71.9       9308.
+# … with 484 more rows</code></pre>
 <p><code>filter()</code> allows you to combine multiple conditions. You
 can separate them using a <code>,</code> as arguments to the function,
 they will be combined using the <code>&amp;</code> (AND) logical
 operator. If you need to use the <code>|</code> (OR) logical operator,
 you can specify it explicitly:</p>
 <pre class="r"><code># this is equivalent to:
-#   filter(variants, sample_id == &quot;SRR2584863&quot; &amp; QUAL &gt;= 100)
-filter(variants, sample_id == &quot;SRR2584863&quot;, QUAL &gt;= 100)</code></pre>
-<pre><code># A tibble: 19 × 29
-   sample_id  CHROM        POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP    VDB    RPB    MQB    BQB  MQSB    SGB  MQ0F
-   &lt;chr&gt;      &lt;chr&gt;      &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP00081…  281923 NA    G     T       217 NA     FALSE    NA  NA      10 0.774  NA     NA     NA     0.975 -0.662 0    
- 2 SRR2584863 CP00081…  473901 NA    CCGC  CCGC…   228 NA     TRUE      9   0.9    10 0.660  NA     NA     NA     0.916 -0.662 0    
- 3 SRR2584863 CP00081…  648692 NA    C     T       210 NA     FALSE    NA  NA      10 0.268  NA     NA     NA     0.916 -0.670 0    
- 4 SRR2584863 CP00081… 1331794 NA    C     A       178 NA     FALSE    NA  NA       8 0.624  NA     NA     NA     0.901 -0.651 0    
- 5 SRR2584863 CP00081… 1733343 NA    G     A       225 NA     FALSE    NA  NA      11 0.992  NA     NA     NA     1.01  -0.670 0    
- 6 SRR2584863 CP00081… 2333538 NA    AT    ATT     167 NA     TRUE      7   1       7 0.568  NA     NA     NA     1.01  -0.617 0    
- 7 SRR2584863 CP00081… 2407766 NA    A     C       104 NA     FALSE    NA  NA       9 0.0231  0.901  0.150  0.751 0.5   -0.591 0.333
- 8 SRR2584863 CP00081… 2446984 NA    A     C       225 NA     FALSE    NA  NA      20 0.0714 NA     NA     NA     1     -0.689 0    
- 9 SRR2584863 CP00081… 2665639 NA    A     T       225 NA     FALSE    NA  NA      19 0.996  NA     NA     NA     1     -0.690 0    
-10 SRR2584863 CP00081… 2999330 NA    G     A       225 NA     FALSE    NA  NA      15 0.377  NA     NA     NA     1     -0.686 0    
-11 SRR2584863 CP00081… 3339313 NA    A     C       211 NA     FALSE    NA  NA      10 0.406  NA     NA     NA     1.01  -0.670 0    
-12 SRR2584863 CP00081… 3401754 NA    C     A       225 NA     FALSE    NA  NA      14 0.168  NA     NA     NA     0.955 -0.681 0    
-13 SRR2584863 CP00081… 3481820 NA    A     G       200 NA     FALSE    NA  NA       9 0.107  NA     NA     NA     0.975 -0.662 0    
-14 SRR2584863 CP00081… 3488669 NA    A     C       225 NA     FALSE    NA  NA      13 0.0163 NA     NA     NA     1     -0.681 0    
-15 SRR2584863 CP00081… 3909807 NA    G     T       225 NA     FALSE    NA  NA      10 0.0699 NA     NA     NA     0.975 -0.662 0    
-16 SRR2584863 CP00081… 4100183 NA    A     G       225 NA     FALSE    NA  NA      16 0.829  NA     NA     NA     1     -0.689 0    
-17 SRR2584863 CP00081… 4201958 NA    A     C       225 NA     FALSE    NA  NA      11 0.0492 NA     NA     NA     0.975 -0.662 0    
-18 SRR2584863 CP00081… 4431393 NA    TGG   T       228 NA     TRUE     10   1      10 0.863  NA     NA     NA     1.01  -0.662 0    
-19 SRR2584863 CP00081… 4616538 NA    A     C       185 NA     FALSE    NA  NA       9 0.576  NA     NA     NA     0.992 -0.651 0    
-# … with 10 more variables: ICB &lt;lgl&gt;, HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;,
-#   gt_GT_alleles &lt;chr&gt;</code></pre>
+#   filter(gapminder, country == &quot;Germany&quot; &amp; year &gt;= 1980)
+filter(gapminder, country == &quot;Germany&quot;, year &gt;= 1980)</code></pre>
+<pre><code># A tibble: 6 × 6
+  country  year      pop continent life_exp gdp_per_cap
+  &lt;chr&gt;   &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+1 Germany  1982 78335266 Europe        73.8      22032.
+2 Germany  1987 77718298 Europe        74.8      24639.
+3 Germany  1992 80597764 Europe        76.1      26505.
+4 Germany  1997 82011073 Europe        77.3      27789.
+5 Germany  2002 82350671 Europe        78.7      30036.
+6 Germany  2007 82400996 Europe        79.4      32170.</code></pre>
 <pre class="r"><code># using `|` logical operator
-filter(variants, sample_id == &quot;SRR2584863&quot;, (INDEL | QUAL &gt;= 100))</code></pre>
-<pre><code># A tibble: 22 × 29
-   sample_id  CHROM      POS ID    REF   ALT     QUAL FILTER INDEL   IDV    IMF    DP    VDB    RPB    MQB    BQB  MQSB    SGB  MQ0F
-   &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
- 1 SRR2584863 CP000…  281923 NA    G     T        217 NA     FALSE    NA NA        10 0.774  NA     NA     NA     0.975 -0.662 0    
- 2 SRR2584863 CP000…  433359 NA    CTTT… CTTTT…    64 NA     TRUE     12  1        12 0.478  NA     NA     NA     1     -0.676 0    
- 3 SRR2584863 CP000…  473901 NA    CCGC  CCGCGC   228 NA     TRUE      9  0.9      10 0.660  NA     NA     NA     0.916 -0.662 0    
- 4 SRR2584863 CP000…  648692 NA    C     T        210 NA     FALSE    NA NA        10 0.268  NA     NA     NA     0.916 -0.670 0    
- 5 SRR2584863 CP000… 1331794 NA    C     A        178 NA     FALSE    NA NA         8 0.624  NA     NA     NA     0.901 -0.651 0    
- 6 SRR2584863 CP000… 1733343 NA    G     A        225 NA     FALSE    NA NA        11 0.992  NA     NA     NA     1.01  -0.670 0    
- 7 SRR2584863 CP000… 2103887 NA    ACAG… ACAGC…    56 NA     TRUE      2  0.667     3 0.902  NA     NA     NA     1     -0.454 0    
- 8 SRR2584863 CP000… 2333538 NA    AT    ATT      167 NA     TRUE      7  1         7 0.568  NA     NA     NA     1.01  -0.617 0    
- 9 SRR2584863 CP000… 2407766 NA    A     C        104 NA     FALSE    NA NA         9 0.0231  0.901  0.150  0.751 0.5   -0.591 0.333
-10 SRR2584863 CP000… 2446984 NA    A     C        225 NA     FALSE    NA NA        20 0.0714 NA     NA     NA     1     -0.689 0    
-# … with 12 more rows, and 10 more variables: ICB &lt;lgl&gt;, HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;,
-#   gt_PL &lt;dbl&gt;, gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
+filter(gapminder, year &gt;= 1990, (country == &quot;Australia&quot; | country == &#39;Mauritius&#39;))</code></pre>
+<pre><code># A tibble: 8 × 6
+  country    year      pop continent life_exp gdp_per_cap
+  &lt;chr&gt;     &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+1 Australia  1992 17481977 Oceania       77.6      23425.
+2 Australia  1997 18565243 Oceania       78.8      26998.
+3 Australia  2002 19546792 Oceania       80.4      30688.
+4 Australia  2007 20434176 Oceania       81.2      34435.
+5 Mauritius  1992  1096202 Africa        69.7       6058.
+6 Mauritius  1997  1149818 Africa        70.7       7426.
+7 Mauritius  2002  1200206 Africa        72.0       9022.
+8 Mauritius  2007  1250882 Africa        72.8      10957.</code></pre>
 <blockquote>
 <h2 id="challenge-1">Challenge</h2>
-<p>Select all the mutations that occurred between the positions 1e6 (one
-million) and 2e6 (included) that are not indels and have QUAL greater
-than 200.</p>
-<blockquote>
-<h2 id="solution-1">Solution</h2>
-<pre class="r"><code>filter(variants, POS &gt;= 1e6 &amp; POS &lt;= 2e6, !INDEL, QUAL &gt; 200)</code></pre>
-<pre><code># A tibble: 77 × 29
-   sample_id  CHROM      POS ID    REF   ALT    QUAL FILTER INDEL   IDV   IMF    DP   VDB   RPB   MQB   BQB  MQSB    SGB  MQ0F ICB  
-   &lt;chr&gt;      &lt;chr&gt;    &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
- 1 SRR2584863 CP0008… 1.73e6 NA    G     A       225 NA     FALSE    NA    NA    11 0.992    NA    NA    NA 1.01  -0.670     0 NA   
- 2 SRR2584866 CP0008… 1.00e6 NA    A     G       225 NA     FALSE    NA    NA    15 0.481    NA    NA    NA 0.966 -0.686     0 NA   
- 3 SRR2584866 CP0008… 1.02e6 NA    A     G       225 NA     FALSE    NA    NA    12 0.242    NA    NA    NA 1     -0.676     0 NA   
- 4 SRR2584866 CP0008… 1.06e6 NA    C     T       225 NA     FALSE    NA    NA    17 0.346    NA    NA    NA 1     -0.681     0 NA   
- 5 SRR2584866 CP0008… 1.06e6 NA    A     G       206 NA     FALSE    NA    NA     9 0.630    NA    NA    NA 0.925 -0.662     0 NA   
- 6 SRR2584866 CP0008… 1.07e6 NA    G     T       225 NA     FALSE    NA    NA    11 0.349    NA    NA    NA 0.975 -0.662     0 NA   
- 7 SRR2584866 CP0008… 1.07e6 NA    T     C       225 NA     FALSE    NA    NA    12 0.196    NA    NA    NA 0.975 -0.662     0 NA   
- 8 SRR2584866 CP0008… 1.10e6 NA    C     T       225 NA     FALSE    NA    NA    15 0.454    NA    NA    NA 1     -0.681     0 NA   
- 9 SRR2584866 CP0008… 1.11e6 NA    C     T       212 NA     FALSE    NA    NA     9 0.179    NA    NA    NA 0.992 -0.651     0 NA   
-10 SRR2584866 CP0008… 1.11e6 NA    A     G       225 NA     FALSE    NA    NA    14 0.909    NA    NA    NA 0.951 -0.676     0 NA   
-# … with 67 more rows, and 9 more variables: HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;,
-#   gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;</code></pre>
+<p>Select all data for countries in Europe between the years 1990 and
+2000</p>
 </blockquote>
-</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>filter(gapminder, continent == &#39;Europe&#39;, (year &gt;= 1990 &amp; year &lt;= 2000))</code></pre>
+<pre><code># A tibble: 60 × 6
+   country                 year      pop continent life_exp gdp_per_cap
+   &lt;chr&gt;                  &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Albania                 1992  3326498 Europe        71.6       2497.
+ 2 Albania                 1997  3428038 Europe        73.0       3193.
+ 3 Austria                 1992  7914969 Europe        76.0      27042.
+ 4 Austria                 1997  8069876 Europe        77.5      29096.
+ 5 Belgium                 1992 10045622 Europe        76.5      25576.
+ 6 Belgium                 1997 10199787 Europe        77.5      27561.
+ 7 Bosnia and Herzegovina  1992  4256013 Europe        72.2       2547.
+ 8 Bosnia and Herzegovina  1997  3607000 Europe        73.2       4766.
+ 9 Bulgaria                1992  8658506 Europe        71.2       6303.
+10 Bulgaria                1997  8066057 Europe        70.3       5970.
+# … with 50 more rows</code></pre>
+</details>
+<p><br></p>
 </div>
 <div id="pipes" class="section level3">
 <h3>Pipes</h3>
 <p>But what if you wanted to select and filter? We can do this with
-pipes. Pipes, are a fairly recent addition to R. Pipes let you take the
-output of one function and send it directly to the next, which is useful
-when you need to many things to the same data set. It was possible to do
-this before pipes were added to R, but it was much messier and more
-difficult. Pipes in R look like <code>%&gt;%</code> and are made
-available via the <code>magrittr</code> package, which is installed as
-part of <code>dplyr</code>. If you use RStudio, you can type the pipe
-with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you’re using a
-PC, or <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you’re using
-a Mac.</p>
-<pre class="r"><code>variants %&gt;%
-  filter(sample_id == &quot;SRR2584863&quot;) %&gt;%
-  select(REF, ALT, DP)</code></pre>
-<pre><code># A tibble: 25 × 3
-   REF                              ALT                                                         DP
-   &lt;chr&gt;                            &lt;chr&gt;                                                    &lt;dbl&gt;
- 1 T                                G                                                            4
- 2 G                                T                                                            6
- 3 G                                T                                                           10
- 4 CTTTTTTT                         CTTTTTTTT                                                   12
- 5 CCGC                             CCGCGC                                                      10
- 6 C                                T                                                           10
- 7 C                                A                                                            8
- 8 G                                A                                                           11
- 9 ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG     3
-10 AT                               ATT                                                          7
-# … with 15 more rows</code></pre>
-<p>In the above code, we use the pipe to send the <code>variants</code>
+pipes (which we saw in the <code>bash</code> episode). Pipes, are a
+fairly recent addition to R. Pipes let you take the output of one
+function and send it directly to the next, which is useful when you need
+to many things to the same data set. Pipes in R look like
+<code>%&gt;%</code> (recall they looked like <code>|</code> in
+<code>bash</code>) and are available via the <code>magrittr</code>
+package, which is installed as part of <code>dplyr</code>. If you use
+RStudio, you can type the pipe with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> +
+<kbd>M</kbd> if you’re using a PC, or <kbd>Cmd</kbd> + <kbd>Shift</kbd>
++ <kbd>M</kbd> if you’re using a Mac.</p>
+<pre class="r"><code>gapminder %&gt;%
+    filter(country == &quot;Spain&quot;) %&gt;%
+    select(year, pop, life_exp)</code></pre>
+<pre><code># A tibble: 12 × 3
+    year      pop life_exp
+   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+ 1  1952 28549870     64.9
+ 2  1957 29841614     66.7
+ 3  1962 31158061     69.7
+ 4  1967 32850275     71.4
+ 5  1972 34513161     73.1
+ 6  1977 36439000     74.4
+ 7  1982 37983310     76.3
+ 8  1987 38880702     76.9
+ 9  1992 39549438     77.6
+10  1997 39855442     78.8
+11  2002 40152517     79.8
+12  2007 40448191     80.9</code></pre>
+<p>In the above code, we use the pipe to send the <code>gapminder</code>
 dataset first through <code>filter()</code>, to keep rows where
-<code>sample_id</code> matches a particular sample, and then through
-<code>select()</code> to keep only the <code>REF</code>,
-<code>ALT</code>, and <code>DP</code> columns. Since <code>%&gt;%</code>
-takes the object on its left and passes it as the first argument to the
-function on its right, we don’t need to explicitly include the data
-frame as an argument to the <code>filter()</code> and
+<code>country</code> matches a particular country, and then through
+<code>select()</code> to keep only the <code>year</code>,
+<code>pop</code>, and <code>life_exp</code> columns. Since
+<code>%&gt;%</code> takes the object on its left and passes it as the
+first argument to the function on its right, we don’t need to explicitly
+include the data frame as an argument to the <code>filter()</code> and
 <code>select()</code> functions any more.</p>
 <p>Some may find it helpful to read the pipe like the word “then”. For
 instance, in the above example, we took the data frame
-<code>variants</code>, <em>then</em> we <code>filter</code>ed for rows
-where <code>sample_id</code> was SRR2584863, <em>then</em> we
-<code>select</code>ed the <code>REF</code>, <code>ALT</code>, and
-<code>DP</code> columns, <em>then</em> we showed only the first six
-rows. The <strong><code>dplyr</code></strong> functions by themselves
-are somewhat simple, but by combining them into linear workflows with
-the pipe, we can accomplish more complex manipulations of data
-frames.</p>
+<code>gapminder</code>, <em>then</em> we <code>filter</code>ed for rows
+where <code>country</code> was Spain, <em>then</em> we
+<code>select</code>ed the <code>year</code>, <code>pop</code>, and
+<code>life_exp</code> columns, <em>then</em> we showed only the first
+six rows. The <strong><code>dplyr</code></strong> functions by
+themselves are somewhat simple, but by combining them into linear
+workflows with the pipe, we can accomplish more complex manipulations of
+data frames.</p>
 <p>If we want to create a new object with this smaller version of the
 data we can do so by assigning it a new name:</p>
-<pre class="r"><code>SRR2584863_variants &lt;- variants %&gt;%
-  filter(sample_id == &quot;SRR2584863&quot;) %&gt;%
-  select(REF, ALT, DP)</code></pre>
+<pre class="r"><code>spain_gapminder &lt;- gapminder %&gt;%
+    filter(country == &quot;Spain&quot;) %&gt;%
+    select(year, pop, life_exp)</code></pre>
 <p>This new object includes all of the data from this sample. Let’s look
 at just the first six rows to confirm it’s what we want:</p>
-<pre class="r"><code>SRR2584863_variants</code></pre>
-<pre><code># A tibble: 25 × 3
-   REF                              ALT                                                         DP
-   &lt;chr&gt;                            &lt;chr&gt;                                                    &lt;dbl&gt;
- 1 T                                G                                                            4
- 2 G                                T                                                            6
- 3 G                                T                                                           10
- 4 CTTTTTTT                         CTTTTTTTT                                                   12
- 5 CCGC                             CCGCGC                                                      10
- 6 C                                T                                                           10
- 7 C                                A                                                            8
- 8 G                                A                                                           11
- 9 ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG     3
-10 AT                               ATT                                                          7
-# … with 15 more rows</code></pre>
+<pre class="r"><code>spain_gapminder</code></pre>
+<pre><code># A tibble: 12 × 3
+    year      pop life_exp
+   &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+ 1  1952 28549870     64.9
+ 2  1957 29841614     66.7
+ 3  1962 31158061     69.7
+ 4  1967 32850275     71.4
+ 5  1972 34513161     73.1
+ 6  1977 36439000     74.4
+ 7  1982 37983310     76.3
+ 8  1987 38880702     76.9
+ 9  1992 39549438     77.6
+10  1997 39855442     78.8
+11  2002 40152517     79.8
+12  2007 40448191     80.9</code></pre>
 <p>Similar to <code>head()</code> and <code>tail()</code> functions, we
 can also look at the first or last six rows using tidyverse function
 <code>slice()</code>. Slice is a more versatile function that allows
 users to specify a range to view:</p>
-<pre class="r"><code>SRR2584863_variants %&gt;% slice(1:6)</code></pre>
+<pre class="r"><code>spain_gapminder %&gt;% slice(1:6)</code></pre>
 <pre><code># A tibble: 6 × 3
-  REF      ALT          DP
-  &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;
-1 T        G             4
-2 G        T             6
-3 G        T            10
-4 CTTTTTTT CTTTTTTTT    12
-5 CCGC     CCGCGC       10
-6 C        T            10</code></pre>
-<pre class="r"><code>SRR2584863_variants %&gt;% slice(10:25)</code></pre>
-<pre><code># A tibble: 16 × 3
-   REF   ALT      DP
-   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;
- 1 AT    ATT       7
- 2 A     C         9
- 3 A     C        20
- 4 G     T        12
- 5 A     T        19
- 6 G     A        15
- 7 A     C        10
- 8 C     A        14
- 9 A     G         9
-10 A     C        13
-11 A     AC        2
-12 G     T        10
-13 A     G        16
-14 A     C        11
-15 TGG   T        10
-16 A     C         9</code></pre>
+   year      pop life_exp
+  &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1  1952 28549870     64.9
+2  1957 29841614     66.7
+3  1962 31158061     69.7
+4  1967 32850275     71.4
+5  1972 34513161     73.1
+6  1977 36439000     74.4</code></pre>
+<pre class="r"><code>spain_gapminder %&gt;% slice(7:11)</code></pre>
+<pre><code># A tibble: 5 × 3
+   year      pop life_exp
+  &lt;int&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+1  1982 37983310     76.3
+2  1987 38880702     76.9
+3  1992 39549438     77.6
+4  1997 39855442     78.8
+5  2002 40152517     79.8</code></pre>
 <blockquote>
 <h2 id="exercise-pipe-and-filter">Exercise: Pipe and filter</h2>
-<p>Starting with the <code>variants</code> data frame, use pipes to
-subset the data to include only observations from SRR2584863 sample,
-where the filtered depth (DP) is at least 10. Shwoing only 5th through
-11th rows of columns <code>REF</code>, <code>ALT</code>, and
-<code>POS</code>.</p>
-<blockquote>
-<h2 id="solution-2">Solution</h2>
-<pre class="r"><code> variants %&gt;%
- filter(sample_id == &quot;SRR2584863&quot; &amp; DP &gt;= 10) %&gt;%
- slice(5:11) %&gt;%
- select(REF, ALT, POS)</code></pre>
-<pre><code># A tibble: 7 × 3
-  REF   ALT       POS
-  &lt;chr&gt; &lt;chr&gt;   &lt;dbl&gt;
-1 G     A     1733343
-2 A     C     2446984
-3 G     T     2618472
-4 A     T     2665639
-5 G     A     2999330
-6 A     C     3339313
-7 C     A     3401754</code></pre>
+<p>Starting with the <code>gapminder</code> data frame, use pipes to
+subset the data to include only observations from Panama, where the year
+is at least 1980. Showing only 4th through 6th rows of columns
+<code>country</code>, <code>year</code>, and
+<code>gdp_per_cap</code>.</p>
 </blockquote>
-</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>gapminder %&gt;%
+    filter(country == &quot;Panama&quot; &amp; year &gt;= 1980) %&gt;%
+    slice(4:6) %&gt;%
+    select(country, year, gdp_per_cap)</code></pre>
+<pre><code># A tibble: 3 × 3
+  country  year gdp_per_cap
+  &lt;chr&gt;   &lt;int&gt;       &lt;dbl&gt;
+1 Panama   1997       7114.
+2 Panama   2002       7356.
+3 Panama   2007       9809.</code></pre>
+</details>
+<p><br></p>
 </div>
 <div id="mutate" class="section level3">
 <h3>Mutate</h3>
@@ -801,59 +761,57 @@ where the filtered depth (DP) is at least 10. Shwoing only 5th through
 existing columns, for example to do unit conversions or find the ratio
 of values in two columns. For this we’ll use the <code>dplyr</code>
 function <code>mutate()</code>.</p>
-<p>We have a column titled “QUAL”. This is a Phred-scaled confidence
-score that a polymorphism exists at this position given the sequencing
-data. Lower QUAL scores indicate low probability of a polymorphism
-existing at that site. We can convert the confidence value QUAL to a
-probability value according to the formula:</p>
-<p>Probability = 1- 10 ^ -(QUAL/10)</p>
-<p>Let’s add a column (<code>POLPROB</code>) to our
-<code>variants</code> data frame that shows the probability of a
-polymorphism at that site given the data.</p>
-<pre class="r"><code>variants %&gt;%
-  mutate(POLPROB = 1 - (10 ^ -(QUAL/10)))</code></pre>
-<pre><code># A tibble: 801 × 30
-   sample_id CHROM    POS ID    REF   ALT    QUAL FILTER INDEL   IDV    IMF    DP    VDB   RPB   MQB   BQB   MQSB    SGB  MQ0F ICB  
-   &lt;chr&gt;     &lt;chr&gt;  &lt;dbl&gt; &lt;lgl&gt; &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt; &lt;lgl&gt;  &lt;lgl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;lgl&gt;
- 1 SRR25848… CP00… 9.97e3 NA    T     G        91 NA     FALSE    NA NA         4 0.0257    NA    NA    NA NA     -0.556 0     NA   
- 2 SRR25848… CP00… 2.63e5 NA    G     T        85 NA     FALSE    NA NA         6 0.0961     1     1     1 NA     -0.591 0.167 NA   
- 3 SRR25848… CP00… 2.82e5 NA    G     T       217 NA     FALSE    NA NA        10 0.774     NA    NA    NA  0.975 -0.662 0     NA   
- 4 SRR25848… CP00… 4.33e5 NA    CTTT… CTTT…    64 NA     TRUE     12  1        12 0.478     NA    NA    NA  1     -0.676 0     NA   
- 5 SRR25848… CP00… 4.74e5 NA    CCGC  CCGC…   228 NA     TRUE      9  0.9      10 0.660     NA    NA    NA  0.916 -0.662 0     NA   
- 6 SRR25848… CP00… 6.49e5 NA    C     T       210 NA     FALSE    NA NA        10 0.268     NA    NA    NA  0.916 -0.670 0     NA   
- 7 SRR25848… CP00… 1.33e6 NA    C     A       178 NA     FALSE    NA NA         8 0.624     NA    NA    NA  0.901 -0.651 0     NA   
- 8 SRR25848… CP00… 1.73e6 NA    G     A       225 NA     FALSE    NA NA        11 0.992     NA    NA    NA  1.01  -0.670 0     NA   
- 9 SRR25848… CP00… 2.10e6 NA    ACAG… ACAG…    56 NA     TRUE      2  0.667     3 0.902     NA    NA    NA  1     -0.454 0     NA   
-10 SRR25848… CP00… 2.33e6 NA    AT    ATT     167 NA     TRUE      7  1         7 0.568     NA    NA    NA  1.01  -0.617 0     NA   
-# … with 791 more rows, and 10 more variables: HOB &lt;lgl&gt;, AC &lt;dbl&gt;, AN &lt;dbl&gt;, DP4 &lt;chr&gt;, MQ &lt;dbl&gt;, Indiv &lt;chr&gt;, gt_PL &lt;dbl&gt;,
-#   gt_GT &lt;dbl&gt;, gt_GT_alleles &lt;chr&gt;, POLPROB &lt;dbl&gt;</code></pre>
+<p>We have a column titled “gdp_per_cap” and “pop”. We could use these
+two columns to compute the “total_gdp” for each country/year
+observation. By multiplying the entries per-row.</p>
+<p>Let’s add a column (<code>total_gdp</code>) to our
+<code>gapminder</code> data frame that shows the total GDP for the
+country in the corresponding year.</p>
+<pre class="r"><code>gapminder %&gt;% mutate(total_gdp = gdp_per_cap * pop)</code></pre>
+<pre><code># A tibble: 1,704 × 7
+   country      year      pop continent life_exp gdp_per_cap    total_gdp
+   &lt;chr&gt;       &lt;int&gt;    &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;
+ 1 Afghanistan  1952  8425333 Asia          28.8        779.  6567086330.
+ 2 Afghanistan  1957  9240934 Asia          30.3        821.  7585448670.
+ 3 Afghanistan  1962 10267083 Asia          32.0        853.  8758855797.
+ 4 Afghanistan  1967 11537966 Asia          34.0        836.  9648014150.
+ 5 Afghanistan  1972 13079460 Asia          36.1        740.  9678553274.
+ 6 Afghanistan  1977 14880372 Asia          38.4        786. 11697659231.
+ 7 Afghanistan  1982 12881816 Asia          39.9        978. 12598563401.
+ 8 Afghanistan  1987 13867957 Asia          40.8        852. 11820990309.
+ 9 Afghanistan  1992 16317921 Asia          41.7        649. 10595901589.
+10 Afghanistan  1997 22227415 Asia          41.8        635. 14121995875.
+# … with 1,694 more rows</code></pre>
 <blockquote>
 <h2 id="exercise">Exercise</h2>
-<p>There are a lot of columns in our dataset, so let’s just look at the
-<code>sample_id</code>, <code>POS</code>, <code>QUAL</code>, and
-<code>POLPROB</code> columns for now. Add a line to the above code to
-only show those columns.</p>
-<blockquote>
-<h2 id="solution-3">Solution</h2>
-<pre class="r"><code>variants %&gt;%
- mutate(POLPROB = 1 - 10 ^ -(QUAL/10)) %&gt;%
- select(sample_id, POS, QUAL, POLPROB)</code></pre>
-<pre><code># A tibble: 801 × 4
-   sample_id      POS  QUAL POLPROB
-   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
- 1 SRR2584863    9972    91    1.00
- 2 SRR2584863  263235    85    1.00
- 3 SRR2584863  281923   217    1   
- 4 SRR2584863  433359    64    1.00
- 5 SRR2584863  473901   228    1   
- 6 SRR2584863  648692   210    1   
- 7 SRR2584863 1331794   178    1   
- 8 SRR2584863 1733343   225    1   
- 9 SRR2584863 2103887    56    1.00
-10 SRR2584863 2333538   167    1   
-# … with 791 more rows</code></pre>
+<p>There is data for a lot of countries and years, so let’s look just at
+the results of the United States by adding the correct line to the above
+code.</p>
 </blockquote>
-</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>gapminder %&gt;%
+    mutate(total_gdp = gdp_per_cap * pop) %&gt;%
+    filter(country == &#39;United States&#39;)</code></pre>
+<pre><code># A tibble: 12 × 7
+   country        year       pop continent life_exp gdp_per_cap total_gdp
+   &lt;chr&gt;         &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 United States  1952 157553000 Americas      68.4      13990.   2.20e12
+ 2 United States  1957 171984000 Americas      69.5      14847.   2.55e12
+ 3 United States  1962 186538000 Americas      70.2      16173.   3.02e12
+ 4 United States  1967 198712000 Americas      70.8      19530.   3.88e12
+ 5 United States  1972 209896000 Americas      71.3      21806.   4.58e12
+ 6 United States  1977 220239000 Americas      73.4      24073.   5.30e12
+ 7 United States  1982 232187835 Americas      74.6      25010.   5.81e12
+ 8 United States  1987 242803533 Americas      75.0      29884.   7.26e12
+ 9 United States  1992 256894189 Americas      76.1      32004.   8.22e12
+10 United States  1997 272911760 Americas      76.8      35767.   9.76e12
+11 United States  2002 287675526 Americas      77.3      39097.   1.12e13
+12 United States  2007 301139947 Americas      78.2      42952.   1.29e13</code></pre>
+</details>
+<p><br></p>
 </div>
 <div id="group_by-and-summarize-functions" class="section level3">
 <h3>group_by() and summarize() functions</h3>
@@ -865,20 +823,24 @@ function, which splits the data into groups. When the data is grouped in
 this way <code>summarize()</code> can be used to collapse each group
 into a single-row summary. <code>summarize()</code> does this by
 applying an aggregating or summary function to each group. For example,
-if we wanted to group by sample_id and find the number of rows of data
-for each sample, we would do:</p>
-<pre class="r"><code>variants %&gt;%
-  group_by(sample_id) %&gt;%
-  summarize(n())</code></pre>
-<pre><code># A tibble: 3 × 2
-  sample_id  `n()`
-  &lt;chr&gt;      &lt;int&gt;
-1 SRR2584863    25
-2 SRR2584866   766
-3 SRR2589044    10</code></pre>
-<p>It can be a bit tricky at first, but we can imagine physically
-splitting the data frame by groups and applying a certain function to
-summarize the data.</p>
+if we wanted to group by continent and find the number of rows of data
+for each continent, we would do:</p>
+<pre class="r"><code>gapminder %&gt;%
+    group_by(continent) %&gt;%
+    summarize(n())</code></pre>
+<pre><code># A tibble: 5 × 2
+  continent `n()`
+  &lt;chr&gt;     &lt;int&gt;
+1 Africa      624
+2 Americas    300
+3 Asia        396
+4 Europe      360
+5 Oceania      24</code></pre>
+<p>Notice this is the same results as when we ran
+<code>summary(gapminder$continent)</code>.</p>
+<p>It can be a bit tricky at first, but we can imagine splitting the
+data frame by groups and applying a certain function to summarize the
+data.</p>
 <center>
 <img src="images/split_apply_combine.png" alt="rstudio default session" style="width: 500px;"/>
 </center>
@@ -886,59 +848,41 @@ summarize the data.</p>
 <p>Here the summary function used was <code>n()</code> to find the count
 for each group. Since this is a quite a common operation, there is a
 simpler method called <code>tally()</code>:</p>
-<pre class="r"><code>variants %&gt;%
-  group_by(ALT) %&gt;%
-  tally()</code></pre>
-<pre><code># A tibble: 57 × 2
-   ALT                                                          n
-   &lt;chr&gt;                                                    &lt;int&gt;
- 1 A                                                          211
- 2 AC                                                           2
- 3 ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG                         1
- 4 ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG     1
- 5 ACCCCC                                                       2
- 6 ACCCCCCCC                                                    2
- 7 AGCGCGCGCG                                                   1
- 8 AGG                                                          1
- 9 AGGGGG                                                       2
-10 AGGGGGG                                                      2
-# … with 47 more rows</code></pre>
+<pre class="r"><code>gapminder %&gt;%
+    group_by(country) %&gt;%
+    tally()</code></pre>
+<pre><code># A tibble: 142 × 2
+   country         n
+   &lt;chr&gt;       &lt;int&gt;
+ 1 Afghanistan    12
+ 2 Albania        12
+ 3 Algeria        12
+ 4 Angola         12
+ 5 Argentina      12
+ 6 Australia      12
+ 7 Austria        12
+ 8 Bahrain        12
+ 9 Bangladesh     12
+10 Belgium        12
+# … with 132 more rows</code></pre>
 <p>To show that there are many ways to achieve the same results, there
 is another way to approach this, which bypasses <code>group_by()</code>
 using the function <code>count()</code>:</p>
-<pre class="r"><code>variants %&gt;%
-  count(ALT)</code></pre>
-<pre><code># A tibble: 57 × 2
-   ALT                                                          n
-   &lt;chr&gt;                                                    &lt;int&gt;
- 1 A                                                          211
- 2 AC                                                           2
- 3 ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG                         1
- 4 ACAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAGCCAG     1
- 5 ACCCCC                                                       2
- 6 ACCCCCCCC                                                    2
- 7 AGCGCGCGCG                                                   1
- 8 AGG                                                          1
- 9 AGGGGG                                                       2
-10 AGGGGGG                                                      2
-# … with 47 more rows</code></pre>
-<blockquote>
-<h2 id="challenge-2">Challenge</h2>
-<ul>
-<li>How many mutations are found in each sample?</li>
-</ul>
-<blockquote>
-<h2 id="solution-4">Solution</h2>
-<pre class="r"><code>variants %&gt;%
-  count(sample_id)</code></pre>
-<pre><code># A tibble: 3 × 2
-  sample_id      n
-  &lt;chr&gt;      &lt;int&gt;
-1 SRR2584863    25
-2 SRR2584866   766
-3 SRR2589044    10</code></pre>
-</blockquote>
-</blockquote>
+<pre class="r"><code>gapminder %&gt;% count(country)</code></pre>
+<pre><code># A tibble: 142 × 2
+   country         n
+   &lt;chr&gt;       &lt;int&gt;
+ 1 Afghanistan    12
+ 2 Albania        12
+ 3 Algeria        12
+ 4 Angola         12
+ 5 Argentina      12
+ 6 Australia      12
+ 7 Austria        12
+ 8 Bahrain        12
+ 9 Bangladesh     12
+10 Belgium        12
+# … with 132 more rows</code></pre>
 <p>We can also apply many other functions to individual columns to get
 other summary statistics. For example,we can use built-in functions like
 <code>mean()</code>, <code>median()</code>, <code>min()</code>, and
@@ -950,21 +894,29 @@ know they have missing data, and make a conscious decision on how to
 deal with it. When dealing with simple statistics like the mean, the
 easiest way to ignore <code>NA</code> (the missing data) is to use
 <code>na.rm = TRUE</code> (<code>rm</code> stands for remove).</p>
-<p>So to view the mean, median, maximum, and minimum filtered depth
-(<code>DP</code>) for each sample:</p>
-<pre class="r"><code>variants %&gt;%
-  group_by(sample_id) %&gt;%
-  summarize(
-    mean_DP = mean(DP),
-    median_DP = median(DP),
-    min_DP = min(DP),
-    max_DP = max(DP))</code></pre>
-<pre><code># A tibble: 3 × 5
-  sample_id  mean_DP median_DP min_DP max_DP
-  &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1 SRR2584863    10.4      10        2     20
-2 SRR2584866    10.6      10        2     79
-3 SRR2589044     9.3       9.5      3     16</code></pre>
+<p>So to view the mean, median, maximum, and minimum
+<code>gdp_per_cap</code> for each country:</p>
+<pre class="r"><code>gapminder %&gt;%
+    group_by(country) %&gt;%
+    summarize(
+        min_gpc = min(gdp_per_cap),
+        mean_gpc = mean(gdp_per_cap),
+        median_gpc = median(gdp_per_cap),
+        max_gpc = max(gdp_per_cap))</code></pre>
+<pre><code># A tibble: 142 × 5
+   country     min_gpc mean_gpc median_gpc max_gpc
+   &lt;chr&gt;         &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Afghanistan    635.     803.       803.    978.
+ 2 Albania       1601.    3255.      3253.   5937.
+ 3 Algeria       2449.    4426.      4854.   6223.
+ 4 Angola        2277.    3607.      3265.   5523.
+ 5 Argentina     5911.    8956.      9069.  12779.
+ 6 Australia    10040.   19981.     18906.  34435.
+ 7 Austria       6137.   20412.     20673.  36126.
+ 8 Bahrain       9867.   18078.     18780.  29796.
+ 9 Bangladesh     630.     818.       704.   1391.
+10 Belgium       8343.   19901.     20049.  33693.
+# … with 132 more rows</code></pre>
 </div>
 <div id="reshaping-data-frames" class="section level3">
 <h3>Reshaping data frames</h3>
@@ -974,29 +926,50 @@ the wide format. This transformation can be done with the
 package (also part of the <code>tidyverse</code>).</p>
 <p><code>pivot_wider()</code> takes a data frame as the first argument,
 and two arguments: the column name that will become the columns and the
-column name that will become the cells in the wide data.</p>
-<pre class="r"><code>variants_wide &lt;- variants %&gt;%
-  group_by(sample_id, CHROM) %&gt;%
-  summarize(mean_DP = mean(DP)) %&gt;%
-  pivot_wider(names_from = sample_id, values_from = mean_DP)</code></pre>
-<pre><code>`summarise()` has grouped output by &#39;sample_id&#39;. You can override using the `.groups` argument.</code></pre>
-<pre class="r"><code>variants_wide</code></pre>
-<pre><code># A tibble: 1 × 4
-  CHROM      SRR2584863 SRR2584866 SRR2589044
-  &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
-1 CP000819.1       10.4       10.6        9.3</code></pre>
+column name that will become the cells in the wide data. Let’s create a
+wide format table with rows for each country, columns for each year, and
+data values being the life_exp.</p>
+<pre class="r"><code>gapminder_wide &lt;- gapminder %&gt;%
+    select(country, life_exp, year) %&gt;%
+    group_by(country) %&gt;%
+    pivot_wider(names_from = year, values_from = life_exp)
+gapminder_wide</code></pre>
+<pre><code># A tibble: 142 × 13
+# Groups:   country [142]
+   country `1952` `1957` `1962` `1967` `1972` `1977` `1982` `1987` `1992` `1997`
+   &lt;chr&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+ 1 Afghan…   28.8   30.3   32.0   34.0   36.1   38.4   39.9   40.8   41.7   41.8
+ 2 Albania   55.2   59.3   64.8   66.2   67.7   68.9   70.4   72     71.6   73.0
+ 3 Algeria   43.1   45.7   48.3   51.4   54.5   58.0   61.4   65.8   67.7   69.2
+ 4 Angola    30.0   32.0   34     36.0   37.9   39.5   39.9   39.9   40.6   41.0
+ 5 Argent…   62.5   64.4   65.1   65.6   67.1   68.5   69.9   70.8   71.9   73.3
+ 6 Austra…   69.1   70.3   70.9   71.1   71.9   73.5   74.7   76.3   77.6   78.8
+ 7 Austria   66.8   67.5   69.5   70.1   70.6   72.2   73.2   74.9   76.0   77.5
+ 8 Bahrain   50.9   53.8   56.9   59.9   63.3   65.6   69.1   70.8   72.6   73.9
+ 9 Bangla…   37.5   39.3   41.2   43.5   45.3   46.9   50.0   52.8   56.0   59.4
+10 Belgium   68     69.2   70.2   70.9   71.4   72.8   73.9   75.4   76.5   77.5
+# … with 132 more rows, and 2 more variables: 2002 &lt;dbl&gt;, 2007 &lt;dbl&gt;</code></pre>
 <p>The opposite operation of <code>pivot_wider()</code> is taken care by
 <code>pivot_longer()</code>. We specify the names of the new columns,
 and here add <code>-CHROM</code> as this column shouldn’t be affected by
 the reshaping:</p>
-<pre class="r"><code>variants_wide %&gt;%
-  pivot_longer(-CHROM, names_to = &quot;sample_id&quot;, values_to = &quot;mean_DP&quot;)</code></pre>
-<pre><code># A tibble: 3 × 3
-  CHROM      sample_id  mean_DP
-  &lt;chr&gt;      &lt;chr&gt;        &lt;dbl&gt;
-1 CP000819.1 SRR2584863    10.4
-2 CP000819.1 SRR2584866    10.6
-3 CP000819.1 SRR2589044     9.3</code></pre>
+<pre class="r"><code>gapminder_wide %&gt;%
+    pivot_longer(-country, names_to = &quot;year&quot;, values_to = &quot;life_exp&quot;)</code></pre>
+<pre><code># A tibble: 1,704 × 3
+# Groups:   country [142]
+   country     year  life_exp
+   &lt;chr&gt;       &lt;chr&gt;    &lt;dbl&gt;
+ 1 Afghanistan 1952      28.8
+ 2 Afghanistan 1957      30.3
+ 3 Afghanistan 1962      32.0
+ 4 Afghanistan 1967      34.0
+ 5 Afghanistan 1972      36.1
+ 6 Afghanistan 1977      38.4
+ 7 Afghanistan 1982      39.9
+ 8 Afghanistan 1987      40.8
+ 9 Afghanistan 1992      41.7
+10 Afghanistan 1997      41.8
+# … with 1,694 more rows</code></pre>
 </div>
 <div id="resources" class="section level3">
 <h3>Resources</h3>
