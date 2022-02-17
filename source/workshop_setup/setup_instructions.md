@@ -96,7 +96,7 @@ be happy to lend a hand to get things working.
 
    2.3. Note that once your Slack account is established and you have accepted the
       Slack invite you can access the Slack channel by pointing your web browser
-      here: https://umcoderspaces.slack.com
+      here: https://umbioinfcoreworkshops.slack.com
 
 ### **Launch a command window**
 
