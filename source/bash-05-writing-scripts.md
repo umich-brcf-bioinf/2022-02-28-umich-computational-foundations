@@ -150,7 +150,7 @@ grep -B1 -A2 -h NNNNNNNNNN *.fastq | grep -v '^--' > scripted_bad_reads.txt
 
 > Custom `grep` control
 >
-> We introduced the `-v` option in [the previous episode](http://www.datacarpentry.org/shell-genomics/04-redirection/), now we
+> We introduced the `-v` option in [the previous episode](bash-04-redirection.html), now we
 > are using `-h` to "Suppress the prefixing of file names on output" according to the documentation shown by `man grep`.
 
 <br>
@@ -186,7 +186,7 @@ Script finished!
 
 ## Making the script into a program
 
-We had to type `bash` because we needed to tell the computer what program to use to run this script. Instead, we can turn this script into its own program. We need to tell the computer that this script is a program by making the script file executable. We can do this by changing the file permissions. We talked about permissions in [an earlier episode](http://www.datacarpentry.org/shell-genomics/03-working-with-files/).
+We had to type `bash` because we needed to tell the computer what program to use to run this script. Instead, we can turn this script into its own program. We need to tell the computer that this script is a program by making the script file executable. We can do this by changing the file permissions. We talked about permissions in [an earlier episode](bash-03-working-with-files.html).
 
 First, let's look at the current permissions.
 
@@ -372,8 +372,7 @@ Remember that in both instances, the command is run from your local machine, we'
 If you're using a Windows PC, you should likewise be able to use the *scp* program. It is installed on Windows 10 by default, though you may have to enable it.
 
 1. Open the windows [PowerShell](https://en.wikipedia.org/wiki/Windows_PowerShell);
-go to your start menu/search enter the term **'cmd'**; you will be able to start the shell
-(the shell should start from C:\Users\your-pc-username>).
+go to your start menu/search enter the term **'cmd'**; Select the 'Command Prompt' application and it will start the shell (the shell prompt should say the local location e.g. C:\Users\your-pc-username>).
 2. Change to the Downloads directory:
 
 ~~~
@@ -388,7 +387,7 @@ C:\User\your-pc-username\Downloads> scp local_file.txt <username>@bfx-workshop01
 
 <br>
 
-### Downloading Data from your Virtual Machine with PSCP
+### Downloading Data from your Virtual Machine with scp
 
 1. Follow the instructions in the Upload section to open the powershell and change to the Downloads folder (steps 1-2)
 2. Download the text file to your current working directory (represented by a .) using the following command **(make sure you substitute `<username>` for your actual username).**

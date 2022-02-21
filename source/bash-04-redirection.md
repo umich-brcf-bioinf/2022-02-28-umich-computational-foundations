@@ -471,8 +471,8 @@ Print the file prefix of all of the `.txt` files in our current directory.
 
 <br>
 
-</details>
-</summary>Solution - Using a for loop</summary>
+<details>
+<summary>Solution - Using a for loop</summary>
 
 ~~~
 $ for filename in *.txt
@@ -512,7 +512,7 @@ Remove `_2019` from all of the `.txt` files.
 ~~~
 $ for filename in *_2019.txt
 > do
-> name=$(basename ${filename} _2019.txt)
+> name=$(basename ${filename} _2022.txt)
 > mv ${filename} ${name}.txt
 > done
 ~~~

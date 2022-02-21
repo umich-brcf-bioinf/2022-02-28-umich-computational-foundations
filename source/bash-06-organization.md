@@ -48,7 +48,7 @@ You should see the output:
 ~~~
 
 > Tip  
-> If you aren't in your home directory, the easiest way to get there is to enter the command `cd`, which always returns you to home.
+> If you aren't in your home directory, the easiest way to get there is to enter the command `cd` without any arguments, which returns you to home.
 
 <br>
 <br>
@@ -155,7 +155,7 @@ Note we used the last 7 lines as an example, the number of lines may vary.
 You may have noticed that your history contains the `history` command itself. To remove this redundancy from our log, let's use the `nano` text editor to fix the file:  
 
 ~~~
-$ nano dc_workshop_log_2017_10_27.txt
+$ nano workshop_log_2017_10_27.txt
 ~~~
 
 (Remember to replace the `2017_10_27` with your workshop date.)
