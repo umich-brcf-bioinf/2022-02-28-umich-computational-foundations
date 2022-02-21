@@ -321,6 +321,25 @@ $(document).ready(function () {
 </div>
 
 
+<script language="javascript" type="text/javascript">
+function set_page_view_defaults() {
+    document.getElementById('div_win').style.display = 'block';
+    document.getElementById('div_unix').style.display = 'none';
+};
+
+function change_content_by_platform(form_control){
+    if (!form_control || document.getElementById(form_control).value == 'win') {
+        set_page_view_defaults();
+    } else if (document.getElementById(form_control).value == 'unix') {
+        document.getElementById('div_win').style.display = 'none';
+        document.getElementById('div_unix').style.display = 'block';
+    } else {
+        alert("Error: Missing platform value for 'change_content_by_platform()' script!");
+    }
+}
+
+window.onload = set_page_view_defaults;
+</script>
 <div id="what-is-a-shell-and-why-should-i-care" class="section level2">
 <h2>What is a shell and why should I care?</h2>
 <p>A <em>shell</em> is a computer program that presents a command line interface which allows you to control your computer using commands entered with a keyboard instead of controlling graphical user interfaces (GUIs) with a mouse/keyboard/touchscreen combination.</p>
@@ -337,149 +356,136 @@ $(document).ready(function () {
 <li>Many bioinformatic tasks require large amounts of computing power and can’t realistically be run on your own machine. These tasks are best performed using remote computers or cloud computing, which can only be accessed through a shell.</li>
 </ul>
 <p>In this lesson you will learn how to use the command line interface to move around in your file system.</p>
+<p><br> <br></p>
 </div>
-<div id="how-to-access-the-shell" class="section level2">
-<h2>How to access the shell</h2>
-<p>On a Mac or Linux machine, you can access a shell through a program called “Terminal”, which is already available on your computer. The Terminal is a window into which we will type commands. If you’re using Windows, you’ll need to download a separate program to access the shell.</p>
-<p>To save time, we are going to be working on a remote server where all the necessary data and software available. When we say a ‘remote sever’, we are talking about a computer that is not the one you are working on right now. You will access the Carpentries remote server where everything is prepared for the lesson. We will learn the basics of the shell by manipulating some data files. Some of these files are very large , and would take time to download to your computer. We will also be using several bioinformatic packages in later lessons and installing all of the software would take up time even more time. A ‘ready-to-go’ sever let’s us focus on learning.</p>
-</div>
-<div id="how-to-access-the-remote-server" class="section level2">
-<h2>How to access the remote server</h2>
-<p>You can log-in to the remote server using the instructions <a href="http://www.datacarpentry.org/cloud-genomics/02-logging-onto-cloud/#logging-onto-a-cloud-instance">here</a>. Your instructor will supply to you the <code>ip_address</code> and password that you need to login.</p>
-<p>Each of you will have a different <code>ip_address</code>. This will prevent us from accidentally changing each other’s files as we work through the exercises. The password will be the same for everyone.</p>
-<p>After logging in, you will see a screen showing something like this:</p>
-<pre><code>Welcome to Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-48-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com/
-
-  System information as of Sat Feb  2 00:08:17 UTC 2019
-
-  System load: 0.0                Memory usage: 5%   Processes:       82
-  Usage of /:  29.9% of 98.30GB   Swap usage:   0%   Users logged in: 0
-
-  Graph this data and manage this system at:
-    https://landscape.canonical.com/
-
-  Get cloud support with Ubuntu Advantage Cloud Guest:
-    http://www.ubuntu.com/business/services/cloud
-
-597 packages can be updated.
-444 updates are security updates.
-
-New release &#39;16.04.5 LTS&#39; available.
-Run &#39;do-release-upgrade&#39; to upgrade to it.
-
-
-Last login: Fri Feb  1 22:34:53 2019 from c-73-116-43-163.hsd1.ca.comcast.net</code></pre>
-<p>{: .output}</p>
-<p>This provides a lot of information about the remote server that you’re logging into. We’re not going to use most of this information for our workshop, so you can clear your screen using the <code>clear</code> command.</p>
-<p>Type the word <code>clear</code> into the terminal and press the <code>Enter</code> key.</p>
-<pre><code>$ clear</code></pre>
-<p>{: .bash}</p>
-<p>This will scroll your screen down to give you a fresh screen and will make it easier to read. You haven’t lost any of the information on your screen. If you scroll up, you can see everything that has been output to your screen up until this point.</p>
+<div id="accessing-the-remote-server" class="section level2">
+<h2>Accessing the remote server</h2>
+<p>To save time, we are going to be working on a remote server where all the necessary data and software are available. When we say a ‘remote sever’, we are talking about a computer that is not the one you are working on right now. You will create a secure connection with the workshop remote server where everything is prepared for the lesson. We will learn the basics of the shell by manipulating some data files. Some of these files are very large, and would take time to download to your computer. We will also be using several bioinformatic packages in later lessons and installing all of the software would take up time even more time. A ‘ready-to-go’ sever let’s us focus on learning.</p>
+<p>This section will be done slightly differently depending on if you’re using a Windows or Unix computer. Here is a drop-down menu to select the appropriate instructions for connecting to the AWS instance.</p>
+<p><strong>Please select the platform you wish to use for the exercises: <select id="id_platform" name="platformlist" onchange="change_content_by_platform('id_platform');return false;"><option value="unix" id="id_unix" selected> UNIX </option><option value="win" id="id_win" selected> Windows </option></select></strong></p>
+<div id="div_unix" style="display:block" markdown="1">
+<p>On a Mac or Linux computer, open up a terminal where you’ll proceed with some commands. On a Mac, you can search for ‘Terminal’ and select the application with that name.</p>
+<p>After you’re in the terminal, you can enter the command to connect to the AWS instance:</p>
+<pre><code>ssh &lt;username&gt;@bfx-workshop01.med.umich.edu</code></pre>
+<p>You will need to enter the password that you were provided before the workshop.</p>
 <blockquote>
-<h2 id="tip">Tip</h2>
-<p>Hot-key combinations are shortcuts for performing common commands. The hot-key combination for clearing the console is <code>Ctrl+L</code>. Feel free to try it and see for yourself. {: .callout}</p>
+<p>Note: As you type your password, nothing on the screen will change, no <code>*</code> characters will show up, etc. After you press enter, you’ll receive a response.</p>
 </blockquote>
+<p>If you haven’t connected to the remote system previously, you’ll see a message like the following:</p>
+<pre><code>The authenticity of host &#39;bfx-workshop01.med.umich.edu (50.17.210.255)&#39; can&#39;t be established.
+ECDSA key fingerprint is SHA256:na9lJaGIE5QFy7yDcaMVrcbkIWBfCDL3krj2Wpiie2c.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?</code></pre>
+<p>Type <code>yes</code> and press enter, and then you will proceed logging in.</p>
+</div>
+<div id="div_win" style="display:block" markdown="1">
+<p>On a Windows computer, you will use the windows <a href="https://en.wikipedia.org/wiki/Windows_PowerShell">PowerShell</a>.</p>
+<p>To do this, go to your start menu/search and enter the term <strong>‘cmd’</strong>; Select the ‘Command Prompt’ application and it should start the shell. The shell should say something like <code>C:\Users\your-pc-username&gt;</code>.</p>
+<p>Then you can use the <code>ssh</code> command to connect to the AWS instance:</p>
+<pre><code>ssh &lt;username&gt;@bfx-workshop01.med.umich.edu</code></pre>
+<p>You will need to enter the password that you were provided before the workshop.</p>
+<blockquote>
+<p>Note: As you type your password, nothing on the screen will change, no <code>*</code> characters will show up, etc. After you press enter, you’ll receive a response.</p>
+</blockquote>
+<p>If you haven’t connected to the remote system previously, you’ll get a prompt asking if you’re sure you want to connect to this new system. Type <code>yes</code> and press enter, and then you will proceed logging in.</p>
+<p>Your shell should look similar to the following (note I’ve highlighted the portions that we’ve typed):</p>
+<div class="figure">
+<img src="images/bash_01_windows_cmd.png" alt="" />
+<p class="caption">Windows Command Prompt</p>
+</div>
+</div>
+<p>After logging in, you will see a screen showing something like this:</p>
+<pre><code>------------------------------------
+Welcome to Computational Foundations
+------------------------------------
+Last login: Tue Feb 1 07:56:36 2022 from 68.40.57.123
+&lt;username&gt;@ip-172-31-28-61:~$</code></pre>
+<p>This shows our login message “Welcome to Computational Foundations”, some information about our last login, and our prompt. We should take a moment to become familiar with the appearance of our remote shell.</p>
+<p><br> <br></p>
 </div>
 <div id="navigating-your-file-system" class="section level2">
 <h2>Navigating your file system</h2>
 <p>The part of the operating system that manages files and directories is called the <strong>file system</strong>. It organizes our data into files, which hold information, and directories (also called “folders”), which hold files or other directories.</p>
 <p>Several commands are frequently used to create, inspect, rename, and delete files and directories.</p>
-<blockquote>
-<h2 id="preparation-magic">Preparation Magic</h2>
+<p><br> <br></p>
+<pre><code>$</code></pre>
+<p>The dollar sign is a <strong>prompt</strong>, which shows us that the shell is waiting for input; your shell may use a different character as a prompt and may add information before the prompt. When typing commands, either from these lessons or from other sources, do not type the prompt, only the commands that follow it.</p>
+<p><br></p>
+<details>
+<summary>
+Preparation Magic - Customizing the prompt
+</summary>
 <p>You may have a prompt (the characters to the left of the cursor) that looks different from the <code>$</code> sign character used here. If you would like to change your prompt to match the example prompt, first type the command: <code>echo $PS1</code> into your shell, followed by pressing the <kbd>Enter</kbd> key.</p>
 <p>This will print the bash special characters that are currently defining your prompt. To change the prompt to a <code>$</code> (followed by a space), enter the command: <code>PS1='$ '</code> Your window should look like our example in this lesson.</p>
 <p>To change back to your original prompt, type in the output of the previous command <code>echo $PS1</code> (this will be different depending on the original configuration) between the quotes in the following command: <code>PS1=""</code></p>
 <p>For example, if the output of <code>echo $PS1</code> was <code>\u@\h:\w $</code>, then type those characters between the quotes in the above command: <code>PS1="\u@\h:\w $ "</code>. Alternatively, you can reset your original prompt by exiting the shell and opening a new session.</p>
-<p>This isn’t necessary to follow along (in fact, your prompt may have other helpful information you want to know about). This is up to you!<br />
-{: .callout}</p>
-</blockquote>
-<pre><code>$</code></pre>
-<p>{: .bash}</p>
-<p>The dollar sign is a <strong>prompt</strong>, which shows us that the shell is waiting for input; your shell may use a different character as a prompt and may add information before the prompt. When typing commands, either from these lessons or from other sources, do not type the prompt, only the commands that follow it.</p>
-<p>Let’s find out where we are by running a command called <code>pwd</code> (which stands for “print working directory”). At any moment, our <strong>current working directory</strong> is our current default directory, i.e., the directory that the computer assumes we want to run commands in, unless we explicitly specify something else. Here, the computer’s response is <code>/home/dcuser</code>, which is the top level directory within our cloud system:</p>
+<p>This isn’t necessary to follow along (in fact, your prompt may have other helpful information you want to know about). This is up to you!</p>
+</details>
+<p><br></p>
+<p>Let’s find out where we are by running a command called <code>pwd</code> (which stands for “print working directory”). At any moment, our <strong>current working directory</strong> is our current default directory, i.e., the directory that the computer assumes we want to run commands in, unless we explicitly specify something else. Here, the computer’s response is <code>/home/workshop/&lt;username&gt;</code>, which is the top level of your home directory on the remote system:</p>
 <pre><code>$ pwd</code></pre>
-<p>{: .bash}</p>
-<pre><code>/home/dcuser</code></pre>
-<p>{: .output}</p>
+<pre><code>/home/workshop/&lt;username&gt;</code></pre>
 <p>Let’s look at how our file system is organized. We can see what files and subdirectories are in this directory by running <code>ls</code>, which stands for “listing”:</p>
 <pre><code>$ ls</code></pre>
-<p>{: .bash}</p>
-<pre><code>R  r_data  shell_data</code></pre>
-<p>{: .output}</p>
-<p><code>ls</code> prints the names of the files and directories in the current directory in alphabetical order, arranged neatly into columns. We’ll be working within the <code>shell_data</code> subdirectory, and creating new subdirectories, throughout this workshop.</p>
+<pre><code>CF_R  CF_Shell  miniconda3</code></pre>
+<p><code>ls</code> prints the names of the files and directories in the current directory in alphabetical order, arranged neatly into columns. We’ll be working within the <code>CF_Shell</code> subdirectory, and creating new subdirectories, throughout this workshop.</p>
 <p>The command to change locations in our file system is <code>cd</code>, followed by a directory name to change our working directory. <code>cd</code> stands for “change directory”.</p>
-<p>Let’s say we want to navigate to the <code>shell_data</code> directory we saw above. We can use the following command to get there:</p>
-<pre><code>$ cd shell_data</code></pre>
-<p>{: .bash}</p>
+<p>Let’s say we want to navigate to the <code>CF_Shell</code> directory we saw above. We can use the following command to get there:</p>
+<pre><code>$ cd CF_Shell</code></pre>
 <p>Let’s look at what is in this directory:</p>
 <pre><code>$ ls</code></pre>
-<p>{: .bash}</p>
 <pre><code>sra_metadata  untrimmed_fastq</code></pre>
-<p>{: .output}</p>
 <p>We can make the <code>ls</code> output more comprehensible by using the <strong>flag</strong> <code>-F</code>, which tells <code>ls</code> to add a trailing <code>/</code> to the names of directories:</p>
 <pre><code>$ ls -F</code></pre>
-<p>{: .bash}</p>
 <pre><code>sra_metadata/  untrimmed_fastq/</code></pre>
-<p>{: .output}</p>
-<p>Anything with a “/” after it is a directory. Things with a “*” after them are programs. If there are no decorations, it’s a file.</p>
+<p>Anything with a “/” after it is a directory. Things with a "*" after them are programs. If there are no decorations, it’s a file.</p>
 <p><code>ls</code> has lots of other options. To find out what they are, we can type:</p>
 <pre><code>$ man ls</code></pre>
-<p>{: .bash}</p>
 <p><code>man</code> (short for manual) displays detailed documentation (also referred as man page or man file) for <code>bash</code> commands. It is a powerful resource to explore <code>bash</code> commands, understand their usage and flags. Some manual files are very long. You can scroll through the file using your keyboard’s down arrow or use the <kbd>Space</kbd> key to go forward one page and the <kbd>b</kbd> key to go backwards one page. When you are done reading, hit <kbd>q</kbd> to quit.</p>
-<blockquote>
-<h2 id="challenge">Challenge</h2>
+<p><br> <br></p>
+</div>
+<div id="challenge---inspecting-the-filesystem-with-ls" class="section level2">
+<h2>Challenge - Inspecting the filesystem with <code>ls</code></h2>
 <p>Use the <code>-l</code> option for the <code>ls</code> command to display more information for each item in the directory. What is one piece of additional information this long format gives you that you don’t see with the bare <code>ls</code> command?</p>
-<blockquote>
-<h2 id="solution">Solution</h2>
+<details>
+<summary>
+Solution - Inspecting the filesystem with <code>ls</code>
+</summary>
 <pre><code>$ ls -l</code></pre>
-<p>{: .bash}</p>
 <pre><code>total 8
 drwxr-x--- 2 dcuser dcuser 4096 Jul 30  2015 sra_metadata
 drwxr-xr-x 2 dcuser dcuser 4096 Nov 15  2017 untrimmed_fastq</code></pre>
-<p>{: .output}</p>
 <p>The additional information given includes the name of the owner of the file, when the file was last modified, and whether the current user has permission to read and write to the file.</p>
-<p>{: .solution} {: .challenge}</p>
-</blockquote>
-</blockquote>
+</details>
+<p><br> <br></p>
 <p>No one can possibly learn all of these arguments, that’s what the manual page is for. You can (and should) refer to the manual page or other help files as needed.</p>
 <p>Let’s go into the <code>untrimmed_fastq</code> directory and see what is in there.</p>
 <pre><code>$ cd untrimmed_fastq
 $ ls -F</code></pre>
-<p>{: .bash}</p>
 <pre><code>SRR097977.fastq  SRR098026.fastq</code></pre>
-<p>{: .output}</p>
 <p>This directory contains two files with <code>.fastq</code> extensions. FASTQ is a format for storing information about sequencing reads and their quality. We will be learning more about FASTQ files in a later lesson.</p>
+<p><br> <br></p>
 <div id="shortcut-tab-completion" class="section level3">
 <h3>Shortcut: Tab Completion</h3>
 <p>Typing out file or directory names can waste a lot of time and it’s easy to make typing mistakes. Instead we can use tab complete as a shortcut. When you start typing out the name of a directory or file, then hit the <kbd>Tab</kbd> key, the shell will try to fill in the rest of the directory or file name.</p>
 <p>Return to your home directory:</p>
 <pre><code>$ cd</code></pre>
-<p>{: .bash}</p>
 <p>then enter:</p>
 <pre><code>$ cd she&lt;tab&gt;</code></pre>
-<p>{: .bash}</p>
-<p>The shell will fill in the rest of the directory name for <code>shell_data</code>.</p>
-<p>Now change directories to <code>untrimmed_fastq</code> in <code>shell_data</code></p>
-<pre><code>$ cd shell_data
+<p>The shell will fill in the rest of the directory name for <code>CF_Shell</code>.</p>
+<p>Now change directories to <code>untrimmed_fastq</code> in <code>CF_Shell</code></p>
+<pre><code>$ cd CF_Shell
 $ cd untrimmed_fastq</code></pre>
-<p>{: .bash}</p>
 <p>Using tab complete can be very helpful. However, it will only autocomplete a file or directory name if you’ve typed enough characters to provide a unique identifier for the file or directory you are trying to access.</p>
 <p>For example, if we now try to list the files which names start with <code>SR</code> by using tab complete:</p>
 <pre><code>$ ls SR&lt;tab&gt;</code></pre>
-<p>{: .bash}</p>
 <p>The shell auto-completes your command to <code>SRR09</code>, because all file names in the directory begin with this prefix. When you hit <kbd>Tab</kbd> again, the shell will list the possible choices.</p>
 <pre><code>$ ls SRR09&lt;tab&gt;&lt;tab&gt;</code></pre>
-<p>{: .bash}</p>
 <pre><code>SRR097977.fastq  SRR098026.fastq</code></pre>
-<p>{: .output}</p>
 <p>Tab completion can also fill in the names of programs, which can be useful if you remember the beginning of a program name.</p>
 <pre><code>$ pw&lt;tab&gt;&lt;tab&gt;</code></pre>
-<p>{: .bash}</p>
 <pre><code>pwck      pwconv    pwd       pwdx      pwunconv</code></pre>
-<p>{: .output}</p>
 <p>Displays the name of every program that starts with <code>pw</code>.</p>
+<p><br> <br></p>
 </div>
 </div>
 <div id="summary" class="section level2">

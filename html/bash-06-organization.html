@@ -323,7 +323,7 @@ $(document).ready(function () {
 
 <div id="getting-your-project-started" class="section level1">
 <h1>Getting your project started</h1>
-<p>Project organization is one of the most important parts of a sequencing project, and yet is often overlooked amidst the excitement of getting a first look at new data. Of course, while it’s best to get yourself organized before you even begin your analyses, it’s never too late to start, either.</p>
+<p>Project organization is a very important part of an analysis project, and yet is often overlooked amidst the excitement of getting a first look at new data. Of course, while it’s best to get yourself organized before you even begin your analyses, it’s never too late to start, either.</p>
 <p>You should approach your sequencing project similarly to how you do a biological experiment and this ideally begins with experimental design. We’re going to assume that you’ve already designed a beautiful sequencing experiment to address your biological question, collected appropriate samples, and that you have enough statistical power to answer the questions you’re interested in asking. These steps are all incredibly important, but beyond the scope of our course. For all of those steps (collecting specimens, extracting DNA, prepping your samples) you’ve likely kept a lab notebook that details how and why you did each step. However, the process of documentation doesn’t stop at the sequencer!</p>
 <p>Genomics projects can quickly accumulate hundreds of files across tens of folders. Every computational analysis you perform over the course of your project is going to create many files, which can especially become a problem when you’ll inevitably want to run some of those analyses again. For instance, you might have made significant headway into your project, but then have to remember the PCR conditions you used to create your sequencing library months prior.</p>
 <p>Other questions might arise along the way: - What were your best alignment results? - Which folder were they in: Analysis1, AnalysisRedone, or AnalysisRedone2? - Which quality cutoff did you use? - What version of a given program did you implement your analysis in?</p>
@@ -333,47 +333,52 @@ $(document).ready(function () {
 <p>We will start by creating a directory that we can use for the rest of the workshop. First navigate to your home directory. Then confirm that you are in the correct directory using the <code>pwd</code> command.</p>
 <pre><code>$ cd
 $ pwd</code></pre>
-<p>{: .bash}</p>
 <p>You should see the output:</p>
-<pre><code>/home/dcuser  </code></pre>
-<p>{: .output}</p>
+<pre><code>/home/workshop/&lt;username&gt;  </code></pre>
 <blockquote>
-<h2 id="tip">Tip</h2>
-<p>If you aren’t in your home directory, the easiest way to get there is to enter the command <code>cd</code>, which always returns you to home.<br />
-{: .callout}</p>
+<p>Tip<br />
+If you aren’t in your home directory, the easiest way to get there is to enter the command <code>cd</code> without any arguments, which returns you to home.</p>
 </blockquote>
-<blockquote>
-<h2 id="exercise">Exercise</h2>
-<p>Use the <code>mkdir</code> command to make the following directories:<br />
-- <code>dc_workshop</code> - <code>dc_workshop/docs</code> - <code>dc_workshop/data</code> - <code>dc_workshop/results</code></p>
-<blockquote>
-<h2 id="solution">Solution</h2>
-<pre><code>$ mkdir dc_workshop
-$ mkdir dc_workshop/docs
-$ mkdir dc_workshop/data
-$ mkdir dc_workshop/results</code></pre>
-<p>{: .bash} {: .solution} {: .challenge}</p>
-</blockquote>
-</blockquote>
+<p><br> <br></p>
+<div id="challenge---a-sensible-folder-structure" class="section level2">
+<h2>Challenge - A sensible folder structure</h2>
+<p>Create the following directories inside <code>CF_Shell</code>:</p>
+<ul>
+<li><code>docs</code></li>
+<li><code>data</code></li>
+<li><code>results</code></li>
+</ul>
+<p><br> <br></p>
+<details>
+<summary>
+Solution - A sensible folder structure
+</summary>
+<pre><code>$ cd ~/CF_Shell/
+$ mkdir docs
+$ mkdir data
+$ mkdir results</code></pre>
+</details>
+<p><br> <br></p>
 <p>Use <code>ls -R</code> to verify that you have created these directories. The <code>-R</code> option for <code>ls</code> stands for recursive. This option causes <code>ls</code> to return the contents of each subdirectory within the directory iteratively.</p>
-<pre><code>$ ls -R dc_workshop</code></pre>
-<p>{: .bash}</p>
+<pre><code>$ ls -R CF_Shell</code></pre>
 <p>You should see the following output:</p>
-<pre><code>dc_workshop/:
+<pre><code>CF_Shell/:
 data  docs  results
 
-dc_workshop/data:
+CF_Shell/data:
 
-dc_workshop/docs:
+CF_Shell/docs:
 
-dc_workshop/results: </code></pre>
-<p>{: .output}</p>
+CF_Shell/results:</code></pre>
+<p><br> <br></p>
+</div>
 </div>
 <div id="organizing-your-files" class="section level1">
 <h1>Organizing your files</h1>
 <p>Before beginning any analysis, it’s important to save a copy of your raw data. The raw data should never be changed. Regardless of how sure you are that you want to carry out a particular data cleaning step, there’s always the chance that you’ll change your mind later or that there will be an error in carrying out the data cleaning and you’ll need to go back a step in the process. Having a raw copy of your data that you never modify guarantees that you will always be able to start over if something goes wrong with your analysis. When starting any analysis, you can make a copy of your raw data file and do your manipulations on that file, rather than the raw version. We learned in <a href="http://www.datacarpentry.org/shell-genomics/03-working-with-files/#file-permissions">a previous episode</a> how to prevent overwriting our raw data files by setting restrictive file permissions.</p>
 <p>You can store any results that are generated from your analysis in the <code>results</code> folder. This guarantees that you won’t confuse results file and data files in six months or two years when you are looking back through your files in preparation for publishing your study.</p>
 <p>The <code>docs</code> folder is the place to store any written analysis of your results, notes about how your analyses were carried out, and documents related to your eventual publication.</p>
+<p><br> <br></p>
 </div>
 <div id="documenting-your-activity-on-the-project" class="section level1">
 <h1>Documenting your activity on the project</h1>
@@ -381,23 +386,28 @@ dc_workshop/results: </code></pre>
 <p>The <code>history</code> command is a convenient way to document all the commands you have used while analyzing and manipulating your project files. Let’s document the work we have done on our project so far.</p>
 <p>View the commands that you have used so far during this session using <code>history</code>:</p>
 <pre><code>$ history</code></pre>
-<p>{: .bash}</p>
 <p>The history likely contains many more commands than you have used for the current project. Let’s view the last several commands that focus on just what we need for this project.</p>
 <p>View the last n lines of your history (where n = approximately the last few lines you think relevant). For our example, we will use the last 7:</p>
 <pre><code>$ history | tail -n 7</code></pre>
-<p>{: .bash}</p>
-<blockquote>
-<h2 id="exercise-1">Exercise</h2>
-<p>Using your knowledge of the shell, use the append redirect <code>&gt;&gt;</code> to create a file called <code>dc_workshop_log_XXXX_XX_XX.sh</code> (Use the four-digit year, two-digit month, and two digit day, e.g. <code>dc_workshop_log_2017_10_27.sh</code>)<br />
-&gt; &gt; ## Solution &gt; ~~~ &gt; $ history | tail -n 7 &gt;&gt; dc_workshop_log_2017_10_27.sh &gt; ~~~ &gt; {: .bash} &gt; Note we used the last 7 lines as an example, the number of lines may vary. {: .solution} {: .challenge}</p>
-</blockquote>
+<p><br> <br></p>
+<div id="challenge---use-history-to-create-a-record-of-our-work" class="section level2">
+<h2>Challenge - Use history to create a record of our work</h2>
+<p>Using your knowledge of the shell, use the append redirect <code>&gt;&gt;</code> to create a file called <code>workshop_log_XXXX_XX_XX.txt</code> (Use the four-digit year, two-digit month, and two digit day, e.g. <code>workshop_log_2017_10_27.txt</code>)</p>
+<p><br> <br></p>
+<details>
+<summary>
+Solution - Use history to create a record
+</summary>
+<pre><code>$ history | tail -n 7 &gt;&gt; workshop_log_2017_10_27.txt</code></pre>
+Note we used the last 7 lines as an example, the number of lines may vary.
+</details>
+<p><br> <br></p>
 <p>You may have noticed that your history contains the <code>history</code> command itself. To remove this redundancy from our log, let’s use the <code>nano</code> text editor to fix the file:</p>
-<pre><code>$ nano dc_workshop_log_2017_10_27.sh</code></pre>
-<p>{: .bash}</p>
+<pre><code>$ nano workshop_log_2017_10_27.txt</code></pre>
 <p>(Remember to replace the <code>2017_10_27</code> with your workshop date.)</p>
 <p>From the <code>nano</code> screen, you can use your cursor to navigate, type, and delete any redundant lines.</p>
 <blockquote>
-<h2 id="navigating-in-nano">Navigating in Nano</h2>
+<p>Navigating in Nano</p>
 <p>Although <code>nano</code> is useful, it can be frustrating to edit documents, as you can’t use your mouse to navigate to the part of the document you would like to edit. Here are some useful keyboard shortcuts for moving around within a text document in <code>nano</code>. You can find more information by typing <kbd>Ctrl</kbd>-<kbd>G</kbd> within <code>nano</code>.</p>
 <table>
 <thead>
@@ -429,36 +439,24 @@ dc_workshop/results: </code></pre>
 </tr>
 </tbody>
 </table>
-<p>{: .callout}</p>
 </blockquote>
 <p>Add a date line and comment to the line where you have created the directory. Recall that any text on a line after a <code>#</code> is ignored by bash when evaluating the text as code. For example:</p>
 <pre><code># 2017_10_27   
 # Created sample directories for the Data Carpentry workshop  </code></pre>
-<p>{: .bash}</p>
 <p>Next, remove any lines of the history that are not relevant by navigating to those lines and using your delete key. Save your file and close <code>nano</code>.</p>
 <p>Your file should look something like this:</p>
 <pre><code># 2017_10_27
 # Created sample directories for the Data Carpentry workshop
 
-mkdir dc_workshop
-mkdir dc_workshop/docs
-mkdir dc_workshop/data
-mkdir dc_workshop/results</code></pre>
-<p>{: .output}</p>
-<p>If you keep this file up to date, you can use it to re-do your work on your project if something happens to your results files. To demonstrate how this works, first delete your <code>dc_workshop</code> directory and all of its subdirectories. Look at your directory contents to verify the directory is gone.</p>
-<pre><code>$ rm -r dc_workshop
-$ ls</code></pre>
-<p>{: .bash}</p>
-<pre><code>shell_data  dc_workshop_log_2017_10_27.sh</code></pre>
-<p>{: .output}</p>
-<p>Then run your workshop log file as a bash script. You should see the <code>dc_workshop</code> directory and all of its subdirectories reappear.</p>
-<pre><code>$ bash dc_workshop_log_2017_10_27.sh
-$ ls</code></pre>
-<p>{: .bash}</p>
-<pre><code>shell_data  dc_workshop dc_workshop_log_2017_10_27.sh</code></pre>
-<p>{: .output}</p>
-<p>It’s important that we keep our workshop log file outside of our <code>dc_workshop</code> directory if we want to use it to recreate our work. It’s also important for us to keep it up to date by regularly updating with the commands that we used to generate our results files.</p>
+cd ~/CF_Shell
+mkdir docs
+mkdir data
+mkdir results</code></pre>
+<p>If you keep this file up to date, you can use it to re-create your work on your project if something happens to your results files.</p>
+<p>It may be a good idea to keep a copy of our workshop log file in a different location than our <code>CF_Shell</code> directory as a backup measure, in case the original analysis is deleted for some reason. It’s also important to keep this up to date by regularly updating with the commands that we used to generate our results files.</p>
 <p>Congratulations! You’ve finished your introduction to using the shell for genomics projects. You now know how to navigate your file system, create, copy, move, and remove files and directories, and automate repetitive tasks using scripts and wildcards. With this solid foundation, you’re ready to move on to apply all of these new skills to carrying out more sophisticated bioinformatics analysis work. Don’t worry if everything doesn’t feel perfectly comfortable yet. We’re going to have many more opportunities for practice as we move forward on our bioinformatics journey!</p>
+<p><br> <br></p>
+</div>
 <div id="references" class="section level2">
 <h2>References</h2>
 <p><a href="http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424">A Quick Guide to Organizing Computational Biology Projects</a></p>

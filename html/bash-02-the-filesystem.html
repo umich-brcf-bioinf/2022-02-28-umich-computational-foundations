@@ -324,115 +324,107 @@ $(document).ready(function () {
 <div id="moving-around-the-file-system" class="section level2">
 <h2>Moving around the file system</h2>
 <p>We’ve learned how to use <code>pwd</code> to find our current location within our file system. We’ve also learned how to use <code>cd</code> to change locations and <code>ls</code> to list the contents of a directory. Now we’re going to learn some additional commands for moving around within our file system.</p>
-<p>Use the commands we’ve learned so far to navigate to the <code>shell_data/untrimmed_fastq</code> directory, if you’re not already there.</p>
+<p>Use the commands we’ve learned so far to navigate to the <code>CF_Shell/untrimmed_fastq</code> directory, if you’re not already there.</p>
 <pre><code>$ cd
-$ cd shell_data
+$ cd CF_Shell
 $ cd untrimmed_fastq</code></pre>
-<p>{: .bash}</p>
-<p>What if we want to move back up and out of this directory and to our top level directory? Can we type <code>cd shell_data</code>? Try it and see what happens.</p>
-<pre><code>$ cd shell_data</code></pre>
-<p>{: .bash}</p>
-<pre><code>-bash: cd: shell_data: No such file or directory</code></pre>
-<p>{: .output}</p>
-<p>Your computer looked for a directory or file called <code>shell_data</code> within the directory you were already in. It didn’t know you wanted to look at a directory level above the one you were located in.</p>
+<p>What if we want to move back up and out of this directory and to our top level directory? Can we type <code>cd CF_Shell</code>? Try it and see what happens.</p>
+<pre><code>$ cd CF_Shell</code></pre>
+<pre><code>-bash: cd: CF_Shell: No such file or directory</code></pre>
+<p>Your computer looked for a directory or file called <code>CF_Shell</code> within the directory you were already in. It didn’t know you wanted to look at a directory level above the one you were located in.</p>
 <p>We have a special command to tell the computer to move us back or up one directory level.</p>
 <pre><code>$ cd ..</code></pre>
-<p>{: .bash}</p>
 <p>Now we can use <code>pwd</code> to make sure that we are in the directory we intended to navigate to, and <code>ls</code> to check that the contents of the directory are correct.</p>
 <pre><code>$ pwd</code></pre>
-<p>{: .bash}</p>
-<pre><code>/home/dcuser/shell_data</code></pre>
-<p>{: .output}</p>
+<pre><code>/home/workshop/&lt;username&gt;/CF_Shell</code></pre>
 <pre><code>$ ls</code></pre>
-<p>{: .bash}</p>
 <pre><code>sra_metadata  untrimmed_fastq</code></pre>
-<p>{: .output}</p>
 <p>From this output, we can see that <code>..</code> did indeed take us back one level in our file system.</p>
-<p>You can chain these together like so:</p>
-<pre><code>$ ls ../../</code></pre>
-<p>{: .bash}</p>
-<p>prints the contents of <code>/home</code>.</p>
-<blockquote>
-<h2 id="finding-hidden-directories">Finding hidden directories</h2>
-<p>First navigate to the <code>shell_data</code> directory. There is a hidden directory within this directory. Explore the options for <code>ls</code> to find out how to see hidden directories. List the contents of the directory and identify the name of the text file in that directory.</p>
-<p>Hint: hidden files and folders in Unix start with <code>.</code>, for example <code>.my_hidden_directory</code></p>
-<blockquote>
-<h2 id="solution">Solution</h2>
-<p>First use the <code>man</code> command to look at the options for <code>ls</code>. ~~~ $ man ls ~~~ {: .bash}</p>
+<p>You can chain these together as well. Let’s demonstrate this idea. First we’ll return to the <code>untrimmed_fastq</code> directory, and then we’ll chain two <code>..</code>’s together, to bring us back to our home directory:</p>
+<pre><code>$ cd untrimmed_fastq/</code></pre>
+<pre><code>$ cd ../../</code></pre>
+<p><br></p>
+<p>We’ve moved up two directories from <code>untrimmed_fastq</code>. Where are we? What are the expected contents of this location?</p>
+<p><br> <br></p>
+</div>
+<div id="challenge---finding-hidden-directories" class="section level2">
+<h2>Challenge - Finding hidden directories</h2>
+<p>First navigate to the <code>CF_Shell</code> directory. There is a hidden directory within this directory. Explore the options for <code>ls</code> to find out how to see hidden directories. List the contents of the directory and identify the name of the text file in that directory. Hint: hidden files and folders in Unix start with <code>.</code>, for example <code>.my_hidden_directory</code></p>
+<details>
+<summary>
+Solution - Finding hidden directories
+</summary>
+<p>First use the <code>man</code> command to look at the options for <code>ls</code>. ~~~ $ man ls ~~~</p>
 <p>The <code>-a</code> option is short for <code>all</code> and says that it causes <code>ls</code> to “not ignore entries starting with .” This is the option we want.</p>
 <pre><code>$ ls -a</code></pre>
-<p>{: .bash}</p>
 <pre><code>.  ..  .hidden  sra_metadata  untrimmed_fastq</code></pre>
-<p>{: .output}</p>
 <p>The name of the hidden directory is <code>.hidden</code>. We can navigate to that directory using <code>cd</code>.</p>
 <pre><code>$ cd .hidden</code></pre>
-<p>{: .bash}</p>
 <p>And then list the contents of the directory using <code>ls</code>.</p>
 <pre><code>$ ls</code></pre>
-<p>{: .bash}</p>
 <pre><code>youfoundit.txt</code></pre>
-<p>{: .output}</p>
-<p>The name of the text file is <code>youfoundit.txt</code>. {: .solution} {: .challenge}</p>
+<p>The name of the text file is <code>youfoundit.txt</code>.</p>
+<p><br></p>
+<blockquote>
+<p>Tip: In most commands the flags can be combined together in no particular order to obtain the desired results/output.</p>
+<pre><code>$ ls -Fa
+$ ls -laF</code></pre>
 </blockquote>
-</blockquote>
-<p>In most commands the flags can be combined together in no particular order to obtain the desired results/output. ~~~ $ ls -Fa $ ls -laF ~~~</p>
+</details>
+<p><br> <br></p>
 </div>
 <div id="examining-the-contents-of-other-directories" class="section level2">
 <h2>Examining the contents of other directories</h2>
 <p>By default, the <code>ls</code> commands lists the contents of the working directory (i.e. the directory you are in). You can always find the directory you are in using the <code>pwd</code> command. However, you can also give <code>ls</code> the names of other directories to view. Navigate to your home directory if you are not already there.</p>
 <pre><code>$ cd</code></pre>
-<p>{: .bash}</p>
 <p>Then enter the command:</p>
-<pre><code>$ ls shell_data</code></pre>
-<p>{: .bash}</p>
+<pre><code>$ ls CF_Shell</code></pre>
 <pre><code>sra_metadata  untrimmed_fastq</code></pre>
-<p>{: .output}</p>
-<p>This will list the contents of the <code>shell_data</code> directory without you needing to navigate there.</p>
+<p>This will list the contents of the <code>CF_Shell</code> directory without you needing to navigate there.</p>
 <p>The <code>cd</code> command works in a similar way.</p>
 <p>Try entering:</p>
 <pre><code>$ cd
-$ cd shell_data/untrimmed_fastq</code></pre>
-<p>{: .bash}</p>
+$ cd CF_Shell/untrimmed_fastq</code></pre>
 <p>This will take you to the <code>untrimmed_fastq</code> directory without having to go through the intermediate directory.</p>
-<blockquote>
-<h2 id="navigating-practice">Navigating practice</h2>
+<p><br> <br></p>
+</div>
+<div id="challenge---navigating-practice" class="section level2">
+<h2>Challenge - Navigating practice</h2>
 <p>Navigate to your home directory. From there, list the contents of the <code>untrimmed_fastq</code> directory.</p>
-<blockquote>
-<h2 id="solution-1">Solution</h2>
+<p><br></p>
+<details>
+<summary>
+Solution - Navigating practice
+</summary>
 <pre><code>$ cd
-$ ls shell_data/untrimmed_fastq/</code></pre>
-<p>{: .bash}</p>
-<pre><code>SRR097977.fastq  SRR098026.fastq </code></pre>
-<p>{: .output}</p>
-<p>{: .solution} {: .challenge}</p>
-</blockquote>
-</blockquote>
+$ ls CF_Shell/untrimmed_fastq/</code></pre>
+<pre><code>SRR097977.fastq  SRR098026.fastq</code></pre>
+</details
+
+<br>
+<p><br></p>
 </div>
 <div id="full-vs.-relative-paths" class="section level2">
 <h2>Full vs. Relative Paths</h2>
 <p>The <code>cd</code> command takes an argument which is a directory name. Directories can be specified using either a <em>relative</em> path or a full <em>absolute</em> path. The directories on the computer are arranged into a hierarchy. The full path tells you where a directory is in that hierarchy. Navigate to the home directory, then enter the <code>pwd</code> command.</p>
 <pre><code>$ cd  
 $ pwd  </code></pre>
-<p>{: .bash}</p>
 <p>You will see:</p>
-<pre><code>/home/dcuser</code></pre>
-<p>{: .output}</p>
-<p>This is the full name of your home directory. This tells you that you are in a directory called <code>dcuser</code>, which sits inside a directory called <code>home</code> which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called <code>/</code> which is usually referred to as the <em>root directory</em>. So, to summarize: <code>dcuser</code> is a directory in <code>home</code> which is a directory in <code>/</code>. More on <code>root</code> and <code>home</code> in the next section.</p>
+<pre><code>/home/workshop/&lt;username&gt;</code></pre>
+<p>This is the full name of your home directory. This tells you that you are in a directory named with your username. This is inside a directory <code>workshop</code>, which sits inside a directory called <code>home</code> which sits inside the very top directory in the hierarchy. The very top of the hierarchy is a directory called <code>/</code> which is usually referred to as the <strong>root directory</strong>. There will be more on <code>root</code> and <code>home</code> in the next section.</p>
 <p>Now enter the following command:</p>
-<pre><code>$ cd /home/dcuser/shell_data/.hidden</code></pre>
-<p>{: .bash}</p>
+<pre><code>$ cd /home/workshop/&lt;username&gt;/CF_Shell/.hidden</code></pre>
 <p>This jumps forward multiple levels to the <code>.hidden</code> directory. Now go back to the home directory.</p>
 <pre><code>$ cd</code></pre>
-<p>{: .bash}</p>
 <p>You can also navigate to the <code>.hidden</code> directory using:</p>
-<pre><code>$ cd shell_data/.hidden</code></pre>
-<p>{: .bash}</p>
+<pre><code>$ cd CF_Shell/.hidden</code></pre>
 <p>These two commands have the same effect, they both take us to the <code>.hidden</code> directory. The first uses the absolute path, giving the full address from the home directory. The second uses a relative path, giving only the address from the working directory. A full path always starts with a <code>/</code>. A relative path does not.</p>
 <p>A relative path is like getting directions from someone on the street. They tell you to “go right at the stop sign, and then turn left on Main Street”. That works great if you’re standing there together, but not so well if you’re trying to tell someone how to get there from another country. A full path is like GPS coordinates. It tells you exactly where something is no matter where you are right now.</p>
 <p>You can usually use either a full path or a relative path depending on what is most convenient. If we are in the home directory, it is more convenient to enter the full path. If we are in the working directory, it is more convenient to enter the relative path since it involves less typing.</p>
 <p>Over time, it will become easier for you to keep a mental note of the structure of the directories that you are using and how to quickly navigate amongst them.</p>
-<blockquote>
-<h2 id="relative-path-resolution">Relative path resolution</h2>
+</div>
+<div id="challenge---relative-path-resolution" class="section level2">
+<h2>Challenge - Relative path resolution</h2>
 <p>Using the filesystem diagram below, if <code>pwd</code> displays <code>/Users/thing</code>, what will <code>ls ../backup</code> display?</p>
 <ol style="list-style-type: decimal">
 <li><code>../backup: No such file or directory</code></li>
@@ -444,27 +436,27 @@ $ pwd  </code></pre>
 <img src="images/filesystem-challenge.svg" alt="" />
 <p class="caption">File System for Challenge Questions</p>
 </div>
-<blockquote>
-<h2 id="solution-2">Solution</h2>
+<p><br> <br></p>
+<details>
+<summary>
+Solution - Relative path resolution
+</summary>
 <ol style="list-style-type: decimal">
 <li>No: there <em>is</em> a directory <code>backup</code> in <code>/Users</code>.</li>
 <li>No: this is the content of <code>Users/thing/backup</code>, but with <code>..</code> we asked for one level further up.</li>
 <li>No: see previous explanation. Also, we did not specify <code>-F</code> to display <code>/</code> at the end of the directory names.</li>
-<li>Yes: <code>../backup</code> refers to <code>/Users/backup</code>. {: .solution} {: .challenge}</li>
+<li>Yes: <code>../backup</code> refers to <code>/Users/backup</code>.</li>
 </ol>
-</blockquote>
-</blockquote>
+</details>
+<p><br> <br></p>
 <div id="navigational-shortcuts" class="section level3">
 <h3>Navigational Shortcuts</h3>
-<p>The root directory is the highest level directory in your file system and contains files that are important for your computer to perform its daily work. While you will be using the root (<code>/</code>) at the beginning of your absolute paths, it is important that you avoid working with data in these higher-level directories, as your commands can permanently alter files that the operating system needs to function. In many cases, trying to run commands in <code>root</code> directories will require special permissions which are not discussed here, so it’s best to avoid them and work within your home directory. Dealing with the <code>home</code> directory is very common. The tilde character, <code>~</code>, is a shortcut for your home directory. In our case, the <code>root</code> directory is <strong>two</strong> levels above our <code>home</code> directory, so <code>cd</code> or <code>cd ~</code> will take you to <code>/home/dcuser</code> and <code>cd /</code> will take you to <code>/</code>. Navigate to the <code>shell_data</code> directory:</p>
+<p>The root directory is the highest level directory in your file system and contains files that are important for your computer to perform its daily work. While you will be using the root (<code>/</code>) at the beginning of your absolute paths, it is important that you avoid working with data in these higher-level directories, as your commands can permanently alter files that the operating system needs to function. In many cases, trying to run commands in <code>root</code> directories will require special permissions which are not discussed here, so it’s best to avoid them and work within your home directory. Dealing with the <code>home</code> directory is very common. The tilde character, <code>~</code>, is a shortcut for your home directory. In our case, the <code>root</code> directory is <strong>two</strong> levels above our <code>home</code> directory, so <code>cd</code> or <code>cd ~</code> will take you to <code>/home/workshop/&lt;username&gt;</code> and <code>cd /</code> will take you to <code>/</code>. Navigate to the <code>CF_Shell</code> directory:</p>
 <pre><code>$ cd
-$ cd shell_data</code></pre>
-<p>{: .bash}</p>
+$ cd CF_Shell</code></pre>
 <p>Then enter the command:</p>
 <pre><code>$ ls ~</code></pre>
-<p>{: .bash}</p>
-<pre><code>R  r_data  shell_data</code></pre>
-<p>{: .output}</p>
+<pre><code> CF_R  CF_Shell</code></pre>
 <p>This prints the contents of your home directory, without you needing to type the full path.</p>
 <p>The commands <code>cd</code>, and <code>cd ~</code> are very useful for quickly navigating back to your home directory. We will be using the <code>~</code> character in later lessons to specify our home directory.</p>
 </div>
