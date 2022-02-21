@@ -16,7 +16,7 @@ keypoints:
 
 # Getting your project started
 
-Project organization is one of the most important parts of a sequencing project, and yet is often overlooked amidst the excitement of getting a first look at new data. Of course, while it's best to get yourself organized before you even begin your analyses, it's never too late to start, either.  
+Project organization is a very important part of an analysis project, and yet is often overlooked amidst the excitement of getting a first look at new data. Of course, while it's best to get yourself organized before you even begin your analyses, it's never too late to start, either.  
 
 You should approach your sequencing project similarly to how you do a biological experiment and this ideally begins with experimental design. We're going to assume that you've already designed a beautiful sequencing experiment to address your biological question, collected appropriate samples, and that you have enough statistical power to answer the questions you're interested in asking. These steps are all incredibly important, but beyond the scope of our course. For all of those steps (collecting specimens, extracting DNA, prepping your samples) you've likely kept a lab notebook that details how and why you did each step. However, the process of documentation doesn't stop at the sequencer!  
 
@@ -44,7 +44,7 @@ $ pwd
 You should see the output:
 
 ~~~
-/home/dcuser  
+/home/workshop/<username>  
 ~~~
 
 > Tip  
@@ -55,12 +55,11 @@ You should see the output:
 
 ## Challenge - A sensible folder structure
 
-Use the `mkdir` command to make the following directories:   
+Create the following directories inside `CF_Shell`:   
 
-- `dc_workshop`
-- `dc_workshop/docs`
-- `dc_workshop/data`
-- `dc_workshop/results`
+- `docs`
+- `data`
+- `results`
 
 <br>
 <br>
@@ -68,10 +67,10 @@ Use the `mkdir` command to make the following directories:
 <details>
 <summary>Solution - A sensible folder structure</summary>
 ~~~
-$ mkdir dc_workshop
-$ mkdir dc_workshop/docs
-$ mkdir dc_workshop/data
-$ mkdir dc_workshop/results
+$ cd ~/CF_Shell/
+$ mkdir docs
+$ mkdir data
+$ mkdir results
 ~~~
 </details>
 
@@ -81,20 +80,20 @@ $ mkdir dc_workshop/results
 Use `ls -R` to verify that you have created these directories. The `-R` option for `ls` stands for recursive. This option causes `ls` to return the contents of each subdirectory within the directory iteratively.
 
 ~~~
-$ ls -R dc_workshop
+$ ls -R CF_Shell
 ~~~
 
 You should see the following output:
 
 ~~~
-dc_workshop/:
+CF_shell/:
 data  docs  results
 
-dc_workshop/data:
+CF_shell/data:
 
-dc_workshop/docs:
+CF_shell/docs:
 
-dc_workshop/results:
+CF_shell/results:
 ~~~
 
 <br>
@@ -134,17 +133,17 @@ $ history | tail -n 7
 <br>
 <br>
 
-## Challenge - Use history to create a script
-Using your knowledge of the shell, use the append redirect `>>` to create a file called `dc_workshop_log_XXXX_XX_XX.sh` (Use the four-digit year, two-digit month, and two digit day, e.g. `dc_workshop_log_2017_10_27.sh`)  
+## Challenge - Use history to create a record of our work
+Using your knowledge of the shell, use the append redirect `>>` to create a file called `workshop_log_XXXX_XX_XX.txt` (Use the four-digit year, two-digit month, and two digit day, e.g. `workshop_log_2017_10_27.txt`)  
 
 <br>
 <br>
 
 <details>
-<summary>Solution - Use history to create a script</summary>
+<summary>Solution - Use history to create a record</summary>
 
 ~~~
-$ history | tail -n 7 >> dc_workshop_log_2017_10_27.sh
+$ history | tail -n 7 >> workshop_log_2017_10_27.txt
 ~~~
 
 Note we used the last 7 lines as an example, the number of lines may vary.
@@ -156,7 +155,7 @@ Note we used the last 7 lines as an example, the number of lines may vary.
 You may have noticed that your history contains the `history` command itself. To remove this redundancy from our log, let's use the `nano` text editor to fix the file:  
 
 ~~~
-$ nano dc_workshop_log_2017_10_27.sh
+$ nano dc_workshop_log_2017_10_27.txt
 ~~~
 
 (Remember to replace the `2017_10_27` with your workshop date.)
@@ -194,35 +193,15 @@ Your file should look something like this:
 # 2017_10_27
 # Created sample directories for the Data Carpentry workshop
 
-mkdir dc_workshop
-mkdir dc_workshop/docs
-mkdir dc_workshop/data
-mkdir dc_workshop/results
+cd ~/CF_Shell
+mkdir docs
+mkdir data
+mkdir results
 ~~~
 
-If you keep this file up to date, you can use it to re-do your work on your project if something happens to your results files. To demonstrate how this works, first delete your `dc_workshop` directory and all of its subdirectories. Look at your directory contents to verify the directory is gone.
+If you keep this file up to date, you can use it to re-create your work on your project if something happens to your results files.
 
-~~~
-$ rm -r dc_workshop
-$ ls
-~~~
-
-~~~
-shell_data	dc_workshop_log_2017_10_27.sh
-~~~
-
-Then run your workshop log file as a bash script. You should see the `dc_workshop` directory and all of its subdirectories reappear.
-
-~~~
-$ bash dc_workshop_log_2017_10_27.sh
-$ ls
-~~~
-
-~~~
-shell_data	dc_workshop dc_workshop_log_2017_10_27.sh
-~~~
-
-It's important that we keep our workshop log file outside of our `dc_workshop` directory if we want to use it to recreate our work. It's also important for us to keep it up to date by regularly updating with the commands that we used to generate our results files.
+It may be a good idea to keep a copy of our workshop log file in a different location than our `CF_Shell` directory as a backup measure, in case the original analysis is deleted for some reason. It's also important to keep this up to date by regularly updating with the commands that we used to generate our results files.
 
 Congratulations! You've finished your introduction to using the shell for genomics projects. You now know how to navigate your file system, create, copy, move, and remove files and directories, and automate repetitive tasks using scripts and wildcards. With this solid foundation, you're ready to move on to apply all of these new skills to carrying out more sophisticated bioinformatics analysis work. Don't worry if everything doesn't feel perfectly comfortable yet. We're going to have many more opportunities for practice as we move forward on our bioinformatics journey!
 

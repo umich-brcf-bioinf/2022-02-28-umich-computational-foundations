@@ -19,6 +19,26 @@ keypoints:
 - "Tab completion can reduce errors from mistyping and make work more efficient in the shell."
 ---
 
+<script language="javascript" type="text/javascript">
+function set_page_view_defaults() {
+    document.getElementById('div_win').style.display = 'block';
+    document.getElementById('div_unix').style.display = 'none';
+};
+
+function change_content_by_platform(form_control){
+    if (!form_control || document.getElementById(form_control).value == 'win') {
+        set_page_view_defaults();
+    } else if (document.getElementById(form_control).value == 'unix') {
+        document.getElementById('div_win').style.display = 'none';
+        document.getElementById('div_unix').style.display = 'block';
+    } else {
+        alert("Error: Missing platform value for 'change_content_by_platform()' script!");
+    }
+}
+
+window.onload = set_page_view_defaults;
+</script>
+
 ## What is a shell and why should I care?
 
 A *shell* is a computer program that presents a command line interface which allows you to control your computer using commands entered with a keyboard instead of controlling graphical user interfaces (GUIs) with a mouse/keyboard/touchscreen combination.
@@ -36,30 +56,63 @@ In this lesson you will learn how to use the command line interface to move arou
 <br>
 <br>
 
-## How to access the shell
+## Accessing the remote server
 
-On a Mac or Linux machine, you can access a shell through a program called "Terminal", which is already available on your computer. The Terminal is a window into which we will type commands. If you're using Windows, you'll need to download a separate program to access the shell.
+To save time, we are going to be working on a remote server where all the necessary data and software are available. When we say a 'remote sever', we are talking about a computer that is not the one you are working on right now. You will create a secure connection with the workshop remote server where everything is prepared for the lesson. We will learn the basics of the shell by manipulating some data files. Some of these files are very large, and would take time to download to your computer. We will also be using several bioinformatic packages in later lessons and installing all of the software would take up time even more time. A 'ready-to-go' sever let's us focus on learning.
 
-To save time, we are going to be working on a remote server where all the necessary data and software available. When we say a 'remote sever', we are talking about a computer that is not the one you are working on right now. You will access the Carpentries remote server where everything is prepared for the lesson. We will learn the basics of the shell by manipulating some data files. Some of these files are very large, and would take time to download to your computer. We will also be using several bioinformatic packages in later lessons and installing all of the software would take up time even more time. A 'ready-to-go' sever let's us focus on learning.
+This section will be done slightly differently depending on if you're using a Windows or Unix computer. Here is a drop-down menu to select the appropriate instructions for connecting to the AWS instance.
 
-<br>
-<br>
+**Please select the platform you wish to use for the exercises: <select id="id_platform" name="platformlist" onchange="change_content_by_platform('id_platform');return false;"><option value="unix" id="id_unix" selected> UNIX </option><option value="win" id="id_win" selected> Windows </option></select>**
 
-## How to access the remote server
+<div id="div_unix" style="display:block" markdown="1">
 
-You can log-in to the remote server using the instructions [here](http://www.datacarpentry.org/cloud-genomics/02-logging-onto-cloud/#logging-onto-a-cloud-instance). There is a drop-down menu where you can view instructions for connecting to the AWS instance from a Windows or Mac/Linux computer. Where it says `dc_user`, you should use your username. Anywhere that refers to `ip_address`, we'll use the following:
+On a Mac or Linux computer, open up a terminal where you'll proceed with some commands. On a Mac, you can search for 'Terminal' and select the application with that name.
 
-~~~
-bfx-workshop01.med.umich.edu
-~~~
-
-e.g.:
+After you're in the terminal, you can enter the command to connect to the AWS instance:
 
 ~~~
 ssh <username>@bfx-workshop01.med.umich.edu
 ~~~
 
-You will need to use the password that you were provided before the workshop.
+You will need to enter the password that you were provided before the workshop.
+
+> Note: As you type your password, nothing on the screen will change, no `*` characters will show up, etc. After you press enter, you'll receive a response.
+
+If you haven't connected to the remote system previously, you'll see a message like the following:
+
+~~~
+The authenticity of host 'bfx-workshop01.med.umich.edu (50.17.210.255)' can't be established.
+ECDSA key fingerprint is SHA256:na9lJaGIE5QFy7yDcaMVrcbkIWBfCDL3krj2Wpiie2c.
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
+~~~
+
+Type `yes` and press enter, and then you will proceed logging in.
+
+</div>
+
+<div id="div_win" style="display:block" markdown="1">
+
+On a Windows computer, you will use the windows [PowerShell](https://en.wikipedia.org/wiki/Windows_PowerShell).
+
+To do this, go to your start menu/search and enter the term **'cmd'**; Select the 'Command Prompt' application and it should start the shell. The shell should say something like `C:\Users\your-pc-username>`.
+
+Then you can use the `ssh` command to connect to the AWS instance:
+
+~~~
+ssh <username>@bfx-workshop01.med.umich.edu
+~~~
+
+You will need to enter the password that you were provided before the workshop.
+
+> Note: As you type your password, nothing on the screen will change, no `*` characters will show up, etc. After you press enter, you'll receive a response.
+
+If you haven't connected to the remote system previously, you'll get a prompt asking if you're sure you want to connect to this new system. Type `yes` and press enter, and then you will proceed logging in.
+
+Your shell should look similar to the following (note I've highlighted the portions that we've typed):
+
+![Windows Command Prompt](images/bash_01_windows_cmd.png)
+
+</div>
 
 After logging in, you will see a screen showing something like this:
 

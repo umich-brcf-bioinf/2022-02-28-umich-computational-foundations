@@ -195,7 +195,7 @@ $ ls -l bad-reads-script.sh
 ~~~
 
 ~~~
--rw-rw-r-- 1 dcuser dcuser 0 Oct 25 21:46 bad-reads-script.sh
+-rw-rw-r-- 1 <username> <username> 0 Oct 25 21:46 bad-reads-script.sh
 ~~~
 
 We see that it says `-rw-r--r--`. This shows that the file can be read by any user and written to by the file owner (you). We want to change these permissions so that the file can be executed as a program. We use the command `chmod` like we did earlier when we removed write permissions. Here we are adding (`+`) executable permissions (`+x`).
@@ -211,7 +211,7 @@ $ ls -l bad-reads-script.sh
 ~~~
 
 ~~~
--rwxrwxr-x 1 dcuser dcuser 0 Oct 25 21:46 bad-reads-script.sh
+-rwxrwxr-x 1 <username> <username> 0 Oct 25 21:46 bad-reads-script.sh
 ~~~
 
 Now we see that it says `-rwxr-xr-x`. The `x`'s that are there now tell us we can run it as a program. So, let's try it! We'll need to put `./` at the beginning so the computer knows to look here in this directory for the program.
@@ -222,14 +222,12 @@ $ ./bad-reads-script.sh
 
 The script should run the same way as before, but now we've created our very own computer program!
 
-You will learn more about writing scripts in [a later lesson](https://datacarpentry.org/wrangling-genomics/05-automation/index.html).
-
 <br>
 <br>
 
 ## Moving and Downloading Data
 
-So far, we've worked with data that is pre-loaded on the instance in the cloud. Usually, however, most analyses begin with moving data onto the instance. Below we'll show you some commands to download data onto your instance, or to move data between your computer and the cloud.
+So far, we've worked with data that is pre-loaded on the instance in the cloud. You can imagine, however, that some analyses may begin with moving data onto the instance. Below we'll show you some commands to download data onto your instance, or to move data between your computer and the cloud.
 
 <br>
 
@@ -241,7 +239,7 @@ There are two programs that will download data from a remote server to your loca
 
  - ``cURL`` is a pun, it is supposed to be read as "see URL", so its basic function is  to *display* webpages or data at a web address.
 
-Which one you need to use mostly depends on your operating system, as most computers will only have one or the other installed by default.
+Which one you need to use mostly depends on your operating system, as many computers will only have one or the other installed by default.
 
 Let's say you want to download some data from Ensembl. We're going to download a very small tab-delimited file that just tells us what data is available on the Ensembl bacteria server. Before we can start our download, we need to know whether we're using ``curl`` or ``wget``.
 
@@ -252,7 +250,7 @@ $ which curl
 $ which wget
 ~~~
 
-``which`` is a BASH program that looks through everything you have installed, and tells you what folder it is installed to. If it can't find the program you asked for, it returns nothing, i.e. gives you no results.
+`which` is a BASH program that looks through everything you have installed, and tells you what folder it is installed to. If it can't find the program you asked for, it returns nothing, i.e. gives you no results.
 
 On Mac OSX, you'll likely get the following output:
 
@@ -327,7 +325,7 @@ Note that you are always running `scp` locally, but that *doesn't* mean that you
 $ scp <local file> <AWS instance>
 ~~~
 
-To move it back to your local computer, you re-order the `to` and `from` fields:
+To move a file from the AWS instance to your local computer, you re-order the `to` and `from` fields:
 
 ~~~
 $ scp <AWS instance> <local file>
@@ -337,10 +335,10 @@ $ scp <AWS instance> <local file>
 
 #### Uploading Data to your Virtual Machine with scp
 
-Open the terminal and use the `scp` command to upload a file (e.g. local_file.txt) to the dcuser home directory:
+Open the terminal and use the `scp` command to upload a file (e.g. local_file.txt) to your remote home directory:
 
 ~~~
-$  scp local_file.txt dcuser@ip.address:/home/dcuser/
+$  scp local_file.txt <username>@bfx-workshop01.med.umich.edu:/home/workshop/<username>/
 ~~~
 
 <br>
@@ -356,10 +354,10 @@ $ find ~ -name *.txt
 ~~~
 
 
-Download the bad reads file in ~/shell_data/scripted_bad_reads.txt to your home ~/Download directory using the following command **(make sure you substitute dcuser@ip.address with your remote login credentials)**:
+Download the bad reads file in ~/shell_data/scripted_bad_reads.txt to your home ~/Download directory using the following command **(make sure you substitute <username>@ip.address with your remote login credentials)**:
 
 ~~~
-$ scp dcuser@ip.address:/home/dcuser/shell_data/untrimmed_fastq/scripted_bad_reads.txt ~/Downloads
+$ scp <username>@ip.address:/home/<username>/shell_data/untrimmed_fastq/scripted_bad_reads.txt ~/Downloads
 ~~~
 
 Remember that in both instances, the command is run from your local machine, we've just flipped the order of the to and from parts of the command.
@@ -370,37 +368,34 @@ Remember that in both instances, the command is run from your local machine, we'
 
 <br>
 
-### Uploading Data to your Virtual Machine with PSCP
+### Uploading Data to your instance with `scp`
 
-If you're using a PC, we recommend you use the *PSCP* program. This program is from the same suite of tools as the PuTTY program we have been using to connect.
+If you're using a Windows PC, you should likewise be able to use the *scp* program. It is installed on Windows 10 by default, though you may have to enable it.
 
-1. If you haven't done so, download pscp from [http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe](http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe)
-2. Make sure the *PSCP* program is somewhere you know on your computer. In this case,
-your Downloads folder is appropriate.
-3. Open the windows [PowerShell](https://en.wikipedia.org/wiki/Windows_PowerShell);
+1. Open the windows [PowerShell](https://en.wikipedia.org/wiki/Windows_PowerShell);
 go to your start menu/search enter the term **'cmd'**; you will be able to start the shell
 (the shell should start from C:\Users\your-pc-username>).
-4. Change to the Downloads directory:
+2. Change to the Downloads directory:
 
 ~~~
 > cd Downloads
 ~~~
 
-5. Locate a file on your computer that you wish to upload (be sure you know the path). Then upload it to your remote machine **(you will need to know your AMI instance address (which starts with ec2), and login credentials)**. You will be prompted to enter a password, and then your upload will begin. **(make sure you substitute 'your-pc-username' for your actual pc username and 'ec2-54-88-126-85.compute-1.amazonaws.com' with your AMI instance address)**
+3. Locate a file on your computer that you wish to upload (be sure you know the path). Then upload it to your remote machine. You will need to provide login credentials in order to perform the transfer.
 
 ~~~
-C:\User\your-pc-username\Downloads> pscp.exe local_file.txt dcuser@ec2-54-88-126-85.compute-1.amazonaws.com:/home/dcuser/
+C:\User\your-pc-username\Downloads> scp local_file.txt <username>@bfx-workshop01.med.umich.edu:/home/workshop/<username>/
 ~~~
 
 <br>
 
 ### Downloading Data from your Virtual Machine with PSCP
 
-1. Follow the instructions in the Upload section to download (if needed) and access the *PSCP* program (steps 1-3)
-2. Download the text file to your current working directory (represented by a .) using the following command **(make sure you substitute 'your-pc-username' for your actual pc username and 'ec2-54-88-126-85.compute-1.amazonaws.com' with your AMI instance address)**
+1. Follow the instructions in the Upload section to open the powershell and change to the Downloads folder (steps 1-2)
+2. Download the text file to your current working directory (represented by a .) using the following command **(make sure you substitute 'your-pc-username' for your actual pc username**
 
 ~~~
-C:\User\your-pc-username\Downloads> pscp.exe dcuser@ec2-54-88-126-85.compute-1.amazonaws.com:/home/dcuser/shell_data/untrimmed_fastq/scripted_bad_reads.txt .
+C:\User\your-pc-username\Downloads> scp <username>@:/home/workshop/<username>/CF_Shell/untrimmed_fastq/scripted_bad_reads.txt .
 
 C:\User\your-pc-username\Downloads
 ~~~
