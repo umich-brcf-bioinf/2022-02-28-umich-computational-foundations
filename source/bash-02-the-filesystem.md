@@ -55,7 +55,7 @@ $ pwd
 ~~~
 
 ~~~
-/home/<username>/CF_Shell
+/home/workshop/<username>/CF_Shell
 ~~~
 
 ~~~
@@ -216,7 +216,7 @@ This is the full name of your home directory. This tells you that you are in a d
 Now enter the following command:
 
 ~~~
-$ cd /home/<username>/CF_Shell/.hidden
+$ cd /home/workshop/<username>/CF_Shell/.hidden
 ~~~
 
 This jumps forward multiple levels to the `.hidden` directory. Now go back to the home directory.
@@ -285,7 +285,7 @@ $ ls ~
 ~~~
 
 ~~~
- r_data  CF_Shell
+ CF_R  CF_Shell
 ~~~
 
 This prints the contents of your home directory, without you needing to type the full path.
