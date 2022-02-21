@@ -86,14 +86,14 @@ $ ls -R CF_Shell
 You should see the following output:
 
 ~~~
-CF_shell/:
+CF_Shell/:
 data  docs  results
 
-CF_shell/data:
+CF_Shell/data:
 
-CF_shell/docs:
+CF_Shell/docs:
 
-CF_shell/results:
+CF_Shell/results:
 ~~~
 
 <br>

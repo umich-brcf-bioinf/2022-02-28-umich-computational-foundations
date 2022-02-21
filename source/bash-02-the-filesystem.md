@@ -21,25 +21,25 @@ keypoints:
 
 We've learned how to use `pwd` to find our current location within our file system. We've also learned how to use `cd` to change locations and `ls` to list the contents of a directory. Now we're going to learn some additional commands for moving around within our file system.
 
-Use the commands we've learned so far to navigate to the `shell_data/untrimmed_fastq` directory, if you're not already there.
+Use the commands we've learned so far to navigate to the `CF_Shell/untrimmed_fastq` directory, if you're not already there.
 
 ~~~
 $ cd
-$ cd shell_data
+$ cd CF_Shell
 $ cd untrimmed_fastq
 ~~~
 
-What if we want to move back up and out of this directory and to our top level directory? Can we type `cd shell_data`? Try it and see what happens.
+What if we want to move back up and out of this directory and to our top level directory? Can we type `cd CF_Shell`? Try it and see what happens.
 
 ~~~
-$ cd shell_data
+$ cd CF_Shell
 ~~~
 
 ~~~
--bash: cd: shell_data: No such file or directory
+-bash: cd: CF_Shell: No such file or directory
 ~~~
 
-Your computer looked for a directory or file called `shell_data` within the directory you were already in. It didn't know you wanted to look at a directory level above the one you were located in.
+Your computer looked for a directory or file called `CF_Shell` within the directory you were already in. It didn't know you wanted to look at a directory level above the one you were located in.
 
 We have a special command to tell the computer to move us back or up one directory level.
 
@@ -55,7 +55,7 @@ $ pwd
 ~~~
 
 ~~~
-/home/<username>/shell_data
+/home/<username>/CF_Shell
 ~~~
 
 ~~~
@@ -87,7 +87,7 @@ We've moved up two directories from `untrimmed_fastq`. Where are we? What are th
 
 ## Challenge - Finding hidden directories
 
-First navigate to the `shell_data` directory. There is a hidden directory within this directory. Explore the options for `ls` to find out how to see hidden directories. List the contents of the directory and identify the name of the text file in that directory. Hint: hidden files and folders in Unix start with `.`, for example `.my_hidden_directory`
+First navigate to the `CF_Shell` directory. There is a hidden directory within this directory. Explore the options for `ls` to find out how to see hidden directories. List the contents of the directory and identify the name of the text file in that directory. Hint: hidden files and folders in Unix start with `.`, for example `.my_hidden_directory`
 
 <details>
 <summary>Solution - Finding hidden directories</summary>
@@ -151,14 +151,14 @@ $ cd
 Then enter the command:
 
 ~~~
-$ ls shell_data
+$ ls CF_Shell
 ~~~
 
 ~~~
 sra_metadata  untrimmed_fastq
 ~~~
 
-This will list the contents of the `shell_data` directory without you needing to navigate there.
+This will list the contents of the `CF_Shell` directory without you needing to navigate there.
 
 The `cd` command works in a similar way.
 
@@ -166,7 +166,7 @@ Try entering:
 
 ~~~
 $ cd
-$ cd shell_data/untrimmed_fastq
+$ cd CF_Shell/untrimmed_fastq
 ~~~
 
 This will take you to the `untrimmed_fastq` directory without having to go through the intermediate directory.
@@ -185,7 +185,7 @@ Navigate to your home directory. From there, list the contents of the `untrimmed
 
 ~~~
 $ cd
-$ ls shell_data/untrimmed_fastq/
+$ ls CF_Shell/untrimmed_fastq/
 ~~~
 
 ~~~
@@ -216,7 +216,7 @@ This is the full name of your home directory. This tells you that you are in a d
 Now enter the following command:
 
 ~~~
-$ cd /home/<username>/shell_data/.hidden
+$ cd /home/<username>/CF_Shell/.hidden
 ~~~
 
 This jumps forward multiple levels to the `.hidden` directory. Now go back to the home directory.
@@ -228,7 +228,7 @@ $ cd
 You can also navigate to the `.hidden` directory using:
 
 ~~~
-$ cd shell_data/.hidden
+$ cd CF_Shell/.hidden
 ~~~
 
 
@@ -271,11 +271,11 @@ Using the filesystem diagram below, if `pwd` displays `/Users/thing`, what will 
 
 ### Navigational Shortcuts
 
-The root directory is the highest level directory in your file system and contains files that are important for your computer to perform its daily work. While you will be using the root (`/`) at the beginning of your absolute paths, it is important that you avoid working with data in these higher-level directories, as your commands can permanently alter files that the operating system needs to function. In many cases, trying to run commands in `root` directories will require special permissions which are not discussed here, so it’s best to avoid them and work within your home directory. Dealing with the `home` directory is very common. The tilde character, `~`, is a shortcut for your home directory. In our case, the `root` directory is __two__ levels above our `home` directory, so `cd` or `cd ~` will take you to `/home/workshop/<username>` and `cd /` will take you to `/`. Navigate to the `shell_data` directory:
+The root directory is the highest level directory in your file system and contains files that are important for your computer to perform its daily work. While you will be using the root (`/`) at the beginning of your absolute paths, it is important that you avoid working with data in these higher-level directories, as your commands can permanently alter files that the operating system needs to function. In many cases, trying to run commands in `root` directories will require special permissions which are not discussed here, so it’s best to avoid them and work within your home directory. Dealing with the `home` directory is very common. The tilde character, `~`, is a shortcut for your home directory. In our case, the `root` directory is __two__ levels above our `home` directory, so `cd` or `cd ~` will take you to `/home/workshop/<username>` and `cd /` will take you to `/`. Navigate to the `CF_Shell` directory:
 
 ~~~
 $ cd
-$ cd shell_data
+$ cd CF_Shell
 ~~~
 
 Then enter the command:
@@ -285,7 +285,7 @@ $ ls ~
 ~~~
 
 ~~~
- r_data  shell_data
+ r_data  CF_Shell
 ~~~
 
 This prints the contents of your home directory, without you needing to type the full path.

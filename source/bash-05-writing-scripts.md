@@ -39,14 +39,14 @@ window.onload = set_page_view_defaults;
 
 We've been able to do a lot of work with files that already exist, but what if we want to write our own files? We're not going to type in a FASTA file, but we'll see as we go through other tutorials, there are a lot of reasons we'll want to write a file, or edit an existing file.
 
-To add text to files, we're going to use a text editor called Nano. We're going to create a file to take notes about what we've been doing with the data files in `~/shell_data/untrimmed_fastq`.
+To add text to files, we're going to use a text editor called Nano. We're going to create a file to take notes about what we've been doing with the data files in `~/CF_Shell/untrimmed_fastq`.
 
 This is good practice when working in bioinformatics. We can create a file called `README.txt` that describes the data files in the directory or documents how the files in that directory were generated.  As the name suggests, it's a file that we or others should read to understand the information in that directory.
 
-Let's change our working directory to `~/shell_data/untrimmed_fastq` using `cd`, then run `nano` to create a file called `README.txt`:
+Let's change our working directory to `~/CF_Shell/untrimmed_fastq` using `cd`, then run `nano` to create a file called `README.txt`:
 
 ~~~
-$ cd ~/shell_data/untrimmed_fastq
+$ cd ~/CF_Shell/untrimmed_fastq
 $ nano README.txt
 ~~~
 
@@ -345,7 +345,7 @@ $  scp local_file.txt <username>@bfx-workshop01.med.umich.edu:/home/workshop/<us
 
 #### Downloading Data from your Virtual Machine with scp
 
-Let's download a text file from our remote machine. You should have a file that contains bad reads called ~/shell_data/scripted_bad_reads.txt.
+Let's download a text file from our remote machine. You should have a file that contains bad reads called ~/CF_Shell/scripted_bad_reads.txt.
 
 **Tip:** If you are looking for another (or any really) text file in your home directory to use instead, try:
 
@@ -353,11 +353,10 @@ Let's download a text file from our remote machine. You should have a file that 
 $ find ~ -name *.txt
 ~~~
 
-
-Download the bad reads file in ~/shell_data/scripted_bad_reads.txt to your home ~/Download directory using the following command **(make sure you substitute <username>@ip.address with your remote login credentials)**:
+Download the bad reads file in ~/CF_Shell/scripted_bad_reads.txt to your home ~/Download directory using the following command **(make sure to use your username in place of `<username>` in the command)**:
 
 ~~~
-$ scp <username>@ip.address:/home/<username>/shell_data/untrimmed_fastq/scripted_bad_reads.txt ~/Downloads
+$ scp <username>@bfx-workshop01.med.umich.edu:/home/workshop/<username>/CF_Shell/untrimmed_fastq/scripted_bad_reads.txt ~/Downloads
 ~~~
 
 Remember that in both instances, the command is run from your local machine, we've just flipped the order of the to and from parts of the command.
@@ -392,12 +391,10 @@ C:\User\your-pc-username\Downloads> scp local_file.txt <username>@bfx-workshop01
 ### Downloading Data from your Virtual Machine with PSCP
 
 1. Follow the instructions in the Upload section to open the powershell and change to the Downloads folder (steps 1-2)
-2. Download the text file to your current working directory (represented by a .) using the following command **(make sure you substitute 'your-pc-username' for your actual pc username**
+2. Download the text file to your current working directory (represented by a .) using the following command **(make sure you substitute `<username>` for your actual username).**
 
 ~~~
 C:\User\your-pc-username\Downloads> scp <username>@:/home/workshop/<username>/CF_Shell/untrimmed_fastq/scripted_bad_reads.txt .
-
-C:\User\your-pc-username\Downloads
 ~~~
 
 </div>

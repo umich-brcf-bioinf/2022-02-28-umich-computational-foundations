@@ -30,7 +30,7 @@ Now that we know how to navigate around our directory structure, let's start wor
 Navigate to your `untrimmed_fastq` directory:
 
 ~~~
-$ cd ~/shell_data/untrimmed_fastq
+$ cd ~/CF_Shell/untrimmed_fastq
 ~~~
 
 We are interested in looking at the FASTQ files in this directory. We can list all files with the .fastq extension using the command:
@@ -204,14 +204,14 @@ This will print out all of the contents of the `SRR098026.fastq` to the screen.
 
 ## Challenge - Viewing file contents
 
-1. Print out the contents of the `~/shell_data/untrimmed_fastq/SRR097977.fastq` file. What is the last line of the file?
-2.  From your home directory, and without changing directories, use one short command to print the contents of all of the files in the `~/shell_data/untrimmed_fastq` directory.
+1. Print out the contents of the `~/CF_Shell/untrimmed_fastq/SRR097977.fastq` file. What is the last line of the file?
+2.  From your home directory, and without changing directories, use one short command to print the contents of all of the files in the `~/CF_Shell/untrimmed_fastq` directory.
 
 <details>
 <summary>Solution - Viewing file contents</summary>
 
 1. The last line of the file is `C:CCC::CCCCCCCC<8?6A:C28C<608'&&&,'$`.
-2. `cat ~/shell_data/untrimmed_fastq/*`
+2. `cat ~/CF_Shell/untrimmed_fastq/*`
 
 </details>
 
@@ -363,7 +363,7 @@ When working with computational data, it's important to keep a safe copy of that
 
 First, let's make a copy of one of our FASTQ files using the `cp` command.
 
-Navigate to the `shell_data/untrimmed_fastq` directory and enter:
+Navigate to the `CF_Shell/untrimmed_fastq` directory and enter:
 
 ~~~
 $ cp SRR098026.fastq SRR098026-copy.fastq
@@ -484,7 +484,7 @@ This will delete not only the directory, but all files within the directory. If 
 
 ## Challenge - Working with files
 
-Starting in the `shell_data/untrimmed_fastq/` directory, do the following:
+Starting in the `CF_Shell/untrimmed_fastq/` directory, do the following:
 
 1. Make sure that you have deleted your backup directory and all files it contains.  
 2. Create a backup of each of your FASTQ files using `cp`. (Note: You'll need to do this individually for each of the two FASTQ files. We haven't learned yet how to do this with a wildcard.)

@@ -36,7 +36,7 @@ We discussed in a previous episode how to search within a file using `less`. We 
 We'll search for strings inside of our fastq files. Let's first make sure we are in the correct directory:
 
 ~~~
-$ cd ~/shell_data/untrimmed_fastq
+$ cd ~/CF_Shell/untrimmed_fastq
 ~~~
 
 Suppose we want to see how many reads in our file have really bad segments containing 10 consecutive unknown nucleotides (Ns).

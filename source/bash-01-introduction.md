@@ -179,17 +179,17 @@ $ ls
 ~~~
 
 ~~~
-R  r_data  shell_data
+CF_R  CF_Shell  miniconda3
 ~~~
 
-`ls` prints the names of the files and directories in the current directory in alphabetical order, arranged neatly into columns. We'll be working within the `shell_data` subdirectory, and creating new subdirectories, throughout this workshop.
+`ls` prints the names of the files and directories in the current directory in alphabetical order, arranged neatly into columns. We'll be working within the `CF_Shell` subdirectory, and creating new subdirectories, throughout this workshop.
 
 The command to change locations in our file system is `cd`, followed by a directory name to change our working directory. `cd` stands for "change directory".
 
-Let's say we want to navigate to the `shell_data` directory we saw above.  We can use the following command to get there:
+Let's say we want to navigate to the `CF_Shell` directory we saw above.  We can use the following command to get there:
 
 ~~~
-$ cd shell_data
+$ cd CF_Shell
 ~~~
 
 Let's look at what is in this directory:
@@ -281,12 +281,12 @@ then enter:
 $ cd she<tab>
 ~~~
 
-The shell will fill in the rest of the directory name for `shell_data`.
+The shell will fill in the rest of the directory name for `CF_Shell`.
 
-Now change directories to `untrimmed_fastq` in `shell_data`
+Now change directories to `untrimmed_fastq` in `CF_Shell`
 
 ~~~
-$ cd shell_data
+$ cd CF_Shell
 $ cd untrimmed_fastq
 ~~~
 
