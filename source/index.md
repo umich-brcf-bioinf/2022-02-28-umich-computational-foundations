@@ -27,16 +27,22 @@ body, td {
 |  11:45 | [Writing Scripts](bash-05-writing-scripts.html) |
 |  12:15 | [Organization](bash-06-organization.html) |
 |  1:00 | Day 1 concludes |
+
 #### Day 2 (Raymond)
-| | |
+| Time | Topic |
 | :---  | :---- |
 |  9:00 | Review |
-|  9:10 | **Introduction to R** |
+|  9:10 | [Introduction to R](r-01-introduction.html) |
+|       | [R Basics](r-02-r-basics.html) |
+|       | [R Basics: Factors and Data Frames](r-03-basics-factors-dataframes.html) |
 |  1:00 | Day 2 concludes |
+
 #### Day 3 (Raymond)
-| | |
+| Time | Topic |
 | :---  | :---- |
 |  9:00 | Review |
-|  9:10 | **Introduction to R** |
-| 12:45 | [Wrap-up](Module99_Wrap_up.html)
+|  9:10 | [CRAN and Bioconductor](r-04-bioconductor.html) |
+|       | [Data Wrangling and Analysis with tidyverse](r-05-dplyr.html) |
+|       | [Data Visualization with ggplot2](r-06-data-visualization.html) |
+| 12:45 | [Wrap-up](Module99_Wrap_up.html) |
 |  1:00 | Day 3 concludes |

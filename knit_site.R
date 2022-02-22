@@ -36,7 +36,7 @@ render_site('source/bash-06-organization.md')
 render_site('source/r-01-introduction.Rmd')
 render_site('source/r-02-r-basics.Rmd') # 01/18/2022 does not work
 render_site('source/r-03-basics-factors-dataframes.Rmd') # 01/18/2022 does not work
-render_site('source/r-04-bioconductor-vcfr.Rmd')
+render_site('source/r-04-bioconductor.Rmd')
 render_site('source/r-05-dplyr.Rmd')
 render_site('source/r-06-data-visualization.Rmd')
 render_site('source/r-07-r-help.Rmd')
