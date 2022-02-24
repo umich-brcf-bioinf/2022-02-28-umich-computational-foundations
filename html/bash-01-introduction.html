@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -32,6 +32,12 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--
+Favicon from
+https://twemoji.twitter.com/
+https://favicon.io/emoji-favicons/computer/
+-->
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -288,7 +294,7 @@ $(document).ready(function () {
       <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
     </li>
     <li>
-      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+      <a href="r-04-bioconductor.html">Using Packages from Bioconductor</a>
     </li>
     <li>
       <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
@@ -321,6 +327,41 @@ $(document).ready(function () {
 </div>
 
 
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<!--
+---
+title: "Introducing the Shell"
+teaching: 20
+exercises: 10
+questions:
+- "What is a command shell and why would I use one?"
+- "How can I move around on my computer?"
+- "How can I see what files and directories I have?"
+- "How can I specify the location of a file or directory on my computer?"
+objectives:
+- "Describe key reasons for learning shell."
+- "Navigate your file system using the command line."
+- "Access and read help files for `bash` programs and use help files to identify useful command options."
+- "Demonstrate the use of tab completion, and explain its advantages."
+keypoints:
+- "The shell gives you the ability to work more efficiently by using keyboard commands rather than a GUI."
+- "Useful commands for navigating your file system include: `ls`, `pwd`, and `cd`."
+- "Most commands take options (flags) which begin with a `-`."
+- "Tab completion can reduce errors from mistyping and make work more efficient in the shell."
+---
+-->
 <script language="javascript" type="text/javascript">
 function set_page_view_defaults() {
     document.getElementById('div_win').style.display = 'block';
@@ -388,10 +429,7 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])?</code></pre
 </blockquote>
 <p>If you haven’t connected to the remote system previously, you’ll get a prompt asking if you’re sure you want to connect to this new system. Type <code>yes</code> and press enter, and then you will proceed logging in.</p>
 <p>Your shell should look similar to the following (note I’ve highlighted the portions that we’ve typed):</p>
-<div class="figure">
-<img src="images/bash_01_windows_cmd.png" alt="" />
-<p class="caption">Windows Command Prompt</p>
-</div>
+<p><img src="images/bash_01_windows_cmd.png" alt="Windows Command Prompt" /></p>
 </div>
 <p>After logging in, you will see a screen showing something like this:</p>
 <pre><code>------------------------------------
@@ -437,7 +475,7 @@ Preparation Magic - Customizing the prompt
 <p>We can make the <code>ls</code> output more comprehensible by using the <strong>flag</strong> <code>-F</code>, which tells <code>ls</code> to add a trailing <code>/</code> to the names of directories:</p>
 <pre><code>$ ls -F</code></pre>
 <pre><code>sra_metadata/  untrimmed_fastq/</code></pre>
-<p>Anything with a “/” after it is a directory. Things with a "*" after them are programs. If there are no decorations, it’s a file.</p>
+<p>Anything with a “/” after it is a directory. Things with a “*” after them are programs. If there are no decorations, it’s a file.</p>
 <p><code>ls</code> has lots of other options. To find out what they are, we can type:</p>
 <pre><code>$ man ls</code></pre>
 <p><code>man</code> (short for manual) displays detailed documentation (also referred as man page or man file) for <code>bash</code> commands. It is a powerful resource to explore <code>bash</code> commands, understand their usage and flags. Some manual files are very long. You can scroll through the file using your keyboard’s down arrow or use the <kbd>Space</kbd> key to go forward one page and the <kbd>b</kbd> key to go backwards one page. When you are done reading, hit <kbd>q</kbd> to quit.</p>

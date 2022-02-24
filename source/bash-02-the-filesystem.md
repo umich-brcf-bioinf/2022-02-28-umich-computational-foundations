@@ -1,5 +1,33 @@
 ---
 title: "Navigating Files and Directories"
+output:
+        html_document:
+            includes:
+                in_header: header.html
+            theme: paper
+            toc: false
+            number_sections: false
+            fig_caption: false
+            markdown: GFM
+            code_download: false
+---
+
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<!--
+---
+title: "Navigating Files and Directories"
 teaching: 30
 exercises: 20
 questions:
@@ -16,6 +44,7 @@ keypoints:
 - "Hidden files and directories start with `.` and can be viewed using `ls -a`."
 - "Relative paths specify a location starting from the current location, while absolute paths specify a location from the root of the file system."
 ---
+-->
 
 ## Moving around the file system
 

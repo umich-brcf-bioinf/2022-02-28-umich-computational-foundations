@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -32,6 +32,12 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--
+Favicon from
+https://twemoji.twitter.com/
+https://favicon.io/emoji-favicons/computer/
+-->
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -288,7 +294,7 @@ $(document).ready(function () {
       <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
     </li>
     <li>
-      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+      <a href="r-04-bioconductor.html">Using Packages from Bioconductor</a>
     </li>
     <li>
       <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
@@ -321,6 +327,39 @@ $(document).ready(function () {
 </div>
 
 
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<!--
+---
+title: "Navigating Files and Directories"
+teaching: 30
+exercises: 20
+questions:
+- "How can I perform operations on files outside of my working directory?"
+- "What are some navigational shortcuts I can use to make my work more efficient?"
+objectives:
+- "Use a single command to navigate multiple steps in your directory structure, including moving backwards (one level up)."
+- "Perform operations on files in directories outside your working directory."
+- "Work with hidden directories and hidden files."
+- "Interconvert between absolute and relative paths."
+- "Employ navigational shortcuts to move around your file system."
+keypoints:
+- "The `/`, `~`, and `..` characters represent important navigational shortcuts."
+- "Hidden files and directories start with `.` and can be viewed using `ls -a`."
+- "Relative paths specify a location starting from the current location, while absolute paths specify a location from the root of the file system."
+---
+-->
 <div id="moving-around-the-file-system" class="section level2">
 <h2>Moving around the file system</h2>
 <p>We’ve learned how to use <code>pwd</code> to find our current location within our file system. We’ve also learned how to use <code>cd</code> to change locations and <code>ls</code> to list the contents of a directory. Now we’re going to learn some additional commands for moving around within our file system.</p>
@@ -432,10 +471,7 @@ $ pwd  </code></pre>
 <li><code>2012-12-01/ 2013-01-08/ 2013-01-27/</code></li>
 <li><code>original pnas_final pnas_sub</code></li>
 </ol>
-<div class="figure">
-<img src="images/filesystem-challenge.svg" alt="" />
-<p class="caption">File System for Challenge Questions</p>
-</div>
+<p><img src="images/filesystem-challenge.svg" alt="File System for Challenge Questions" /></p>
 <p><br> <br></p>
 <details>
 <summary>

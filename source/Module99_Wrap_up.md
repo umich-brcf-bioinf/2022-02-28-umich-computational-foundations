@@ -1,6 +1,5 @@
 ---
-title: "Computational Foundations Workshop"
-author: "UM Bioinformatics Core"
+title: "Wrapping up"
 output:
         html_document:
             includes:
@@ -32,8 +31,6 @@ a.external {
     padding-right: 13px;
 }
 </style>
-
-## Wrapping up
 
 We hope you now have more familiarity with key concepts, tools, and techniques
 that will enable simpler and better computational research.

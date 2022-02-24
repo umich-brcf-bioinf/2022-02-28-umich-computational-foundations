@@ -1,5 +1,33 @@
 ---
 title: "Writing Scripts and Working with Data"
+output:
+        html_document:
+            includes:
+                in_header: header.html
+            theme: paper
+            toc: false
+            number_sections: false
+            fig_caption: false
+            markdown: GFM
+            code_download: false
+---
+
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<!--
+---
+title: "Writing Scripts and Working with Data"
 teaching: 20
 exercises: 20
 questions:
@@ -13,6 +41,7 @@ keypoints:
 - Scripts are a collection of commands executed together.
 - Transferring information to and from virtual and local computers.
 ---
+-->
 
 <script language="javascript" type="text/javascript">
 function set_page_view_defaults() {

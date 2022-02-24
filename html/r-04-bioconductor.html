@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -32,6 +32,12 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--
+Favicon from
+https://twemoji.twitter.com/
+https://favicon.io/emoji-favicons/computer/
+-->
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -321,133 +327,92 @@ $(document).ready(function () {
 </div>
 
 
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<!--
+---
+title: Using packages from Bioconductor
+teaching: 10
+exercises: 3
+questions:
+- "How do I use packages from the Bioconductor repository?"
+objectives:
+- "Describe what the Bioconductor repository is and what it is used for"
+- "Describe how Bioconductor differs from CRAN"
+- "Search Bioconductor for relevent packages"
+- "Install a package from Bioconductor"
+keypoints:
+- "Bioconductor is an alternative package repository for bioinformatics packages."
+- "Installing packages from Bioconductor requires a new method, since it is not compatible with the `install.packages()` function used for CRAN."
+- "Check Bioconductor to see if there is a package relevent to your analysis before writing code yourself."
+source: Rmd
+---
+-->
 <!-- example of rendered lesson https://datacarpentry.org/genomics-r-intro/02-r-basics/index.html -->
-<div id="installing-packages-from-somewhere-else-besides-cran"
-class="section level2">
+<div id="installing-packages-from-somewhere-else-besides-cran" class="section level2">
 <h2>Installing packages from somewhere else besides CRAN?</h2>
-<p>In some cases, you may want to use a specialized package that is not
-hosted on <a href="https://cran.r-project.org/">CRAN</a> (the
-Comprehensive R Archive Network). This may be because the package is so
-new that it hasn’t yet been submitted to CRAN, or it could be that it is
-on a focal topic that has an alternative repository. One major example
-of an alternative repository source is <a
-href="https://bioconductor.org/">Bioconductor</a>, which has a mission
-of “promot[ing] the statistical analysis and comprehension of current
-and emerging high-throughput biological assays.” This means that many if
-not all of the packages available on Bioconductor are focused on the
-analysis of biological data, and that it can be a great place to look
-for tools to help you analyze your -omics datasets!</p>
+<p>In some cases, you may want to use a specialized package that is not hosted on <a href="https://cran.r-project.org/">CRAN</a> (the Comprehensive R Archive Network). This may be because the package is so new that it hasn’t yet been submitted to CRAN, or it could be that it is on a focal topic that has an alternative repository. One major example of an alternative repository source is <a href="https://bioconductor.org/">Bioconductor</a>, which has a mission of “promot[ing] the statistical analysis and comprehension of current and emerging high-throughput biological assays.” This means that many if not all of the packages available on Bioconductor are focused on the analysis of biological data, and that it can be a great place to look for tools to help you analyze your -omics datasets!</p>
 </div>
 <div id="so-how-do-i-use-it" class="section level2">
 <h2>So how do I use it?</h2>
-<p>Since access to the <a
-href="https://bioconductor.org/">Bioconductor</a> repository is not
-built in to base R ‘out of the box’, there are a couple steps needed to
-install packages from this alternative source. We will work through the
-steps (only 2!) to install a package to help with the VCF analysis we
-are working on, but you can use the same approach to install any of the
-many thousands of available packages.</p>
-<div class="figure">
-<img src="images/bioconductor_website_screenshot.jpg" alt="" />
-<p class="caption">screenshot of bioconductor homepage</p>
-</div>
+<p>Since access to the <a href="https://bioconductor.org/">Bioconductor</a> repository is not built in to base R ‘out of the box’, there are a couple steps needed to install packages from this alternative source. We will work through the steps (only 2!) to install a package to help with the VCF analysis we are working on, but you can use the same approach to install any of the many thousands of available packages.</p>
+<p><img src="images/bioconductor_website_screenshot.jpg" alt="screenshot of bioconductor homepage" /></p>
 </div>
 <div id="first-install-the-biocmanager-package" class="section level2">
 <h2>First, install the <code>BiocManager</code> package</h2>
-<p>The first step is to install a package that <em>is</em> on CRAN,
-<code>BiocManager</code>. This package will allow us to use it to
-install packages from Bioconductor. You can think of Bioconductor kind
-of like an alternative app store for your phone, except instead of apps
-you are installing packages, and instead of your phone it’s your local R
-package library.</p>
+<p>The first step is to install a package that <em>is</em> on CRAN, <code>BiocManager</code>. This package will allow us to use it to install packages from Bioconductor. You can think of Bioconductor kind of like an alternative app store for your phone, except instead of apps you are installing packages, and instead of your phone it’s your local R package library.</p>
 <pre class="r"><code># install the BiocManager from CRAN using the base R install.packages() function
 install.packages(&quot;BiocManager&quot;)</code></pre>
-<p>To check if this worked (and also so you can make a note of the
-version for reproducibility purposes), you can run
-<code>BiocManager::version()</code> and it should give you the version
-number.</p>
+<p>To check if this worked (and also so you can make a note of the version for reproducibility purposes), you can run <code>BiocManager::version()</code> and it should give you the version number.</p>
 <pre class="r"><code># to make sure it worked, check the version
 BiocManager::version()</code></pre>
 </div>
-<div
-id="second-install-the-deseq2-package-from-bioconductor-using-biocmanager"
-class="section level1">
-<h1>Second, install the DESeq2 package from Bioconductor using
-<code>BiocManager</code></h1>
+<div id="second-install-the-deseq2-package-from-bioconductor-using-biocmanager" class="section level1">
+<h1>Second, install the DESeq2 package from Bioconductor using <code>BiocManager</code></h1>
 <pre class="r"><code># install the DESeq2 package from bioconductor using BiocManager::install()
 # NOTE, this is how you WOULD install it, but since we&#39;re using the cloud
 # instance, the package is already installed
 BiocManager::install(&quot;DESeq2&quot;)</code></pre>
-<p>You may need to also allow it to install some dependencies or update
-installed packages in order to successfully complete the process.</p>
+<p>You may need to also allow it to install some dependencies or update installed packages in order to successfully complete the process.</p>
 <blockquote>
-<h2 id="note-installing-packages-from-bioconductor-vs-from-cran">Note:
-Installing packages from Bioconductor vs from CRAN</h2>
-<p>Some packages begin by being available only on Bioconductor, and then
-later move to CRAN. <code>DESeq2</code> is one such package, which
-originally was only available from Bioconductor, but is currently
-available from CRAN. The other thing to know is that
-<code>BiocManager::install()</code> will also install packages from CRAN
-(it is a wrapper around <code>install.packages()</code> that adds some
-extra features). There are other benefits to using
-<code>BiocManager::install()</code> for Bioconductor packages, many of
-which are outlined <a
-href="https://www.bioconductor.org/install/">here</a>. In short,
-Bioconductor packages have a release cycle that is different from CRAN
-and the <code>install()</code> function is aware of that difference, so
-it helps to keep package versions in line with one another in a way that
-doesn’t generally happen with the base R
-<code>install.packages()</code>.</p>
+<h2 id="note-installing-packages-from-bioconductor-vs-from-cran">Note: Installing packages from Bioconductor vs from CRAN</h2>
+<p>Some packages begin by being available only on Bioconductor, and then later move to CRAN. <code>DESeq2</code> is one such package, which originally was only available from Bioconductor, but is currently available from CRAN. The other thing to know is that <code>BiocManager::install()</code> will also install packages from CRAN (it is a wrapper around <code>install.packages()</code> that adds some extra features). There are other benefits to using <code>BiocManager::install()</code> for Bioconductor packages, many of which are outlined <a href="https://www.bioconductor.org/install/">here</a>. In short, Bioconductor packages have a release cycle that is different from CRAN and the <code>install()</code> function is aware of that difference, so it helps to keep package versions in line with one another in a way that doesn’t generally happen with the base R <code>install.packages()</code>.</p>
 </blockquote>
 </div>
-<div id="search-for-bioconductor-packages-based-on-your-analysis-needs"
-class="section level1">
+<div id="search-for-bioconductor-packages-based-on-your-analysis-needs" class="section level1">
 <h1>Search for Bioconductor packages based on your analysis needs</h1>
-<p>While this workshop series focuses on differential expression
-analysis of RNA-seq data, there are many different types of data and
-analyses that bioinformaticians may want to work with. Sometimes you may
-get a new dataset and not know exactly where to start with analyzing or
-visualizing it. The Bioconductor package search view can be a great way
-to browse through the packages that are available.</p>
-<div class="figure">
-<img src="images/bioconductor_search.jpg" alt="" />
-<p class="caption">screenshot of bioconductor search</p>
-</div>
+<p>While this workshop series focuses on differential expression analysis of RNA-seq data, there are many different types of data and analyses that bioinformaticians may want to work with. Sometimes you may get a new dataset and not know exactly where to start with analyzing or visualizing it. The Bioconductor package search view can be a great way to browse through the packages that are available.</p>
+<p><img src="images/bioconductor_search.jpg" alt="screenshot of bioconductor search" /></p>
 <blockquote>
-<h2 id="tip-searching-for-packages-on-the-bioconductor-website">Tip:
-Searching for packages on the Bioconductor website</h2>
-<p>There are several thousand packages available through the
-Bioconductor website. It can be a bit of a challenge to find what you
-want, but one helpful resource is the <a
-href="https://bioconductor.org/packages/release/BiocViews.html#___Software">package
-search page</a>.</p>
+<h2 id="tip-searching-for-packages-on-the-bioconductor-website">Tip: Searching for packages on the Bioconductor website</h2>
+<p>There are several thousand packages available through the Bioconductor website. It can be a bit of a challenge to find what you want, but one helpful resource is the <a href="https://bioconductor.org/packages/release/BiocViews.html#___Software">package search page</a>.</p>
 </blockquote>
-<p>In bioinformatics, there are often many different tools that can be
-used in a particular instance. The authors of <code>DESeq2</code> have
-<a
-href="https://github.com/knausb/DESeq2#software-that-produce-vcf-files">compiled
-some of them</a>. One of those packages that <a
-href="https://bioconductor.org/packages/release/bioc/html/VariantAnnotation.html">is
-available from Bioconductor</a> is called <code>VariantAnnotation</code>
-and may also be of interest to those working with vcf files in R.</p>
+<p>In bioinformatics, there are often many different tools that can be used in a particular instance. The authors of <code>DESeq2</code> have <a href="https://github.com/knausb/DESeq2#software-that-produce-vcf-files">compiled some of them</a>. One of those packages that <a href="https://bioconductor.org/packages/release/bioc/html/VariantAnnotation.html">is available from Bioconductor</a> is called <code>VariantAnnotation</code> and may also be of interest to those working with vcf files in R.</p>
 <blockquote>
 <h2 id="challenge">Challenge</h2>
 <p>Add code chunks to</p>
 <ul>
 <li>Install the <code>BiocManager</code> package</li>
-<li>Use that package’s <code>install()</code> function to install
-<code>DESeq2</code></li>
-<li>Browse the Bioconductor website to find a second package, and
-install it</li>
+<li>Use that package’s <code>install()</code> function to install <code>DESeq2</code></li>
+<li>Browse the Bioconductor website to find a second package, and install it</li>
 </ul>
 </blockquote>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
 <ul>
 <li><a href="https://bioconductor.org/">Bioconductor</a></li>
-<li><a
-href="https://bioconductor.org/packages/release/BiocViews.html#___Software">Bioconductor
-package search</a></li>
+<li><a href="https://bioconductor.org/packages/release/BiocViews.html#___Software">Bioconductor package search</a></li>
 <li><a href="https://cran.r-project.org/">CRAN</a></li>
 </ul>
 </div>

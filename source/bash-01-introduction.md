@@ -1,5 +1,34 @@
 ---
 title: "Introducing the Shell"
+output:
+        html_document:
+            includes:
+                in_header: header.html
+            theme: paper
+            toc: false
+            number_sections: false
+            fig_caption: false
+            markdown: GFM
+            code_download: false
+---
+
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+
+<!--
+---
+title: "Introducing the Shell"
 teaching: 20
 exercises: 10
 questions:
@@ -18,6 +47,7 @@ keypoints:
 - "Most commands take options (flags) which begin with a `-`."
 - "Tab completion can reduce errors from mistyping and make work more efficient in the shell."
 ---
+-->
 
 <script language="javascript" type="text/javascript">
 function set_page_view_defaults() {

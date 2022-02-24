@@ -1,5 +1,33 @@
 ---
 title: "Redirection"
+output:
+        html_document:
+            includes:
+                in_header: header.html
+            theme: paper
+            toc: false
+            number_sections: false
+            fig_caption: false
+            markdown: GFM
+            code_download: false
+---
+
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<!--
+---
+title: "Redirection"
 teaching: 30
 exercises: 15
 questions:
@@ -19,6 +47,7 @@ keypoints:
 - "`for` loops are used for iteration."
 - "`basename` gets rid of repetitive parts of names."
 ---
+-->
 
 ## Searching files
 

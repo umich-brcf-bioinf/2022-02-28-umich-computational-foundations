@@ -1,4 +1,33 @@
 ---
+title: "Using packages from Bioconductor"
+output:
+        html_document:
+            includes:
+                in_header: header.html
+            theme: paper
+            toc: false
+            number_sections: false
+            fig_caption: false
+            markdown: GFM
+            code_download: false
+---
+
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+
+<!--
+---
 title: Using packages from Bioconductor
 teaching: 10
 exercises: 3
@@ -15,6 +44,7 @@ keypoints:
 - "Check Bioconductor to see if there is a package relevent to your analysis before writing code yourself."
 source: Rmd
 ---
+-->
 
 ```{r chunk_options, include=FALSE}
 source("../bin/chunk-options.R")

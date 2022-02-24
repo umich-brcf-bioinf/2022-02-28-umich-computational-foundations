@@ -1,5 +1,34 @@
 ---
 title: "R Basics continued - factors and data frames"
+output:
+        html_document:
+            includes:
+                in_header: header.html
+            theme: paper
+            toc: false
+            number_sections: false
+            fig_caption: false
+            markdown: GFM
+            code_download: false
+---
+
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+
+<!--
+---
+title: "R Basics continued - factors and data frames"
 teaching: 60
 exercises: 30
 questions:
@@ -25,6 +54,7 @@ keypoints:
 - "Base R has many useful functions for manipulating your data, but all of R's capabilities are greatly enhanced by software packages developed by the community"
 source: Rmd
 ---
+-->
 
 ```{r chunk_options, include = FALSE}
 source("../bin/chunk-options.R")

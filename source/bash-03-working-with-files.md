@@ -1,5 +1,33 @@
 ---
 title: "Working with Files and Directories"
+output:
+        html_document:
+            includes:
+                in_header: header.html
+            theme: paper
+            toc: false
+            number_sections: false
+            fig_caption: false
+            markdown: GFM
+            code_download: false
+---
+
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<!--
+---
+title: "Working with Files and Directories"
 teaching: 30
 exercises: 15
 questions:
@@ -18,6 +46,7 @@ keypoints:
 - "You can view file permissions using `ls -l` and change permissions using `chmod`."
 - "The `history` command and the up arrow on your keyboard can be used to repeat recently used commands."
 ---
+-->
 
 ## Working with Files
 
