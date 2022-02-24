@@ -82,14 +82,16 @@ Few people want to learn how to use R for its own sake. People want to learn how
 > - [Programming in R Software Carpentry lesson](https://software-carpentry.org/lessons/): There are several Software Carpentry lessons in R to choose from
 <br>
 
-## Creating objects in R
-
 > ## Reminder
 >
-> At this point you should be coding along in the "**r_basics.R**" script we created in the last episode. Writing your commands in the script (and commenting it) will make it easier to record what you did and why.
+> At this point you should be coding along in the "**r_basics.R**" script we created in the last episode. Writing your commands and comments in the script will make it easier to record what you did and why.
+>
+> We should also be regularly saving the file by clicking the single floppy disk icon or typing <KBD>Ctrl + S</KBD>.
 <br>
 
-What might be called a variable in many languages is called an **object** in R.
+## Creating objects in R
+
+What might be called a variable in many languages is called an **object** in R (but you can also call it a variable).
 
 **To create an object you need:**
 
@@ -105,17 +107,10 @@ In your script, "**r_basics.R**", using the R assignment operator '<-', assign '
 a <- 1
 ```
 
-Next, run this line of code in your script. You can run a line of code by hitting the <KBD>Run</KBD> button that is just above the first line of your script in the header of the Source pane or you can use the appropriate shortcut:
-
-- Mac/Windows execution shortcut: <KBD>Ctrl</KBD>+<KBD>Enter</KBD>
-- Mac execution shortcut: <KBD>Cmd(⌘)</KBD>+<KBD>Enter</KBD>
-
-To run multiple lines of code, you can highlight all the line you wish to run and then hit <KBD>Run</KBD> or use the shortcut key combo listed above.
-
-In the RStudio 'Console' you should see:
+Next, run this line of code in your script. In the RStudio 'Console' you should see:
 
 ~~~
-a <- 1
+> a <- 1
 >
 ~~~
 
@@ -136,7 +131,7 @@ The 'Environment' window allows you to keep track of the objects you have create
 >
 > 1. Create an object that has the value of number of pairs of human chromosomes
 > 2. Create an object that has a value of your favorite gene name
-> 3. Create an object that has this URL as its value: "ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/"
+> 3. Create an object that has this URL as its value: "https://genome.ucsc.edu"
 > 4. Create an object that has the value of the number of chromosomes in a diploid human cell
 
 <details>
@@ -146,11 +141,15 @@ Here as some possible answers to the challenge:
 ```{r, purl = FALSE}
 human_chr_number <- 23
 gene_name <- 'pten'
-ensemble_url <- 'ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/'
+ensemble_url <- 'https://genome.ucsc.edu'
 human_diploid_chr_num <-  2 * human_chr_number
 ```
 </details>
 <br>
+
+> ## Comment on the assignment operator
+>
+> Many people use `=` as their preferred assignment operator in R instead of `<-`, and this is just as well. Here is a [blog post](https://www.r-bloggers.com/2010/11/assignment-operators-in-r-%E2%80%98%E2%80%99-vs-%E2%80%98-%E2%80%99/) discussing the differences.
 
 ## Naming objects in R
 
@@ -198,12 +197,12 @@ Error: object 'gene_name' not found
 
 ## Understanding object data types (modes)
 
-In R, **every object has two properties**:
+In R, every object has two properties:
 
 - **Length**: How many values are held in that object
 - **Mode**: What is the classification (type) of that object.
 
-We will get to the "length" property later in the lesson. The **"mode" property** **corresponds to the type of data an object represents**. The most common modes you will encounter in R are:
+We will get to the "length" property later in the lesson. The "mode" property **corresponds to the type of data an object represents. The most common modes you will encounter in R are:
 
 |Mode (abbreviation)|Type of data|
 |----|------------|
@@ -213,7 +212,7 @@ We will get to the "length" property later in the lesson. The **"mode" property*
 
 There are a few other modes (i.e. "complex", "raw" etc.) but these are the three we will work with in this lesson.
 
-Data types are familiar in many programming languages, but also in natural language where we refer to them as the parts of speech, e.g. nouns, verbs, adverbs, etc. Once you know if a word - perhaps an unfamiliar one - is a noun, you can probably guess you can count it and make it plural if there is more than one (e.g. 1 [Tuatara](https://en.wikipedia.org/wiki/Tuatara), or 2 Tuataras). If something is a adjective, you can usually change it into an adverb by adding "-ly" (e.g. [jejune](https://www.merriam-webster.com/dictionary/jejune) vs. jejunely). Depending on the context, you may need to decide if a word is in one category or another (e.g "cut" may be a noun when it's on your finger, or a verb when you are preparing vegetables). These concepts have important analogies when working with R objects.
+Data types are familiar in many programming languages, but also in natural language where we refer to them as the parts of speech, e.g. nouns, verbs, adverbs, etc. Once you know if a word - perhaps an unfamiliar one - is a noun, you can probably guess you can count it and make it plural if there is more than one (e.g. 1 parrot, or 2 parrots). If something is an adjective, you can usually change it into an adverb by adding "-ly" (e.g. slow and slowly). Depending on the context, you may need to decide if a word is in one category or another (e.g "cut" may be a noun when it's on your finger, or a verb when you are preparing vegetables). These concepts have important analogies when working with R objects.
 
 > ## Exercise: Create objects and check their modes
 >
@@ -325,8 +324,13 @@ Vectors are quite important in R. Another data type that we will work with later
 Let's create a few more vectors to play around with:
 
 ```{r, purl = FALSE}
+# Top level domain of country
 country_tld <- c('th', 'ls', 'sr', 'ca')
+
+# Continent of country
 continents <- c('Asia', 'Africa', 'South America', 'North America')
+
+# Population of country
 country_population <- c(69950850, 2108328, 575990, 38436447) # Source: Wikipedia
 ```
 
@@ -337,11 +341,10 @@ Once we have vectors, one thing we may want to do is specifically retrieve one o
 countries[3]
 ```
 
-In R, every item your vector is indexed, starting from the first item (1) through to the final number of items in your vector. You can also retrieve a range of numbers:
+In R, every item in a vector is indexed, starting from the first item (1) through the final number of items in your vector. You can also retrieve a range of numbers:
 
 ```{r, purl = FALSE}
 # get the 1st through 3rd value in the countries vector
-
 countries[1:3]
 ```
 
@@ -349,7 +352,6 @@ If you want to retrieve several (but not necessarily sequential) items from a ve
 
 ```{r, purl = FALSE}
 # get the 1st, 3rd, and 4th value in the countries vector
-
 countries[c(1, 3, 4)]
 ```
 
@@ -397,19 +399,17 @@ countries[7]<- "Estonia"
 countries
 ```
 
-Notice in the operation above that R inserts an `NA` value to extend our vector so that the gene "APOA5" is an index 7. This may be a good or not-so-good thing depending on how you use this.
+Notice in the operation above that R inserts an `NA` value to extend our vector so that the country "Estonia" is an index 7. This may be a good or not-so-good thing depending on how you use this.
 
 > ## Exercise: Examining and subsetting vectors
-> Answer the following questions to test your knowledge of vectors
->
 > Are the following true or false of vectors in R?
 >
 > 1. All vectors have a mode **or** a length
 > 2. All vectors have a mode **and** a length
 > 3. Vectors may have different lengths
 > 4. Items within a vector may be of different modes
-> 5. You can use the `c()` to add one or more items to an existing vector
-> 6. You can use the `c()` to add a vector to an exiting vector
+> 5. You can use the `c()` function to add one or more items to an existing vector
+> 6. You can use the `c()` function to add a vector to an exiting vector
 
 <details>
 <summary>Solution</summary>
@@ -433,7 +433,9 @@ There is one last set of subsetting capabilities we want to introduce. It is pos
 country_population[country_population < 10000000]
 ```
 
-In the square brackets you place the name of the vector followed by the comparison operator and (in this case) a numeric value. Some of the most common logical operators you will use in R are:
+In the square brackets you place the name of the vector followed by the comparison operator and (in this case) a numeric value.
+
+Some of the most common logical operators you will use in R are:
 
   | Operator | Description              |
   |----------|--------------------------|
@@ -450,7 +452,7 @@ In the square brackets you place the name of the vector followed by the comparis
 
 > ## The power of programming
 >
-> The reason why the expression `country_population[country_population < 10000000]` works can be better understood if you examine what the expression "country_population < 10000000" evaluates to:
+> The reason why the expression `country_population[country_population < 10000000]` works can be better understood if you examine what the expression `country_population < 10000000` evaluates to:
 >
 > ```{r, purl = FALSE}
 > country_population < 10000000
@@ -472,7 +474,7 @@ In the square brackets you place the name of the vector followed by the comparis
 >
 > **Why this is important**
 >
-> Often in programming we will not know what inputs and values will be used when our code is executed. Rather than put in a pre-determined value (e.g 100000000) we can use an object that can take on whatever value we need. So for example:
+> Often in programming we will not know what inputs and values will be used when our code is executed. Rather than put in a pre-determined value (e.g 10000000) we can use an object that can take on whatever value we need. So for example:
 >
 > ```{r, purl = FALSE}
 > population_cutoff <- 10000000
@@ -484,7 +486,7 @@ In the square brackets you place the name of the vector followed by the comparis
 
 ## A few final vector tricks
 
-Finally, there are a few other common retrieve or replace operations you may want to know about. First, you can check to see if any of the values of your vector are missing (i.e. are `NA`). Missing data will get a more detailed treatment later, but the `is.NA()` function will return a logical vector, with TRUE for any NA value:
+Finally, there are a few other common retrieve or replace operations you may want to know about. First, you can check to see if any of the values of your vector are missing (i.e. are `NA`). The `is.NA()` function will return a logical vector, with TRUE for any `NA` value:
 
 ```{r, purl = FALSE}
 # current value of 'countries':
@@ -501,7 +503,6 @@ Sometimes, you may wish to find out if a specific value (or several values) is p
 
 # test to see if "Lesotho" or "Canada" is in the countries vector
 # if you are looking for more than one value, you must pass this as a vector
-
 c("Lesotho","Canada") %in% countries
 ```
 
@@ -553,11 +554,11 @@ country_population
 > 1. Create a new version of `countries` that does not contain Bolivia and then
 > 2. Add 2 NA values to the end of `countries`
 >
-> **Hint**: Your vector should look like this in 'Environment':
+> **Hint**: Before starting, your vector should look like this in 'Environment':
 >
 > `chr [1:7] "Thailand" "Lesotho" "Suriname" "Canada" "Bolivia" NA "Estonia"`.
 >
-> If not recreate the vector by running this expression:
+> **If not** recreate the vector by running this expression:
 >
 > `countries <- c("Thailand", "Lesotho", "Suriname", "Canada", "Bolivia", NA, "Estonia")`
 
@@ -595,7 +596,7 @@ combined
 
 
 > ## Review Exercise 5
-> What type of data is `combined`?
+> What type of data is `combined`? Why?
 
 <details>
 <summary>Solution</summary>
