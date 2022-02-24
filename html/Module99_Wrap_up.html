@@ -42,14 +42,6 @@ Favicon from
 https://twemoji.twitter.com/
 https://favicon.io/emoji-favicons/computer/
 -->
-<meta property="og:url" content="https://umich-brcf-bioinf.github.io/2022-02-28-umich-computational-foundations/html/workshop_setup/preregistration_info.html"/>
-<meta property="og:site_name" content="University of Michigan Bioinformatics Core"/>
-<meta property="og:title" content="BioinfCore Winter Workshop Series"/>
-<meta property="og:description" content="Two complementary workshops in February and March."/>
-<meta name="twitter:label1" value="Computational Foundations (Intro to Bash/R)" />
-<meta name="twitter:data1" value="2/28-3/2 9-1 ET" />
-<meta name="twitter:label2" value="RNA-Seq Demystified" />
-<meta name="twitter:data2" value="3/14-3/16 9-1 ET" />
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -379,7 +371,7 @@ div.tocify {
       <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
     </li>
     <li>
-      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+      <a href="r-04-bioconductor.html">Using Packages from Bioconductor</a>
     </li>
     <li>
       <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
@@ -424,19 +416,23 @@ code.r{
 pre {
   font-size: 12px
 }
+
+a.external {
+    background: url(images/external-link.png) center right no-repeat;
+    padding-right: 13px;
+}
 </style>
 <div id="wrapping-up" class="section level2">
 <h2>Wrapping up</h2>
-<p>We hope you now have more familiarity with key concepts, data types, tools, and how they all connect to enable gene expression analysis from bulk RNA-Seq data.</p>
-<p><img src="images/wayfinder/wayfinder-99.png" /></p>
+<p>We hope you now have more familiarity with key concepts, tools, and techniques that will enable simpler and better computational research.</p>
 <hr />
 </div>
 <div id="housekeeping" class="section level2">
 <h2>Housekeeping</h2>
 <ul>
-<li><p>Please take our optional <a href="https://forms.gle/XcSnsfDMF6hwBJXBA" target="_blank">post-workshop survey</a> (5-10 minutes) <br /></p></li>
+<li><p>Please take our optional <a class="external" href="https://forms.gle/mmHP6ve3xbtU2iQy6" target="_blank">post-workshop survey</a> (5-10 minutes) <br /></p></li>
 <li><p>We will email you a link to the final session recordings by next week.</p></li>
-<li><p>The website/notes for this workshop and <a href="https://umcoderspaces.slack.com">UMcoderspaces Slack channel</a> channel will be available.</p></li>
+<li><p>The website/notes for this workshop and the <a class="external" href="https://umbioinfcoreworkshops.slack.com" target="_blank">UM Bioinformatics Core Workshop Slack channel</a> will be available.</p></li>
 </ul>
 <hr />
 </div>
@@ -447,22 +443,11 @@ pre {
 <ul>
 <li><p>BASH/RStudio workshop compute environment will be available until next Monday.</p></li>
 <li><p>You can download files from the workshop environment from your terminal/command line window as below. (You will need to substitute your actual workshop username and type workshop password when prompted.)</p>
-<pre><code>mkdir 2021-11-15-rnaseq-demystified-workshop
-scp -r YOUR_USERNAME@bfx-workshop01.med.umich.edu:&quot;data analysis *-umich-rnaseq-demystified&quot; 2021-11-15-rnaseq-demystified-workshop</code></pre>
+<pre><code>mkdir computational-foundations-workshop
+scp -r YOUR_USERNAME@bfx-workshop01.med.umich.edu:&quot;CF*&quot; computational-foundations-workshop</code></pre>
+<h4 id="installing-software-locally">Installing software locally</h4>
 <ul>
-<li>Note that the full download is about 2Gb, so depending on your internet speeds it could take while.</li>
-</ul></li>
-</ul>
-</div>
-<div id="installing-software-locally" class="section level4">
-<h4>Installing software locally</h4>
-<ul>
-<li>You can install necessary programs to run programs locally. Note that for typical data, the compute intensive steps (Day 1) assume your computer has powerful compute (many CPUs and lots of RAM) and sizable storage capacity. (i.e. It may not be practical to run these on your laptop.)</li>
-<li>Installing bioinformatics software is non-trivial and comprehensive instructions to setup a complete compute environment are outside the scope of this workshop. (We are considering offering a Computational Reproducibility workshop that would cover this.) For the intrepid, see relevant links below:
-<ul>
-<li><a href="https://conda.io/projects/conda/en/latest/user-guide/install/index.html#regular-installation">Installing Conda</a></li>
-<li><a href="https://github.com/umich-brcf-bioinf/2021-11-15-umich-rnaseq-demystified/blob/master/server_setup/conda_setup/workshop-rsd.yaml">Conda environment YAML</a></li>
-<li><a href="workshop_setup/setup_instructions_advanced.html">Setting up R/R-Studio</a></li>
+<li>See <a href="workshop_setup/setup_instructions_advanced.html">Advanced setup instructions</a> for details on how to install programs on your own computer.</li>
 </ul></li>
 </ul>
 </div>
@@ -471,23 +456,19 @@ scp -r YOUR_USERNAME@bfx-workshop01.med.umich.edu:&quot;data analysis *-umich-rn
 <ul>
 <li>Advanced Research Computing (ARC) at University of Michigan hosts a high-performance computing (HPC) platform called <em>Great Lakes</em> which combines high-end computers, fast/resilient storage, and pre-installed software. GreatLakes may be a good resource for folks who need to run the more compute intensive steps and a substantial block of compute and storage is subsidized by ARC making it essentially free to many researchers.
 <ul>
-<li>About <a href="https://arc.umich.edu/greatlakes/" target="_blank">Great Lakes HPC</a>.</li>
-<li>About the ARC <a href="https://arc.umich.edu/umrcp/" target="_blank">Research Computing Package</a>.</li>
-<li>Videos on <a href="https://www.mivideo.it.umich.edu/channel/ARC-TS%2BTraining/181860561/" target="_blank">getting started with Great Lakes</a>. (available to UM folks)</li>
-<li>Upcoming <a href="https://arc.umich.edu/events/" target="_blank">ARC workshops</a>.</li>
+<li>About <a class="external" href="https://arc.umich.edu/greatlakes/" target="_blank">Great Lakes HPC</a>.</li>
+<li>About the ARC <a class="external" href="https://arc.umich.edu/umrcp/" target="_blank">Research Computing Package</a>.</li>
+<li>Videos on <a class="external" href="https://www.mivideo.it.umich.edu/channel/ARC-TS%2BTraining/181860561/" target="_blank">getting started with Great Lakes</a>. (available to UM folks)</li>
 </ul></li>
 </ul>
 </div>
 <div id="training-and-support" class="section level4">
 <h4>Training and support</h4>
+<p>Learning computational techniques is more like a process than a task. Resources to consider:</p>
 <ul>
-<li>Learning bioinformatic analyses more like a process than a task. Resources to consider:
-<ul>
-<li>UM Bioinformatics Core links to <a href="https://brcf.medicine.umich.edu/cores/bioinformatics-core/training/" target="_blank">training resources/workshops</a></li>
-<li><a href="https://umcoderspaces.slack.com" target="_blank">UM CoderSpaces Slack</a> and <a href="https://datascience.isr.umich.edu/events/coderspaces/" target="_blank">UM CoderSpaces “office hours”</a>.</li>
-<li>For intro lessons and workshops in Bash / Git / R / Python : <a href="https://software-carpentry.org/lessons/" target="_blank">Software Carpentry</a> and the <a href="https://umcarpentries.org/" target="_blank">UM Software Carpentry Group</a>.</li>
-<li>For more info on NGS analysis, we can highly recommend training materials from the <a href="https://hbctraining.github.io/main/" target="_blank">Harvard Chan Bioinformatics Core</a>.</li>
-</ul></li>
+<li>For intro lessons and workshops in Bash / Git / R / Python : <a class="external" href="https://software-carpentry.org/lessons/" target="_blank">Software Carpentry</a> and the <a class="external" href="https://umcarpentries.org/" target="_blank">UM Software Carpentry Group</a>.</li>
+<li>Upcoming <a class="external" href="https://arc.umich.edu/events/" target="_blank">UM Advanced Research Computing workshops</a>.</li>
+<li>  <a class="external" href="https://um-isr-coderspace.slack.com" target="_blank">UM CoderSpaces Slack</a> and <a class="external"  href="https://datascience.isr.umich.edu/events/coderspaces/" target="_blank">UM CoderSpaces “office hours”</a>.</li>
 </ul>
 <hr />
 </div>
@@ -503,6 +484,7 @@ scp -r YOUR_USERNAME@bfx-workshop01.med.umich.edu:&quot;data analysis *-umich-rn
 <tr class="header">
 <th align="center"><img src="images/Module00_headshots/headshot_cgates.jpg" /></th>
 <th align="center"><img src="images/Module00_headshots/headshot_mbradenb.jpg" /></th>
+<th align="center"><img src="images/Module00_headshots/headshot_rcavalca.jpg" /></th>
 <th align="center"><img src="images/Module00_headshots/headshot_trsaari.jpg" /></th>
 </tr>
 </thead>
@@ -510,45 +492,63 @@ scp -r YOUR_USERNAME@bfx-workshop01.med.umich.edu:&quot;data analysis *-umich-rn
 <tr class="odd">
 <td align="center"><strong>Chris</strong></td>
 <td align="center"><strong>Marci</strong></td>
+<td align="center"><strong>Raymond</strong></td>
 <td align="center"><strong>Travis</strong></td>
 </tr>
 <tr class="even">
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>
+<td align="center"></td>
 </tr>
 <tr class="odd">
-<td align="center"><img src="images/Module00_headshots/headshot_damki.jpg" /></td>
-<td align="center"><img src="images/Module00_headshots/headshot_rtagett.jpg" /></td>
-<td align="center"><img src="images/Module00_headshots/headshot_grkenney.jpg" /></td>
-</tr>
-<tr class="even">
-<td align="center"><strong>Dana</strong></td>
-<td align="center"><strong>Becky</strong></td>
-<td align="center"><strong>Grace</strong></td>
-</tr>
-<tr class="odd">
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-<tr class="even">
+<td align="center"><img src="images/Module00_headshots/headshot_jmoltzau.jpg" /></td>
+<td align="center"><img src="images/Module00_headshots/headshot_sovacool.jpg" /></td>
 <td align="center"><img src="images/Module00_headshots/headshot_ncarruth.jpg" /></td>
-<td align="center"><img src="images/Module00_headshots/headshot_rcavalca.jpg" /></td>
-<td align="center"><img src="images/Module00_headshots/headshot_weishwu.jpg" /></td>
+<td align="center"><img src="images/Module00_headshots/headshot_salucas.jpg" /></td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Jay</strong></td>
+<td align="center"><strong>Kelly</strong></td>
+<td align="center"><strong>Nick</strong></td>
+<td align="center"><strong>Sarah</strong></td>
 </tr>
 <tr class="odd">
-<td align="center"><strong>Nick</strong></td>
-<td align="center"><strong>Raymond</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"><img src="images/Module00_headshots/headshot_damki.jpg" /></td>
+<td align="center"><img src="images/Module00_headshots/headshot_mflick.jpg" /></td>
+<td align="center"><img src="images/Module00_headshots/headshot_meese.jpg" /></td>
+<td align="center"><img src="images/Module00_headshots/headshot_spanapak.jpg" /></td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Dana</strong></td>
+<td align="center"><strong>Matthew</strong></td>
+<td align="center"><strong>Marisa</strong></td>
+<td align="center"><strong>Sai</strong></td>
+</tr>
+<tr class="even">
+<td align="center"><img src="images/Module00_headshots/headshot_weishwu.jpg" /></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
 <td align="center"><strong>Weisheng</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
 </tr>
 </tbody>
 </table>
 <p><br/></p>
-<p>YOU!</p>
 <p>Thank you for participating on our workshop. We welcome your questions and feedback now and in the future.</p>
 <p>Bioinformatics Workshop Team</p>
-<p><a href="mailto:bioinformatics-workshops@umich.edu">bioinformatics-workshops@umich.edu</a> <br/> <a href="https://brcf.medicine.umich.edu/bioinformatics">https://brcf.medicine.umich.edu/bioinformatics</a></p>
+<p><a href="mailto:bioinformatics-workshops@umich.edu">bioinformatics-workshops@umich.edu</a> <br/> <a class="external" href="https://brcf.medicine.umich.edu/bioinformatics">UM BRCF Bioinformatics Core</a></p>
 </div>
 
 
