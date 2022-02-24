@@ -26,6 +26,11 @@ code.r{
 pre {
   font-size: 12px
 }
+
+a[target="_blank"]::after {
+    background: url(images/external-link.png) center right no-repeat;
+    padding-right: 13px;
+}
 </style>
 
 # Welcome
@@ -39,31 +44,37 @@ pre {
   enrichment and many other kinds of analyses.
 - We provide letters of support for grant proposals.
 - We are creating a series of bioinformatics-focused workshops.
-- https://brcf.medicine.umich.edu/bioinformatics
+- [UM BRCF Bioinformatics Core](https://brcf.medicine.umich.edu/bioinformatics){target="_blank"}
 
 ## About the workshop team
-| ![](images/Module00_headshots/headshot_cgates.jpg) | ![](images/Module00_headshots/headshot_mbradenb.jpg)| ![](images/Module00_headshots/headshot_trsaari.jpg) |
-|:-:|:-:|:-:|
-| **Chris** | **Marci** | **Travis** |
-| | | |
-| ![](images/Module00_headshots/headshot_damki.jpg) | ![](images/Module00_headshots/headshot_rtagett.jpg) | ![](images/Module00_headshots/headshot_grkenney.jpg) |
-|  **Dana** | **Becky** | **Grace** |
-| | | |
-| ![](images/Module00_headshots/headshot_ncarruth.jpg)| ![](images/Module00_headshots/headshot_rcavalca.jpg)| ![](images/Module00_headshots/headshot_weishwu.jpg)|
-| **Nick** | **Raymond** | **Weisheng** |
+| ![](images/Module00_headshots/headshot_cgates.jpg) | ![](images/Module00_headshots/headshot_mbradenb.jpg) | ![](images/Module00_headshots/headshot_rcavalca.jpg) | ![](images/Module00_headshots/headshot_trsaari.jpg) |
+|:-:|:-:|:-:|:-:|
+| **Chris** | **Marci** | **Raymond** | **Travis** |
+| | | | |
+| ![](images/Module00_headshots/headshot_jmoltzau.jpg) | ![](images/Module00_headshots/headshot_sovacool.jpg) | ![](images/Module00_headshots/headshot_ncarruth.jpg) | ![](images/Module00_headshots/headshot_salucas.jpg) |
+|  **Jay** | **Kelly**| **Nick** | **Sarah** |
+
+### (Helpers joining Tuesday/Wednesday)
+
+| ![](images/Module00_headshots/headshot_damki.jpg) | ![](images/Module00_headshots/headshot_mflick.jpg) | ![](images/Module00_headshots/headshot_meese.jpg) | ![](images/Module00_headshots/headshot_spanapak.jpg) |
+|:-:|:-:|:-:|:-:|
+| **Dana** | **Matthew** | **Marisa** | **Sai** |
+| ![](images/Module00_headshots/headshot_weishwu.jpg) |
+| **Weisheng** |
+
 <br/>
 
 ## Workshop sponsors
 ![Sponsors](images/Module00_sponsor_logos.png)
 
-- [University of Michigan Library](https://www.lib.umich.edu/)
+- [University of Michigan Library](https://www.lib.umich.edu/){target="_blank"}
 
   Our mission is to support, enhance, and collaborate in the instructional, research, and
   service activities of faculty, students, and staff, and contribute to the common good by
   collecting, organizing, preserving, communicating, sharing, and creating the record of human
   knowledge.
 
-- [Biomedical Research Core Facilities](https://brcf.medicine.umich.edu/)
+- [Biomedical Research Core Facilities](https://brcf.medicine.umich.edu/){target="_blank"}
 
   Biomedical Research Core Facilities (BRCF) helps researchers economically take advantage of
   the latest technology and collaborate with top experts in the field. Established in 1986, the
@@ -202,29 +213,23 @@ It is important that you can see:
 
 # Workshop goals and topics
 
+ - This workshop provides a foundation for researchers to make compute-intensive
+   research projects easier, simpler, and more reproducible.
+
  - By the end of the workshop, attendees will be able to
-   - Transform raw sequencing data into annotated differential expression values using a suite of
-     open-source tools.
-   - Identify common data quality problems and understand their impact and possible mitigations
-   - Visualize differential expression data in RStudio plots.
-
- - This workshop is targeted toward researchers who would like to be able to run
-   RNA-Seq analysis on their own. It assumes a very basic familiarity with
-   genetics, the command line, and R or R-Studio.
-
- - The first day will be a mix of hands-on content and lecture-style components,
-   while the second day will primarily be a hands-on experience.
+   - Understand how to use a range of basic Bash commands including techniques 
+     to view and manipulate files from the command line. 
+   - Combine Bash commands together to create custom scripts.
+   - Understand basics of importing data into R and ways to clean/manipulate data
+   - Visualize data as plots
 
  - Please let us know if there is anything we can do to improve the workshop experience.
 
  - Our purpose is not to be exhaustive, there is a lot that we cannot cover in
    the allotted time, and we don't expect anyone to be an expert at the end of
-   the workshop. But we hope you will have a familiarity with key concepts, data types,
-   tools, and how they all connect to one another in the service of a biological question.
+   the workshop. But we hope you will have a familiarity with key concepts, 
+   tools, and techniques.
 
-
-## Workshop topics at a glance
-![](images/wayfinder/wayfinder-00.png)
 
 # Any questions?
  -
@@ -233,8 +238,9 @@ It is important that you can see:
 
 ---
 
-* This workshop content is licensed under a [Creative Commons Attribution 4 License](https://creativecommons.org/licenses/by/4.0/).
+* This workshop content is licensed under a [Creative Commons Attribution 4 License](https://creativecommons.org/licenses/by/4.0/){target="_blank"}.
 
-* The workshop Code of Conduct has been adapted the NumFocus Code of Conduct (https://numfocus.org/code-of-conduct) which itself draws frin from numerous sources, including the Geek Feminism wiki, created by the Ada Initiative and other volunteers, which is under a Creative Commons Zero license, the Contributor Covenant version 1.2.0, the Bokeh Code of Conduct, the SciPy Code of Conduct, the Carpentries Code of Conduct, and the NeurIPS Code of Conduct.
+* Large sections of this workshop content have been adapted and extended from materials created by [Software Carpentry](https://software-carpentry.org/lessons/){target="_blank"}. These are open access materials distributed under the terms of the [Creative Commons Attribution license (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/){target="_blank"}, which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.
 
-* Sections of the workshop content have been adapted and extended from materials created by the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.
+* The workshop Code of Conduct has been adapted the [NumFocus Code of Conduct](https://numfocus.org/code-of-conduct){target="_blank"} which itself draws from from numerous sources, including the Geek Feminism wiki, created by the Ada Initiative and other volunteers, which is under a Creative Commons Zero license, the Contributor Covenant version 1.2.0, the Bokeh Code of Conduct, the SciPy Code of Conduct, the Carpentries Code of Conduct, and the NeurIPS Code of Conduct.
+

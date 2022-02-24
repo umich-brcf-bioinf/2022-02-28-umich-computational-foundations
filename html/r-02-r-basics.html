@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -32,6 +32,12 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--
+Favicon from
+https://twemoji.twitter.com/
+https://favicon.io/emoji-favicons/computer/
+-->
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -288,7 +294,7 @@ $(document).ready(function () {
       <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
     </li>
     <li>
-      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+      <a href="r-04-bioconductor.html">Using Packages from Bioconductor</a>
     </li>
     <li>
       <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
@@ -321,113 +327,97 @@ $(document).ready(function () {
 </div>
 
 
-<div
-id="the-fantastic-world-of-r-awaits-you-or-nobody-wants-to-learn-how-to-use-r"
-class="section level2">
-<h2>“The fantastic world of R awaits you” OR “Nobody wants to learn how
-to use R”</h2>
-<p>Before we begin this lesson, we want you to be clear on the goal of
-the workshop and these lessons. We believe that every learner can
-<strong>achieve competency with R</strong>. You have reached competency
-when you find that you are able to <strong>use R to handle common
-analysis challenges in a reasonable amount of time</strong> (which
-includes time needed to look at learning materials, search for answers
-online, and ask colleagues for help). As you spend more time using R
-(there is no substitute for regular use and practice) you will find
-yourself gaining competency and even expertise. The more familiar you
-get, the more complex the analyses you will be able to carry out, with
-less frustration, and in less time - the fantastic world of R awaits
-you!</p>
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<!--
+---
+title: "R Basics"
+teaching: 60
+exercises: 20
+questions:
+- "What will these lessons not cover?"
+- "What are the basic features of the R language?"
+- "What are the most common objects in R?"
+objectives:
+- "Be able to create the most common R objects including vectors"
+- "Understand that vectors have modes, which correspond to the type of data they contain"
+- "Be able to use arithmetic operators on R objects"
+- "Be able to retrieve (subset), name, or replace, values from a vector"
+- "Be able to use logical operators in a subsetting operation"
+- "Understand that lists can hold data of more than one mode and can be indexed"
+keypoints:
+- "Effectively using R is a journey of months or years. Still you don't have to be an expert to use R and you can start using and analyzing your data with with about a day's worth of training"
+- "It is important to understand how data are organized by R in a given object type and how the mode of that type (e.g. numeric, character, logical, etc.) will determine how R will operate on that data."
+- "Working with vectors effectively prepares you for understanding how data are organized in R."
+source: Rmd
+---
+-->
+<div id="fluency-is-possible-for-all-through-time-and-effort" class="section level2">
+<h2>Fluency is possible for all, through time and effort</h2>
+<p>Before we begin this lesson, we want you to be clear on the goal of the workshop and these lessons. We believe that every learner can <strong>achieve competency with R</strong>. You have reached competency when you find that you are able to <strong>use R to handle common analysis challenges in a reasonable amount of time</strong> (which includes time needed to look at learning materials, search for answers online, and ask colleagues for help). As you spend more time using R you will find yourself gaining competency and even expertise. There is no subsititute for regular use and practice. The more familiar you get, the more complex the analyses you will be able to carry out, with less frustration, and in less time!</p>
 </div>
 <div id="what-these-lessons-will-not-teach-you" class="section level2">
 <h2>What these lessons will not teach you</h2>
-<p>Nobody wants to learn how to use R. People want to learn how to use R
-to analyze their own research questions! Ok, maybe some folks learn R
-for R’s sake, but these lessons assume that you want to start analyzing
-genomic data as soon as possible. Given this, there are many valuable
-pieces of information about R that we simply won’t have time to cover.
-Hopefully, we will clear the hurdle of giving you just enough knowledge
-to be dangerous, which can be a high bar in R! We suggest you look into
-the additional learning materials in the tip box below.</p>
-<p><strong>Here are some R skills we will <em>not</em> cover in these
-lessons</strong></p>
+<p>Few people want to learn how to use R for its own sake. People want to learn how to use R to analyze their own research questions! These lessons assume that you want to start analyzing data as soon as possible. Given this, there are many valuable pieces of information about R that we simply won’t have time to cover. Hopefully, we will clear the hurdle of giving you just enough knowledge to be dangerous, which can be a high bar in R! We suggest you look into the additional learning materials below.</p>
+<p><strong>Here are some R skills we will <em>not</em> cover in these lessons</strong></p>
 <ul>
-<li>How to create and work with R matrices and R lists</li>
-<li>How to create and work with loops and conditional statements, and
-the “apply” family of functions (which are super useful, read more <a
-href="https://www.r-bloggers.com/r-tutorial-on-the-apply-family-of-functions/">here</a>)</li>
-<li>How to do basic string manipulations (e.g. finding patterns in text
-using grep, replacing text)</li>
-<li>How to plot using the default R graphic tools (we <em>will</em>
-cover plot creation, but will do so using the popular plotting package
-<code>ggplot2</code>)</li>
-<li>How to use advanced R statistical functions</li>
+<li>How to create and work with R matrices and R lists.</li>
+<li>How to create and work with loops and conditional statements, and the “apply” family of functions (which are useful, read more <a href="https://www.r-bloggers.com/r-tutorial-on-the-apply-family-of-functions/">here</a>).</li>
+<li>How to do basic string manipulations (e.g. finding patterns in text using grep, replacing text).</li>
+<li>How to plot using the default R graphic tools (we <em>will</em> cover plot creation, but will do so using the popular plotting package <code>ggplot2</code>).</li>
+<li>How to use advanced R statistical functions.</li>
 </ul>
 <blockquote>
 <h2 id="tip-where-to-learn-more">Tip: Where to learn more</h2>
-<p>The following are good resources for learning more about R. Some of
-them can be quite technical, but if you are a regular R user you may
-ultimately need this technical knowledge. - <a
-href="https://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf">R
-for Beginners</a>: By Emmanuel Paradis and a great starting point - <a
-href="https://cran.r-project.org/manuals.html">The R Manuals</a>:
-Maintained by the R project - <a
-href="https://cran.r-project.org/other-docs.html">R contributed
-documentation</a>: Also linked to the R project; importantly there are
-materials available in several languages - <a
-href="http://r4ds.had.co.nz/">R for Data Science</a>: A wonderful
-collection by noted R educators and developers Garrett Grolemund and
-Hadley Wickham - <a
-href="https://peerj.com/collections/50-practicaldatascistats/">Practical
-Data Science for Stats</a>: Not exclusively about R usage, but a nice
-collection of pre-prints on data science and applications for R - <a
-href="https://software-carpentry.org/lessons/">Programming in R Software
-Carpentry lesson</a>: There are several Software Carpentry lessons in R
-to choose from {: .callout}</p>
+<p>The following are good resources for learning more about R. Some of them can be quite technical, but if you are a regular R user you may ultimately need this technical knowledge.</p>
+<ul>
+<li><a href="https://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf">R for Beginners</a>: By Emmanuel Paradis and a great starting point</li>
+<li><a href="https://cran.r-project.org/manuals.html">The R Manuals</a>: Maintained by the R project</li>
+<li><a href="https://cran.r-project.org/other-docs.html">R contributed documentation</a>: Also linked to the R project; importantly there are materials available in several languages</li>
+<li><a href="http://r4ds.had.co.nz/">R for Data Science</a>: A wonderful collection by noted R educators and developers Garrett Grolemund and Hadley Wickham</li>
+<li><a href="https://peerj.com/collections/50-practicaldatascistats/">Practical Data Science for Stats</a>: Not exclusively about R usage, but a nice collection of pre-prints on data science and applications for R</li>
+<li><a href="https://software-carpentry.org/lessons/">Programming in R Software Carpentry lesson</a>: There are several Software Carpentry lessons in R to choose from <br></li>
+</ul>
 </blockquote>
 </div>
 <div id="creating-objects-in-r" class="section level2">
 <h2>Creating objects in R</h2>
 <blockquote>
 <h2 id="reminder">Reminder</h2>
-<p>At this point you should be coding along in the
-“<strong>genomics_r_basics.R</strong>” script we created in the last
-episode. Writing your commands in the script (and commenting it) will
-make it easier to record what you did and why. {: .prereq}</p>
+<p>At this point you should be coding along in the “<strong>r_basics.R</strong>” script we created in the last episode. Writing your commands in the script (and commenting it) will make it easier to record what you did and why. <br></p>
 </blockquote>
-<p>What might be called a variable in many languages is called an
-<strong>object</strong> in R.</p>
+<p>What might be called a variable in many languages is called an <strong>object</strong> in R.</p>
 <p><strong>To create an object you need:</strong></p>
 <ul>
 <li>a name (e.g. ‘a’)</li>
 <li>a value (e.g. ‘1’)</li>
 <li>the assignment operator (‘&lt;-’)</li>
 </ul>
-<p>In your script, “<strong>genomics_r_basics.R</strong>”, using the R
-assignment operator ‘&lt;-’, assign ‘1’ to the object ‘a’ as shown.
-Remember to leave a comment in the line above (using the ‘#’) to explain
-what you are doing:</p>
-<pre><code># this line creates the object &#39;a&#39; and assigns it the value &#39;1&#39;
+<p>In your script, “<strong>r_basics.R</strong>”, using the R assignment operator ‘&lt;-’, assign ‘1’ to the object ‘a’ as shown. Remember to leave a comment in the line above (using the ‘#’) to explain what you are doing:</p>
+<pre class="r"><code># this line creates the object &#39;a&#39; and assigns it the value &#39;1&#39;
 
 a &lt;- 1</code></pre>
-<p>{: .language-r}</p>
-<p>Next, run this line of code in your script. You can run a line of
-code by hitting the <KBD>Run</KBD> button that is just above the first
-line of your script in the header of the Source pane or you can use the
-appropriate shortcut:</p>
+<p>Next, run this line of code in your script. You can run a line of code by hitting the <KBD>Run</KBD> button that is just above the first line of your script in the header of the Source pane or you can use the appropriate shortcut:</p>
 <ul>
-<li>Windows execution shortcut: <KBD>Ctrl</KBD>+<KBD>Enter</KBD></li>
+<li>Mac/Windows execution shortcut: <KBD>Ctrl</KBD>+<KBD>Enter</KBD></li>
 <li>Mac execution shortcut: <KBD>Cmd(⌘)</KBD>+<KBD>Enter</KBD></li>
 </ul>
-<p>To run multiple lines of code, you can highlight all the line you
-wish to run and then hit <KBD>Run</KBD> or use the shortcut key combo
-listed above.</p>
+<p>To run multiple lines of code, you can highlight all the line you wish to run and then hit <KBD>Run</KBD> or use the shortcut key combo listed above.</p>
 <p>In the RStudio ‘Console’ you should see:</p>
 <pre><code>a &lt;- 1
 &gt;</code></pre>
-<p>{: .output}</p>
-<p>The ‘Console’ will display lines of code run from a script and any
-outputs or status/warning/error messages (usually in red).</p>
+<p>The ‘Console’ will display lines of code run from a script and any outputs or status/warning/error messages (usually in red).</p>
 <p>In the ‘Environment’ window you will also get a table:</p>
 <table>
 <thead>
@@ -443,119 +433,69 @@ outputs or status/warning/error messages (usually in red).</p>
 </tr>
 </tbody>
 </table>
-<p>The ‘Environment’ window allows you to keep track of the objects you
-have created in R.</p>
+<p>The ‘Environment’ window allows you to keep track of the objects you have created in R.</p>
 <blockquote>
-<h2 id="exercise-create-some-objects-in-r">Exercise: Create some objects
-in R</h2>
-<p>Create the following objects; give each object an appropriate name
-(your best guess at what name to use is fine):</p>
+<h2 id="exercise-create-some-objects-in-r">Exercise: Create some objects in R</h2>
+<p>Create the following objects; give each object an appropriate name (your best guess at what name to use is fine):</p>
 <ol style="list-style-type: decimal">
-<li>Create an object that has the value of number of pairs of human
-chromosomes</li>
+<li>Create an object that has the value of number of pairs of human chromosomes</li>
 <li>Create an object that has a value of your favorite gene name</li>
-<li>Create an object that has this URL as its value: “<a
-href="ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/"
-class="uri">ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/</a>”</li>
-<li>Create an object that has the value of the number of chromosomes in
-a diploid human cell</li>
+<li>Create an object that has this URL as its value: “<a href="ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/" class="uri">ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/</a>”</li>
+<li>Create an object that has the value of the number of chromosomes in a diploid human cell</li>
 </ol>
-<blockquote>
-<h2 id="solution">Solution</h2>
+</blockquote>
+<details>
+<summary>
+Solution
+</summary>
 <p>Here as some possible answers to the challenge:</p>
-<pre><code>human_chr_number &lt;- 23
+<pre class="r"><code>human_chr_number &lt;- 23
 gene_name &lt;- &#39;pten&#39;
 ensemble_url &lt;- &#39;ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/&#39;
 human_diploid_chr_num &lt;-  2 * human_chr_number</code></pre>
-<p>{: .language-r} {: .solution} {: .challenge}</p>
-</blockquote>
-</blockquote>
+</details>
+<p><br></p>
 </div>
 <div id="naming-objects-in-r" class="section level2">
 <h2>Naming objects in R</h2>
 <p>Here are some important details about naming objects in R.</p>
 <ul>
-<li><strong>Avoid spaces and special characters</strong>: Object names
-cannot contain spaces or the minus sign (<code>-</code>). You can use
-’_’ to make names more readable. You should avoid using special
-characters in your object name (e.g. ! @ # . , etc.). Also, object names
-cannot begin with a number.</li>
-<li><strong>Use short, easy-to-understand names</strong>: You should
-avoid naming your objects using single letters (e.g. ‘n’, ‘p’, etc.).
-This is mostly to encourage you to use names that would make sense to
-anyone reading your code (a colleague, or even yourself a year from
-now). Also, avoiding excessively long names will make your code more
-readable.</li>
-<li><strong>Avoid commonly used names</strong>: There are several names
-that may already have a definition in the R language (e.g. ‘mean’,
-‘min’, ‘max’). One clue that a name already has meaning is that if you
-start typing a name in RStudio and it gets a colored highlight or
-RStudio gives you a suggested autocompletion you have chosen a name that
-has a reserved meaning.</li>
-<li><strong>Use the recommended assignment operator</strong>: In R, we
-use ‘&lt;-’ as the preferred assignment operator. ‘=’ works too, but is
-most commonly used in passing arguments to functions (more on functions
-later). There is a shortcut for the R assignment operator:
+<li><strong>Avoid spaces and special characters</strong>: Object names cannot contain spaces or the minus sign (<code>-</code>). You can use ’_’ to make names more readable. You should avoid using special characters in your object name (e.g. ! @ # . , etc.). Also, object names cannot begin with a number.</li>
+<li><strong>Use short, easy-to-understand names</strong>: You should avoid naming your objects using single letters (e.g. ‘n’, ‘p’, etc.). This is mostly to encourage you to use names that would make sense to anyone reading your code (a colleague, or even yourself a year from now). Also, avoiding excessively long names will make your code more readable.</li>
+<li><strong>Avoid commonly used names</strong>: There are several names that may already have a definition in the R language (e.g. ‘mean’, ‘min’, ‘max’). One clue that a name already has meaning is that if you start typing a name in RStudio and it gets a colored highlight or RStudio gives you a suggested autocompletion you have chosen a name that has a reserved meaning.</li>
+<li><strong>Use the recommended assignment operator</strong>: In R, we use ‘&lt;-’ as the preferred assignment operator. ‘=’ works too, but is most commonly used in passing arguments to functions (more on functions later). There is a shortcut for the R assignment operator:
 <ul>
 <li>Windows execution shortcut: <KBD>Alt</KBD>+<KBD>-</KBD></li>
 <li>Mac execution shortcut: <KBD>Option</KBD>+<KBD>-</KBD></li>
 </ul></li>
 </ul>
-<p>There are a few more suggestions about naming and style you may want
-to learn more about as you write more R code. There are several “style
-guides” that have advice, and one to start with is the <a
-href="http://style.tidyverse.org/index.html">tidyverse R style
-guide</a>.</p>
+<p>There are a few more suggestions about naming and style you may want to learn more about as you write more R code. There are several “style guides” that have advice, and one to start with is the <a href="http://style.tidyverse.org/index.html">tidyverse R style guide</a>.</p>
 <blockquote>
-<h2 id="tip-pay-attention-to-warnings-in-the-script-console">Tip: Pay
-attention to warnings in the script console</h2>
-<p>If you enter a line of code in your script that contains an error,
-RStudio may give you an error message and underline this mistake.
-Sometimes these messages are easy to understand, but often the messages
-may need some figuring out. Paying attention to these warnings will help
-you avoid mistakes. In the example below, our object name has a space,
-which is not allowed in R. The error message does not say this directly,
-but R is “not sure” about how to assign the name to “human_ chr_number”
-when the object name we want is “human_chr_number”.</p>
-<p><img src="images/rstudio_script_warning.png" alt="rstudio script warning" style="width: 600px;"/>
-{: .callout}</p>
+<h2 id="tip-pay-attention-to-warnings-in-the-script-console">Tip: Pay attention to warnings in the script console</h2>
+<p>If you enter a line of code in your script that contains an error, RStudio may give you an error message and underline this mistake. Sometimes these messages are easy to understand, but often the messages may need some figuring out. Paying attention to these warnings will help you avoid mistakes. In the example below, our object name has a space, which is not allowed in R. The error message does not say this directly, but R is “not sure” about how to assign the name to “human_ chr_number” when the object name we want is “human_chr_number”.</p>
+<p><img src="images/rstudio_script_warning.png" alt="rstudio script warning" style="width: 600px;"/></p>
 </blockquote>
 </div>
-<div id="reassigning-object-names-or-deleting-objects"
-class="section level2">
+<div id="reassigning-object-names-or-deleting-objects" class="section level2">
 <h2>Reassigning object names or deleting objects</h2>
-<p>Once an object has a value, you can change that value by overwriting
-it. R will not give you a warning or error if you overwriting an object,
-which may or may not be a good thing depending on how you look at
-it.</p>
-<pre><code># gene_name has the value &#39;pten&#39; or whatever value you used in the challenge.
+<p>Once an object has a value, you can change that value by overwriting it. R will not give you a warning or error if you overwriting an object, which may or may not be a good thing depending on how you look at it.</p>
+<pre class="r"><code># gene_name has the value &#39;pten&#39; or whatever value you used in the challenge.
 # We will now assign the new value &#39;tp53&#39;
 gene_name &lt;- &#39;tp53&#39;</code></pre>
-<p>{: .language-r}</p>
-<p>You can also remove an object from R’s memory entirely. The
-<code>rm()</code> function will delete the object.</p>
-<pre><code># delete the object &#39;gene_name&#39;
+<p>You can also remove an object from R’s memory entirely. The <code>rm()</code> function will delete the object.</p>
+<pre class="r"><code># delete the object &#39;gene_name&#39;
 rm(gene_name)</code></pre>
-<p>{: .language-r}</p>
-<p>If you run a line of code that has only an object name, R will
-normally display the contents of that object. In this case, we are told
-the object no longer exists.</p>
+<p>If you run a line of code that has only an object name, R will normally display the contents of that object. In this case, we are told the object no longer exists.</p>
 <pre><code>Error: object &#39;gene_name&#39; not found</code></pre>
-<p>{: .error}</p>
 </div>
 <div id="understanding-object-data-types-modes" class="section level2">
 <h2>Understanding object data types (modes)</h2>
 <p>In R, <strong>every object has two properties</strong>:</p>
 <ul>
-<li><strong>Length</strong>: How many distinct values are held in that
-object</li>
-<li><strong>Mode</strong>: What is the classification (type) of that
-object.</li>
+<li><strong>Length</strong>: How many values are held in that object</li>
+<li><strong>Mode</strong>: What is the classification (type) of that object.</li>
 </ul>
-<p>We will get to the “length” property later in the lesson. The
-<strong>“mode” property</strong> <strong>corresponds to the type of data
-an object represents</strong>. The most common modes you will encounter
-in R are:</p>
+<p>We will get to the “length” property later in the lesson. The <strong>“mode” property</strong> <strong>corresponds to the type of data an object represents</strong>. The most common modes you will encounter in R are:</p>
 <table>
 <colgroup>
 <col width="25%" />
@@ -570,10 +510,7 @@ in R are:</p>
 <tbody>
 <tr class="odd">
 <td>Numeric (num)</td>
-<td>Numbers such floating point/decimals (1.0, 0.5, 3.14), there are
-also more specific numeric types (dbl - Double, int - Integer). These
-differences are not relevant for most beginners and pertain to how these
-values are stored in memory</td>
+<td>Numbers such floating point/decimals (1.0, 0.5, 3.14), there are also more specific numeric types (dbl - Double, int - Integer). These differences are not relevant for most beginners and pertain to how these values are stored in memory</td>
 </tr>
 <tr class="even">
 <td>Character (chr)</td>
@@ -585,27 +522,11 @@ values are stored in memory</td>
 </tr>
 </tbody>
 </table>
-<p>There are a few other modes (i.e. “complex”, “raw” etc.) but these
-are the three we will work with in this lesson.</p>
-<p>Data types are familiar in many programming languages, but also in
-natural language where we refer to them as the parts of speech,
-e.g. nouns, verbs, adverbs, etc. Once you know if a word - perhaps an
-unfamiliar one - is a noun, you can probably guess you can count it and
-make it plural if there is more than one (e.g. 1 <a
-href="https://en.wikipedia.org/wiki/Tuatara">Tuatara</a>, or 2
-Tuataras). If something is a adjective, you can usually change it into
-an adverb by adding “-ly” (e.g. <a
-href="https://www.merriam-webster.com/dictionary/jejune">jejune</a> vs.
-jejunely). Depending on the context, you may need to decide if a word is
-in one category or another (e.g “cut” may be a noun when it’s on your
-finger, or a verb when you are preparing vegetables). These concepts
-have important analogies when working with R objects.</p>
+<p>There are a few other modes (i.e. “complex”, “raw” etc.) but these are the three we will work with in this lesson.</p>
+<p>Data types are familiar in many programming languages, but also in natural language where we refer to them as the parts of speech, e.g. nouns, verbs, adverbs, etc. Once you know if a word - perhaps an unfamiliar one - is a noun, you can probably guess you can count it and make it plural if there is more than one (e.g. 1 <a href="https://en.wikipedia.org/wiki/Tuatara">Tuatara</a>, or 2 Tuataras). If something is a adjective, you can usually change it into an adverb by adding “-ly” (e.g. <a href="https://www.merriam-webster.com/dictionary/jejune">jejune</a> vs. jejunely). Depending on the context, you may need to decide if a word is in one category or another (e.g “cut” may be a noun when it’s on your finger, or a verb when you are preparing vegetables). These concepts have important analogies when working with R objects.</p>
 <blockquote>
-<h2 id="exercise-create-objects-and-check-their-modes">Exercise: Create
-objects and check their modes</h2>
-<p>Create the following objects in R, then use the <code>mode()</code>
-function to verify their modes. Try to guess what the mode will be
-before you look at the solution</p>
+<h2 id="exercise-create-objects-and-check-their-modes">Exercise: Create objects and check their modes</h2>
+<p>Create the following objects in R, then use the <code>mode()</code> function to verify their modes. Try to guess what the mode will be before you look at the solution</p>
 <ol style="list-style-type: decimal">
 <li><code>chromosome_name &lt;- 'chr02'</code></li>
 <li><code>od_600_value &lt;- 0.47</code></li>
@@ -613,46 +534,37 @@ before you look at the solution</p>
 <li><code>spock &lt;- TRUE</code></li>
 <li><code>pilot &lt;- Earhart</code></li>
 </ol>
-<blockquote>
-<h2 id="solution-1">Solution</h2>
-<pre><code>chromosome_name &lt;- &#39;chr02&#39;
+</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>chromosome_name &lt;- &#39;chr02&#39;
 od_600_value &lt;- 0.47
 chr_position &lt;- &#39;1001701&#39;
 spock &lt;- TRUE
 pilot &lt;- Earhart</code></pre>
-<p>{: .language-r}</p>
-<pre><code>mode(chromosome_name)
-mode(od_600_value)
-mode(chr_position)
-mode(spock)
-mode(pilot)</code></pre>
-<p>{: .language-r} {: .solution} {: .challenge}</p>
-</blockquote>
-</blockquote>
-<p>Notice from the solution that even if a series of numbers is given as
-a value R will consider them to be in the “character” mode if they are
-enclosed as single or double quotes. Also, notice that you cannot take a
-string of alphanumeric characters (e.g. Earhart) and assign as a value
-for an object. In this case, R looks for an object named
-<code>Earhart</code> but since there is no object, no assignment can be
-made. If <code>Earhart</code> did exist, then the mode of
-<code>pilot</code> would be whatever the mode of <code>Earhart</code>
-was originally. If we want to create an object called <code>pilot</code>
-that was the <strong>name</strong> “Earhart”, we need to enclose
-<code>Earhart</code> in quotation marks.</p>
-<pre><code>pilot &lt;- &quot;Earhart&quot;
-mode(pilot)</code></pre>
-<p>{: .language-r}</p>
+<pre><code>Error in eval(expr, envir, enclos): object &#39;Earhart&#39; not found</code></pre>
+<pre class="r"><code>mode(chromosome_name)</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
-<p>{: .output}</p>
+<pre class="r"><code>mode(od_600_value)</code></pre>
+<pre><code>[1] &quot;numeric&quot;</code></pre>
+<pre class="r"><code>mode(chr_position)</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
+<pre class="r"><code>mode(spock)</code></pre>
+<pre><code>[1] &quot;logical&quot;</code></pre>
+<pre class="r"><code>mode(pilot)</code></pre>
+<pre><code>Error in mode(pilot): object &#39;pilot&#39; not found</code></pre>
+</details>
+<p><br></p>
+<p>Notice from the solution that even if a series of numbers is given as a value R will consider them to be in the “character” mode if they are enclosed as single or double quotes. Also, notice that you cannot take a string of alphanumeric characters (e.g. Earhart) and assign as a value for an object. In this case, R looks for an object named <code>Earhart</code> but since there is no object, no assignment can be made. If <code>Earhart</code> did exist, then the mode of <code>pilot</code> would be whatever the mode of <code>Earhart</code> was originally. If we want to create an object called <code>pilot</code> that was the <strong>name</strong> “Earhart”, we need to enclose <code>Earhart</code> in quotation marks.</p>
+<pre class="r"><code>pilot &lt;- &quot;Earhart&quot;
+mode(pilot)</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
 </div>
-<div id="mathematical-and-functional-operations-on-objects"
-class="section level2">
+<div id="mathematical-and-functional-operations-on-objects" class="section level2">
 <h2>Mathematical and functional operations on objects</h2>
-<p>Once an object exists (which by definition also means it has a mode),
-R can appropriately manipulate that object. For example, objects of the
-numeric modes can be added, multiplied, divided, etc. R provides several
-mathematical (arithmetic) operators including:</p>
+<p>Once an object exists (which by definition also means it has a mode), R can appropriately manipulate that object. For example, objects of the numeric modes can be added, multiplied, divided, etc. R provides several mathematical (arithmetic) operators including:</p>
 <table>
 <thead>
 <tr class="header">
@@ -692,191 +604,123 @@ mathematical (arithmetic) operators including:</p>
 </tbody>
 </table>
 <p>These can be used with literal numbers:</p>
-<pre><code>(1 + (5 ** 0.5))/2</code></pre>
-<p>{: .language-r}</p>
+<pre class="r"><code>(1 + (5 ** 0.5))/2</code></pre>
 <pre><code>[1] 1.618034</code></pre>
-<p>{: .output}</p>
-<p>and importantly, can be used on any object that evaluates to
-(i.e. interpreted by R) a numeric object:</p>
-<pre><code># multiply the object &#39;human_chr_number&#39; by 2
+<p>and importantly, can be used on any object that evaluates to (i.e. interpreted by R) a numeric object:</p>
+<pre class="r"><code># multiply the object &#39;human_chr_number&#39; by 2
 
 human_chr_number * 2</code></pre>
-<p>{: .language-r}</p>
 <pre><code>[1] 46</code></pre>
-<p>{: .output}</p>
 <blockquote>
-<h2 id="exercise-compute-the-golden-ratio">Exercise: Compute the golden
-ratio</h2>
-<p>One approximation of the golden ratio (φ) can be found by taking the
-sum of 1 and the square root of 5, and dividing by 2 as in the example
-above. Compute the golden ratio to 3 digits of precision using the
-<code>sqrt()</code> and <code>round()</code> functions. Hint: remember
-the <code>round()</code> function can take 2 arguments.</p>
-<blockquote>
-<h2 id="solution-2">Solution</h2>
-<pre><code>round((1 + sqrt(5))/2, digits = 3)</code></pre>
-<p>{: .language-r}</p>
+<h2 id="exercise-compute-the-golden-ratio">Exercise: Compute the golden ratio</h2>
+<p>One approximation of the golden ratio (φ) can be found by taking the sum of 1 and the square root of 5, and dividing by 2 as in the example above. Compute the golden ratio to 3 digits of precision using the <code>sqrt()</code> and <code>round()</code> functions. Hint: remember the <code>round()</code> function can take 2 arguments.</p>
+</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>round((1 + sqrt(5))/2, digits = 3)</code></pre>
 <pre><code>[1] 1.618</code></pre>
-<p>{: .output} Notice that you can place one function inside of another.
-{: .solution} {: .challenge}</p>
-</blockquote>
-</blockquote>
+Notice that you can place one function inside of another.
+</details>
+<p><br></p>
 </div>
 <div id="vectors" class="section level2">
 <h2>Vectors</h2>
-<p>Vectors are probably the most used commonly used object type in R.
-<strong>A vector is a collection of values that are all of the same type
-(numbers, characters, etc.)</strong>. One of the most common ways to
-create a vector is to use the <code>c()</code> function - the
-“concatenate” or “combine” function. Inside the function you may enter
-one or more values; for multiple values, separate each value with a
-comma:</p>
-<pre><code># Create the SNP gene name vector
-
-snp_genes &lt;- c(&quot;OXTR&quot;, &quot;ACTN3&quot;, &quot;AR&quot;, &quot;OPRM1&quot;)</code></pre>
-<p>{: .language-r}</p>
-<p>Vectors always have a <strong>mode</strong> and a
-<strong>length</strong>. You can check these with the
-<code>mode()</code> and <code>length()</code> functions respectively.
-Another useful function that gives both of these pieces of information
-is the <code>str()</code> (structure) function.</p>
-<pre><code># Check the mode, length, and structure of &#39;snp_genes&#39;
-mode(snp_genes)</code></pre>
-<p>{: .language-r}</p>
+<p>Vectors are probably the most used commonly used object type in R. <strong>A vector is a collection of values that are all of the same type (numbers, characters, etc.)</strong>. One of the most common ways to create a vector is to use the <code>c()</code> function - the “concatenate” or “combine” function. Inside the function you may enter one or more values; for multiple values, separate each value with a comma:</p>
+<pre class="r"><code># Create a vector of country names
+countries &lt;- c(&quot;Thailand&quot;,&quot;Lesotho&quot;,&quot;Suriname&quot;,&quot;Canada&quot;)</code></pre>
+<p>Vectors always have a <strong>mode</strong> and a <strong>length</strong>. You can check these with the <code>mode()</code> and <code>length()</code> functions respectively. Another useful function that gives both of these pieces of information is the <code>str()</code> (structure) function.</p>
+<pre class="r"><code># Check the mode, length, and structure of &#39;countries&#39;
+mode(countries)</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
-<p>{: .output}</p>
-<pre><code>length(snp_genes)</code></pre>
-<p>{: .language-r}</p>
+<pre class="r"><code>length(countries)</code></pre>
 <pre><code>[1] 4</code></pre>
-<p>{: .output}</p>
-<pre><code>str(snp_genes)</code></pre>
-<p>{: .language-r}</p>
-<pre><code> chr [1:4] &quot;OXTR&quot; &quot;ACTN3&quot; &quot;AR&quot; &quot;OPRM1&quot;</code></pre>
-<p>{: .output}</p>
-<p>Vectors are quite important in R. Another data type that we will work
-with later in this lesson, data frames, are collections of vectors. What
-we learn here about vectors will pay off even more when we start working
-with data frames.</p>
+<pre class="r"><code>str(countries)</code></pre>
+<pre><code> chr [1:4] &quot;Thailand&quot; &quot;Lesotho&quot; &quot;Suriname&quot; &quot;Canada&quot;</code></pre>
+<p>Vectors are quite important in R. Another data type that we will work with later in this lesson, data frames, are collections of vectors. What we learn here about vectors will pay off even more when we start working with data frames.</p>
 </div>
 <div id="creating-and-subsetting-vectors" class="section level2">
 <h2>Creating and subsetting vectors</h2>
 <p>Let’s create a few more vectors to play around with:</p>
-<pre><code># Some interesting human SNPs
-# while accuracy is important, typos in the data won&#39;t hurt you here
+<pre class="r"><code>country_tld &lt;- c(&#39;th&#39;, &#39;ls&#39;, &#39;sr&#39;, &#39;ca&#39;)
+continents &lt;- c(&#39;Asia&#39;, &#39;Africa&#39;, &#39;South America&#39;, &#39;North America&#39;)
+country_population &lt;- c(69950850, 2108328, 575990, 38436447) # Source: Wikipedia</code></pre>
+<p>Once we have vectors, one thing we may want to do is specifically retrieve one or more values from our vector. To do so, we use <strong>bracket notation</strong>. We type the name of the vector followed by square brackets. In those square brackets we place the index (e.g. a number) in that bracket as follows:</p>
+<pre class="r"><code># get the 3rd value in the countries vector
+countries[3]</code></pre>
+<pre><code>[1] &quot;Suriname&quot;</code></pre>
+<p>In R, every item your vector is indexed, starting from the first item (1) through to the final number of items in your vector. You can also retrieve a range of numbers:</p>
+<pre class="r"><code># get the 1st through 3rd value in the countries vector
 
-snps &lt;- c(&#39;rs53576&#39;, &#39;rs1815739&#39;, &#39;rs6152&#39;, &#39;rs1799971&#39;)
-snp_chromosomes &lt;- c(&#39;3&#39;, &#39;11&#39;, &#39;X&#39;, &#39;6&#39;)
-snp_positions &lt;- c(8762685, 66560624, 67545785, 154039662)</code></pre>
-<p>{: .language-r}</p>
-<p>Once we have vectors, one thing we may want to do is specifically
-retrieve one or more values from our vector. To do so, we use
-<strong>bracket notation</strong>. We type the name of the vector
-followed by square brackets. In those square brackets we place the index
-(e.g. a number) in that bracket as follows:</p>
-<pre><code># get the 3rd value in the snp_genes vector
-snp_genes[3]</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;AR&quot;</code></pre>
-<p>{: .output}</p>
-<p>In R, every item your vector is indexed, starting from the first item
-(1) through to the final number of items in your vector. You can also
-retrieve a range of numbers:</p>
-<pre><code># get the 1st through 3rd value in the snp_genes vector
+countries[1:3]</code></pre>
+<pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot;</code></pre>
+<p>If you want to retrieve several (but not necessarily sequential) items from a vector, you pass a <strong>vector of indices</strong>; a vector that has the numbered positions you wish to retrieve.</p>
+<pre class="r"><code># get the 1st, 3rd, and 4th value in the countries vector
 
-snp_genes[1:3]</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;OXTR&quot;  &quot;ACTN3&quot; &quot;AR&quot;   </code></pre>
-<p>{: .output}</p>
-<p>If you want to retrieve several (but not necessarily sequential)
-items from a vector, you pass a <strong>vector of indices</strong>; a
-vector that has the numbered positions you wish to retrieve.</p>
-<pre><code># get the 1st, 3rd, and 4th value in the snp_genes vector
-
-snp_genes[c(1, 3, 4)]</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;OXTR&quot;  &quot;AR&quot;    &quot;OPRM1&quot;</code></pre>
-<p>{: .output}</p>
-<p>There are additional (and perhaps less commonly used) ways of
-subsetting a vector (see <a
-href="https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html">these
-examples</a>). Also, several of these subsetting expressions can be
-combined:</p>
-<pre><code># get the 1st through the 3rd value, and 4th value in the snp_genes vector
-# yes, this is a little silly in a vector of only 4 values.
-snp_genes[c(1:3,4)]</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;OXTR&quot;  &quot;ACTN3&quot; &quot;AR&quot;    &quot;OPRM1&quot;</code></pre>
-<p>{: .output}</p>
+countries[c(1, 3, 4)]</code></pre>
+<pre><code>[1] &quot;Thailand&quot; &quot;Suriname&quot; &quot;Canada&quot;  </code></pre>
+<p>There are additional (and perhaps less commonly used) ways of subsetting a vector (see <a href="https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html">these examples</a>). Also, several of these subsetting expressions can be combined:</p>
+<pre class="r"><code># get the 4th value, and then the 1st through the 3rd value
+# in other words, you can reorder the countries
+countries[c(4, 1:3)]</code></pre>
+<pre><code>[1] &quot;Canada&quot;   &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot;</code></pre>
 </div>
-<div id="adding-to-removing-or-replacing-values-in-existing-vectors"
-class="section level2">
+<div id="adding-to-removing-or-replacing-values-in-existing-vectors" class="section level2">
 <h2>Adding to, removing, or replacing values in existing vectors</h2>
-<p>Once you have an existing vector, you may want to add a new item to
-it. To do so, you can use the <code>c()</code> function again to add
-your new value:</p>
-<pre><code># add the gene &#39;CYP1A1&#39; and &#39;APOA5&#39; to our list of snp genes
+<p>Once you have an existing vector, you may want to add a new item to it. To do so, you can use the <code>c()</code> function again to add your new value:</p>
+<pre class="r"><code># add the countries &#39;Bolivia&#39; and &#39;Tonga&#39; to our list of countries
 # this overwrites our existing vector
-snp_genes &lt;- c(snp_genes, &quot;CYP1A1&quot;, &quot;APOA5&quot;)</code></pre>
-<p>{: .language-r}</p>
-<p>We can verify that “snp_genes” contains the new gene entry</p>
-<pre><code>snp_genes</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;OXTR&quot;   &quot;ACTN3&quot;  &quot;AR&quot;     &quot;OPRM1&quot;  &quot;CYP1A1&quot; &quot;APOA5&quot; </code></pre>
-<p>{: .output}</p>
-<p>Using a negative index will return a version of a vector with that
-index’s value removed:</p>
-<pre><code>snp_genes[-6]</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;OXTR&quot;   &quot;ACTN3&quot;  &quot;AR&quot;     &quot;OPRM1&quot;  &quot;CYP1A1&quot;</code></pre>
-<p>{: .output}</p>
-<p>We can remove that value from our vector by overwriting it with this
-expression:</p>
-<pre><code>snp_genes &lt;- snp_genes[-6]
-snp_genes</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;OXTR&quot;   &quot;ACTN3&quot;  &quot;AR&quot;     &quot;OPRM1&quot;  &quot;CYP1A1&quot;</code></pre>
-<p>{: .output}</p>
-<p>We can also explicitly rename or add a value to our index using
-double bracket notation:</p>
-<pre><code>snp_genes[7]&lt;- &quot;APOA5&quot;
-snp_genes</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;OXTR&quot;   &quot;ACTN3&quot;  &quot;AR&quot;     &quot;OPRM1&quot;  &quot;CYP1A1&quot; NA       &quot;APOA5&quot; </code></pre>
-<p>{: .output}</p>
-<p>Notice in the operation above that R inserts an <code>NA</code> value
-to extend our vector so that the gene “APOA5” is an index 7. This may be
-a good or not-so-good thing depending on how you use this.</p>
+countries &lt;- c(countries, &quot;Bolivia&quot;, &quot;Tonga&quot;)</code></pre>
+<p>We can verify that “countries” contains the new gene entry</p>
+<pre class="r"><code>countries</code></pre>
+<pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   &quot;Bolivia&quot;  &quot;Tonga&quot;   </code></pre>
+<p>Using a negative index will return a version of a vector with that index’s value removed:</p>
+<pre class="r"><code>countries[-6]</code></pre>
+<pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   &quot;Bolivia&quot; </code></pre>
+<p>We can remove that value from our vector by overwriting it with this expression:</p>
+<pre class="r"><code>countries &lt;- countries[-6]
+countries</code></pre>
+<pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   &quot;Bolivia&quot; </code></pre>
+<p>We can also explicitly rename or add a value to our index using double bracket notation:</p>
+<pre class="r"><code>countries[7]&lt;- &quot;Estonia&quot;
+countries</code></pre>
+<pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   &quot;Bolivia&quot;  NA         &quot;Estonia&quot; </code></pre>
+<p>Notice in the operation above that R inserts an <code>NA</code> value to extend our vector so that the gene “APOA5” is an index 7. This may be a good or not-so-good thing depending on how you use this.</p>
 <blockquote>
-<h2 id="exercise-examining-and-subsetting-vectors">Exercise: Examining
-and subsetting vectors</h2>
+<h2 id="exercise-examining-and-subsetting-vectors">Exercise: Examining and subsetting vectors</h2>
 <p>Answer the following questions to test your knowledge of vectors</p>
-<p>Which of the following are true of vectors in R? A) All vectors have
-a mode <strong>or</strong> a length B) All vectors have a mode
-<strong>and</strong> a length C) Vectors may have different lengths D)
-Items within a vector may be of different modes E) You can use the
-<code>c()</code> to add one or more items to an existing vector F) You
-can use the <code>c()</code> to add a vector to an exiting vector &gt;
-&gt; ## Solution &gt; &gt; A) False - Vectors have both of these
-properties &gt; B) True &gt; C) True &gt; D) False - Vectors have only
-one mode (e.g. numeric, character); all items in &gt; a vector must be
-of this mode. &gt; E) True &gt; F) True {: .solution} {: .challenge}</p>
+<p>Are the following true or false of vectors in R?</p>
+<ol style="list-style-type: decimal">
+<li>All vectors have a mode <strong>or</strong> a length</li>
+<li>All vectors have a mode <strong>and</strong> a length</li>
+<li>Vectors may have different lengths</li>
+<li>Items within a vector may be of different modes</li>
+<li>You can use the <code>c()</code> to add one or more items to an existing vector</li>
+<li>You can use the <code>c()</code> to add a vector to an exiting vector</li>
+</ol>
 </blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<ol style="list-style-type: decimal">
+<li>False - Vectors have both of these properties</li>
+<li>True</li>
+<li>True</li>
+<li>False - Vectors have only one mode (e.g. numeric, character); all items in a vector must be of this mode.</li>
+<li>True</li>
+<li>True</li>
+</ol>
+</details>
+<p><br></p>
 </div>
 <div id="logical-subsetting" class="section level2">
 <h2>Logical Subsetting</h2>
-<p>There is one last set of cool subsetting capabilities we want to
-introduce. It is possible within R to retrieve items in a vector based
-on a logical evaluation or numerical comparison. For example, let’s say
-we wanted get all of the SNPs in our vector of SNP positions that were
-greater than 100,000,000. We could index using the ‘&gt;’ (greater than)
-logical operator:</p>
-<pre><code>snp_positions[snp_positions &gt; 100000000]</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] 154039662</code></pre>
-<p>{: .output}</p>
-<p>In the square brackets you place the name of the vector followed by
-the comparison operator and (in this case) a numeric value. Some of the
-most common logical operators you will use in R are:</p>
+<p>There is one last set of subsetting capabilities we want to introduce. It is possible within R to retrieve items in a vector based on a logical evaluation or numerical comparison. For example, let’s say we wanted get all of the countries in our vector of country populations that were less than 10,000,000. We could index using the ‘&lt;’ (less than) logical operator:</p>
+<pre class="r"><code>country_population[country_population &lt; 10000000]</code></pre>
+<pre><code>[1] 2108328  575990</code></pre>
+<p>In the square brackets you place the name of the vector followed by the comparison operator and (in this case) a numeric value. Some of the most common logical operators you will use in R are:</p>
 <table>
 <thead>
 <tr class="header">
@@ -924,223 +768,170 @@ most common logical operators you will use in R are:</p>
 </tbody>
 </table>
 <blockquote>
-<h2 id="the-magic-of-programming">The magic of programming</h2>
-<p>The reason why the expression
-<code>snp_positions[snp_positions &gt; 100000000]</code> works can be
-better understood if you examine what the expression “snp_positions &gt;
-100000000” evaluates to:</p>
-<pre><code>snp_positions &gt; 100000000</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] FALSE FALSE FALSE  TRUE</code></pre>
-<p>{: .output}</p>
-<p>The output above is a logical vector, the 4th element of which is
-TRUE. When you pass a logical vector as an index, R will return the true
-values:</p>
-<pre><code>snp_positions[c(FALSE, FALSE, FALSE, TRUE)]</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] 154039662</code></pre>
-<p>{: .output}</p>
-<p>If you have never coded before, this type of situation starts to
-expose the “magic” of programming. We mentioned before that in the
-bracket notation you take your named vector followed by brackets which
-contain an index: <strong>named_vector[index]</strong>. The “magic” is
-that the index needs to <em>evaluate to</em> a number. So, even if it
-does not appear to be an integer (e.g. 1, 2, 3), as long as R can
-evaluate it, we will get a result. That our expression
-<code>snp_positions[snp_positions &gt; 100000000]</code> evaluates to a
-number can be seen in the following situation. If you wanted to know
-which <strong>index</strong> (1, 2, 3, or 4) in our vector of SNP
-positions was the one that was greater than 100,000,000?</p>
-<p>We can use the <code>which()</code> function to return the indices of
-any item that evaluates as TRUE in our comparison:</p>
-<pre><code>which(snp_positions &gt; 100000000)</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] 4</code></pre>
-<p>{: .output}</p>
+<h2 id="the-power-of-programming">The power of programming</h2>
+<p>The reason why the expression <code>country_population[country_population &lt; 10000000]</code> works can be better understood if you examine what the expression “country_population &lt; 10000000” evaluates to:</p>
+<pre class="r"><code>country_population &lt; 10000000</code></pre>
+<pre><code>[1] FALSE  TRUE  TRUE FALSE</code></pre>
+<p>The output above is a logical vector, the 2nd and 3rd elements of which are TRUE. When you pass a logical vector as an index, R will return the TRUE values:</p>
+<pre class="r"><code>country_population[c(FALSE, TRUE, TRUE, FALSE)]</code></pre>
+<pre><code>[1] 2108328  575990</code></pre>
+<p>If you have never coded before, this type of situation starts to expose the power of programming. We mentioned before that in the bracket notation you take your named vector followed by brackets which contain an index: <strong>named_vector[index]</strong>. The index needs to <em>evaluate to</em> a number. So, even if it does not appear to be an integer (e.g. 1, 2, 3), as long as R can evaluate it, we will get a result. That our expression <code>country_population &lt; 10000000</code> evaluates to a number can be seen in the following situation. If you wanted to know which <strong>indices</strong> (1, 2, 3, or 4) in our vector of country populations was less than 10,000,000, you could use the <code>which()</code> function.</p>
+<p>The <code>which()</code> function to returns the indices of any item that evaluates as TRUE in our comparison:</p>
+<pre class="r"><code>which(country_population &lt; 10000000)</code></pre>
+<pre><code>[1] 2 3</code></pre>
 <p><strong>Why this is important</strong></p>
-<p>Often in programming we will not know what inputs and values will be
-used when our code is executed. Rather than put in a pre-determined
-value (e.g 100000000) we can use an object that can take on whatever
-value we need. So for example:</p>
-<pre><code>snp_marker_cutoff &lt;- 100000000
-snp_positions[snp_positions &gt; snp_marker_cutoff]</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] 154039662</code></pre>
-<p>{: .output}</p>
-<p>Ultimately, it’s putting together flexible, reusable code like this
-that gets at the “magic” of programming! {: .callout}</p>
+<p>Often in programming we will not know what inputs and values will be used when our code is executed. Rather than put in a pre-determined value (e.g 100000000) we can use an object that can take on whatever value we need. So for example:</p>
+<pre class="r"><code>population_cutoff &lt;- 10000000
+country_population[country_population &lt; population_cutoff]</code></pre>
+<pre><code>[1] 2108328  575990</code></pre>
+<p>Ultimately, it’s putting together flexible, reusable code like this that gets at the power of programming.</p>
 </blockquote>
 </div>
 <div id="a-few-final-vector-tricks" class="section level2">
 <h2>A few final vector tricks</h2>
-<p>Finally, there are a few other common retrieve or replace operations
-you may want to know about. First, you can check to see if any of the
-values of your vector are missing (i.e. are <code>NA</code>). Missing
-data will get a more detailed treatment later, but the
-<code>is.NA()</code> function will return a logical vector, with TRUE
-for any NA value:</p>
-<pre><code># current value of &#39;snp_genes&#39;:
-# chr [1:7] &quot;OXTR&quot; &quot;ACTN3&quot; &quot;AR&quot; &quot;OPRM1&quot; &quot;CYP1A1&quot; NA &quot;APOA5&quot;
+<p>Finally, there are a few other common retrieve or replace operations you may want to know about. First, you can check to see if any of the values of your vector are missing (i.e. are <code>NA</code>). Missing data will get a more detailed treatment later, but the <code>is.NA()</code> function will return a logical vector, with TRUE for any NA value:</p>
+<pre class="r"><code># current value of &#39;countries&#39;:
+# chr [1:7] &quot;Thailand&quot; &quot;Lesotho&quot; &quot;Suriname&quot; &quot;Canada&quot; &quot;Bolivia&quot; NA &quot;Estonia&quot;
 
-is.na(snp_genes)</code></pre>
-<p>{: .language-r}</p>
+is.na(countries)</code></pre>
 <pre><code>[1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
-<p>{: .output}</p>
-<p>Sometimes, you may wish to find out if a specific value (or several
-values) is present a vector. You can do this using the comparison
-operator <code>%in%</code>, which will return TRUE for any value in your
-collection that is in the vector you are searching:</p>
-<pre><code># current value of &#39;snp_genes&#39;:
-# chr [1:7] &quot;OXTR&quot; &quot;ACTN3&quot; &quot;AR&quot; &quot;OPRM1&quot; &quot;CYP1A1&quot; NA &quot;APOA5&quot;
+<p>Sometimes, you may wish to find out if a specific value (or several values) is present a vector. You can do this using the comparison operator <code>%in%</code>, which will return TRUE for any value in your collection that is in the vector you are searching:</p>
+<pre class="r"><code># current value of &#39;countries&#39;:
+# chr [1:7] &quot;Thailand&quot; &quot;Lesotho&quot; &quot;Suriname&quot; &quot;Canada&quot; &quot;Bolivia&quot; NA &quot;Estonia&quot;
 
-# test to see if &quot;ACTN3&quot; or &quot;APO5A&quot; is in the snp_genes vector
+# test to see if &quot;Lesotho&quot; or &quot;Canada&quot; is in the countries vector
 # if you are looking for more than one value, you must pass this as a vector
 
-c(&quot;ACTN3&quot;,&quot;APOA5&quot;) %in% snp_genes</code></pre>
-<p>{: .language-r}</p>
+c(&quot;Lesotho&quot;,&quot;Canada&quot;) %in% countries</code></pre>
 <pre><code>[1] TRUE TRUE</code></pre>
-<p>{: .output}</p>
 <blockquote>
 <h2 id="review-exercise-1">Review Exercise 1</h2>
-<p>What data types/modes are the following vectors? a. <code>snps</code>
-b. <code>snp_chromosomes</code> c. <code>snp_positions</code></p>
-<blockquote>
-<h2 id="solution-3">Solution</h2>
-<pre><code>typeof(snps)</code></pre>
-<p>{: .language-r}</p>
+<p>What data types/modes are the following vectors?</p>
+<ol style="list-style-type: decimal">
+<li><code>country_tld</code></li>
+<li><code>continents</code></li>
+<li><code>country_population</code></li>
+</ol>
+</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>typeof(country_tld)</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
-<p>{: .output}</p>
-<pre><code>typeof(snp_chromosomes)</code></pre>
-<p>{: .language-r}</p>
+<pre class="r"><code>typeof(continents)</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
-<p>{: .output}</p>
-<pre><code>typeof(snp_positions)</code></pre>
-<p>{: .language-r}</p>
+<pre class="r"><code>typeof(country_population)</code></pre>
 <pre><code>[1] &quot;double&quot;</code></pre>
-<p>{: .output} {: .solution} {: .challenge}</p>
-</blockquote>
-</blockquote>
+</details>
+<p><br></p>
 <blockquote>
 <h2 id="review-exercise-2">Review Exercise 2</h2>
-<p>Add the following values to the specified vectors: a. To the
-<code>snps</code> vector add: ‘rs662799’ b. To the
-<code>snp_chromosomes</code> vector add: 11 c. To the
-<code>snp_positions</code> vector add: 116792991</p>
-<blockquote>
-<h2 id="solution-4">Solution</h2>
-<pre><code>snps &lt;- c(snps, &#39;rs662799&#39;)
-snps</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;rs53576&quot;   &quot;rs1815739&quot; &quot;rs6152&quot;    &quot;rs1799971&quot; &quot;rs662799&quot; </code></pre>
-<p>{: .output}</p>
-<pre><code>snp_chromosomes &lt;- c(snp_chromosomes, &quot;11&quot;) # did you use quotes?
-snp_chromosomes</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;3&quot;  &quot;11&quot; &quot;X&quot;  &quot;6&quot;  &quot;11&quot;</code></pre>
-<p>{: .output}</p>
-<pre><code>snp_positions &lt;- c(snp_positions, 116792991)
-snp_positions</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1]   8762685  66560624  67545785 154039662 116792991</code></pre>
-<p>{: .output} {: .solution} {: .challenge}</p>
+<p>Add the following values to the specified vectors:</p>
+<ol style="list-style-type: decimal">
+<li>To the <code>country_tld</code> vector add: “bo”</li>
+<li>To the <code>continents</code> vector add: “South America”</li>
+<li>To the <code>country_population</code> vector add: 11428245</li>
+</ol>
 </blockquote>
-</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>country_tld &lt;- c(country_tld, &#39;bo&#39;)
+country_tld</code></pre>
+<pre><code>[1] &quot;th&quot; &quot;ls&quot; &quot;sr&quot; &quot;ca&quot; &quot;bo&quot;</code></pre>
+<pre class="r"><code>continents &lt;- c(continents, &quot;South America&quot;) # did you use quotes?
+continents</code></pre>
+<pre><code>[1] &quot;Asia&quot;          &quot;Africa&quot;        &quot;South America&quot; &quot;North America&quot; &quot;South America&quot;</code></pre>
+<pre class="r"><code>country_population &lt;- c(country_population, 11428245)
+country_population</code></pre>
+<pre><code>[1] 69950850  2108328   575990 38436447 11428245</code></pre>
+</details>
+<p><br></p>
 <blockquote>
 <h2 id="review-exercise-3">Review Exercise 3</h2>
-<p>Make the following change to the <code>snp_genes</code> vector:</p>
-<p>Hint: Your vector should look like this in ‘Environment’:
-<code>chr [1:7] "OXTR" "ACTN3" "AR" "OPRM1" "CYP1A1" NA "APOA5"</code>.
-If not recreate the vector by running this expression:
-<code>snp_genes &lt;- c("OXTR", "ACTN3", "AR", "OPRM1", "CYP1A1", NA, "APOA5")</code></p>
-<ol style="list-style-type: lower-alpha">
-<li>Create a new version of <code>snp_genes</code> that does not contain
-CYP1A1 and then</li>
-<li>Add 2 NA values to the end of <code>snp_genes</code></li>
+<p>Make the following change to the <code>countries</code> vector:</p>
+<ol style="list-style-type: decimal">
+<li>Create a new version of <code>countries</code> that does not contain Bolivia and then</li>
+<li>Add 2 NA values to the end of <code>countries</code></li>
 </ol>
-<blockquote>
-<h2 id="solution-5">Solution</h2>
-<pre><code>snp_genes &lt;- snp_genes[-5]
-snp_genes &lt;- c(snp_genes, NA, NA)
-snp_genes</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;OXTR&quot;  &quot;ACTN3&quot; &quot;AR&quot;    &quot;OPRM1&quot; NA      &quot;APOA5&quot; NA      NA     </code></pre>
-<p>{: .output} {: .solution} {: .challenge}</p>
+<p><strong>Hint</strong>: Your vector should look like this in ‘Environment’:</p>
+<p><code>chr [1:7] "Thailand" "Lesotho" "Suriname" "Canada" "Bolivia" NA "Estonia"</code>.</p>
+<p>If not recreate the vector by running this expression:</p>
+<p><code>countries &lt;- c("Thailand", "Lesotho", "Suriname", "Canada", "Bolivia", NA, "Estonia")</code></p>
 </blockquote>
-</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>countries &lt;- countries[-5]
+countries &lt;- c(countries, NA, NA)
+countries</code></pre>
+<pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   NA         &quot;Estonia&quot;  NA         NA        </code></pre>
+</details>
+<p><br></p>
 <blockquote>
 <h2 id="review-exercise-4">Review Exercise 4</h2>
-<p>Using indexing, create a new vector named <code>combined</code> that
-contains: - The the 1st value in <code>snp_genes</code> - The 1st value
-in <code>snps</code> - The 1st value in <code>snp_chromosomes</code> -
-The 1st value in <code>snp_positions</code></p>
-<blockquote>
-<h2 id="solution-6">Solution</h2>
-<pre><code>combined &lt;- c(snp_genes[1], snps[1], snp_chromosomes[1], snp_positions[1])
+<p>Using indexing, create a new vector named <code>combined</code> that contains:</p>
+<ul>
+<li>The the 1st value in <code>countries</code></li>
+<li>The 1st value in <code>country_tld</code></li>
+<li>The 1st value in <code>continents</code></li>
+<li>The 1st value in <code>country_population</code></li>
+</ul>
+</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>combined &lt;- c(countries[1], country_tld[1], continents[1], country_population[1])
 combined</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] &quot;OXTR&quot;    &quot;rs53576&quot; &quot;3&quot;       &quot;8762685&quot;</code></pre>
-<p>{: .output} {: .solution} {: .challenge}</p>
-</blockquote>
-</blockquote>
+<pre><code>[1] &quot;Thailand&quot; &quot;th&quot;       &quot;Asia&quot;     &quot;69950850&quot;</code></pre>
+</details>
+<p><br></p>
 <blockquote>
 <h2 id="review-exercise-5">Review Exercise 5</h2>
 <p>What type of data is <code>combined</code>?</p>
-<blockquote>
-<h2 id="solution-7">Solution</h2>
-<pre><code>typeof(combined)</code></pre>
-<p>{: .language-r}</p>
+</blockquote>
+<details>
+<summary>
+Solution
+</summary>
+<pre class="r"><code>typeof(combined)</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
-<p>{: .output} {: .solution} {: .challenge}</p>
-</blockquote>
-</blockquote>
+</details>
+<p><br></p>
 </div>
 <div id="bonus-material-lists" class="section level2">
 <h2>Bonus material: Lists</h2>
-<p>Lists are quite useful in R, but we won’t be using them in the
-genomics lessons. That said, you may come across lists in the way that
-some bioinformatics programs may store and/or return data to you. One of
-the key attributes of a list is that, unlike a vector, a list may
-contain data of more than one mode. Learn more about creating and using
-lists using this <a
-href="https://r4ds.had.co.nz/vectors.html#lists">nice tutorial</a>. In
-this one example, we will create a named list and show you how to
-retrieve items from the list.</p>
-<pre><code># Create a named list using the &#39;list&#39; function and our SNP examples
+<p>Lists are quite useful in R, but we won’t be using them in the these lessons. That said, you may come across lists in the way that some bioinformatics programs may store and/or return data to you. One of the key attributes of a list is that, unlike a vector, a list may contain data of more than one mode. Learn more about creating and using lists using this <a href="https://r4ds.had.co.nz/vectors.html#lists">nice tutorial</a>. In this one example, we will create a named list and show you how to retrieve items from the list.</p>
+<pre class="r"><code># Create a named list using the &#39;list&#39; function and our country examples
 # Note, for easy reading we have placed each item in the list on a separate line
 # Nothing special about this, you can do this for any multiline commands
-# To run this command, make sure the entire command (all 4 lines) are highlighted
-# before running
-# Note also, as we are doing all this inside the list() function use of the
-# &#39;=&#39; sign is good style
-snp_data &lt;- list(genes = snp_genes,
-                 refference_snp = snps,
-                 chromosome = snp_chromosomes,
-                 position = snp_positions)
+# To run this command, make sure the entire command (all 4 lines) are highlighted before running
+# Note also, as we are doing all this inside the list() function use of the &#39;=&#39; sign is good style
+country_data &lt;- list(countries = countries,
+                 country_tld = country_tld,
+                 continents = continents,
+                 country_population = country_population)
 # Examine the structure of the list
-str(snp_data)</code></pre>
-<p>{: .language-r}</p>
+str(country_data)</code></pre>
 <pre><code>List of 4
- $ genes         : chr [1:8] &quot;OXTR&quot; &quot;ACTN3&quot; &quot;AR&quot; &quot;OPRM1&quot; ...
- $ refference_snp: chr [1:5] &quot;rs53576&quot; &quot;rs1815739&quot; &quot;rs6152&quot; &quot;rs1799971&quot; ...
- $ chromosome    : chr [1:5] &quot;3&quot; &quot;11&quot; &quot;X&quot; &quot;6&quot; ...
- $ position      : num [1:5] 8.76e+06 6.66e+07 6.75e+07 1.54e+08 1.17e+08</code></pre>
-<p>{: .output}</p>
-<p>To get all the values for the <code>position</code> object in the
-list, we use the <code>$</code> notation:</p>
-<pre><code># return all the values of position object
+ $ countries         : chr [1:8] &quot;Thailand&quot; &quot;Lesotho&quot; &quot;Suriname&quot; &quot;Canada&quot; ...
+ $ country_tld       : chr [1:5] &quot;th&quot; &quot;ls&quot; &quot;sr&quot; &quot;ca&quot; ...
+ $ continents        : chr [1:5] &quot;Asia&quot; &quot;Africa&quot; &quot;South America&quot; &quot;North America&quot; ...
+ $ country_population: num [1:5] 69950850 2108328 575990 38436447 11428245</code></pre>
+<p>To get all the values for the <code>position</code> object in the list, we use the <code>$</code> notation:</p>
+<pre class="r"><code># return all the values of country_population object
 
-snp_data$position</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1]   8762685  66560624  67545785 154039662 116792991</code></pre>
-<p>{: .output}</p>
-<p>To get the first value in the <code>position</code> object, use the
-<code>[]</code> notation to index:</p>
-<pre><code># return first value of the position object
+country_data$country_population</code></pre>
+<pre><code>[1] 69950850  2108328   575990 38436447 11428245</code></pre>
+<p>To get the first value in the <code>country_population</code> object, use the <code>[]</code> notation to index:</p>
+<pre class="r"><code># return first value of the country_population object
 
-snp_data$position[1]</code></pre>
-<p>{: .language-r}</p>
-<pre><code>[1] 8762685</code></pre>
-<p>{: .output}</p>
+country_data$country_population[1]</code></pre>
+<pre><code>[1] 69950850</code></pre>
 </div>
 
 

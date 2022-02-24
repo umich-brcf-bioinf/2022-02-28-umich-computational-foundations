@@ -29,7 +29,7 @@ navbar:
         - text: "R Basics Continued - Factors and Data Frames"
           href: r-03-basics-factors-dataframes.html
         - text: "Using Packages from Bioconductor"
-          href: r-04-bioconductor-vcfr.html
+          href: r-04-bioconductor.html
         - text: "Data Wrangling and Analyses with Tidyverse"
           href: r-05-dplyr.html
         - text: "Data Visualizations with ggplot2"

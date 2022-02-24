@@ -1,5 +1,34 @@
 ---
 title: "Data Wrangling and Analyses with Tidyverse"
+output:
+        html_document:
+            includes:
+                in_header: header.html
+            theme: paper
+            toc: false
+            number_sections: false
+            fig_caption: false
+            markdown: GFM
+            code_download: false
+---
+
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+
+<!--
+---
+title: "Data Wrangling and Analyses with Tidyverse"
 teaching: 40
 exercises: 15
 questions: How can I manipulate data frames without repeating myself?
@@ -7,10 +36,8 @@ objectives:
 - Describe what the `dplyr` package in R is used for.
 - Apply common `dplyr` functions to manipulate data in R.
 - Employ the ‘pipe’ operator to link together a sequence of functions.
-- Employ the ‘mutate’ function to apply other chosen functions to existing columns
-  and create new columns of data.
-- Employ the ‘split-apply-combine’ concept to split the data into groups, apply analysis
-  to each group, and combine the results.
+- Employ the ‘mutate’ function to apply other chosen functions to existing columns and create new columns of data.
+- Employ the ‘split-apply-combine’ concept to split the data into groups, apply analysis to each group, and combine the results.
 keypoints:
 - Use the `dplyr` package to manipulate data frames.
 - Use `glimpse()` to quickly look at your data frame.
@@ -20,6 +47,7 @@ keypoints:
 - Use `group_by()` and `summarize()` to work with subsets of data.
 source: Rmd
 ---
+-->
 
 ```{r, include = FALSE}
 source("../bin/chunk-options.R")
@@ -29,19 +57,16 @@ knitr_fig_path("05-")
 ```{r, include = FALSE, echo = FALSE, eval = TRUE, purl = FALSE}
 ## silently read in CSV file from data folder
 library(tidyverse)
-variants <- read_csv("../data/combined_tidy_vcf.csv")
+gapminder <- read.csv("../data/gapminder_data.csv")
+colnames(gapminder)[5] = 'life_exp'
+colnames(gapminder)[6] = 'gdp_per_cap'
 ```
 
 Bracket subsetting is handy, but it can be cumbersome and difficult to read, especially for complicated operations.
 
-Luckily, the [`dplyr`](https://cran.r-project.org/package=dplyr)
-package provides a number of very useful functions for manipulating data frames
-in a way that will reduce repetition, reduce the probability of making
-errors, and probably even save you some typing. As an added bonus, you might
-even find the `dplyr` grammar easier to read.
+Luckily, the [`dplyr`](https://cran.r-project.org/package=dplyr) package provides a number of very useful functions for manipulating data frames in a way that will reduce repetition, reduce the probability of making errors, and probably even save you some typing. As an added bonus, you might even find the `dplyr` grammar easier to read.
 
-Here we're going to cover some of the most commonly used functions as well as using
-pipes (`%>%`) to combine them:
+Here we're going to cover some of the most commonly used functions as well as using pipes (`%>%`) to combine them:
 
 1. `glimpse()`
 2. `select()`
@@ -51,341 +76,288 @@ pipes (`%>%`) to combine them:
 6. `mutate()`
 7. `pivot_longer` and `pivot_wider`
 
-Packages in R are sets of additional functions that let you do more
-stuff in R. The functions we've been using, like `str()`, come built into R;
-packages give you access to more functions. You need to install a package and
-then load it to be able to use it.
+Packages in R are sets of additional functions that let you do more stuff in R. The functions we've been using, like `str()`, come built into R; packages give you access to more functions. You need to install a package and then load it to be able to use it.
 
 ```{r, eval = FALSE, purl = FALSE}
 install.packages("dplyr") ## install
 ```
 
-You might get asked to choose a CRAN mirror -- this is asking you to
-choose a site to download the package from. The choice doesn't matter too much; I'd recommend choosing the RStudio mirror.
+You might get asked to choose a CRAN mirror -- this is asking you to choose a site to download the package from. The choice doesn't matter too much; I'd recommend choosing the RStudio mirror.
 
 ```{r, message = FALSE, purl = FALSE}
 library("dplyr")          ## load
 ```
 
-You only need to install a package once per computer, but you need to load it
-every time you open a new R session and want to use that package.
+You only need to install a package once per computer, but you need to load it every time you open a new R session and want to use that package.
 
 ## What is dplyr?
 
-The package `dplyr` is a fairly new (2014) package that tries to provide easy
-tools for the most common data manipulation tasks. This package is also included in the [`tidyverse` package](https://www.tidyverse.org/), which is a collection of eight different packages (`dplyr`, `ggplot2`, `tibble`, `tidyr`, `readr`, `purrr`, `stringr`, and `forcats`). It is built to work directly
-with data frames. The thinking behind it was largely inspired by the package
-`plyr` which has been in use for some time but suffered from being slow in some
-cases.` dplyr` addresses this by porting much of the computation to C++. An
-additional feature is the ability to work with data stored directly in an
-external database. The benefits of doing this are that the data can be managed
-natively in a relational database, queries can be conducted on that database,
-and only the results of the query returned.
+The package `dplyr` is a package that tries to provide easy tools for the most common data manipulation tasks. This package is also included in the [`tidyverse` package](https://www.tidyverse.org/), which is a collection of eight different packages (`dplyr`, `ggplot2`, `tibble`, `tidyr`, `readr`, `purrr`, `stringr`, and `forcats`). It is built to work directly with data frames. The thinking behind it was largely inspired by the package `plyr` which has been in use for some time but suffered from being slow in some cases.` dplyr` addresses this by porting much of the computation to C++. An additional feature is the ability to work with data stored directly in an external database. The benefits of doing this are that the data can be managed natively in a relational database, queries can be conducted on that database, and only the results of the query returned.
 
-This addresses a common problem with R in that all operations are conducted in
-memory and thus the amount of data you can work with is limited by available
-memory. The database connections essentially remove that limitation in that you
-can have a database that is over 100s of GB, conduct queries on it directly and pull
-back just what you need for analysis in R.
+This addresses a common problem with R in that all operations are conducted in memory and thus the amount of data you can work with is limited by available memory. The database connections essentially remove that limitation in that you can have a database that is over 100s of GB, conduct queries on it directly and pull back just what you need for analysis in R.
 
 ### Taking a quick look at data frames
 
 Similar to `str()`, which comes built into R, `glimpse()` is a `dplyr` function that (as the name suggests) gives a glimpse of the data frame.
 
 ```{r, echo = FALSE, eval = TRUE, purl = FALSE}
-glimpse(variants)
+glimpse(gapminder)
 ```
 
-In the above output, we can already gather some information about `variants`, such as the number of rows and columns, column names, type of vector in the columns, and the first few entries of each column. Although what we see is similar to outputs of `str()`, this method gives a cleaner visual output.
+In the above output, we can already gather some information about `gapminder`, such as the number of rows and columns, column names, type of vector in the columns, and the first few entries of each column. Although what we see is similar to outputs of `str()`, this method gives a cleaner visual output.
+
+> ## Note: What is a `tibble`?
+>
+> In the `tidyverse` there is a specialized version of a `data.frame` called a `tibble`. It largely behaves like a `data.frame`, but it has some considerate defaults when displaying its contents. We shall encounter some differences as we work through this section, and will highlight them as we go.
+
+### Coercing to a `tibble`
+
+Let's coerce our `gapminder` `data.frame` into a `tibble` using the `as_tibble()` function. Let's first do this without assigning the result:
+
+```{r, purl = FALSE}
+as_tibble(gapminder)
+```
+
+What do you notice?
+
+- The preview helpfully tells us the dimensions at the top `# A tibble: 1,704 × 6`.
+- The preview helpfully truncates the output as if we used `head()`.
+- The preview tells us the `mode()` of each of the columns.
+
+To drive home the difference, do the following:
+
+```{r, eval = FALSE}
+gapminder
+```
+
+And notice that no such conveniences are afforded to us. So for the remainder, we will coerce `gapminder` into a `tibble`. However, we may interchangeably refer to a `tibble` or a `data.frame`.
+
+```{r, purl = FALSE}
+gapminder <- as_tibble(gapminder)
+```
 
 ### Selecting columns and filtering rows
 
-To select columns of a data frame, use `select()`. The first argument to this function is the data frame (`variants`), and the subsequent arguments are the columns to keep.
+To select columns of a data frame, use `select()`. The first argument to this function is the data frame (`gapminder`), and the subsequent arguments are the columns to keep.
 
 ```{r, echo = TRUE, eval = TRUE, purl = FALSE}
-select(variants, sample_id, REF, ALT, DP)
+select(gapminder, country, year, gdp_per_cap)
 ```
 
-To select all columns *except* certain ones, put a "-" in front of
-the variable to exclude it.
+To select all columns *except* certain ones, put a "-" in front of the variable to exclude it.
 
 ```{r, echo = TRUE, eval = TRUE, purl = FALSE}
-select(variants, -CHROM)
+select(gapminder, -life_exp)
 ```
 
-`dplyr` also provides useful functions to select columns based on their names. For instance, `ends_with()` allows you to select columns that ends with specific letters. For instance, if you wanted to select columns that end with the letter "B":
+`dplyr` also provides useful functions to select columns based on their names. For instance, `ends_with()` allows you to select columns that ends with specific letters. For instance, if you wanted to select columns that end with the letter "p":
 
 ```{r}
-select(variants, ends_with("B"))
+select(gapminder, ends_with("p"))
 ```
 
 > ## Challenge
 >
-> Create a table that contains all the columns with the letter "i" and column "POS",
-> without columns "Indiv" and "FILTER".
-> Hint: look at the help function `ends_with()` we've just covered.
->
->> ## Solution
->>
->> ```{r}
->> select(variants, contains("i"), -Indiv, -FILTER, POS)
->> ```
-> {: .solution}
-{: .challenge}
+> Create a table that contains all the columns with the letter "e" and column "country", without columns "life_exp". Hint: look at the help function `tidyselect::ends_with()` we've just covered.
+
+<details>
+<summary>Solution</summary>
+
+```{r}
+select(gapminder, contains("i"), -life_exp, country)
+```
+</details>
+<br>
+
 
 To choose rows, use `filter()`:
 
 ```{r, echo = TRUE, eval = TRUE, purl = FALSE}
-filter(variants, sample_id == "SRR2584863")
+filter(gapminder, country == 'Nigeria')
 ```
 
 `filter()` will keep all the rows that match the conditions that are provided. Here are a few examples:
 
 ```{r}
-# rows for which the reference genome has T or G
-filter(variants, REF %in% c("T", "G"))
-# rows with QUAL values greater than or equal to 100
-filter(variants, QUAL >= 100)
-# rows that have TRUE in the column INDEL
-filter(variants, INDEL)
-# rows that don't have missing data in the IDV column
-filter(variants, !is.na(IDV))
+# rows for which the country column contains Vietnam or Indonesia
+filter(gapminder, country %in% c('Vietnam', 'Indonesia'))
+
+# rows with life_exp greater than or equal to 70
+filter(gapminder, life_exp >= 70)
 ```
 
 `filter()` allows you to combine multiple conditions. You can separate them using a `,` as arguments to the function, they will be combined using the `&` (AND) logical operator. If you need to use the `|` (OR) logical operator, you can specify it explicitly:
 
 ```{r}
 # this is equivalent to:
-#   filter(variants, sample_id == "SRR2584863" & QUAL >= 100)
-filter(variants, sample_id == "SRR2584863", QUAL >= 100)
+#   filter(gapminder, country == "Germany" & year >= 1980)
+filter(gapminder, country == "Germany", year >= 1980)
+
 # using `|` logical operator
-filter(variants, sample_id == "SRR2584863", (INDEL | QUAL >= 100))
+filter(gapminder, year >= 1990, (country == "Australia" | country == 'Mauritius'))
 ```
 
 > ## Challenge
 >
-> Select all the mutations that occurred between the positions 1e6 (one million)
-> and 2e6 (included) that are not indels and have QUAL greater than 200.
->
->> ## Solution
->>
->> ```{r}
->> filter(variants, POS >= 1e6 & POS <= 2e6, !INDEL, QUAL > 200)
->> ```
-> {: .solution}
-{: .challenge}
+> Select all data for countries in Europe between the years 1990 and 2000
 
+<details>
+<summary>Solution</summary>
+
+```{r}
+filter(gapminder, continent == 'Europe', (year >= 1990 & year <= 2000))
+```
+</details>
+<br>
 
 ### Pipes
 
-But what if you wanted to select and filter? We can do this with pipes. Pipes, are a fairly recent addition to R. Pipes let you
-take the output of one function and send it directly to the next, which is
-useful when you need to many things to the same data set. It was
-possible to do this before pipes were added to R, but it was
-much messier and more difficult. Pipes in R look like
-`%>%` and are made available via the `magrittr` package, which is installed as
-part of `dplyr`. If you use RStudio, you can type the pipe with
-<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you're using a PC,
-or <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you're using a Mac.
+But what if you wanted to select and filter? We can do this with pipes (which we saw in the `bash` episode). Pipes, are a fairly recent addition to R. Pipes let you take the output of one function and send it directly to the next, which is useful when you need to many things to the same data set. Pipes in R look like `%>%` (recall they looked like `|` in `bash`) and are available via the `magrittr` package, which is installed as part of `dplyr`. If you use RStudio, you can type the pipe with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you're using a PC, or <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>M</kbd> if you're using a Mac.
 
 ```{r, echo = TRUE, eval = TRUE, purl = FALSE}
-variants %>%
-  filter(sample_id == "SRR2584863") %>%
-  select(REF, ALT, DP)
+gapminder %>%
+    filter(country == "Spain") %>%
+    select(year, pop, life_exp)
 ```
 
-In the above code, we use the pipe to send the `variants` dataset first through
-`filter()`, to keep rows where `sample_id` matches a particular sample, and then through `select()` to
-keep only the `REF`, `ALT`, and `DP` columns. Since `%>%` takes
-the object on its left and passes it as the first argument to the function on
-its right, we don't need to explicitly include the data frame as an argument
-to the `filter()` and `select()` functions any more.
+In the above code, we use the pipe to send the `gapminder` dataset first through `filter()`, to keep rows where `country` matches a particular country, and then through `select()` to keep only the `year`, `pop`, and `life_exp` columns. Since `%>%` takes the object on its left and passes it as the first argument to the function on its right, we don't need to explicitly include the data frame as an argument to the `filter()` and `select()` functions any more.
 
-Some may find it helpful to read the pipe like the word "then". For instance,
-in the above example, we took the data frame `variants`, *then* we `filter`ed
-for rows where `sample_id` was SRR2584863, *then* we `select`ed the `REF`, `ALT`, and `DP` columns, *then* we showed only the first six rows.
-The **`dplyr`** functions by themselves are somewhat simple,
-but by combining them into linear workflows with the pipe, we can accomplish
-more complex manipulations of data frames.
+Some may find it helpful to read the pipe like the word "then". For instance, in the above example, we took the data frame `gapminder`, *then* we `filter`ed for rows where `country` was Spain, *then* we `select`ed the `year`, `pop`, and `life_exp` columns, *then* we showed only the first six rows. The **`dplyr`** functions by themselves are somewhat simple, but by combining them into linear workflows with the pipe, we can accomplish more complex manipulations of data frames.
 
-If we want to create a new object with this smaller version of the data we
-can do so by assigning it a new name:
+If we want to create a new object with this smaller version of the data we can do so by assigning it a new name:
 
 ```{r, purl = FALSE}
-SRR2584863_variants <- variants %>%
-  filter(sample_id == "SRR2584863") %>%
-  select(REF, ALT, DP)
+spain_gapminder <- gapminder %>%
+    filter(country == "Spain") %>%
+    select(year, pop, life_exp)
 ```
 
-This new object includes all of the data from this sample. Let's look at just
-the first six rows to confirm it's what we want:
+This new object includes all of the data from this sample. Let's look at just the first six rows to confirm it's what we want:
 
 ```{r, purl = FALSE}
-SRR2584863_variants
+spain_gapminder
 ```
 
 Similar to `head()` and `tail()` functions, we can also look at the first or last six rows using tidyverse function `slice()`. Slice is a more versatile function that allows users to specify a range to view:
 
 ```{r}
-SRR2584863_variants %>% slice(1:6)
+spain_gapminder %>% slice(1:6)
 ```
 
 ```{r}
-SRR2584863_variants %>% slice(10:25)
+spain_gapminder %>% slice(7:11)
 ```
 
 > ## Exercise: Pipe and filter
 >
-> Starting with the `variants` data frame, use pipes to subset the data
-> to include only observations from SRR2584863 sample,
-> where the filtered depth (DP) is at least 10.
-> Shwoing only 5th through 11th rows of columns `REF`, `ALT`, and `POS`.
->
->> ## Solution
->> ```{r}
->>  variants %>%
->>  filter(sample_id == "SRR2584863" & DP >= 10) %>%
->>  slice(5:11) %>%
->>  select(REF, ALT, POS)
->> ```
-> {: .solution}
-{: .challenge}
+> Starting with the `gapminder` data frame, use pipes to subset the data to include only observations from Panama, where the year is at least 1980. Showing only 4th through 6th rows of columns `country`, `year`, and `gdp_per_cap`.
+
+<details>
+<summary>Solution</summary>
+```{r}
+gapminder %>%
+    filter(country == "Panama" & year >= 1980) %>%
+    slice(4:6) %>%
+    select(country, year, gdp_per_cap)
+```
+</details>
+<br>
+
 
 ### Mutate
 
-Frequently you'll want to create new columns based on the values in existing
-columns, for example to do unit conversions or find the ratio of values in two
-columns. For this we'll use the `dplyr` function `mutate()`.
+Frequently you'll want to create new columns based on the values in existing columns, for example to do unit conversions or find the ratio of values in two columns. For this we'll use the `dplyr` function `mutate()`.
 
-We have a column titled "QUAL". This is a Phred-scaled confidence
-score that a polymorphism exists at this position given the sequencing
-data. Lower QUAL scores indicate low probability of a polymorphism
-existing at that site. We can convert the confidence value QUAL
-to a probability value according to the formula:
+We have a column titled "gdp_per_cap" and "pop". We could use these two columns to compute the "total_gdp" for each country/year observation. By multiplying the entries per-row.
 
-Probability = 1- 10 ^ -(QUAL/10)
-
-Let's add a column (`POLPROB`) to our `variants` data frame that shows
-the probability of a polymorphism at that site given the data.
+Let's add a column (`total_gdp`) to our `gapminder` data frame that shows the total GDP for the country in the corresponding year.
 
 ```{r, purl = FALSE}
-variants %>%
-  mutate(POLPROB = 1 - (10 ^ -(QUAL/10)))
+gapminder %>% mutate(total_gdp = gdp_per_cap * pop)
 ```
 
 > ## Exercise
-> There are a lot of columns in our dataset, so let's just look at the
-> `sample_id`, `POS`, `QUAL`, and `POLPROB` columns for now. Add a
-> line to the above code to only show those columns.
->
->> ## Solution
->>
->> ```{r}
->> variants %>%
->>  mutate(POLPROB = 1 - 10 ^ -(QUAL/10)) %>%
->>  select(sample_id, POS, QUAL, POLPROB)
->> ```
->>
-> {: .solution}
-{: .challenge}
+> There is data for a lot of countries and years, so let's look just at the results of the United States by adding the correct line to the above code.
+
+<details>
+<summary>Solution</summary>
+
+```{r}
+gapminder %>%
+    mutate(total_gdp = gdp_per_cap * pop) %>%
+    filter(country == 'United States')
+```
+</details>
+<br>
+
 
 ### group_by() and  summarize() functions
 
-Many data analysis tasks can be approached using the "split-apply-combine"
-paradigm: split the data into groups, apply some analysis to each group, and
-then combine the results. `dplyr` makes this very easy through the use of the
-`group_by()` function, which splits the data into groups. When the data is
-grouped in this way `summarize()` can be used to collapse each group into
-a single-row summary. `summarize()` does this by applying an aggregating
-or summary function to each group. For example, if we wanted to group
-by sample_id and find the number of rows of data for each
-sample, we would do:
+Many data analysis tasks can be approached using the "split-apply-combine" paradigm: split the data into groups, apply some analysis to each group, and then combine the results. `dplyr` makes this very easy through the use of the `group_by()` function, which splits the data into groups. When the data is grouped in this way `summarize()` can be used to collapse each group into a single-row summary. `summarize()` does this by applying an aggregating or summary function to each group. For example, if we wanted to group by continent and find the number of rows of data for each continent, we would do:
 
 ```{r, purl = FALSE, message = FALSE}
-variants %>%
-  group_by(sample_id) %>%
-  summarize(n())
+gapminder %>%
+    group_by(continent) %>%
+    summarize(n())
 ```
 
-It can be a bit tricky at first, but we can imagine physically splitting the data
-frame by groups and applying a certain function to summarize the data.
+Notice this is the same results as when we ran `summary(gapminder$continent)`.
+
+It can be a bit tricky at first, but we can imagine splitting the data frame by groups and applying a certain function to summarize the data.
 
 <center>
 <img src="images/split_apply_combine.png" alt="rstudio default session" style="width: 500px;"/>
 </center>
 ^[The figure was adapted from the Software Carpentry lesson, [R for Reproducible Scientific Analysis](https://swcarpentry.github.io/r-novice-gapminder/13-dplyr/)]
 
-Here the summary function used was `n()` to find the count for each
-group. Since this is a quite a common operation, there is a simpler method
-called `tally()`:
+Here the summary function used was `n()` to find the count for each group. Since this is a quite a common operation, there is a simpler method called `tally()`:
 
 ```{r, purl = FALSE, message = FALSE}
-variants %>%
-  group_by(ALT) %>%
-  tally()
+gapminder %>%
+    group_by(country) %>%
+    tally()
 ```
 
 To show that there are many ways to achieve the same results, there is another way to approach this, which bypasses `group_by()` using the function `count()`:
 
 ```{r, purl = FALSE, message = FALSE}
-variants %>%
-  count(ALT)
+gapminder %>% count(country)
 ```
 
-> ## Challenge
->
-> * How many mutations are found in each sample?
->
->> ## Solution
->>
->> ```{r}
->> variants %>%
->>   count(sample_id)
->> ```
-> {: .solution}
-{: .challenge}
 
-We can also apply many other functions to individual columns to get other
-summary statistics. For example,we can use built-in functions like `mean()`,
-`median()`, `min()`, and `max()`. These are called "built-in functions" because
-they come with R and don't require that you install any additional packages.
-By default, all **R functions operating on vectors that contains missing data will return NA**.
-It's a way to make sure that users know they have missing data, and make a
-conscious decision on how to deal with it. When dealing with simple statistics
-like the mean, the easiest way to ignore `NA` (the missing data) is
-to use `na.rm = TRUE` (`rm` stands for remove).
+We can also apply many other functions to individual columns to get other summary statistics. For example,we can use built-in functions like `mean()`, `median()`, `min()`, and `max()`. These are called "built-in functions" because they come with R and don't require that you install any additional packages. By default, all **R functions operating on vectors that contains missing data will return NA**. It's a way to make sure that users know they have missing data, and make a conscious decision on how to deal with it. When dealing with simple statistics like the mean, the easiest way to ignore `NA` (the missing data) is to use `na.rm = TRUE` (`rm` stands for remove).
 
-So to view the mean, median, maximum, and minimum filtered depth (`DP`) for each sample:
+So to view the mean, median, maximum, and minimum `gdp_per_cap` for each country:
 
 ```{r, purl = FALSE, message = FALSE}
-variants %>%
-  group_by(sample_id) %>%
-  summarize(
-    mean_DP = mean(DP),
-    median_DP = median(DP),
-    min_DP = min(DP),
-    max_DP = max(DP))
+gapminder %>%
+    group_by(country) %>%
+    summarize(
+        min_gpc = min(gdp_per_cap),
+        mean_gpc = mean(gdp_per_cap),
+        median_gpc = median(gdp_per_cap),
+        max_gpc = max(gdp_per_cap))
 ```
 
 ### Reshaping data frames
 
 It can sometimes be useful to transform the "long" tidy format, into the wide format. This transformation can be done with the `pivot_wider()` function provided by the `tidyr` package (also part of the `tidyverse`).
 
-`pivot_wider()` takes a data frame as the first argument, and two arguments: the column name that will become the columns  and the column name that will become the cells in the wide data.
+`pivot_wider()` takes a data frame as the first argument, and two arguments: the column name that will become the columns and the column name that will become the cells in the wide data. Let's create a wide format table with rows for each country, columns for each year, and data values being the life_exp.
 
 ```{r}
-variants_wide <- variants %>%
-  group_by(sample_id, CHROM) %>%
-  summarize(mean_DP = mean(DP)) %>%
-  pivot_wider(names_from = sample_id, values_from = mean_DP)
-variants_wide
+gapminder_wide <- gapminder %>%
+    select(country, life_exp, year) %>%
+    group_by(country) %>%
+    pivot_wider(names_from = year, values_from = life_exp)
+gapminder_wide
 ```
 
 The opposite operation of `pivot_wider()` is taken care by `pivot_longer()`. We specify the names of the new columns, and here add `-CHROM` as this column shouldn't be affected by the reshaping:
 
 ```{r}
-variants_wide %>%
-  pivot_longer(-CHROM, names_to = "sample_id", values_to = "mean_DP")
+gapminder_wide %>%
+    pivot_longer(-country, names_to = "year", values_to = "life_exp")
 ```
 ### Resources
 

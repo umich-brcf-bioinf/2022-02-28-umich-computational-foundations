@@ -24,18 +24,18 @@ this setup, you will need:
 
 -   A Macintosh or Windows workstation connected to the internet.
 -   An email invitation to the workshop Slack workspace.
--   An email titled **"Computational Foundations workshop setup"** containing your 
+-   An email titled **"UM BioinfCore Workshop Login"** containing your
     individual login and password for the shared workshop server
 -   About 10 minutes.
 
 
 ## Introduction
 
--   The workshop will be conducted over Zoom, Slack, Linux (first day), and R
-    with RStudio (second day).
--   Attendees will use their own workstation/laptop to participate in the workshop
-    and access the server environment;  the workstation/laptop should have a
-    microphone, camera, and reliable internet access.
+-   The virtual workshop will be conducted using Zoom and Slack for all days.
+-   Attendees will use their own workstation/laptop to participate; the
+    workstation/laptop should have a microphone, camera, and reliable
+    internet access. While not required, for laptop users we recommend using a
+    larger monitor for the optimal workshop experience.
 -   The workshop will use Slack for group messaging. Messages posted to the
     general channel will be visible to all participants in the workshop.
 -   For simplicity, participants will log in to a pre-built server which
@@ -96,7 +96,7 @@ be happy to lend a hand to get things working.
 
    2.3. Note that once your Slack account is established and you have accepted the
       Slack invite you can access the Slack channel by pointing your web browser
-      here: https://umcoderspaces.slack.com
+      here: https://umbioinfcoreworkshops.slack.com
 
 ### **Launch a command window**
 
@@ -111,10 +111,10 @@ be happy to lend a hand to get things working.
         ```
         Microsoft Windows [Version 10.0.17763.1935]
        (c) 2018 Microsoft Corporation. All rights reserved.
-  
+
         H:\>
         ```
-    
+
    - If you are using a Mac:
 
      - Macintosh OSX has a built in command window called **Terminal**. Press
@@ -126,7 +126,7 @@ be happy to lend a hand to get things working.
        that's ok)
 
        ```
-       Last login: Thu Dec 10 12:44:03 on ttys003\
+       Last login: Feb 10 12:44:03 on ttys003\
        MacBook: \~ your_username\$
        ```
 
@@ -140,7 +140,7 @@ be happy to lend a hand to get things working.
 
         ssh YOUR_USERNAME@bfx-workshop01.med.umich.edu
 
-  
+
    4.2. The first time you run this command, you may see a prompt like the
    following; type **yes** and hit **Enter/Return** to continue.
 
@@ -156,9 +156,15 @@ be happy to lend a hand to get things working.
 
    After successfully logging in, your command window should end looking something like this:
 
-       Welcome to RNA-Seq Demystified
-       ------------------------------
-       (/rsd/conda/workshop) YOUR_USERNAME@ip:~$
+       ------------------------------------
+       Welcome to Computational Foundations
+       ------------------------------------
+       YOUR_USERNAME@cf: $
+
+   If you see the text above, you have successfully logged into the shared server. 
+   (You can close this window by typing **exit** or simply closing the 
+   command window.)
+
 
 ### **Launch R/RStudio (from the web)**
 

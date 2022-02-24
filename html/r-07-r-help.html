@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -32,6 +32,12 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--
+Favicon from
+https://twemoji.twitter.com/
+https://favicon.io/emoji-favicons/computer/
+-->
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -288,7 +294,7 @@ $(document).ready(function () {
       <a href="r-03-basics-factors-dataframes.html">R Basics Continued - Factors and Data Frames</a>
     </li>
     <li>
-      <a href="r-04-bioconductor-vcfr.html">Using Packages from Bioconductor</a>
+      <a href="r-04-bioconductor.html">Using Packages from Bioconductor</a>
     </li>
     <li>
       <a href="r-05-dplyr.html">Data Wrangling and Analyses with Tidyverse</a>
@@ -321,6 +327,37 @@ $(document).ready(function () {
 </div>
 
 
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<!--
+---
+title: "Getting help with R"
+teaching: 10
+exercises: 5
+questions:
+- "How do I get help using R and RStudio?"
+objectives:
+- "Locate help for an R function using `?`, `??`, and `args()`"
+- "Check the version of R"
+- "Be able to ask effective questions when searching for help on forums or using web searches"
+
+keypoints:
+- "R provides thousands of functions for analyzing data, and provides several way to get help"
+- "Using R will mean searching for online help, and there are tips and resources on how to search effectively"
+source: Rmd
+---
+-->
 <div id="getting-help-with-r" class="section level2">
 <h2>Getting help with R</h2>
 <p><img src="images/oreilly_book_covers.png" alt="rstudio default session" style="width: 600px;"/></p>
@@ -341,7 +378,6 @@ $(document).ready(function () {
 <li>Be careful. While forums are very helpful, you can’t know for sure if the advice you are getting is correct</li>
 <li>See the <a href="http://blog.revolutionanalytics.com/2014/01/how-to-ask-for-r-help.html">How to ask for R help</a> blog post for more useful tips</li>
 </ul>
-<p>{: .callout}</p>
 </blockquote>
 </div>
 <div id="help-people-help-you" class="section level2">
@@ -350,7 +386,6 @@ $(document).ready(function () {
 <p>You can <strong>check the version of R</strong> you are working with using the <code>sessionInfo()</code> function. Actually, it is good to save this information as part of your notes on any analysis you are doing. When you run the same script that has worked fine a dozen times before, looking back at these notes will remind you that you upgraded R and forget to check your script.</p>
 <blockquote>
 <pre><code>sessionInfo()</code></pre>
-<p>{: .language-r}</p>
 </blockquote>
 <blockquote>
 <pre><code>R version 3.2.3 (2015-12-10)
@@ -368,13 +403,11 @@ attached base packages:
 
 loaded via a namespace (and not attached):
 [1] tools_3.2.3     packrat_0.4.9-1</code></pre>
-<p>{: .output}</p>
 </blockquote>
 <p>Many times, there may be some issues with your data and the way it is formatted. In that case, you may want to share that data with someone else. However, you may not need to share the whole dataset; looking at a subset of your 50,000 row, 10,000 column dataframe may be TMI (too much information)! You can take an object you have in memory such as dataframe (if you don’t know what this means yet, we will get to it!) and save it to a file. In our example we will use the <code>dput()</code> function on the <code>iris</code> dataframe which is an example dataset that is installed in R:</p>
 <blockquote>
 <pre><code>dput(head(iris)) # iris is an example data.frame that comes with R
                  # the `head()` function just takes the first 6 lines of the iris dataset</code></pre>
-<p>{: .language-r}</p>
 </blockquote>
 <p>This generates some output (below) which you will be better able to interpret after covering the other R lessons. This info would be helpful in understanding how the data is formatted and possibly revealing problematic issues.</p>
 <blockquote>
@@ -385,11 +418,9 @@ loaded via a namespace (and not attached):
     1L), .Label = c(&quot;setosa&quot;, &quot;versicolor&quot;, &quot;virginica&quot;), class = &quot;factor&quot;)), .Names = c(&quot;Sepal.Length&quot;,
 &quot;Sepal.Width&quot;, &quot;Petal.Length&quot;, &quot;Petal.Width&quot;, &quot;Species&quot;), row.names = c(NA,
 6L), class = &quot;data.frame&quot;)</code></pre>
-<p>{: .output}</p>
 </blockquote>
 <p>Alternatively, you can also save objects in R memory to a file by specifying the name of the object, in this case the <code>iris</code> data frame, and passing a filename to the <code>file=</code> argument.</p>
-<pre><code>saveRDS(iris, file=&quot;iris.rds&quot;) # By convention, we use the .rds file extension</code></pre>
-<p>{: .language-r}</p>
+<pre class="r"><code>saveRDS(iris, file=&quot;iris.rds&quot;) # By convention, we use the .rds file extension</code></pre>
 </div>
 <div id="final-faqs-on-r" class="section level2">
 <h2>Final FAQs on R</h2>
@@ -404,12 +435,12 @@ loaded via a namespace (and not attached):
 To see a complete list of shortcuts, click on the <KBD>Tools</KBD> menu and select <KBD>Keyboard Shortcuts Help</KBD></li>
 </ul>
 <p><strong>What’s with the brackets in R console output?</strong> - R returns an index with your result. When your result contains multiple values, the number tells you what ordinal number begins the line, for example:</p>
-<pre><code>1:101 # generates the sequence of numbers from 1 to 101</code></pre>
-<p>{: .language-r}</p>
-<pre><code>  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35
- [36]  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70
- [71]  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100 101</code></pre>
-<p>{: .output}</p>
+<pre class="r"><code>1:101 # generates the sequence of numbers from 1 to 101</code></pre>
+<pre><code>  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24
+ [25]  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48
+ [49]  49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64  65  66  67  68  69  70  71  72
+ [73]  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96
+ [97]  97  98  99 100 101</code></pre>
 <p>In the output above, <code>[81]</code> indicates that the first value on that line is the 81st item in your result</p>
 <p><strong>Can I run my R script without RStudio?</strong></p>
 <ul>
