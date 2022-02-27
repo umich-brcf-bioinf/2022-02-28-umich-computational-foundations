@@ -132,8 +132,6 @@ a[target="_blank"]::after {
 ![Zoom non verbals](images/Module00_zoom_nonverbals.png)
 
   - **Raise Hand** to request clarification or ask a question. (Same an in-person workshop.)
-  - **Gray chevron [Slow down / Give me a moment]** when you need more time to complete
-    an exercise or you would like the instructor to repeat an idea
   - Instructors will use **Green check** and **Red X** to poll the group
     at checkpoints along the way.
 <br/>
@@ -166,7 +164,7 @@ breakout room.
 
 ![Posting messages to Slack](images/Module00_slack.png)
 
-  - Slack messages will be posted to the **2021-november-rsd-workshop** channel.
+  - Slack messages will be posted to the **22022-02-computational-foundations-workshop** channel.
     Click on the channel in the left pane (1) to select this channel.
   - You can type in the **message field** (2); click **send** (3) to
     post your message to everyone.
