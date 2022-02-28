@@ -505,7 +505,7 @@ $ wc -l bad_reads.txt</code></pre>
 <p>Since we might have multiple different criteria we want to search for, creating a new output file each time has the potential to clutter up our workspace. We also thus far haven’t been interested in the actual contents of those files, only in the number of reads that we’ve found. We created the files to store the reads and then counted the lines in the file to see how many reads matched our criteria. There’s a way to do this, however, that doesn’t require us to create these intermediate files - the pipe command (<code>|</code>).</p>
 <p>This is probably not a key on your keyboard you use very much, so let’s all take a minute to find that key. For the standard QWERTY keyboard layout, the <code>|</code> character can be found using the key combination</p>
 <ul>
-<li><kbd>Shift</kbd>+<kbd>&lt;/kbd&gt;</li>
+<li><kbd>Shift</kbd>+<kbd>\</kbd></li>
 </ul>
 <p>What <code>|</code> does is take the output that is scrolling by on the terminal and uses that output as input to another command. When our output was scrolling by, we might have wished we could slow it down and look at it, like we can with <code>less</code>. Well it turns out that we can! We can redirect our output from our <code>grep</code> call through the <code>less</code> command.</p>
 <pre><code>$ grep -B1 -A2 NNNNNNNNNN SRR098026.fastq | less</code></pre>

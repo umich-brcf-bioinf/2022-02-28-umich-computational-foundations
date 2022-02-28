@@ -363,61 +363,104 @@ keypoints:
 source: Rmd
 ---
 -->
-<div id="fluency-is-possible-for-all-through-time-and-effort" class="section level2">
+<div id="fluency-is-possible-for-all-through-time-and-effort"
+class="section level2">
 <h2>Fluency is possible for all, through time and effort</h2>
-<p>Before we begin this lesson, we want you to be clear on the goal of the workshop and these lessons. We believe that every learner can <strong>achieve competency with R</strong>. You have reached competency when you find that you are able to <strong>use R to handle common analysis challenges in a reasonable amount of time</strong> (which includes time needed to look at learning materials, search for answers online, and ask colleagues for help). As you spend more time using R you will find yourself gaining competency and even expertise. There is no subsititute for regular use and practice. The more familiar you get, the more complex the analyses you will be able to carry out, with less frustration, and in less time!</p>
+<p>Before we begin this lesson, we want you to be clear on the goal of
+the workshop and these lessons. We believe that every learner can
+<strong>achieve competency with R</strong>. You have reached competency
+when you find that you are able to <strong>use R to handle common
+analysis challenges in a reasonable amount of time</strong> (which
+includes time needed to look at learning materials, search for answers
+online, and ask colleagues for help). As you spend more time using R you
+will find yourself gaining competency and even expertise. There is no
+subsititute for regular use and practice. The more familiar you get, the
+more complex the analyses you will be able to carry out, with less
+frustration, and in less time!</p>
 </div>
 <div id="what-these-lessons-will-not-teach-you" class="section level2">
 <h2>What these lessons will not teach you</h2>
-<p>Few people want to learn how to use R for its own sake. People want to learn how to use R to analyze their own research questions! These lessons assume that you want to start analyzing data as soon as possible. Given this, there are many valuable pieces of information about R that we simply won’t have time to cover. Hopefully, we will clear the hurdle of giving you just enough knowledge to be dangerous, which can be a high bar in R! We suggest you look into the additional learning materials below.</p>
-<p><strong>Here are some R skills we will <em>not</em> cover in these lessons</strong></p>
+<p>Few people want to learn how to use R for its own sake. People want
+to learn how to use R to analyze their own research questions! These
+lessons assume that you want to start analyzing data as soon as
+possible. Given this, there are many valuable pieces of information
+about R that we simply won’t have time to cover. Hopefully, we will
+clear the hurdle of giving you just enough knowledge to be dangerous,
+which can be a high bar in R! We suggest you look into the additional
+learning materials below.</p>
+<p><strong>Here are some R skills we will <em>not</em> cover in these
+lessons</strong></p>
 <ul>
 <li>How to create and work with R matrices and R lists.</li>
-<li>How to create and work with loops and conditional statements, and the “apply” family of functions (which are useful, read more <a href="https://www.r-bloggers.com/r-tutorial-on-the-apply-family-of-functions/">here</a>).</li>
-<li>How to do basic string manipulations (e.g. finding patterns in text using grep, replacing text).</li>
-<li>How to plot using the default R graphic tools (we <em>will</em> cover plot creation, but will do so using the popular plotting package <code>ggplot2</code>).</li>
+<li>How to create and work with loops and conditional statements, and
+the “apply” family of functions (which are useful, read more <a
+href="https://www.r-bloggers.com/r-tutorial-on-the-apply-family-of-functions/">here</a>).</li>
+<li>How to do basic string manipulations (e.g. finding patterns in text
+using grep, replacing text).</li>
+<li>How to plot using the default R graphic tools (we <em>will</em>
+cover plot creation, but will do so using the popular plotting package
+<code>ggplot2</code>).</li>
 <li>How to use advanced R statistical functions.</li>
 </ul>
 <blockquote>
 <h2 id="tip-where-to-learn-more">Tip: Where to learn more</h2>
-<p>The following are good resources for learning more about R. Some of them can be quite technical, but if you are a regular R user you may ultimately need this technical knowledge.</p>
+<p>The following are good resources for learning more about R. Some of
+them can be quite technical, but if you are a regular R user you may
+ultimately need this technical knowledge.</p>
 <ul>
-<li><a href="https://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf">R for Beginners</a>: By Emmanuel Paradis and a great starting point</li>
-<li><a href="https://cran.r-project.org/manuals.html">The R Manuals</a>: Maintained by the R project</li>
-<li><a href="https://cran.r-project.org/other-docs.html">R contributed documentation</a>: Also linked to the R project; importantly there are materials available in several languages</li>
-<li><a href="http://r4ds.had.co.nz/">R for Data Science</a>: A wonderful collection by noted R educators and developers Garrett Grolemund and Hadley Wickham</li>
-<li><a href="https://peerj.com/collections/50-practicaldatascistats/">Practical Data Science for Stats</a>: Not exclusively about R usage, but a nice collection of pre-prints on data science and applications for R</li>
-<li><a href="https://software-carpentry.org/lessons/">Programming in R Software Carpentry lesson</a>: There are several Software Carpentry lessons in R to choose from <br></li>
+<li><a
+href="https://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf">R
+for Beginners</a>: By Emmanuel Paradis and a great starting point</li>
+<li><a href="https://cran.r-project.org/manuals.html">The R Manuals</a>:
+Maintained by the R project</li>
+<li><a href="https://cran.r-project.org/other-docs.html">R contributed
+documentation</a>: Also linked to the R project; importantly there are
+materials available in several languages</li>
+<li><a href="http://r4ds.had.co.nz/">R for Data Science</a>: A wonderful
+collection by noted R educators and developers Garrett Grolemund and
+Hadley Wickham</li>
+<li><a
+href="https://peerj.com/collections/50-practicaldatascistats/">Practical
+Data Science for Stats</a>: Not exclusively about R usage, but a nice
+collection of pre-prints on data science and applications for R</li>
+<li><a href="https://software-carpentry.org/lessons/">Programming in R
+Software Carpentry lesson</a>: There are several Software Carpentry
+lessons in R to choose from <br></li>
 </ul>
+</blockquote>
+<blockquote>
+<h2 id="reminder">Reminder</h2>
+<p>At this point you should be coding along in the
+“<strong>r_basics.R</strong>” script we created in the last episode.
+Writing your commands and comments in the script will make it easier to
+record what you did and why.</p>
+<p>We should also be regularly saving the file by clicking the single
+floppy disk icon or typing <KBD>Ctrl + S</KBD>. <br></p>
 </blockquote>
 </div>
 <div id="creating-objects-in-r" class="section level2">
 <h2>Creating objects in R</h2>
-<blockquote>
-<h2 id="reminder">Reminder</h2>
-<p>At this point you should be coding along in the “<strong>r_basics.R</strong>” script we created in the last episode. Writing your commands in the script (and commenting it) will make it easier to record what you did and why. <br></p>
-</blockquote>
-<p>What might be called a variable in many languages is called an <strong>object</strong> in R.</p>
+<p>What might be called a variable in many languages is called an
+<strong>object</strong> in R (but you can also call it a variable).</p>
 <p><strong>To create an object you need:</strong></p>
 <ul>
 <li>a name (e.g. ‘a’)</li>
 <li>a value (e.g. ‘1’)</li>
 <li>the assignment operator (‘&lt;-’)</li>
 </ul>
-<p>In your script, “<strong>r_basics.R</strong>”, using the R assignment operator ‘&lt;-’, assign ‘1’ to the object ‘a’ as shown. Remember to leave a comment in the line above (using the ‘#’) to explain what you are doing:</p>
+<p>In your script, “<strong>r_basics.R</strong>”, using the R assignment
+operator ‘&lt;-’, assign ‘1’ to the object ‘a’ as shown. Remember to
+leave a comment in the line above (using the ‘#’) to explain what you
+are doing:</p>
 <pre class="r"><code># this line creates the object &#39;a&#39; and assigns it the value &#39;1&#39;
 
 a &lt;- 1</code></pre>
-<p>Next, run this line of code in your script. You can run a line of code by hitting the <KBD>Run</KBD> button that is just above the first line of your script in the header of the Source pane or you can use the appropriate shortcut:</p>
-<ul>
-<li>Mac/Windows execution shortcut: <KBD>Ctrl</KBD>+<KBD>Enter</KBD></li>
-<li>Mac execution shortcut: <KBD>Cmd(⌘)</KBD>+<KBD>Enter</KBD></li>
-</ul>
-<p>To run multiple lines of code, you can highlight all the line you wish to run and then hit <KBD>Run</KBD> or use the shortcut key combo listed above.</p>
-<p>In the RStudio ‘Console’ you should see:</p>
-<pre><code>a &lt;- 1
+<p>Next, run this line of code in your script. In the RStudio ‘Console’
+you should see:</p>
+<pre><code>&gt; a &lt;- 1
 &gt;</code></pre>
-<p>The ‘Console’ will display lines of code run from a script and any outputs or status/warning/error messages (usually in red).</p>
+<p>The ‘Console’ will display lines of code run from a script and any
+outputs or status/warning/error messages (usually in red).</p>
 <p>In the ‘Environment’ window you will also get a table:</p>
 <table>
 <thead>
@@ -433,15 +476,22 @@ a &lt;- 1</code></pre>
 </tr>
 </tbody>
 </table>
-<p>The ‘Environment’ window allows you to keep track of the objects you have created in R.</p>
+<p>The ‘Environment’ window allows you to keep track of the objects you
+have created in R.</p>
 <blockquote>
-<h2 id="exercise-create-some-objects-in-r">Exercise: Create some objects in R</h2>
-<p>Create the following objects; give each object an appropriate name (your best guess at what name to use is fine):</p>
+<h2 id="exercise-create-some-objects-in-r">Exercise: Create some objects
+in R</h2>
+<p>Create the following objects; give each object an appropriate name
+(your best guess at what name to use is fine):</p>
 <ol style="list-style-type: decimal">
-<li>Create an object that has the value of number of pairs of human chromosomes</li>
+<li>Create an object that has the value of number of pairs of human
+chromosomes</li>
 <li>Create an object that has a value of your favorite gene name</li>
-<li>Create an object that has this URL as its value: “<a href="ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/" class="uri">ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/</a>”</li>
-<li>Create an object that has the value of the number of chromosomes in a diploid human cell</li>
+<li>Create an object that has this URL as its value: “<a
+href="https://genome.ucsc.edu"
+class="uri">https://genome.ucsc.edu</a>”</li>
+<li>Create an object that has the value of the number of chromosomes in
+a diploid human cell</li>
 </ol>
 </blockquote>
 <details>
@@ -451,51 +501,100 @@ Solution
 <p>Here as some possible answers to the challenge:</p>
 <pre class="r"><code>human_chr_number &lt;- 23
 gene_name &lt;- &#39;pten&#39;
-ensemble_url &lt;- &#39;ftp://ftp.ensemblgenomes.org/pub/bacteria/release-39/fasta/bacteria_5_collection/escherichia_coli_b_str_rel606/&#39;
+ensemble_url &lt;- &#39;https://genome.ucsc.edu&#39;
 human_diploid_chr_num &lt;-  2 * human_chr_number</code></pre>
 </details>
 <p><br></p>
+<blockquote>
+<h2 id="comment-on-the-assignment-operator">Comment on the assignment
+operator</h2>
+<p>Many people use <code>=</code> as their preferred assignment operator
+in R instead of <code>&lt;-</code>, and this is just as well. Here is a
+<a
+href="https://www.r-bloggers.com/2010/11/assignment-operators-in-r-%E2%80%98%E2%80%99-vs-%E2%80%98-%E2%80%99/">blog
+post</a> discussing the differences.</p>
+</blockquote>
 </div>
 <div id="naming-objects-in-r" class="section level2">
 <h2>Naming objects in R</h2>
 <p>Here are some important details about naming objects in R.</p>
 <ul>
-<li><strong>Avoid spaces and special characters</strong>: Object names cannot contain spaces or the minus sign (<code>-</code>). You can use ’_’ to make names more readable. You should avoid using special characters in your object name (e.g. ! @ # . , etc.). Also, object names cannot begin with a number.</li>
-<li><strong>Use short, easy-to-understand names</strong>: You should avoid naming your objects using single letters (e.g. ‘n’, ‘p’, etc.). This is mostly to encourage you to use names that would make sense to anyone reading your code (a colleague, or even yourself a year from now). Also, avoiding excessively long names will make your code more readable.</li>
-<li><strong>Avoid commonly used names</strong>: There are several names that may already have a definition in the R language (e.g. ‘mean’, ‘min’, ‘max’). One clue that a name already has meaning is that if you start typing a name in RStudio and it gets a colored highlight or RStudio gives you a suggested autocompletion you have chosen a name that has a reserved meaning.</li>
-<li><strong>Use the recommended assignment operator</strong>: In R, we use ‘&lt;-’ as the preferred assignment operator. ‘=’ works too, but is most commonly used in passing arguments to functions (more on functions later). There is a shortcut for the R assignment operator:
+<li><strong>Avoid spaces and special characters</strong>: Object names
+cannot contain spaces or the minus sign (<code>-</code>). You can use
+’_’ to make names more readable. You should avoid using special
+characters in your object name (e.g. ! @ # . , etc.). Also, object names
+cannot begin with a number.</li>
+<li><strong>Use short, easy-to-understand names</strong>: You should
+avoid naming your objects using single letters (e.g. ‘n’, ‘p’, etc.).
+This is mostly to encourage you to use names that would make sense to
+anyone reading your code (a colleague, or even yourself a year from
+now). Also, avoiding excessively long names will make your code more
+readable.</li>
+<li><strong>Avoid commonly used names</strong>: There are several names
+that may already have a definition in the R language (e.g. ‘mean’,
+‘min’, ‘max’). One clue that a name already has meaning is that if you
+start typing a name in RStudio and it gets a colored highlight or
+RStudio gives you a suggested autocompletion you have chosen a name that
+has a reserved meaning.</li>
+<li><strong>Use the recommended assignment operator</strong>: In R, we
+use ‘&lt;-’ as the preferred assignment operator. ‘=’ works too, but is
+most commonly used in passing arguments to functions (more on functions
+later). There is a shortcut for the R assignment operator:
 <ul>
 <li>Windows execution shortcut: <KBD>Alt</KBD>+<KBD>-</KBD></li>
 <li>Mac execution shortcut: <KBD>Option</KBD>+<KBD>-</KBD></li>
 </ul></li>
 </ul>
-<p>There are a few more suggestions about naming and style you may want to learn more about as you write more R code. There are several “style guides” that have advice, and one to start with is the <a href="http://style.tidyverse.org/index.html">tidyverse R style guide</a>.</p>
+<p>There are a few more suggestions about naming and style you may want
+to learn more about as you write more R code. There are several “style
+guides” that have advice, and one to start with is the <a
+href="http://style.tidyverse.org/index.html">tidyverse R style
+guide</a>.</p>
 <blockquote>
-<h2 id="tip-pay-attention-to-warnings-in-the-script-console">Tip: Pay attention to warnings in the script console</h2>
-<p>If you enter a line of code in your script that contains an error, RStudio may give you an error message and underline this mistake. Sometimes these messages are easy to understand, but often the messages may need some figuring out. Paying attention to these warnings will help you avoid mistakes. In the example below, our object name has a space, which is not allowed in R. The error message does not say this directly, but R is “not sure” about how to assign the name to “human_ chr_number” when the object name we want is “human_chr_number”.</p>
+<h2 id="tip-pay-attention-to-warnings-in-the-script-console">Tip: Pay
+attention to warnings in the script console</h2>
+<p>If you enter a line of code in your script that contains an error,
+RStudio may give you an error message and underline this mistake.
+Sometimes these messages are easy to understand, but often the messages
+may need some figuring out. Paying attention to these warnings will help
+you avoid mistakes. In the example below, our object name has a space,
+which is not allowed in R. The error message does not say this directly,
+but R is “not sure” about how to assign the name to “human_ chr_number”
+when the object name we want is “human_chr_number”.</p>
 <p><img src="images/rstudio_script_warning.png" alt="rstudio script warning" style="width: 600px;"/></p>
 </blockquote>
 </div>
-<div id="reassigning-object-names-or-deleting-objects" class="section level2">
+<div id="reassigning-object-names-or-deleting-objects"
+class="section level2">
 <h2>Reassigning object names or deleting objects</h2>
-<p>Once an object has a value, you can change that value by overwriting it. R will not give you a warning or error if you overwriting an object, which may or may not be a good thing depending on how you look at it.</p>
+<p>Once an object has a value, you can change that value by overwriting
+it. R will not give you a warning or error if you overwriting an object,
+which may or may not be a good thing depending on how you look at
+it.</p>
 <pre class="r"><code># gene_name has the value &#39;pten&#39; or whatever value you used in the challenge.
 # We will now assign the new value &#39;tp53&#39;
 gene_name &lt;- &#39;tp53&#39;</code></pre>
-<p>You can also remove an object from R’s memory entirely. The <code>rm()</code> function will delete the object.</p>
+<p>You can also remove an object from R’s memory entirely. The
+<code>rm()</code> function will delete the object.</p>
 <pre class="r"><code># delete the object &#39;gene_name&#39;
 rm(gene_name)</code></pre>
-<p>If you run a line of code that has only an object name, R will normally display the contents of that object. In this case, we are told the object no longer exists.</p>
+<p>If you run a line of code that has only an object name, R will
+normally display the contents of that object. In this case, we are told
+the object no longer exists.</p>
 <pre><code>Error: object &#39;gene_name&#39; not found</code></pre>
 </div>
 <div id="understanding-object-data-types-modes" class="section level2">
 <h2>Understanding object data types (modes)</h2>
-<p>In R, <strong>every object has two properties</strong>:</p>
+<p>In R, every object has two properties:</p>
 <ul>
-<li><strong>Length</strong>: How many values are held in that object</li>
-<li><strong>Mode</strong>: What is the classification (type) of that object.</li>
+<li><strong>Length</strong>: How many values are held in that
+object</li>
+<li><strong>Mode</strong>: What is the classification (type) of that
+object.</li>
 </ul>
-<p>We will get to the “length” property later in the lesson. The <strong>“mode” property</strong> <strong>corresponds to the type of data an object represents</strong>. The most common modes you will encounter in R are:</p>
+<p>We will get to the “length” property later in the lesson. The “mode”
+property **corresponds to the type of data an object represents. The
+most common modes you will encounter in R are:</p>
 <table>
 <colgroup>
 <col width="25%" />
@@ -510,7 +609,10 @@ rm(gene_name)</code></pre>
 <tbody>
 <tr class="odd">
 <td>Numeric (num)</td>
-<td>Numbers such floating point/decimals (1.0, 0.5, 3.14), there are also more specific numeric types (dbl - Double, int - Integer). These differences are not relevant for most beginners and pertain to how these values are stored in memory</td>
+<td>Numbers such floating point/decimals (1.0, 0.5, 3.14), there are
+also more specific numeric types (dbl - Double, int - Integer). These
+differences are not relevant for most beginners and pertain to how these
+values are stored in memory</td>
 </tr>
 <tr class="even">
 <td>Character (chr)</td>
@@ -522,11 +624,25 @@ rm(gene_name)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>There are a few other modes (i.e. “complex”, “raw” etc.) but these are the three we will work with in this lesson.</p>
-<p>Data types are familiar in many programming languages, but also in natural language where we refer to them as the parts of speech, e.g. nouns, verbs, adverbs, etc. Once you know if a word - perhaps an unfamiliar one - is a noun, you can probably guess you can count it and make it plural if there is more than one (e.g. 1 <a href="https://en.wikipedia.org/wiki/Tuatara">Tuatara</a>, or 2 Tuataras). If something is a adjective, you can usually change it into an adverb by adding “-ly” (e.g. <a href="https://www.merriam-webster.com/dictionary/jejune">jejune</a> vs. jejunely). Depending on the context, you may need to decide if a word is in one category or another (e.g “cut” may be a noun when it’s on your finger, or a verb when you are preparing vegetables). These concepts have important analogies when working with R objects.</p>
+<p>There are a few other modes (i.e. “complex”, “raw” etc.) but these
+are the three we will work with in this lesson.</p>
+<p>Data types are familiar in many programming languages, but also in
+natural language where we refer to them as the parts of speech,
+e.g. nouns, verbs, adverbs, etc. Once you know if a word - perhaps an
+unfamiliar one - is a noun, you can probably guess you can count it and
+make it plural if there is more than one (e.g. 1 parrot, or 2 parrots).
+If something is an adjective, you can usually change it into an adverb
+by adding “-ly” (e.g. slow and slowly). Depending on the context, you
+may need to decide if a word is in one category or another (e.g “cut”
+may be a noun when it’s on your finger, or a verb when you are preparing
+vegetables). These concepts have important analogies when working with R
+objects.</p>
 <blockquote>
-<h2 id="exercise-create-objects-and-check-their-modes">Exercise: Create objects and check their modes</h2>
-<p>Create the following objects in R, then use the <code>mode()</code> function to verify their modes. Try to guess what the mode will be before you look at the solution</p>
+<h2 id="exercise-create-objects-and-check-their-modes">Exercise: Create
+objects and check their modes</h2>
+<p>Create the following objects in R, then use the <code>mode()</code>
+function to verify their modes. Try to guess what the mode will be
+before you look at the solution</p>
 <ol style="list-style-type: decimal">
 <li><code>chromosome_name &lt;- 'chr02'</code></li>
 <li><code>od_600_value &lt;- 0.47</code></li>
@@ -554,17 +670,31 @@ pilot &lt;- Earhart</code></pre>
 <pre class="r"><code>mode(spock)</code></pre>
 <pre><code>[1] &quot;logical&quot;</code></pre>
 <pre class="r"><code>mode(pilot)</code></pre>
-<pre><code>Error in mode(pilot): object &#39;pilot&#39; not found</code></pre>
+<pre><code>[1] &quot;character&quot;</code></pre>
 </details>
 <p><br></p>
-<p>Notice from the solution that even if a series of numbers is given as a value R will consider them to be in the “character” mode if they are enclosed as single or double quotes. Also, notice that you cannot take a string of alphanumeric characters (e.g. Earhart) and assign as a value for an object. In this case, R looks for an object named <code>Earhart</code> but since there is no object, no assignment can be made. If <code>Earhart</code> did exist, then the mode of <code>pilot</code> would be whatever the mode of <code>Earhart</code> was originally. If we want to create an object called <code>pilot</code> that was the <strong>name</strong> “Earhart”, we need to enclose <code>Earhart</code> in quotation marks.</p>
+<p>Notice from the solution that even if a series of numbers is given as
+a value R will consider them to be in the “character” mode if they are
+enclosed as single or double quotes. Also, notice that you cannot take a
+string of alphanumeric characters (e.g. Earhart) and assign as a value
+for an object. In this case, R looks for an object named
+<code>Earhart</code> but since there is no object, no assignment can be
+made. If <code>Earhart</code> did exist, then the mode of
+<code>pilot</code> would be whatever the mode of <code>Earhart</code>
+was originally. If we want to create an object called <code>pilot</code>
+that was the <strong>name</strong> “Earhart”, we need to enclose
+<code>Earhart</code> in quotation marks.</p>
 <pre class="r"><code>pilot &lt;- &quot;Earhart&quot;
 mode(pilot)</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
 </div>
-<div id="mathematical-and-functional-operations-on-objects" class="section level2">
+<div id="mathematical-and-functional-operations-on-objects"
+class="section level2">
 <h2>Mathematical and functional operations on objects</h2>
-<p>Once an object exists (which by definition also means it has a mode), R can appropriately manipulate that object. For example, objects of the numeric modes can be added, multiplied, divided, etc. R provides several mathematical (arithmetic) operators including:</p>
+<p>Once an object exists (which by definition also means it has a mode),
+R can appropriately manipulate that object. For example, objects of the
+numeric modes can be added, multiplied, divided, etc. R provides several
+mathematical (arithmetic) operators including:</p>
 <table>
 <thead>
 <tr class="header">
@@ -606,14 +736,20 @@ mode(pilot)</code></pre>
 <p>These can be used with literal numbers:</p>
 <pre class="r"><code>(1 + (5 ** 0.5))/2</code></pre>
 <pre><code>[1] 1.618034</code></pre>
-<p>and importantly, can be used on any object that evaluates to (i.e. interpreted by R) a numeric object:</p>
+<p>and importantly, can be used on any object that evaluates to
+(i.e. interpreted by R) a numeric object:</p>
 <pre class="r"><code># multiply the object &#39;human_chr_number&#39; by 2
 
 human_chr_number * 2</code></pre>
 <pre><code>[1] 46</code></pre>
 <blockquote>
-<h2 id="exercise-compute-the-golden-ratio">Exercise: Compute the golden ratio</h2>
-<p>One approximation of the golden ratio (φ) can be found by taking the sum of 1 and the square root of 5, and dividing by 2 as in the example above. Compute the golden ratio to 3 digits of precision using the <code>sqrt()</code> and <code>round()</code> functions. Hint: remember the <code>round()</code> function can take 2 arguments.</p>
+<h2 id="exercise-compute-the-golden-ratio">Exercise: Compute the golden
+ratio</h2>
+<p>One approximation of the golden ratio (φ) can be found by taking the
+sum of 1 and the square root of 5, and dividing by 2 as in the example
+above. Compute the golden ratio to 3 digits of precision using the
+<code>sqrt()</code> and <code>round()</code> functions. Hint: remember
+the <code>round()</code> function can take 2 arguments.</p>
 </blockquote>
 <details>
 <summary>
@@ -627,10 +763,20 @@ Notice that you can place one function inside of another.
 </div>
 <div id="vectors" class="section level2">
 <h2>Vectors</h2>
-<p>Vectors are probably the most used commonly used object type in R. <strong>A vector is a collection of values that are all of the same type (numbers, characters, etc.)</strong>. One of the most common ways to create a vector is to use the <code>c()</code> function - the “concatenate” or “combine” function. Inside the function you may enter one or more values; for multiple values, separate each value with a comma:</p>
+<p>Vectors are probably the most used commonly used object type in R.
+<strong>A vector is a collection of values that are all of the same type
+(numbers, characters, etc.)</strong>. One of the most common ways to
+create a vector is to use the <code>c()</code> function - the
+“concatenate” or “combine” function. Inside the function you may enter
+one or more values; for multiple values, separate each value with a
+comma:</p>
 <pre class="r"><code># Create a vector of country names
 countries &lt;- c(&quot;Thailand&quot;,&quot;Lesotho&quot;,&quot;Suriname&quot;,&quot;Canada&quot;)</code></pre>
-<p>Vectors always have a <strong>mode</strong> and a <strong>length</strong>. You can check these with the <code>mode()</code> and <code>length()</code> functions respectively. Another useful function that gives both of these pieces of information is the <code>str()</code> (structure) function.</p>
+<p>Vectors always have a <strong>mode</strong> and a
+<strong>length</strong>. You can check these with the
+<code>mode()</code> and <code>length()</code> functions respectively.
+Another useful function that gives both of these pieces of information
+is the <code>str()</code> (structure) function.</p>
 <pre class="r"><code># Check the mode, length, and structure of &#39;countries&#39;
 mode(countries)</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
@@ -638,66 +784,94 @@ mode(countries)</code></pre>
 <pre><code>[1] 4</code></pre>
 <pre class="r"><code>str(countries)</code></pre>
 <pre><code> chr [1:4] &quot;Thailand&quot; &quot;Lesotho&quot; &quot;Suriname&quot; &quot;Canada&quot;</code></pre>
-<p>Vectors are quite important in R. Another data type that we will work with later in this lesson, data frames, are collections of vectors. What we learn here about vectors will pay off even more when we start working with data frames.</p>
+<p>Vectors are quite important in R. Another data type that we will work
+with later in this lesson, data frames, are collections of vectors. What
+we learn here about vectors will pay off even more when we start working
+with data frames.</p>
 </div>
 <div id="creating-and-subsetting-vectors" class="section level2">
 <h2>Creating and subsetting vectors</h2>
 <p>Let’s create a few more vectors to play around with:</p>
-<pre class="r"><code>country_tld &lt;- c(&#39;th&#39;, &#39;ls&#39;, &#39;sr&#39;, &#39;ca&#39;)
+<pre class="r"><code># Top level domain of country
+country_tld &lt;- c(&#39;th&#39;, &#39;ls&#39;, &#39;sr&#39;, &#39;ca&#39;)
+
+# Continent of country
 continents &lt;- c(&#39;Asia&#39;, &#39;Africa&#39;, &#39;South America&#39;, &#39;North America&#39;)
+
+# Population of country
 country_population &lt;- c(69950850, 2108328, 575990, 38436447) # Source: Wikipedia</code></pre>
-<p>Once we have vectors, one thing we may want to do is specifically retrieve one or more values from our vector. To do so, we use <strong>bracket notation</strong>. We type the name of the vector followed by square brackets. In those square brackets we place the index (e.g. a number) in that bracket as follows:</p>
+<p>Once we have vectors, one thing we may want to do is specifically
+retrieve one or more values from our vector. To do so, we use
+<strong>bracket notation</strong>. We type the name of the vector
+followed by square brackets. In those square brackets we place the index
+(e.g. a number) in that bracket as follows:</p>
 <pre class="r"><code># get the 3rd value in the countries vector
 countries[3]</code></pre>
 <pre><code>[1] &quot;Suriname&quot;</code></pre>
-<p>In R, every item your vector is indexed, starting from the first item (1) through to the final number of items in your vector. You can also retrieve a range of numbers:</p>
+<p>In R, every item in a vector is indexed, starting from the first item
+(1) through the final number of items in your vector. You can also
+retrieve a range of numbers:</p>
 <pre class="r"><code># get the 1st through 3rd value in the countries vector
-
 countries[1:3]</code></pre>
 <pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot;</code></pre>
-<p>If you want to retrieve several (but not necessarily sequential) items from a vector, you pass a <strong>vector of indices</strong>; a vector that has the numbered positions you wish to retrieve.</p>
+<p>If you want to retrieve several (but not necessarily sequential)
+items from a vector, you pass a <strong>vector of indices</strong>; a
+vector that has the numbered positions you wish to retrieve.</p>
 <pre class="r"><code># get the 1st, 3rd, and 4th value in the countries vector
-
 countries[c(1, 3, 4)]</code></pre>
 <pre><code>[1] &quot;Thailand&quot; &quot;Suriname&quot; &quot;Canada&quot;  </code></pre>
-<p>There are additional (and perhaps less commonly used) ways of subsetting a vector (see <a href="https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html">these examples</a>). Also, several of these subsetting expressions can be combined:</p>
+<p>There are additional (and perhaps less commonly used) ways of
+subsetting a vector (see <a
+href="https://thomasleeper.com/Rcourse/Tutorials/vectorindexing.html">these
+examples</a>). Also, several of these subsetting expressions can be
+combined:</p>
 <pre class="r"><code># get the 4th value, and then the 1st through the 3rd value
 # in other words, you can reorder the countries
 countries[c(4, 1:3)]</code></pre>
 <pre><code>[1] &quot;Canada&quot;   &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot;</code></pre>
 </div>
-<div id="adding-to-removing-or-replacing-values-in-existing-vectors" class="section level2">
+<div id="adding-to-removing-or-replacing-values-in-existing-vectors"
+class="section level2">
 <h2>Adding to, removing, or replacing values in existing vectors</h2>
-<p>Once you have an existing vector, you may want to add a new item to it. To do so, you can use the <code>c()</code> function again to add your new value:</p>
+<p>Once you have an existing vector, you may want to add a new item to
+it. To do so, you can use the <code>c()</code> function again to add
+your new value:</p>
 <pre class="r"><code># add the countries &#39;Bolivia&#39; and &#39;Tonga&#39; to our list of countries
 # this overwrites our existing vector
 countries &lt;- c(countries, &quot;Bolivia&quot;, &quot;Tonga&quot;)</code></pre>
 <p>We can verify that “countries” contains the new gene entry</p>
 <pre class="r"><code>countries</code></pre>
 <pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   &quot;Bolivia&quot;  &quot;Tonga&quot;   </code></pre>
-<p>Using a negative index will return a version of a vector with that index’s value removed:</p>
+<p>Using a negative index will return a version of a vector with that
+index’s value removed:</p>
 <pre class="r"><code>countries[-6]</code></pre>
 <pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   &quot;Bolivia&quot; </code></pre>
-<p>We can remove that value from our vector by overwriting it with this expression:</p>
+<p>We can remove that value from our vector by overwriting it with this
+expression:</p>
 <pre class="r"><code>countries &lt;- countries[-6]
 countries</code></pre>
 <pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   &quot;Bolivia&quot; </code></pre>
-<p>We can also explicitly rename or add a value to our index using double bracket notation:</p>
+<p>We can also explicitly rename or add a value to our index using
+double bracket notation:</p>
 <pre class="r"><code>countries[7]&lt;- &quot;Estonia&quot;
 countries</code></pre>
 <pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   &quot;Bolivia&quot;  NA         &quot;Estonia&quot; </code></pre>
-<p>Notice in the operation above that R inserts an <code>NA</code> value to extend our vector so that the gene “APOA5” is an index 7. This may be a good or not-so-good thing depending on how you use this.</p>
+<p>Notice in the operation above that R inserts an <code>NA</code> value
+to extend our vector so that the country “Estonia” is an index 7. This
+may be a good or not-so-good thing depending on how you use this.</p>
 <blockquote>
-<h2 id="exercise-examining-and-subsetting-vectors">Exercise: Examining and subsetting vectors</h2>
-<p>Answer the following questions to test your knowledge of vectors</p>
+<h2 id="exercise-examining-and-subsetting-vectors">Exercise: Examining
+and subsetting vectors</h2>
 <p>Are the following true or false of vectors in R?</p>
 <ol style="list-style-type: decimal">
 <li>All vectors have a mode <strong>or</strong> a length</li>
 <li>All vectors have a mode <strong>and</strong> a length</li>
 <li>Vectors may have different lengths</li>
 <li>Items within a vector may be of different modes</li>
-<li>You can use the <code>c()</code> to add one or more items to an existing vector</li>
-<li>You can use the <code>c()</code> to add a vector to an exiting vector</li>
+<li>You can use the <code>c()</code> function to add one or more items
+to an existing vector</li>
+<li>You can use the <code>c()</code> function to add a vector to an
+exiting vector</li>
 </ol>
 </blockquote>
 <details>
@@ -708,7 +882,8 @@ Solution
 <li>False - Vectors have both of these properties</li>
 <li>True</li>
 <li>True</li>
-<li>False - Vectors have only one mode (e.g. numeric, character); all items in a vector must be of this mode.</li>
+<li>False - Vectors have only one mode (e.g. numeric, character); all
+items in a vector must be of this mode.</li>
 <li>True</li>
 <li>True</li>
 </ol>
@@ -717,10 +892,17 @@ Solution
 </div>
 <div id="logical-subsetting" class="section level2">
 <h2>Logical Subsetting</h2>
-<p>There is one last set of subsetting capabilities we want to introduce. It is possible within R to retrieve items in a vector based on a logical evaluation or numerical comparison. For example, let’s say we wanted get all of the countries in our vector of country populations that were less than 10,000,000. We could index using the ‘&lt;’ (less than) logical operator:</p>
+<p>There is one last set of subsetting capabilities we want to
+introduce. It is possible within R to retrieve items in a vector based
+on a logical evaluation or numerical comparison. For example, let’s say
+we wanted get all of the countries in our vector of country populations
+that were less than 10,000,000. We could index using the ‘&lt;’ (less
+than) logical operator:</p>
 <pre class="r"><code>country_population[country_population &lt; 10000000]</code></pre>
 <pre><code>[1] 2108328  575990</code></pre>
-<p>In the square brackets you place the name of the vector followed by the comparison operator and (in this case) a numeric value. Some of the most common logical operators you will use in R are:</p>
+<p>In the square brackets you place the name of the vector followed by
+the comparison operator and (in this case) a numeric value.</p>
+<p>Some of the most common logical operators you will use in R are:</p>
 <table>
 <thead>
 <tr class="header">
@@ -769,39 +951,66 @@ Solution
 </table>
 <blockquote>
 <h2 id="the-power-of-programming">The power of programming</h2>
-<p>The reason why the expression <code>country_population[country_population &lt; 10000000]</code> works can be better understood if you examine what the expression “country_population &lt; 10000000” evaluates to:</p>
+<p>The reason why the expression
+<code>country_population[country_population &lt; 10000000]</code> works
+can be better understood if you examine what the expression
+<code>country_population &lt; 10000000</code> evaluates to:</p>
 <pre class="r"><code>country_population &lt; 10000000</code></pre>
 <pre><code>[1] FALSE  TRUE  TRUE FALSE</code></pre>
-<p>The output above is a logical vector, the 2nd and 3rd elements of which are TRUE. When you pass a logical vector as an index, R will return the TRUE values:</p>
+<p>The output above is a logical vector, the 2nd and 3rd elements of
+which are TRUE. When you pass a logical vector as an index, R will
+return the TRUE values:</p>
 <pre class="r"><code>country_population[c(FALSE, TRUE, TRUE, FALSE)]</code></pre>
 <pre><code>[1] 2108328  575990</code></pre>
-<p>If you have never coded before, this type of situation starts to expose the power of programming. We mentioned before that in the bracket notation you take your named vector followed by brackets which contain an index: <strong>named_vector[index]</strong>. The index needs to <em>evaluate to</em> a number. So, even if it does not appear to be an integer (e.g. 1, 2, 3), as long as R can evaluate it, we will get a result. That our expression <code>country_population &lt; 10000000</code> evaluates to a number can be seen in the following situation. If you wanted to know which <strong>indices</strong> (1, 2, 3, or 4) in our vector of country populations was less than 10,000,000, you could use the <code>which()</code> function.</p>
-<p>The <code>which()</code> function to returns the indices of any item that evaluates as TRUE in our comparison:</p>
+<p>If you have never coded before, this type of situation starts to
+expose the power of programming. We mentioned before that in the bracket
+notation you take your named vector followed by brackets which contain
+an index: <strong>named_vector[index]</strong>. The index needs to
+<em>evaluate to</em> a number. So, even if it does not appear to be an
+integer (e.g. 1, 2, 3), as long as R can evaluate it, we will get a
+result. That our expression
+<code>country_population &lt; 10000000</code> evaluates to a number can
+be seen in the following situation. If you wanted to know which
+<strong>indices</strong> (1, 2, 3, or 4) in our vector of country
+populations was less than 10,000,000, you could use the
+<code>which()</code> function.</p>
+<p>The <code>which()</code> function to returns the indices of any item
+that evaluates as TRUE in our comparison:</p>
 <pre class="r"><code>which(country_population &lt; 10000000)</code></pre>
 <pre><code>[1] 2 3</code></pre>
 <p><strong>Why this is important</strong></p>
-<p>Often in programming we will not know what inputs and values will be used when our code is executed. Rather than put in a pre-determined value (e.g 100000000) we can use an object that can take on whatever value we need. So for example:</p>
+<p>Often in programming we will not know what inputs and values will be
+used when our code is executed. Rather than put in a pre-determined
+value (e.g 10000000) we can use an object that can take on whatever
+value we need. So for example:</p>
 <pre class="r"><code>population_cutoff &lt;- 10000000
 country_population[country_population &lt; population_cutoff]</code></pre>
 <pre><code>[1] 2108328  575990</code></pre>
-<p>Ultimately, it’s putting together flexible, reusable code like this that gets at the power of programming.</p>
+<p>Ultimately, it’s putting together flexible, reusable code like this
+that gets at the power of programming.</p>
 </blockquote>
 </div>
 <div id="a-few-final-vector-tricks" class="section level2">
 <h2>A few final vector tricks</h2>
-<p>Finally, there are a few other common retrieve or replace operations you may want to know about. First, you can check to see if any of the values of your vector are missing (i.e. are <code>NA</code>). Missing data will get a more detailed treatment later, but the <code>is.NA()</code> function will return a logical vector, with TRUE for any NA value:</p>
+<p>Finally, there are a few other common retrieve or replace operations
+you may want to know about. First, you can check to see if any of the
+values of your vector are missing (i.e. are <code>NA</code>). The
+<code>is.NA()</code> function will return a logical vector, with TRUE
+for any <code>NA</code> value:</p>
 <pre class="r"><code># current value of &#39;countries&#39;:
 # chr [1:7] &quot;Thailand&quot; &quot;Lesotho&quot; &quot;Suriname&quot; &quot;Canada&quot; &quot;Bolivia&quot; NA &quot;Estonia&quot;
 
 is.na(countries)</code></pre>
 <pre><code>[1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</code></pre>
-<p>Sometimes, you may wish to find out if a specific value (or several values) is present a vector. You can do this using the comparison operator <code>%in%</code>, which will return TRUE for any value in your collection that is in the vector you are searching:</p>
+<p>Sometimes, you may wish to find out if a specific value (or several
+values) is present a vector. You can do this using the comparison
+operator <code>%in%</code>, which will return TRUE for any value in your
+collection that is in the vector you are searching:</p>
 <pre class="r"><code># current value of &#39;countries&#39;:
 # chr [1:7] &quot;Thailand&quot; &quot;Lesotho&quot; &quot;Suriname&quot; &quot;Canada&quot; &quot;Bolivia&quot; NA &quot;Estonia&quot;
 
 # test to see if &quot;Lesotho&quot; or &quot;Canada&quot; is in the countries vector
 # if you are looking for more than one value, you must pass this as a vector
-
 c(&quot;Lesotho&quot;,&quot;Canada&quot;) %in% countries</code></pre>
 <pre><code>[1] TRUE TRUE</code></pre>
 <blockquote>
@@ -843,7 +1052,8 @@ country_tld</code></pre>
 <pre><code>[1] &quot;th&quot; &quot;ls&quot; &quot;sr&quot; &quot;ca&quot; &quot;bo&quot;</code></pre>
 <pre class="r"><code>continents &lt;- c(continents, &quot;South America&quot;) # did you use quotes?
 continents</code></pre>
-<pre><code>[1] &quot;Asia&quot;          &quot;Africa&quot;        &quot;South America&quot; &quot;North America&quot; &quot;South America&quot;</code></pre>
+<pre><code>[1] &quot;Asia&quot;          &quot;Africa&quot;        &quot;South America&quot; &quot;North America&quot;
+[5] &quot;South America&quot;</code></pre>
 <pre class="r"><code>country_population &lt;- c(country_population, 11428245)
 country_population</code></pre>
 <pre><code>[1] 69950850  2108328   575990 38436447 11428245</code></pre>
@@ -853,12 +1063,15 @@ country_population</code></pre>
 <h2 id="review-exercise-3">Review Exercise 3</h2>
 <p>Make the following change to the <code>countries</code> vector:</p>
 <ol style="list-style-type: decimal">
-<li>Create a new version of <code>countries</code> that does not contain Bolivia and then</li>
+<li>Create a new version of <code>countries</code> that does not contain
+Bolivia and then</li>
 <li>Add 2 NA values to the end of <code>countries</code></li>
 </ol>
-<p><strong>Hint</strong>: Your vector should look like this in ‘Environment’:</p>
+<p><strong>Hint</strong>: Before starting, your vector should look like
+this in ‘Environment’:</p>
 <p><code>chr [1:7] "Thailand" "Lesotho" "Suriname" "Canada" "Bolivia" NA "Estonia"</code>.</p>
-<p>If not recreate the vector by running this expression:</p>
+<p><strong>If not</strong> recreate the vector by running this
+expression:</p>
 <p><code>countries &lt;- c("Thailand", "Lesotho", "Suriname", "Canada", "Bolivia", NA, "Estonia")</code></p>
 </blockquote>
 <details>
@@ -868,12 +1081,14 @@ Solution
 <pre class="r"><code>countries &lt;- countries[-5]
 countries &lt;- c(countries, NA, NA)
 countries</code></pre>
-<pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   NA         &quot;Estonia&quot;  NA         NA        </code></pre>
+<pre><code>[1] &quot;Thailand&quot; &quot;Lesotho&quot;  &quot;Suriname&quot; &quot;Canada&quot;   NA         &quot;Estonia&quot;  NA        
+[8] NA        </code></pre>
 </details>
 <p><br></p>
 <blockquote>
 <h2 id="review-exercise-4">Review Exercise 4</h2>
-<p>Using indexing, create a new vector named <code>combined</code> that contains:</p>
+<p>Using indexing, create a new vector named <code>combined</code> that
+contains:</p>
 <ul>
 <li>The the 1st value in <code>countries</code></li>
 <li>The 1st value in <code>country_tld</code></li>
@@ -892,7 +1107,7 @@ combined</code></pre>
 <p><br></p>
 <blockquote>
 <h2 id="review-exercise-5">Review Exercise 5</h2>
-<p>What type of data is <code>combined</code>?</p>
+<p>What type of data is <code>combined</code>? Why?</p>
 </blockquote>
 <details>
 <summary>
@@ -905,7 +1120,14 @@ Solution
 </div>
 <div id="bonus-material-lists" class="section level2">
 <h2>Bonus material: Lists</h2>
-<p>Lists are quite useful in R, but we won’t be using them in the these lessons. That said, you may come across lists in the way that some bioinformatics programs may store and/or return data to you. One of the key attributes of a list is that, unlike a vector, a list may contain data of more than one mode. Learn more about creating and using lists using this <a href="https://r4ds.had.co.nz/vectors.html#lists">nice tutorial</a>. In this one example, we will create a named list and show you how to retrieve items from the list.</p>
+<p>Lists are quite useful in R, but we won’t be using them in the these
+lessons. That said, you may come across lists in the way that some
+bioinformatics programs may store and/or return data to you. One of the
+key attributes of a list is that, unlike a vector, a list may contain
+data of more than one mode. Learn more about creating and using lists
+using this <a href="https://r4ds.had.co.nz/vectors.html#lists">nice
+tutorial</a>. In this one example, we will create a named list and show
+you how to retrieve items from the list.</p>
 <pre class="r"><code># Create a named list using the &#39;list&#39; function and our country examples
 # Note, for easy reading we have placed each item in the list on a separate line
 # Nothing special about this, you can do this for any multiline commands
@@ -922,12 +1144,14 @@ str(country_data)</code></pre>
  $ country_tld       : chr [1:5] &quot;th&quot; &quot;ls&quot; &quot;sr&quot; &quot;ca&quot; ...
  $ continents        : chr [1:5] &quot;Asia&quot; &quot;Africa&quot; &quot;South America&quot; &quot;North America&quot; ...
  $ country_population: num [1:5] 69950850 2108328 575990 38436447 11428245</code></pre>
-<p>To get all the values for the <code>position</code> object in the list, we use the <code>$</code> notation:</p>
+<p>To get all the values for the <code>position</code> object in the
+list, we use the <code>$</code> notation:</p>
 <pre class="r"><code># return all the values of country_population object
 
 country_data$country_population</code></pre>
 <pre><code>[1] 69950850  2108328   575990 38436447 11428245</code></pre>
-<p>To get the first value in the <code>country_population</code> object, use the <code>[]</code> notation to index:</p>
+<p>To get the first value in the <code>country_population</code> object,
+use the <code>[]</code> notation to index:</p>
 <pre class="r"><code># return first value of the country_population object
 
 country_data$country_population[1]</code></pre>
