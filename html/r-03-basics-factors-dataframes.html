@@ -322,7 +322,8 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">R Basics continued - factors and data frames</h1>
+<h1 class="title toc-ignore">R Basics continued - factors and data
+frames</h1>
 
 </div>
 
@@ -371,30 +372,76 @@ source: Rmd
 -->
 <div id="working-with-spreadsheets-tabular-data" class="section level2">
 <h2>Working with spreadsheets (tabular data)</h2>
-<p>A substantial amount of the data is tabular in form, this is data arranged in rows and columns - also known as spreadsheets. We could write a whole lesson on how to work with spreadsheets effectively (<a href="https://datacarpentry.org/organization-genomics/">actually we did</a>). For our purposes, we want to remind you of a few principles before we work with our first set of example data:</p>
+<p>A substantial amount of data is tabular, that is data arranged in
+rows and columns - also known as spreadsheets. We could write a whole
+lesson on how to work with spreadsheets effectively (<a
+href="https://datacarpentry.org/organization-genomics/">actually, Data
+Carpentry has</a>). For our purposes, we want to remind you of a few
+principles before we work with our first set of example data:</p>
 <p><strong>1) Keep raw data separate from analyzed data</strong></p>
-<p>This is principle number one because if you can’t tell which files are the original raw data, you risk making some serious mistakes (e.g. drawing conclusion from data which have been manipulated in some unknown way).</p>
+<p>This is principle number one because if you can’t tell which files
+are the original raw data, you risk making some serious mistakes
+(e.g. drawing conclusion from data which have been manipulated in some
+unknown way).</p>
 <p><strong>2) Keep spreadsheet data Tidy</strong></p>
-<p>The simplest principle of <strong>Tidy data</strong> is that we have one row in our spreadsheet for each observation or sample, and one column for every variable that we measure or report on. As simple as this sounds, it’s very easily violated. Most data scientists agree that significant amounts of their time is spent tidying data for analysis. Read more about data organization in <a href="https://datacarpentry.org/organization-genomics/">our lesson</a> and in <a href="https://www.jstatsoft.org/article/view/v059i10">this paper</a>.</p>
+<p>The simplest principle of <strong>Tidy data</strong> is that we have
+one row in our spreadsheet for each observation or sample, and one
+column for every variable that we measure or report on. As simple as
+this sounds, it’s very easily violated. Most data scientists agree that
+significant amounts of their time is spent tidying data for analysis.
+Read more about data organization in <a
+href="https://datacarpentry.org/organization-genomics/">this lesson</a>
+and in <a href="https://www.jstatsoft.org/article/view/v059i10">this
+paper</a>.</p>
 <p><strong>3) Trust but verify</strong></p>
-<p>Finally, while you don’t need to be paranoid about data, you should have a plan for how you will prepare it for analysis. <strong>This a focus of this lesson.</strong> You probably already have a lot of intuition, expectations, assumptions about your data - the range of values you expect, how many values should have been recorded, etc. Of course, as the data get larger our human ability to keep track will start to fail (and yes, it can fail for small data sets too). R will help you to examine your data so that you can have greater confidence in your analysis, and its reproducibility.</p>
+<p>Finally, while you don’t need to be paranoid about data, you should
+have a plan for how you will prepare it for analysis. <strong>This a
+focus of this lesson.</strong> You probably already have a lot of
+intuition, expectations, assumptions about your data - the range of
+values you expect, how many values should have been recorded, etc. Of
+course, as the data get larger our human ability to keep track will
+start to fail (and yes, it can fail for small data sets too). R will
+help you to examine your data so that you can have greater confidence in
+your analysis, and its reproducibility.</p>
 <blockquote>
-<h2 id="tip-keeping-you-raw-data-separate">Tip: Keeping you raw data separate</h2>
-<p>When you work with data in R, you are not changing the original file you loaded that data from. This is different than (for example) working with a spreadsheet program where changing the value of the cell leaves you one “save”-click away from overwriting the original file. You have to purposely use a writing function (e.g. <code>write.csv()</code>) to save data loaded into R. In that case, be sure to save the manipulated data into a new file. More on this later in the lesson.</p>
+<h2 id="tip-keeping-you-raw-data-separate">Tip: Keeping you raw data
+separate</h2>
+<p>When you work with data in R, you are not changing the original file
+you loaded that data from. This is different than (for example) working
+with a spreadsheet program where changing the value of the cell leaves
+you one “save”-click away from overwriting the original file. You have
+to purposely use a writing function (e.g. <code>write.csv()</code>) to
+save data loaded into R. In that case, be sure to save the manipulated
+data into a new file. More on this later in the lesson.</p>
 </blockquote>
 </div>
 <div id="importing-tabular-data-into-r" class="section level2">
 <h2>Importing tabular data into R</h2>
-<p>There are several ways to import data into R. For our purpose here, we will focus on using the tools every R installation comes with (so called “base” R) to import a comma-delimited file containing the results of our variant calling workflow. We will need to load the sheet using a function called <code>read.csv()</code>.</p>
+<p>There are several ways to import data into R. For our purpose here,
+we will focus on using the tools every R installation comes with (so
+called “base” R) to import a comma-delimited file containing the results
+of our variant calling workflow. We will need to load the sheet using a
+function called <code>read.csv()</code>.</p>
 <blockquote>
-<h2 id="exercise-review-the-arguments-of-the-read.csv-function">Exercise: Review the arguments of the <code>read.csv()</code> function</h2>
-<p><strong>Before using the <code>read.csv()</code> function, use R’s help feature to answer the following questions</strong>.</p>
-<p><em>Hint</em>: Entering ‘?’ before the function name and then running that line will bring up the help documentation. Also, when reading this particular help be careful to pay attention to the ‘read.csv’ expression under the ‘Usage’ heading. Other answers will be in the ‘Arguments’ heading.</p>
+<h2
+id="exercise-review-the-arguments-of-the-read.csv-function">Exercise:
+Review the arguments of the <code>read.csv()</code> function</h2>
+<p><strong>Before using the <code>read.csv()</code> function, use R’s
+help feature to answer the following questions</strong>.</p>
+<p><em>Hint</em>: Entering ‘?’ before the function name and then running
+that line will bring up the help documentation. Also, when reading this
+particular help be careful to pay attention to the ‘read.csv’ expression
+under the ‘Usage’ heading. Other answers will be in the ‘Arguments’
+heading.</p>
 <ol style="list-style-type: decimal">
-<li>What is the default parameter for ‘header’ in the <code>read.csv()</code> function?</li>
-<li>What argument would you have to change to read a file that was delimited by semicolons (;) rather than commas?</li>
-<li>What argument would you have to change to read file in which numbers used commas for decimal separation (i.e. 1,00)?</li>
-<li>What argument would you have to change to read in only the first 10,000 rows of a very large file?</li>
+<li>What is the default parameter for ‘header’ in the
+<code>read.csv()</code> function?</li>
+<li>What argument would you have to change to read a file that was
+delimited by semicolons (;) rather than commas?</li>
+<li>What argument would you have to change to read file in which numbers
+used commas for decimal separation (i.e. 1,00)?</li>
+<li>What argument would you have to change to read in only the first
+10,000 rows of a very large file?</li>
 </ol>
 </blockquote>
 <details>
@@ -402,139 +449,245 @@ source: Rmd
 Solution
 </summary>
 <ol style="list-style-type: decimal">
-<li>The <code>read.csv()</code> function has the argument ‘header’ set to TRUE by default, this means the function always assumes the first row is header information, (i.e. column names)</li>
-<li>The <code>read.csv()</code> function has the argument ‘sep’ set to “,”. This means the function assumes commas are used as delimiters, as you would expect. Changing this parameter (e.g. <code>sep=";"</code>) would now interpret semicolons as delimiters.</li>
-<li>Although it is not listed in the <code>read.csv()</code> usage, <code>read.csv()</code> is a “version” of the function <code>read.table()</code> and accepts all its arguments. If you set <code>dec=","</code> you could change the decimal operator. We’d probably assume the delimiter is some other character.</li>
-<li>You can set <code>nrow</code> to a numeric value (e.g. <code>nrow=10000</code>) to choose how many rows of a file you read in. This may be useful for very large files where not all the data is needed to test some data cleaning steps you are applying.</li>
+<li>The <code>read.csv()</code> function has the argument ‘header’ set
+to TRUE by default, this means the function always assumes the first row
+is header information, (i.e. column names)</li>
+<li>The <code>read.csv()</code> function has the argument ‘sep’ set to
+“,”. This means the function assumes commas are used as delimiters, as
+you would expect. Changing this parameter (e.g. <code>sep=";"</code>)
+would now interpret semicolons as delimiters.</li>
+<li>Although it is not listed in the <code>read.csv()</code> usage,
+<code>read.csv()</code> is a “version” of the function
+<code>read.table()</code> and accepts all its arguments. If you set
+<code>dec=","</code> you could change the decimal operator. We’d
+probably assume the delimiter is some other character.</li>
+<li>You can set <code>nrow</code> to a numeric value
+(e.g. <code>nrow=10000</code>) to choose how many rows of a file you
+read in. This may be useful for very large files where not all the data
+is needed to test some data cleaning steps you are applying.</li>
 </ol>
-Hopefully, this exercise gets you thinking about using the provided help documentation in R. There are many arguments that exist, but which we wont have time to cover. Look here to get familiar with functions you use frequently, you may be surprised at what you find they can do.
+Hopefully, this exercise gets you thinking about using the provided help
+documentation in R. There are many arguments that exist, but which we
+wont have time to cover. Look here to get familiar with functions you
+use frequently, you may be surprised at what you find they can do.
 </details>
 <p><br></p>
-<p>Now, let’s read in the file <code>data/gapminder_data.csv</code> which will be located in <code>/home/workshop/user/CF_R/data/gapminder_data.csv</code>. Call this data <code>gapminder</code>. The first argument to pass to our <code>read.csv()</code> function is the file path for our data. The file path must be in quotes and now is a good time to remember to use tab autocompletion. <strong>If you use tab autocompletion you avoid typos and errors in file paths.</strong> Use it!</p>
+<p>Now, let’s read in the file <code>data/gapminder_data.csv</code>
+which will be located in
+<code>/home/workshop/user/CF_R/data/gapminder_data.csv</code>. Call this
+data <code>gapminder</code>. The first argument to pass to our
+<code>read.csv()</code> function is the file path for our data. The file
+path must be in quotes and now is a good time to remember to use tab
+autocompletion. <strong>If you use tab autocompletion you avoid typos
+and errors in file paths.</strong> Use it!</p>
 <pre class="r"><code>## read in a CSV file and save it as &#39;gapminder&#39;
 
-gapminder &lt;- read.csv(&quot;/home/workshop/user/CF_R/data/gapminder_data.csv&quot;)</code></pre>
-<p>One of the first things you should notice is that in the Environment window, you have the <code>gapminder</code> object, listed as 1704 obs. (observations/rows) of 6 variables (columns). Double-clicking on the name of the object will open a view of the data in a new tab.</p>
+gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;)</code></pre>
+<p>One of the first things you should notice is that in the Environment
+window, you have the <code>gapminder</code> object, listed as 1704 obs.
+(observations/rows) of 6 variables (columns). Double-clicking on the
+name of the object will open a view of the data in a new tab.</p>
 <p><img src="images/rstudio_dataframeview.png" alt="rstudio data frame view" style="width: 1000px;"/></p>
 </div>
-<div id="summarizing-subsetting-and-determining-the-structure-of-a-data-frame." class="section level2">
-<h2>Summarizing, subsetting, and determining the structure of a data frame.</h2>
-<p>A <strong>data frame is the standard way in R to store tabular data</strong>. A data fame could also be thought of as a collection of vectors, all of which have the same length. Using only two functions, we can learn a lot about out data frame including some summary statistics as well as well as the “structure” of the data frame. Let’s examine what each of these functions can tell us:</p>
+<div
+id="summarizing-subsetting-and-determining-the-structure-of-a-data-frame."
+class="section level2">
+<h2>Summarizing, subsetting, and determining the structure of a data
+frame.</h2>
+<p>A <strong>data frame is the standard way in R to store tabular
+data</strong>. A data fame could also be thought of as a collection of
+vectors, all of which have the same length. Using only two functions, we
+can learn a lot about out data frame including some summary statistics
+as well as well as the “structure” of the data frame. Let’s examine what
+each of these functions can tell us:</p>
 <pre class="r"><code>## get summary statistics on a data frame
 
 summary(gapminder)</code></pre>
-<pre><code>   country               year           pop             continent            lifeExp     
- Length:1704        Min.   :1952   Min.   :6.001e+04   Length:1704        Min.   :23.60  
- Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Class :character   1st Qu.:48.20  
- Mode  :character   Median :1980   Median :7.024e+06   Mode  :character   Median :60.71  
-                    Mean   :1980   Mean   :2.960e+07                      Mean   :59.47  
-                    3rd Qu.:1993   3rd Qu.:1.959e+07                      3rd Qu.:70.85  
-                    Max.   :2007   Max.   :1.319e+09                      Max.   :82.60  
-   gdpPercap       
- Min.   :   241.2  
- 1st Qu.:  1202.1  
- Median :  3531.8  
- Mean   :  7215.3  
- 3rd Qu.:  9325.5  
- Max.   :113523.1  </code></pre>
-<p>Our data frame had 6 variables, so we get 6 fields that summarize the data. The <code>year</code>, <code>pop</code>, <code>lifeExp</code> and <code>gdpPercap</code> variables are numerical data and so you get summary statistics on the min and max values for these columns, as well as mean, median, and interquartile ranges. The other variables, <code>country</code> and <code>continent</code>, are treated as characters data (more on this in a bit).</p>
-<p>There is a lot to work with, so we will subset the first three columns into a new data frame using the <code>data.frame()</code> function.</p>
-<pre class="r"><code>## put the first three, and the last, columns of gapminder into a new data frame called subset
-
-subset &lt;- data.frame(gapminder[,c(1:3,6)])</code></pre>
-<p>Now, let’s use the <code>str()</code> (structure) function to look a little more closely at how data frames work:</p>
+<pre><code>   country               year           pop             continent        
+ Length:1704        Min.   :1952   Min.   :6.001e+04   Length:1704       
+ Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Class :character  
+ Mode  :character   Median :1980   Median :7.024e+06   Mode  :character  
+                    Mean   :1980   Mean   :2.960e+07                     
+                    3rd Qu.:1993   3rd Qu.:1.959e+07                     
+                    Max.   :2007   Max.   :1.319e+09                     
+    lifeExp        gdpPercap       
+ Min.   :23.60   Min.   :   241.2  
+ 1st Qu.:48.20   1st Qu.:  1202.1  
+ Median :60.71   Median :  3531.8  
+ Mean   :59.47   Mean   :  7215.3  
+ 3rd Qu.:70.85   3rd Qu.:  9325.5  
+ Max.   :82.60   Max.   :113523.1  </code></pre>
+<p>Our data frame has 6 variables, so we get 6 fields that summarize the
+data. The <code>year</code>, <code>pop</code>, <code>lifeExp</code> and
+<code>gdpPercap</code> variables are numerical data and so you get
+summary statistics on the min and max values for these columns, as well
+as mean, median, and interquartile ranges. The other variables,
+<code>country</code> and <code>continent</code>, are treated as
+characters data (more on this in a bit).</p>
+<p>Now let’s use the <code>str()</code> (structure) function to look a
+little more closely at how data frames work:</p>
 <pre class="r"><code>## get the structure of a data frame
-
-str(subset)</code></pre>
-<pre><code>&#39;data.frame&#39;:   1704 obs. of  4 variables:
+str(gapminder)</code></pre>
+<pre><code>&#39;data.frame&#39;:   1704 obs. of  6 variables:
  $ country  : chr  &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; ...
  $ year     : int  1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
  $ pop      : num  8425333 9240934 10267083 11537966 13079460 ...
+ $ continent: chr  &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; ...
+ $ lifeExp  : num  28.8 30.3 32 34 36.1 ...
  $ gdpPercap: num  779 821 853 836 740 ...</code></pre>
 <p>Some things to notice.</p>
 <ul>
-<li>the object type <code>data.frame</code> is displayed in the first row along with its dimensions, in this case 1704 observations (rows) and 4 variables (columns)</li>
-<li>Each variable (column) has a name (e.g. <code>country</code>). This is followed by the object mode (e.g. chr, int, etc.). Notice that before each variable name there is a <code>$</code> - this will be important later.</li>
+<li>the object type <code>data.frame</code> is displayed in the first
+row along with its dimensions, in this case 1704 observations (rows) and
+6 variables (columns)</li>
+<li>Each variable (column) has a name (e.g. <code>country</code>). This
+is followed by the object mode (e.g. chr, int, etc.). Notice that before
+each variable name there is a <code>$</code> - this will be important
+later.</li>
 </ul>
 </div>
 <div id="introducing-factors" class="section level2">
 <h2>Introducing Factors</h2>
-<p>Factors are the final major data structure we will introduce in our R genomics lessons. Factors can be thought of as vectors which are specialized for categorical data. Given R’s specialization for statistics, this make sense since categorial and continuous variables are usually treated differently. Sometimes you may want to have data treated as a factor, but in other cases, this may be undesirable.</p>
-<p>Let’s see the value of treating variables, some of which are categorical in nature, as factors. Let’s take a look at just the continents.</p>
+<p>Factors are the final major data structure we will introduce in our R
+lessons. Factors can be thought of as vectors which are specialized for
+categorical data. Given R’s specialization for statistics, this make
+sense since categorial and continuous variables are usually treated
+differently. Sometimes you may want to have data treated as a factor,
+but in other cases, this may be undesirable.</p>
+<p>Let’s see the value of treating variables, some of which are
+categorical in nature, as factors. Let’s take a look at just the
+continents.</p>
 <pre class="r"><code>## extract the &quot;continent&quot; column to a new object
-
 continents &lt;- gapminder$continent</code></pre>
-<p>Let’s take a look at continents and see what we get:</p>
+<p>Notice the use of the <code>$</code>, which corresponds to the output
+of <code>str()</code> above. Let’s take a look at continents and see
+what we get:</p>
 <pre class="r"><code>head(continents, 30)</code></pre>
-<pre><code> [1] &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;  
-[12] &quot;Asia&quot;   &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot;
-[23] &quot;Europe&quot; &quot;Europe&quot; &quot;Africa&quot; &quot;Africa&quot; &quot;Africa&quot; &quot;Africa&quot; &quot;Africa&quot; &quot;Africa&quot;</code></pre>
-<p>There are 1704 continents (one for each row), and it looks like a lot of them are repeated. Let’s determine what the unique values are.</p>
+<pre><code> [1] &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;  
+ [9] &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Asia&quot;   &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot;
+[17] &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot; &quot;Europe&quot;
+[25] &quot;Africa&quot; &quot;Africa&quot; &quot;Africa&quot; &quot;Africa&quot; &quot;Africa&quot; &quot;Africa&quot;</code></pre>
+<p>There are 1704 continents (one for each row), and it looks like a lot
+of them are repeated. Let’s determine what the unique values are.</p>
 <pre class="r"><code>unique(continents)</code></pre>
 <pre><code>[1] &quot;Asia&quot;     &quot;Europe&quot;   &quot;Africa&quot;   &quot;Americas&quot; &quot;Oceania&quot; </code></pre>
-<p>This leaves us with just 5 continents. Right now, they are being treated as characters, but we could treat them as categories (after all, the number of continents is fixed, as well as their names, for the time being). Doing this will have some nice downstream effects. Let’s try to generate a plot of the <code>continents</code> character vector as it is right now:</p>
+<p>This leaves us with just 5 continents. Right now, they are being
+treated as characters, but we could treat them as categories (after all,
+the number and names of the continents is fixed, for the time being).
+Doing this will have some nice downstream effects. Let’s try to generate
+a plot of the <code>continents</code> character vector as it is right
+now:</p>
 <pre class="r"><code>plot(continents)</code></pre>
 <pre><code>Warning in xy.coords(x, y, xlabel, ylabel, log): NAs introduced by coercion</code></pre>
 <pre><code>Warning in min(x): no non-missing arguments to min; returning Inf</code></pre>
 <pre><code>Warning in max(x): no non-missing arguments to max; returning -Inf</code></pre>
 <pre><code>Error in plot.window(...): need finite &#39;ylim&#39; values</code></pre>
-<p>Nope! Though the <code>plot()</code> function will do its best to give us a quick plot, it is unable to do so here. One way to fix this it to tell R to treat the continents as categories (i.e. a factor vector); we will create a new object to avoid confusion using the <code>factor()</code> function:</p>
+<p>Nope! Though the <code>plot()</code> function will do its best to
+give us a quick plot, it is unable to do so here. One way to fix this it
+to tell R to treat the continents as categories (i.e. a factor vector);
+we will create a new object to avoid confusion using the
+<code>factor()</code> function:</p>
 <pre class="r"><code>factor_continents &lt;- factor(continents)</code></pre>
 <p>Let’s learn a little more about this new type of vector:</p>
 <pre class="r"><code>str(factor_continents)</code></pre>
 <pre><code> Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...</code></pre>
-<p>The categories (“Africa”, “Americas”, etc.) of the factor are returned; these are called “Levels”. <strong>Levels are the different categories contained in a factor</strong>. By default, R will organize the levels in a factor in alphabetical order. So the first level in this factor is “Africa”.</p>
-<p>For the sake of efficiency, R stores the content of a factor as a vector of integers, where an integer is assigned to each of the possible levels. We can see that by the output:</p>
+<p>The categories (“Africa”, “Americas”, etc.) of the factor are
+returned; these are called “Levels”. <strong>Levels are the different
+categories contained in a factor</strong>. By default, R will organize
+the levels in a factor in alphabetical order. So the first level in this
+factor is “Africa”.</p>
+<p>For the sake of efficiency, R stores the content of a factor as a
+vector of integers, where an integer is assigned to each of the possible
+levels. We can see that by the output:</p>
 <pre><code>Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...</code></pre>
-<p>But why does <code>str()</code> display <code>3 3 3 3 3 ...</code>? Let’s take a look at the head of <code>factor_continents</code>:</p>
+<p>But why does <code>str()</code> display 3 repeated? Let’s take a look
+at the head of <code>factor_continents</code>:</p>
 <pre class="r"><code>head(factor_continents)</code></pre>
 <pre><code>[1] Asia Asia Asia Asia Asia Asia
 Levels: Africa Americas Asia Europe Oceania</code></pre>
-<p>We see repeated values of “Asia”. Notice the levels of the factor are also displayed, and “Asia” is the third in the list, hence the 3.</p>
+<p>We see repeated values of “Asia”. Notice the levels of the factor are
+also displayed, and “Asia” is the third in the list, hence the 3.</p>
 <p>We can see how many items in our vector are in each category:</p>
 <pre class="r"><code>summary(factor_continents)</code></pre>
 <pre><code>  Africa Americas     Asia   Europe  Oceania 
      624      300      396      360       24 </code></pre>
-<p>As you can imagine, this is useful when you want to generate a tally.</p>
+<p>As you can imagine, this is useful when you want to generate a
+tally.</p>
 <blockquote>
-<h2 id="tip-treating-objects-as-categories-without-changing-their-mode">Tip: treating objects as categories without changing their mode</h2>
-<p>You don’t have to make an object a factor to get the benefits of treating an object as a factor. See what happens when you use the <code>as.factor()</code> function on <code>continents</code>. To generate a tally, you can sometimes also use the <code>table()</code> function; though sometimes you may need to combine both (i.e. <code>table(as.factor(object))</code>)</p>
+<h2
+id="tip-treating-objects-as-categories-without-changing-their-mode">Tip:
+treating objects as categories without changing their mode</h2>
+<p>You don’t have to make an object a factor to get the benefits of
+treating an object as a factor. See what happens when you use the
+<code>as.factor()</code> function on <code>continents</code>. To
+generate a tally, you can sometimes also use the <code>table()</code>
+function; though sometimes you may need to combine both
+(i.e. <code>table(as.factor(object))</code>)</p>
 </blockquote>
 </div>
 <div id="plotting-and-ordering-factors" class="section level2">
 <h2>Plotting and ordering factors</h2>
-<p>One of the most common uses for factors will be when you plot categorical values. For example, suppose we want to know how many of our gapminder had each possible SNP we could generate a plot:</p>
+<p>One of the most common uses for factors will be when you plot
+categorical values. For example, suppose we want to know how many of our
+gapminder had each possible SNP we could generate a plot:</p>
 <pre class="r"><code>plot(factor_continents)</code></pre>
-<p><img src="fig/03-unnamed-chunk-12-1.png" width="816" style="display: block; margin: auto;" /></p>
-<p>This isn’t a particularly spectacular example of a plot but it works, and it recapitulates the table from <code>summary()</code>. We’ll be learning much more about creating nice, publication-quality graphics later in this lesson.</p>
-<p>If you recall, factors are ordered alphabetically. That might make sense, but some categories (e.g., “red”, “blue”, “green”) often do not have an intrinsic order. What if we wanted to order our plot according to the numerical value (i.e., in ascending order of continent frequency)? We can enforce an order on our factors:</p>
+<p><img src="fig/03-unnamed-chunk-11-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>This isn’t a particularly spectacular example of a plot but it works,
+and it recapitulates the table from <code>summary()</code>. We’ll be
+learning much more about creating nice, publication-quality graphics
+later in the workshop.</p>
+<p>If you recall, factors are ordered alphabetically. That might make
+sense, but some categories (e.g., “red”, “blue”, “green”) often do not
+have an intrinsic order. What if we wanted to order our plot according
+to the numerical value (i.e., in ascending order of continent
+frequency)? We can enforce an order on our factors:</p>
 <pre class="r"><code>ordered_factor_continents &lt;- factor(factor_continents, levels = names(sort(table(factor_continents))))
 
 # And let&#39;s quickly look at the result
 head(ordered_factor_continents, 20)</code></pre>
-<pre><code> [1] Asia   Asia   Asia   Asia   Asia   Asia   Asia   Asia   Asia   Asia   Asia   Asia   Europe Europe
-[15] Europe Europe Europe Europe Europe Europe
+<pre><code> [1] Asia   Asia   Asia   Asia   Asia   Asia   Asia   Asia   Asia   Asia  
+[11] Asia   Asia   Europe Europe Europe Europe Europe Europe Europe Europe
 Levels: Oceania Americas Europe Asia Africa</code></pre>
-<p>Notice here that the order of the elements in the factor didn’t change, but the order of the <strong>levels</strong> did.</p>
-<p>Let’s deconstruct this from the inside out (you can try each of these commands to see why this works):</p>
+<p>Notice here that the order of the elements in the factor didn’t
+change, but the order of the <strong>levels</strong> did.</p>
+<p>Let’s deconstruct this from the inside out (you can try each of these
+commands to see why this works):</p>
 <ol style="list-style-type: decimal">
-<li>We create a table of <code>factor_continents</code> to get the frequency of each continent: <code>table(factor_continents)</code></li>
-<li>We sort this table: <code>sort(table(factor_continents))</code>; use the <code>decreasing =</code> parameter for this function if you wanted to change from the default of FALSE</li>
-<li>Using the <code>names</code> function gives us just the character names of the table sorted by frequencies:<code>names(sort(table(factor_continents)))</code></li>
-<li>The <code>factor</code> function is what allows us to create a factor. We give it the <code>factor_continents</code> object as input, and use the <code>levels=</code> parameter to enforce the ordering of the levels.</li>
+<li>We create a table of <code>factor_continents</code> to get the
+frequency of each continent: <code>table(factor_continents)</code></li>
+<li>We sort this table: <code>sort(table(factor_continents))</code>; use
+the <code>decreasing =</code> parameter for this function if you wanted
+to change from the default of FALSE</li>
+<li>Using the <code>names</code> function gives us just the character
+names of the table sorted by
+frequencies:<code>names(sort(table(factor_continents)))</code></li>
+<li>The <code>factor</code> function is what allows us to create a
+factor. We give it the <code>factor_continents</code> object as input,
+and use the <code>levels=</code> parameter to enforce the ordering of
+the levels.</li>
 </ol>
 <p>Now we see our plot has be reordered:</p>
 <pre class="r"><code>plot(ordered_factor_continents)</code></pre>
-<p><img src="fig/03-unnamed-chunk-14-1.png" width="816" style="display: block; margin: auto;" /></p>
-<p>Factors come in handy in many places when using R. Even using more sophisticated plotting packages such as ggplot2 will sometimes require you to understand how to manipulate factors.</p>
+<p><img src="fig/03-unnamed-chunk-13-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Factors come in handy in many places when using R. Even using more
+sophisticated plotting packages such as ggplot2 will sometimes require
+you to understand how to manipulate factors.</p>
 </div>
 <div id="subsetting-data-frames" class="section level2">
 <h2>Subsetting data frames</h2>
-<p>Next, we are going to talk about how you can get specific values from data frames, and where necessary, change the mode of a column of values.</p>
-<p>The first thing to remember is that a data frame is two-dimensional (rows and columns). Therefore, to select a specific value we will will once again use <code>[]</code> (bracket) notation, but we will specify more than one value (except in some cases where we are taking a range).</p>
+<p>Next, we are going to talk about how you can get specific values from
+data frames, and where necessary, change the mode of a column of
+values.</p>
+<p>The first thing to remember is that a data frame is two-dimensional
+(rows and columns). Therefore, to select a specific value we will will
+once again use <code>[]</code> (bracket) notation, but we will specify
+more than one value (except in some cases where we are taking a
+range).</p>
 <blockquote>
-<h2 id="exercise-subsetting-a-data-frame">Exercise: Subsetting a data frame</h2>
-<p>Try the following indices and functions and try to figure out what they return.</p>
+<h2 id="exercise-subsetting-a-data-frame">Exercise: Subsetting a data
+frame</h2>
+<p>Try the following indices and functions and try to figure out what
+they return.</p>
 <ol style="list-style-type: decimal">
 <li><code>gapminder[1,1]</code></li>
 <li><code>gapminder[2,4]</code></li>
@@ -610,7 +763,8 @@ Solution
 <li></li>
 </ol>
 <pre class="r"><code>gapminder[,c(&quot;country&quot;)]</code></pre>
-<pre><code>[1] &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot;</code></pre>
+<pre><code>[1] &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot;
+[6] &quot;Afghanistan&quot;</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li></li>
 </ol>
@@ -635,87 +789,131 @@ Solution
 1704 Zimbabwe 2007 12311143    Africa  43.487  469.7093</code></pre>
 <p>11..</p>
 <pre class="r"><code>gapminder$country</code></pre>
-<pre><code>[1] &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot;</code></pre>
+<pre><code>[1] &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot;
+[6] &quot;Afghanistan&quot;</code></pre>
 <ol start="12" style="list-style-type: decimal">
 <li></li>
 </ol>
 <pre class="r"><code>gapminder[gapminder$country == &quot;Italy&quot;,]</code></pre>
+<pre><code>    country year      pop continent lifeExp gdpPercap
+769   Italy 1952 47666000    Europe  65.940  4931.404
+770   Italy 1957 49182000    Europe  67.810  6248.656
+771   Italy 1962 50843200    Europe  69.240  8243.582
+772   Italy 1967 52667100    Europe  71.060 10022.401
+773   Italy 1972 54365564    Europe  72.190 12269.274
+774   Italy 1977 56059245    Europe  73.480 14255.985
+775   Italy 1982 56535636    Europe  74.980 16537.483
+776   Italy 1987 56729703    Europe  76.420 19207.235
+777   Italy 1992 56840847    Europe  77.440 22013.645
+778   Italy 1997 57479469    Europe  78.820 24675.024
+779   Italy 2002 57926999    Europe  80.240 27968.098
+780   Italy 2007 58147733    Europe  80.546 28569.720</code></pre>
 </details>
 <p><br></p>
-<p>The subsetting notation is very similar to what we learned for vectors. The key differences include:</p>
+<p>The subsetting notation is very similar to what we learned for
+vectors. The key differences include:</p>
 <ul>
-<li>We typically provide two values separated by commas: data.frame[row, column]</li>
-<li>In cases where you are taking a continuous range of numbers use a colon between the numbers (start:stop, inclusive)</li>
-<li>For a non continuous set of numbers, pass a vector using <code>c()</code></li>
-<li>Index using the name of a column(s) by passing them as vectors using <code>c()</code></li>
+<li>We typically provide two values separated by commas: data.frame[row,
+column]</li>
+<li>In case of a continuous range of numbers use a colon between the
+numbers (start:stop, inclusive)</li>
+<li>For a non continuous set of numbers, pass a vector using
+<code>c()</code></li>
+<li>Index using the name of a column(s) by passing them as vectors using
+<code>c()</code></li>
 </ul>
-<p>Finally, in all of the subsetting exercises above, we printed values to the screen. You can create a new data frame object by assigning them to a new object name:</p>
+<p>Finally, in all of the subsetting exercises above, we printed values
+to the screen. You can create a new data frame object by assigning them
+to a new object name:</p>
 <pre class="r"><code># create a new data frame containing only observations from India
-
 india_subset &lt;- gapminder[gapminder$country == &quot;India&quot;,]
 
 # check the dimension of the data frame
-
 dim(india_subset)</code></pre>
 <pre><code>[1] 12  6</code></pre>
 <pre class="r"><code># get a summary of the data frame
-
 summary(india_subset)</code></pre>
-<pre><code>   country               year           pop             continent            lifeExp     
- Length:12          Min.   :1952   Min.   :3.720e+08   Length:12          Min.   :37.37  
- Class :character   1st Qu.:1966   1st Qu.:4.930e+08   Class :character   1st Qu.:46.30  
- Mode  :character   Median :1980   Median :6.710e+08   Mode  :character   Median :55.40  
-                    Mean   :1980   Mean   :7.011e+08                      Mean   :53.17  
-                    3rd Qu.:1993   3rd Qu.:8.938e+08                      3rd Qu.:60.61  
-                    Max.   :2007   Max.   :1.110e+09                      Max.   :64.70  
-   gdpPercap     
- Min.   : 546.6  
- 1st Qu.: 690.2  
- Median : 834.5  
- Mean   :1057.3  
- 3rd Qu.:1238.0  
- Max.   :2452.2  </code></pre>
+<pre><code>   country               year           pop             continent        
+ Length:12          Min.   :1952   Min.   :3.720e+08   Length:12         
+ Class :character   1st Qu.:1966   1st Qu.:4.930e+08   Class :character  
+ Mode  :character   Median :1980   Median :6.710e+08   Mode  :character  
+                    Mean   :1980   Mean   :7.011e+08                     
+                    3rd Qu.:1993   3rd Qu.:8.938e+08                     
+                    Max.   :2007   Max.   :1.110e+09                     
+    lifeExp        gdpPercap     
+ Min.   :37.37   Min.   : 546.6  
+ 1st Qu.:46.30   1st Qu.: 690.2  
+ Median :55.40   Median : 834.5  
+ Mean   :53.17   Mean   :1057.3  
+ 3rd Qu.:60.61   3rd Qu.:1238.0  
+ Max.   :64.70   Max.   :2452.2  </code></pre>
 </div>
-<div id="coercing-values-in-data-frames" class="section level2">
-<h2>Coercing values in data frames</h2>
-<blockquote>
-<h2 id="tip-coercion-isnt-limited-to-data-frames">Tip: coercion isn’t limited to data frames</h2>
-<p>While we are going to address coercion in the context of data frames most of these methods apply to other data structures, such as vectors, as we saw when we coerced a character vector into a factor vector.</p>
-</blockquote>
-<p>Sometimes, it is possible that R will misinterpret the type of data represented in a data frame, or store that data in a mode which prevents you from operating on the data the way you wish. For example, a long list of gene names isn’t usually thought of as a categorical variable, the way that your experimental condition (e.g. control, treatment) might be. More importantly, some R packages you use to analyze your data may expect characters as input, not factors (the results can be beguiling). At other times (such as plotting or some statistical analyses) a factor may be more appropriate (as we saw above). Ultimately, you should know how to change the mode of an object.</p>
-<p>First, its very important to recognize that coercion happens in R all the time. This can be a good thing when R gets it right, or a bad thing when the result is not what you expect. Consider:</p>
+<div id="coercing-values-to-a-specific-mode" class="section level2">
+<h2>Coercing values to a specific mode</h2>
+<p>Sometimes, it is possible that R will misinterpret the type of data
+represented in a data frame, or store that data in a mode which prevents
+you from operating on the data the way you wish. For example, a long
+list of gene names isn’t usually thought of as a categorical variable,
+the way that your experimental condition (e.g. control, treatment) might
+be. More importantly, some R packages you use to analyze your data may
+expect characters as input, not factors (the results can be beguiling).
+At other times (such as plotting or some statistical analyses) a factor
+may be more appropriate (as we saw above). Ultimately, you should know
+how to change the mode of an object.</p>
+<p>First, its very important to recognize that coercion happens in R all
+the time. This can be a good thing when R gets it right, or a bad thing
+when the result is not what you expect. Consider:</p>
 <pre class="r"><code>chromosomes &lt;- c(&#39;3&#39;, &#39;11&#39;, &#39;X&#39;, &#39;6&#39;)
 typeof(chromosomes)</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
-<p>Although there are several numbers in our vector, they are all in quotes, so we have explicitly told R to consider them as characters. However, even if we removed the quotes from the numbers, R would coerce everything into a character:</p>
+<p>Although there are several numbers in our vector, they are all in
+quotes, so we have explicitly told R to consider them as characters.
+However, even if we removed the quotes from the numbers, R would coerce
+everything into a character:</p>
 <pre class="r"><code>chromosomes_2 &lt;- c(3, 11, &#39;X&#39;, 6)
 typeof(chromosomes_2)</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
 <pre class="r"><code>chromosomes_2[1]</code></pre>
 <pre><code>[1] &quot;3&quot;</code></pre>
-<p>We can use the <code>as.</code> functions to explicitly coerce values from one form into another. Consider the following vector of characters, which all happen to be valid numbers:</p>
+<p>We can use the <code>as.</code> functions to explicitly coerce values
+from one form into another. Consider the following vector of characters,
+which all happen to be valid numbers:</p>
 <pre class="r"><code>positions &lt;- c(&quot;8762685&quot;, &quot;66560624&quot;, &quot;67545785&quot;, &quot;154039662&quot;)
 typeof(positions)</code></pre>
 <pre><code>[1] &quot;character&quot;</code></pre>
 <pre class="r"><code>positions[1]</code></pre>
 <pre><code>[1] &quot;8762685&quot;</code></pre>
-<p>Now we can coerce <code>positions</code> into a numeric type using <code>as.numeric()</code>:</p>
+<p>Now we can coerce <code>positions</code> into a numeric type using
+<code>as.numeric()</code>:</p>
 <pre class="r"><code>positions &lt;- as.numeric(positions)
 typeof(positions)</code></pre>
 <pre><code>[1] &quot;double&quot;</code></pre>
 <pre class="r"><code>positions[1]</code></pre>
 <pre><code>[1] 8762685</code></pre>
-<p>Sometimes coercion is straight forward, but what would happen if we tried using <code>as.numeric()</code> on <code>chromosomes_2</code></p>
+<p>Sometimes coercion is straight-forward, but what would happen if we
+tried using <code>as.numeric()</code> on <code>chromosomes_2</code></p>
 <pre class="r"><code>chromosomes_2 &lt;- as.numeric(chromosomes_2)</code></pre>
 <pre><code>Warning: NAs introduced by coercion</code></pre>
-<p>If we check, we will see that an <code>NA</code> value (R’s default value for missing data) has been introduced.</p>
+<p>If we check, we will see that an <code>NA</code> value (R’s default
+value for missing data) has been introduced.</p>
 <pre class="r"><code>chromosomes_2</code></pre>
 <pre><code>[1]  3 11 NA  6</code></pre>
-<p>Trouble can really start when we try to coerce a factor. For example, when we try to coerce the <code>factor_continents</code> factor from above into a numeric mode look at the result:</p>
+<p>Trouble can really start when we try to coerce a factor. For example,
+when we try to coerce the <code>factor_continents</code> factor from
+above into a numeric mode look at the result:</p>
 <pre class="r"><code>head(as.numeric(factor_continents))</code></pre>
 <pre><code>[1] 3 3 3 3 3 3</code></pre>
-<p>Strangely, it works! Almost. Instead of giving an error message, R returns numeric values, which in this case are the integers assigned to the levels in this factor. This kind of behavior can lead to hard-to-find bugs, for example when we do have numbers in a factor, and we get numbers from a coercion. If we don’t look carefully, we may not notice a problem.</p>
-<p>If you need to coerce an entire column you can overwrite it using an expression like this one:</p>
+<p>Strangely, it works! Almost. Instead of giving an error message, R
+returns numeric values, which in this case are the integers assigned to
+the levels in this factor. This kind of behavior can lead to
+hard-to-find bugs, for example when we do have numbers in a factor, and
+we get numbers from a coercion. If we don’t look carefully, we may not
+notice a problem.</p>
+</div>
+<div id="coercing-in-data-frames" class="section level2">
+<h2>Coercing in Data Frames</h2>
+<p>If you need to coerce an entire column you can overwrite it using an
+expression like this one:</p>
 <pre class="r"><code># make the &#39;continent&#39; column a factor
 
 gapminder$continent &lt;- as.factor(gapminder$continent)
@@ -725,49 +923,82 @@ typeof(gapminder$continent)</code></pre>
 <pre><code>[1] &quot;integer&quot;</code></pre>
 <pre class="r"><code># look at summary() again
 summary(gapminder)</code></pre>
-<pre><code>   country               year           pop               continent      lifeExp     
- Length:1704        Min.   :1952   Min.   :6.001e+04   Africa  :624   Min.   :23.60  
- Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Americas:300   1st Qu.:48.20  
- Mode  :character   Median :1980   Median :7.024e+06   Asia    :396   Median :60.71  
-                    Mean   :1980   Mean   :2.960e+07   Europe  :360   Mean   :59.47  
-                    3rd Qu.:1993   3rd Qu.:1.959e+07   Oceania : 24   3rd Qu.:70.85  
-                    Max.   :2007   Max.   :1.319e+09                  Max.   :82.60  
-   gdpPercap       
- Min.   :   241.2  
- 1st Qu.:  1202.1  
- Median :  3531.8  
- Mean   :  7215.3  
- 3rd Qu.:  9325.5  
- Max.   :113523.1  </code></pre>
-<p>Notice that the <code>continent</code> column is summarized more informatively now that it is a factor.</p>
+<pre><code>   country               year           pop               continent  
+ Length:1704        Min.   :1952   Min.   :6.001e+04   Africa  :624  
+ Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Americas:300  
+ Mode  :character   Median :1980   Median :7.024e+06   Asia    :396  
+                    Mean   :1980   Mean   :2.960e+07   Europe  :360  
+                    3rd Qu.:1993   3rd Qu.:1.959e+07   Oceania : 24  
+                    Max.   :2007   Max.   :1.319e+09                 
+    lifeExp        gdpPercap       
+ Min.   :23.60   Min.   :   241.2  
+ 1st Qu.:48.20   1st Qu.:  1202.1  
+ Median :60.71   Median :  3531.8  
+ Mean   :59.47   Mean   :  7215.3  
+ 3rd Qu.:70.85   3rd Qu.:  9325.5  
+ Max.   :82.60   Max.   :113523.1  </code></pre>
+<p>Notice that the <code>continent</code> column is summarized more
+informatively now that it is a factor.</p>
 </div>
 <div id="stringsasfactors" class="section level2">
 <h2>StringsAsFactors = ?</h2>
-<p>Lets summarize this section on coercion with a few take home messages.</p>
+<p>Lets summarize this section on coercion with a few take home
+messages.</p>
 <ul>
-<li>When you explicitly coerce one data type into another (this is known as <strong>explicit coercion</strong>), be careful to check the result. Ideally, you should try to see if its possible to avoid steps in your analysis that force you to coerce.</li>
-<li>R will sometimes coerce without you asking for it. This is called (appropriately) <strong>implicit coercion</strong>. For example when we tried to create a vector with multiple data types, R chose one type through implicit coercion.</li>
-<li>Check the structure (<code>str()</code>) of your data frames before working with them!</li>
+<li>When you explicitly coerce one data type into another (this is known
+as <strong>explicit coercion</strong>), be careful to check the result.
+Ideally, you should try to see if its possible to avoid steps in your
+analysis that force you to coerce.</li>
+<li>R will sometimes coerce without you asking for it. This is called
+(appropriately) <strong>implicit coercion</strong>. For example when we
+tried to create a vector with multiple data types, R chose one type
+through implicit coercion.</li>
+<li>Check the structure (<code>str()</code>) of your data frames before
+working with them!</li>
 </ul>
 <blockquote>
-<h2 id="tip-coercion-isnt-limited-to-data-frames-1">Tip: coercion isn’t limited to data frames</h2>
-<p>Prior to R 4.0 when importing a data frame using any one of the <code>read.table()</code> functions such as <code>read.csv()</code> , the argument <code>StringsAsFactors</code> was by default set to true TRUE. Setting it to FALSE will treat any non-numeric column to a character type. <code>read.csv()</code> documentation, you will also see you can explicitly type your columns using the <code>colClasses</code> argument. Other R packages (such as the Tidyverse “readr”) don’t have this particular conversion issue, but many packages will still try to guess a data type.</p>
+<h2 id="tip-coercion-isnt-limited-to-data-frames">Tip: coercion isn’t
+limited to data frames</h2>
+<p>Prior to R 4.0 when importing a data frame using any one of the
+<code>read.table()</code> functions such as <code>read.csv()</code> ,
+the argument <code>StringsAsFactors</code> was by default set to true
+TRUE. Setting it to FALSE will treat any non-numeric column to a
+character type. <code>read.csv()</code> documentation, you will also see
+you can explicitly type your columns using the <code>colClasses</code>
+argument. Other R packages (such as the Tidyverse “readr”) don’t have
+this particular conversion issue, but many packages will still try to
+guess a data type.</p>
 </blockquote>
 </div>
-<div id="data-frame-bonus-material-math-sorting-renaming" class="section level2">
+<div id="data-frame-bonus-material-math-sorting-renaming"
+class="section level2">
 <h2>Data frame bonus material: math, sorting, renaming</h2>
-<p>Here are a few operations that don’t need much explanation, but which are good to know.</p>
-<p>There are lots of arithmetic functions you may want to apply to your data frame, covering those would be a course in itself (there is some starting material <a href="https://swcarpentry.github.io/r-novice-inflammation/15-supp-loops-in-depth/">here</a>). Our lessons will cover some additional summary statistical functions in a subsequent lesson, but overall we will focus on data cleaning and visualization.</p>
-<p>You can use functions like <code>mean()</code>, <code>min()</code>, <code>max()</code> on an individual column. Let’s look at the “year” or filtered depth. This value shows the number of filtered reads that support each of the reported gapminder.</p>
+<p>Here are a few operations that don’t need much explanation, but which
+are good to know.</p>
+<p>There are lots of arithmetic functions you may want to apply to your
+data frame, covering those would be a course in itself (there is some
+starting material <a
+href="https://swcarpentry.github.io/r-novice-inflammation/15-supp-loops-in-depth/">here</a>).
+Our lessons will cover some additional summary statistical functions in
+a subsequent lesson, but overall we will focus on data cleaning and
+visualization.</p>
+<p>You can use functions like <code>mean()</code>, <code>min()</code>,
+<code>max()</code> on an individual column. Let’s look at the “year” or
+filtered depth. This value shows the number of filtered reads that
+support each of the reported gapminder.</p>
 <pre class="r"><code>max(gapminder$year)</code></pre>
 <pre><code>[1] 2007</code></pre>
-<p>You can sort a data frame using the <code>order()</code> function:</p>
+<p>You can sort a data frame using the <code>order()</code>
+function:</p>
 <pre class="r"><code>sorted_by_year &lt;- gapminder[order(gapminder$year), ]
 head(sorted_by_year$year)</code></pre>
 <pre><code>[1] 1952 1952 1952 1952 1952 1952</code></pre>
 <blockquote>
 <h2 id="exercise">Exercise</h2>
-<p>The <code>order()</code> function lists values in increasing order by default. Look at the documentation for this function and change <code>sorted_by_year</code> to start have the latest year at the top.</p>
+<p>The <code>order()</code> function lists values in increasing order by
+default. Look at the documentation for this function and change
+<code>sorted_by_year</code> to start with the latest year at the
+top.</p>
 </blockquote>
 <details>
 <summary>
@@ -784,13 +1015,20 @@ colnames(gapminder)[colnames(gapminder) == &quot;gdpPercap&quot;] &lt;- &quot;gd
 
 # check the column name (hint names are returned as a vector)
 colnames(gapminder)</code></pre>
-<pre><code>[1] &quot;country&quot;     &quot;year&quot;        &quot;pop&quot;         &quot;continent&quot;   &quot;life_exp&quot;    &quot;gdp_per_cap&quot;</code></pre>
+<pre><code>[1] &quot;country&quot;     &quot;year&quot;        &quot;pop&quot;         &quot;continent&quot;   &quot;life_exp&quot;   
+[6] &quot;gdp_per_cap&quot;</code></pre>
 </div>
 <div id="saving-your-data-frame-to-a-file" class="section level2">
 <h2>Saving your data frame to a file</h2>
-<p>We can save data to a file. We will save our <code>india_subset</code> object to a .csv file using the <code>write.csv()</code> function:</p>
-<pre class="r"><code>write.csv(india_subset, file = &quot;../results/india_subset.csv&quot;)</code></pre>
-<p>The <code>write.csv()</code> function has some additional arguments listed in the help, but at a minimum you need to tell it what data frame to write to file, and give a path to a file name in quotes (if you only provide a file name, the file will be written in the current working directory).</p>
+<p>We can save data to a file. We will save our
+<code>india_subset</code> object to a .csv file using the
+<code>write.csv()</code> function:</p>
+<pre class="r"><code>write.csv(india_subset, file = &quot;results/india_subset.csv&quot;)</code></pre>
+<p>The <code>write.csv()</code> function has some additional arguments
+listed in the help, but at a minimum you need to tell it what data frame
+to write to file, and give a path to a file name in quotes (if you only
+provide a file name, the file will be written in the current working
+directory).</p>
 </div>
 
 

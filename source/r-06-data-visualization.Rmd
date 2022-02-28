@@ -59,13 +59,13 @@ source("../bin/chunk-options.R")
 knitr_fig_path("06-")
 ```
 
-```{r, echo = FALSE, eval = TRUE, purl = FALSE}
+```{r, echo = FALSE, eval = TRUE, purl = FALSE, message = FALSE}
 ## silently read in CSV file from data folder
 library(tidyverse)
 gapminder <- read.csv("../data/gapminder_data.csv")
 colnames(gapminder)[5] = 'life_exp'
 colnames(gapminder)[6] = 'gdp_per_cap'
-gapminder <- gapminder %>% mutate(total_gdp = pop * gdp_per_cap)
+gapminder <- as_tibble(gapminder) %>% mutate(total_gdp = pop * gdp_per_cap)
 ```
 
 We start by loading the package **`ggplot2`**.
@@ -102,8 +102,9 @@ ggplot(data = gapminder, aes(x = gdp_per_cap, y = life_exp))
 
 - add 'geoms' – graphical representations of the data in the plot (points, lines, bars). **`ggplot2`** offers many different geoms; we will use some common ones today, including:
     * `geom_point()` for scatter plots, dot plots, etc.
-    * `geom_boxplot()` for, well, boxplots!
     * `geom_line()` for trend lines, time series, etc.
+    * `geom_barplot()` for, well, boxplots!
+    * `geom_boxplot()` distributions.
 
 To add a geom to the plot use the `+` operator. Because we have two continuous variables, let's use `geom_point()` first:
 
@@ -135,8 +136,7 @@ gdp_exp_plot +
   geom_point()
 
 # This will not add the new layer and will return an error message
-gdp_exp_plot
-  + geom_point()
+gdp_exp_plot + geom_point()
 ```
 
 ## Building your plots iteratively
@@ -236,16 +236,70 @@ ggplot(data = gapminder, aes(x = gdp_per_cap, y = life_exp, color = continent)) 
   theme(panel.grid = element_blank())
 ```
 
-## Barplots
+## Line Plots
+
+Let's try to plot the life expectancy of each country over each year.
+
+```{r first_line_plot, purl=FALSE}
+ggplot(data = gapminder, aes(x = year, y = life_exp, color = continent)) +
+    geom_line()
+```
+
+This doesn't look right at all. This is giving us a line per continent, but we really want the lines to be per country, but colored by the continent... there is a parameter of `aes()` called `group`.
+
+```{r second_line_plot, purl=FALSE}
+ggplot(data = gapminder, aes(x = year, y = life_exp, color = continent, group = country)) +
+    geom_line()
+```
+
+## Bar Plots
 
 We can create barplots using the `geom_bar` geom. Let's make a barplot showing the number of data points per continent.
 
 ```{r barplot, purl=FALSE}
-ggplot(data = gapminder, aes(x = continent)) +
-  geom_bar()
+ggplot(data = gapminder, aes(x = continent)) + geom_bar()
 ```
 
 Notice, this looks a lot like our plot way back in episode 2!
+
+## Box Plots
+
+We can create boxplots using the `geom_boxplot` geom. Let's look at the boxplot of population split per continent.
+
+```{r boxplot, purl = FALSE}
+ggplot(data = gapminder, aes(x = continent, y = pop)) + geom_boxplot()
+```
+
+This doesn't look great because the populations of countries have such a large range. We an fix this by changing the scale of the y-axis to a logarithmic scale using the `scale_y_log10()` function. We may also want to change the axis labels to make it clear to the reader that this was done:
+
+```{r boxplot_log, purl = FALSE}
+ggplot(data = gapminder, aes(x = continent, y = pop)) +
+    geom_boxplot() +
+    scale_y_log10() +
+    labs(
+        x = 'Continent',
+        y = 'Population (log10 scale)'
+    )
+```
+
+> ## Challenge
+>
+> How can we add the individual data points to the boxplot?
+
+<details>
+<summary>Solution</summary>
+```{r boxplot_challenge, purl=FALSE}
+ggplot(data = gapminder, aes(x = continent, y = pop)) +
+    geom_boxplot() +
+    scale_y_log10() +
+    geom_jitter() +
+    labs(
+        x = 'Continent',
+        y = 'Population (log10 scale)'
+    )
+```
+</details>
+<br>
 
 
 ## **`ggplot2`** themes

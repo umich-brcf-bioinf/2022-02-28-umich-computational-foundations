@@ -164,7 +164,7 @@ select(gapminder, ends_with("p"))
 <summary>Solution</summary>
 
 ```{r}
-select(gapminder, contains("i"), -life_exp, country)
+select(gapminder, contains("e"), -life_exp, country)
 ```
 </details>
 <br>
@@ -250,7 +250,7 @@ spain_gapminder %>% slice(7:11)
 
 > ## Exercise: Pipe and filter
 >
-> Starting with the `gapminder` data frame, use pipes to subset the data to include only observations from Panama, where the year is at least 1980. Showing only 4th through 6th rows of columns `country`, `year`, and `gdp_per_cap`.
+> Starting with the `gapminder` data frame, use pipes to subset the data to include only observations from Panama, where the year is at least 1980. Showing only the 4th through 6th rows of columns `country`, `year`, and `gdp_per_cap`.
 
 <details>
 <summary>Solution</summary>

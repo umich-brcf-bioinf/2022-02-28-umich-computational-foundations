@@ -59,5 +59,6 @@ body, td {
 |       | [Data Wrangling and Analysis with tidyverse](r-05-dplyr.html) |
 |       | **Break** |
 |       | [Data Visualization with ggplot2](r-06-data-visualization.html) |
+|       | [Getting Help with R](r-07-r-help.html) |
 | 12:45 | [Wrap-up](Module99_Wrap_up.html) |
 |  1:00 | Day 3 concludes |
