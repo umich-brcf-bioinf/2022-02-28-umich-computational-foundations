@@ -323,7 +323,7 @@ It's important to note that both ``curl`` and ``wget`` download to the computer 
 
 ### Moving files between your laptop and your instance
 
-What if the data you need is on your local computer, but you need to get it *into* the cloud? There are also several ways to do this, but it's *always* easier to start the transfer locally. **This means if you're typing into a terminal, the terminal should not be logged into your instance, it should be showing your local computer. If you're using a transfer program, it needs to be installed on your local machine, not your instance.**
+What if you need to grab some information from the remote instance? Or what if the data you need is on your local computer, but you need to get it *into* the cloud? There are also several ways to do this, but it's *always* easier to start the transfer locally. **This means if you're typing into a terminal, the terminal should not be logged into your instance, it should be showing your local computer. If you're using a transfer program, it needs to be installed on your local machine, not your instance.**
 
 <br>
 <br>
