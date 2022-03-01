@@ -30,7 +30,7 @@ body, td {
 
 #### Day 1 (Chris & Travis)
 | Time | Topic |
-| :---  | :------------------------------------ |
+| :---  | :----------------------------------------------------------- |
 |  9:00 | [Introductions and Startup](Module00_Introduction.html) |
 |  9:30 | [Introduction to Bash Shell](bash-01-introduction.html) |
 |       | [The File System](bash-02-the-filesystem.html) |
@@ -39,21 +39,21 @@ body, td {
 |       | [Redirection](bash-04-redirection.html) |
 |  1:00 | Day 1 concludes |
 
-### Day 2 (Raymond)
+### Day 2 (Travis & Raymond)
 | Time | Topic |
-| :---  | :------------------------------------ |
+| :-----  | :------------------------------------ |
 |  9:00 | Review |
 |  9:10 | [Redirection (continued)](bash-04-redirection.html) |
 |       | [Writing Scripts](bash-05-writing-scripts.html) |
-|       | [Intro to R](r-01-introduction.html)
 |       | **Break** |
+|       | [Intro to R](r-01-introduction.html)
 |       | [R Basics](r-02-r-basics.html) |
 |       | [R Basics: Factors and Data Frames](r-03-basics-factors-dataframes.html) |
 |  1:00 | Day 2 concludes |
 
 #### Day 3 (Raymond)
 | Time | Topic |
-| :---  | :------------------------------------ |
+| :-----  | :------------------------------------ |
 |  9:00 | Review |
 |  9:10 | [CRAN and Bioconductor](r-04-bioconductor.html) |
 |       | [Data Wrangling and Analysis with tidyverse](r-05-dplyr.html) |
