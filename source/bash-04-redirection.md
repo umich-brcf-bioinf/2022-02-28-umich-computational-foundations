@@ -516,37 +516,15 @@ $ for filename in *.txt
 <br>
 <br>
 
-One way this is really useful is to move files. Let's rename all of our .txt files using `mv` so that they have the years on them, which will document when we created them.
+One way this is really useful is to move files. Let's rename all of our .fastq files using `mv` so that they have the years on them.
 
 ~~~
-$ for filename in *.txt
+$ for filename in *.fastq
 > do
-> name=$(basename ${filename} .txt)
-> mv ${filename}  ${name}_2019.txt
+> name=$(basename ${filename} .fastq)
+> mv ${filename}  ${name}_2022.fastq
 > done
 ~~~
-
-<br>
-<br>
-
-## Challenge - Using a for loop II
-
-Remove `_2019` from all of the `.txt` files.
-
-<br>
-
-<details>
-<summary>Solution - Using a for loop II</summary>
-
-~~~
-$ for filename in *_2019.txt
-> do
-> name=$(basename ${filename} _2022.txt)
-> mv ${filename} ${name}.txt
-> done
-~~~
-
-</details>
 
 <br>
 <br>
