@@ -77,7 +77,7 @@ The simplest principle of **Tidy data** is that we have one row in our spreadshe
 
 Finally, while you don't need to be paranoid about data, you should have a plan for how you will prepare it for analysis. **This a focus of this lesson.** You probably already have a lot of intuition, expectations, assumptions about your data - the range of values you expect, how many values should have been recorded, etc. Of course, as the data get larger our human ability to keep track will start to fail (and yes, it can fail for small data sets too). R will help you to examine your data so that you can have greater confidence in your analysis, and its reproducibility.
 
-> ## Tip: Keeping you raw data separate
+> ## Tip: Keep raw data separate
 >
 > When you work with data in R, you are not changing the original file you loaded that data from. This is different than (for example) working with a spreadsheet program where changing the value of the cell leaves you one "save"-click away from overwriting the original file. You have to purposely use a writing function (e.g. `write.csv()`) to save data loaded into R. In that case, be sure to save the manipulated data into a new file. More on this later in the lesson.
 
