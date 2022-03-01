@@ -340,7 +340,7 @@ These directions are platform specific, so please follow the instructions for yo
 
 <br>
 
-### Uploading Data to your Virtual Machine with scp
+### Using `scp` to Move Data to/from your Virtual Machine
 
 `scp` stands for 'secure copy protocol', and is a widely used UNIX tool for moving files between computers. The simplest way to use `scp` is to run it in your local terminal, and use it to copy a single file:
 
@@ -362,9 +362,19 @@ $ scp <AWS instance> <local file>
 
 <br>
 
+#### Downloading Data from your Virtual Machine with scp
+
+Let's download a text file from our remote machine. You should have a file that contains bad reads called ~/CF_Shell/untrimmed_fastq/scripted_bad_reads.txt.
+
+Download the bad `scripted_bad_reads.txt` to your local Downloads directory using the following command **(make sure to use your username in place of `<username>` in the command)**:
+
+~~~
+$ scp <username>@bfx-workshop01.med.umich.edu:/home/workshop/<username>/CF_Shell/untrimmed_fastq/scripted_bad_reads.txt ~/Downloads
+~~~
+
 #### Uploading Data to your Virtual Machine with scp
 
-Open the terminal and use the `scp` command to upload a file (e.g. local_file.txt) to your remote home directory:
+The process to upload is very similar. You'll once again use the `scp` command, but just switch the order of arguments to upload a file (e.g. local_file.txt) to your remote home directory:
 
 ~~~
 $  scp local_file.txt <username>@bfx-workshop01.med.umich.edu:/home/workshop/<username>/
@@ -372,31 +382,13 @@ $  scp local_file.txt <username>@bfx-workshop01.med.umich.edu:/home/workshop/<us
 
 <br>
 
-#### Downloading Data from your Virtual Machine with scp
-
-Let's download a text file from our remote machine. You should have a file that contains bad reads called ~/CF_Shell/scripted_bad_reads.txt.
-
-**Tip:** If you are looking for another (or any really) text file in your home directory to use instead, try:
-
-~~~
-$ find ~ -name *.txt
-~~~
-
-Download the bad reads file in ~/CF_Shell/scripted_bad_reads.txt to your home ~/Download directory using the following command **(make sure to use your username in place of `<username>` in the command)**:
-
-~~~
-$ scp <username>@bfx-workshop01.med.umich.edu:/home/workshop/<username>/CF_Shell/untrimmed_fastq/scripted_bad_reads.txt ~/Downloads
-~~~
-
-Remember that in both instances, the command is run from your local machine, we've just flipped the order of the to and from parts of the command.
 </div>
-
 
 <div id="div_win" style="display:block" markdown="1">
 
 <br>
 
-### Uploading Data to your instance with `scp`
+### Using `scp` to Move Data to/from your Virtual Machine
 
 If you're using a Windows PC, you should likewise be able to use the *scp* program. It is installed on Windows 10 by default, though you may have to enable it.
 
@@ -405,27 +397,31 @@ go to your start menu/search enter the term **'cmd'**; Select the 'Command Promp
 2. Change to the Downloads directory:
 
 ~~~
-> cd Downloads
+C:\User\your-pc-username> cd Downloads
 ~~~
 
-3. Locate a file on your computer that you wish to upload (be sure you know the path). Then upload it to your remote machine. You will need to provide login credentials in order to perform the transfer.
+3. Now let's transfer the `scripted_bad_reads.txt` file from our AWS instance to our personal computer. You will need to provide login credentials in order to perform the transfer.
 
-~~~
-C:\User\your-pc-username\Downloads> scp local_file.txt <username>@bfx-workshop01.med.umich.edu:/home/workshop/<username>/
-~~~
-
-<br>
-
-### Downloading Data from your Virtual Machine with scp
-
-1. Follow the instructions in the Upload section to open the powershell and change to the Downloads folder (steps 1-2)
-2. Download the text file to your current working directory (represented by a .) using the following command **(make sure you substitute `<username>` for your actual username).**
+Download the text file to your current working directory (represented by a .) using the following command **(make sure you substitute `<username>` for your actual username).**
 
 ~~~
 C:\User\your-pc-username\Downloads> scp <username>@:/home/workshop/<username>/CF_Shell/untrimmed_fastq/scripted_bad_reads.txt .
 ~~~
 
+<br>
+
+### Uploading Data to your Virtual Machine with scp
+
+1. Follow the instructions in the above section to open the powershell and change to the Downloads folder (steps 1-2)
+2. Locate a file on your computer that you wish to upload (be sure you know the path). Then upload it to your remote machine. You will need to provide login credentials in order to perform the transfer.
+
+~~~
+C:\User\your-pc-username\Downloads> scp local_file.txt <username>@bfx-workshop01.med.umich.edu:/home/workshop/<username>/
+~~~
+
 </div>
+
+Remember that in both instances, the command is run from your local machine, we've just flipped the order of the to and from parts of the command.
 
 <br>
 <br>
