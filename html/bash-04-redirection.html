@@ -618,28 +618,12 @@ Solution - Using a for loop
 &gt; done</code></pre>
 </details>
 <p><br> <br></p>
-<p>One way this is really useful is to move files. Let’s rename all of our .txt files using <code>mv</code> so that they have the years on them, which will document when we created them.</p>
-<pre><code>$ for filename in *.txt
+<p>One way this is really useful is to move files. Let’s rename all of our .fastq files using <code>mv</code> so that they have the years on them.</p>
+<pre><code>$ for filename in *.fastq
 &gt; do
-&gt; name=$(basename ${filename} .txt)
-&gt; mv ${filename}  ${name}_2019.txt
+&gt; name=$(basename ${filename} .fastq)
+&gt; mv ${filename}  ${name}_2022.fastq
 &gt; done</code></pre>
-<p><br> <br></p>
-</div>
-<div id="challenge---using-a-for-loop-ii" class="section level2">
-<h2>Challenge - Using a for loop II</h2>
-<p>Remove <code>_2019</code> from all of the <code>.txt</code> files.</p>
-<p><br></p>
-<details>
-<summary>
-Solution - Using a for loop II
-</summary>
-<pre><code>$ for filename in *_2019.txt
-&gt; do
-&gt; name=$(basename ${filename} _2022.txt)
-&gt; mv ${filename} ${name}.txt
-&gt; done</code></pre>
-</details>
 <p><br> <br></p>
 </div>
 
