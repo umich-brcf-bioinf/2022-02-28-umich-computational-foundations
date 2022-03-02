@@ -33,7 +33,7 @@ a.external {
 </style>
 
 We hope you now have more familiarity with key concepts, tools, and techniques
-that will enable simpler and better computational research.
+that will enable more efficient, reproducible, and impactful computational research.
 
 ---
 
@@ -49,19 +49,37 @@ that will enable simpler and better computational research.
 
 ## Looking ahead
 
-#### Workshop environment
-- BASH/RStudio workshop compute environment will be available until next Monday.
+### Workshop environment
+- BASH/RStudio workshop compute environment will be available until this coming Monday.
 - You can download files from the workshop environment from your terminal/command line window as below.
   (You will need to substitute your actual workshop username and type workshop password when prompted.)
   ```
   mkdir computational-foundations-workshop
   scp -r YOUR_USERNAME@bfx-workshop01.med.umich.edu:"CF*" computational-foundations-workshop
   ```
-#### Installing software locally
+### Installing software locally
   - See [Advanced setup instructions](workshop_setup/setup_instructions_advanced.html)
     for details on how to install programs on your own computer.
 
-#### _Great Lakes_ at University of Michigan
+## Continued training and support
+Learning computational techniques is more like a process than a task. Resources
+to consider:
+
+- Some handy Bash cheatsheets:
+  - <a class="external" target="_blank" href="https://files.fosswire.com/2007/08/fwunixref.pdf">https://files.fosswire.com/2007/08/fwunixref.pdf</a>
+  - <a class="external" target="_blank" href="http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html">http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html</a>
+- <a class="external" target="_blank" href="https://explainshell.com/">ExplainShell.com</a> can elaborate the flags of specific commands:
+- Regular expression syntax (aka "regex") is extremely powerful but also a broad topic unto itself
+  - <a class="external" target="_blank" href="https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285">Regex tutorial — A quick cheatsheet by examples</a>
+  - A bit like ExplainShell above, but for regex expressions (thanks, Piyush!):<br/>
+  <a class="external" target="_blank" href="https://regexr.com/">https://regexr.com/</a>
+- Intro lessons and workshops in Bash / Git / R / Python : 
+  - <a class="external" href="https://software-carpentry.org/lessons/" target="_blank">Software Carpentry</a> 
+    and the <a class="external" href="https://umcarpentries.org/" target="_blank">UM Software Carpentry Group</a>.
+
+## University of Michigan Resources
+- <a class="external" href="https://um-isr-coderspace.slack.com" target="_blank">UM CoderSpaces Slack</a> and <a class="external"  href="https://datascience.isr.umich.edu/events/coderspaces/" target="_blank">UM CoderSpaces "office hours"</a>.
+  - Upcoming <a class="external" href="https://arc.umich.edu/events/" target="_blank">UM Advanced Research Computing workshops</a>.
 - Advanced Research Computing (ARC) at University of Michigan hosts a
   high-performance computing (HPC) platform called _Great Lakes_ which combines
   high-end computers, fast/resilient storage, and pre-installed software.
@@ -71,16 +89,6 @@ that will enable simpler and better computational research.
   - About <a class="external" href="https://arc.umich.edu/greatlakes/" target="_blank">Great Lakes HPC</a>.
   - About the ARC <a class="external" href="https://arc.umich.edu/umrcp/" target="_blank">Research Computing Package</a>.
   - Videos on <a class="external" href="https://www.mivideo.it.umich.edu/channel/ARC-TS%2BTraining/181860561/" target="_blank">getting started with Great Lakes</a>. (available to UM folks)
-
-#### Training and support
-Learning computational techniques is more like a process than a task. Resources
-to consider:
-
-  - For intro lessons and workshops in Bash / Git / R / Python : 
-    <a class="external" href="https://software-carpentry.org/lessons/" target="_blank">Software Carpentry</a> 
-    and the <a class="external" href="https://umcarpentries.org/" target="_blank">UM Software Carpentry Group</a>.
-  - Upcoming <a class="external" href="https://arc.umich.edu/events/" target="_blank">UM Advanced Research Computing workshops</a>.
-  - &nbsp; <a class="external" href="https://um-isr-coderspace.slack.com" target="_blank">UM CoderSpaces Slack</a> and <a class="external"  href="https://datascience.isr.umich.edu/events/coderspaces/" target="_blank">UM CoderSpaces "office hours"</a>.
 
 ---
 

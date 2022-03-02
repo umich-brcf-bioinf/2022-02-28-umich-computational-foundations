@@ -39,7 +39,7 @@ body, td {
 |       | [Redirection](bash-04-redirection.html) |
 |  1:00 | Day 1 concludes |
 
-### Day 2 (Travis & Raymond)
+#### Day 2 (Travis & Raymond)
 | Time | Topic |
 | :-----  | :------------------------------------ |
 |  9:00 | Review |
@@ -48,14 +48,13 @@ body, td {
 |       | **Break** |
 |       | [Intro to R](r-01-introduction.html)
 |       | [R Basics](r-02-r-basics.html) |
-|       | [R Basics: Factors and Data Frames](r-03-basics-factors-dataframes.html) |
 |  1:00 | Day 2 concludes |
 
-#### Day 3 (Raymond)
+### Day 3 (Raymond)
 | Time | Topic |
 | :-----  | :------------------------------------ |
 |  9:00 | Review |
-|  9:10 | [CRAN and Bioconductor](r-04-bioconductor.html) |
+|  9:10 | [R Basics: Factors and Data Frames](r-03-basics-factors-dataframes.html) |
 |       | [Data Wrangling and Analysis with tidyverse](r-05-dplyr.html) |
 |       | **Break** |
 |       | [Data Visualization with ggplot2](r-06-data-visualization.html) |
