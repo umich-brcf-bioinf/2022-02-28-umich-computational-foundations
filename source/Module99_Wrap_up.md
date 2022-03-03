@@ -68,7 +68,11 @@ to consider:
 - Some handy Bash cheatsheets:
   - <a class="external" target="_blank" href="https://files.fosswire.com/2007/08/fwunixref.pdf">https://files.fosswire.com/2007/08/fwunixref.pdf</a>
   - <a class="external" target="_blank" href="http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html">http://www.mathcs.emory.edu/~valerie/courses/fall10/155/resources/unix_cheatsheet.html</a>
-- <a class="external" target="_blank" href="https://explainshell.com/">ExplainShell.com</a> can elaborate the flags of specific commands:
+- And a nifty collection of <a href="https://www.rstudio.com/resources/cheatsheets/" target="_blank" class="external">cheatsheets for R</a> and links to download some our favorites:
+  - <a class="external" target="_blank" href="http://github.com/rstudio/cheatsheets/blob/main/base-r.pdf">Base R</a>
+  - <a class="external" target="_blank" href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf">Data transformation with dplyr</a>
+  - <a class="external" target="_blank" href="https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf">Data visualization with ggplot2</a>
+- <a class="external" target="_blank" href="https://explainshell.com/">ExplainShell.com</a> can elaborate the flags of specific Bash commands:
 - Regular expression syntax (aka "regex") is extremely powerful but also a broad topic unto itself
   - <a class="external" target="_blank" href="https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285">Regex tutorial — A quick cheatsheet by examples</a>
   - A bit like ExplainShell above, but for regex expressions (thanks, Piyush!):<br/>
@@ -77,9 +81,10 @@ to consider:
   - <a class="external" href="https://software-carpentry.org/lessons/" target="_blank">Software Carpentry</a> 
     and the <a class="external" href="https://umcarpentries.org/" target="_blank">UM Software Carpentry Group</a>.
 
+
 ## University of Michigan Resources
-- <a class="external" href="https://um-isr-coderspace.slack.com" target="_blank">UM CoderSpaces Slack</a> and <a class="external"  href="https://datascience.isr.umich.edu/events/coderspaces/" target="_blank">UM CoderSpaces "office hours"</a>.
-  - Upcoming <a class="external" href="https://arc.umich.edu/events/" target="_blank">UM Advanced Research Computing workshops</a>.
+- <a class="external"  href="https://datascience.isr.umich.edu/events/coderspaces/" target="_blank">UM CoderSpaces "office hours"</a> and UM CoderSpaces Slack workspace. _(See "Useful Resources" section in above page for instructions on how to join and access the CoderSpaces Slack workspace.)_
+- Upcoming <a class="external" href="https://arc.umich.edu/events/" target="_blank">UM Advanced Research Computing workshops</a>.
 - Advanced Research Computing (ARC) at University of Michigan hosts a
   high-performance computing (HPC) platform called _Great Lakes_ which combines
   high-end computers, fast/resilient storage, and pre-installed software.
