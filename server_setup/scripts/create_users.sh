@@ -3,10 +3,12 @@
 set -ue
 
 date
-export USER_PASSWD_FILE=$1
-export CONDA_PREFIX='/rsd/conda/workshop'
-export PRIMARY_GROUP='workshop-rsd-users'
-export CONDA_SETUP=/rsd/workshop_setup/Miniconda3-latest-Linux-x86_64.sh
+export USER_PASSWD_FILE=$1 # first column must be email, second must be passwd
+export USER_SETUP_SCRIPT=$2 #"/workshop/cf/workshop_setup/scripts/user_setup.sh /workshop/etc/Miniconda3-latest-Linux-x86_64.sh /workshop/etc/bash.rc/bashrc.postlude" 
+export PRIMARY_GROUP='workshop-users'
+export USER_HOME=/home/workshop/
+
+
 
 users=()
 existing_users=()
@@ -36,15 +38,16 @@ for user in ${users[@]}; do
     echo ${user} : add user
     export user
     export pass=${user_passwd[$user]}
-    export uhome=/home/workshop/${user}
+    export uhome=${USER_HOME}${user}
     sudo useradd \
 	    -s /bin/bash \
 	    -m -d ${uhome} \
-	    -p $(openssl passwd -1 $pass) \
-	    -g $PRIMARY_GROUP \
+	    -p "$(openssl passwd -1 $pass)" \
+            -g ${PRIMARY_GROUP} \
 	    $user
-    sudo -H -u $user bash -c "bash /rsd/workshop_setup/scripts/user_setup.sh $CONDA_SETUP $CONDA_PREFIX"
+    sudo -H -u $user bash -c "bash $USER_SETUP_SCRIPT"
     added_users+=($user)
+    echo added ${user}
 done
 
 echo added ${#added_users[@]} of ${#users[@]} users: ${added_users[@]}

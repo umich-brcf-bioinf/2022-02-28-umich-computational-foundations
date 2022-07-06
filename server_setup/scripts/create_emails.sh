@@ -5,7 +5,7 @@
 #
 # FYI, does *not* actually send emails.
 # You can send emails by navigating to the email dir and using this command:
-# ls | xargs -t -I {} sh -c "mutt -s 'RNA-Seq Demystified workshop: credentials and setup' {} < {}"
+# ls | xargs -t -I {} sh -c "mutt -s 'UM BioinfCore Workshop Login' {} < {}"
 #
 # 11/11/2021 cgates
 
@@ -15,8 +15,8 @@ set -ue
 date
 export USER_PASSWD_FILE=$1
 export OUTPUT_DIR=$2
-export CHECKLIST_LINK=$3 # 'https://umich-brcf-bioinf.github.io/2021-11-15-umich-rnaseq-demystified/workshop_setup/preworkshop_checklist.html'
-export INTRO_TEXT=$4 # 'The RNA-Seq Demystified workshop will begin 11/15 at 9:00am ET. We will mail you a Zoom link later this week.' 
+export CHECKLIST_LINK=$3 # 'https://umich-brcf-bioinf.github.io/2022-02-28-umich-computational-foundations/html/workshop_setup/preworkshop_checklist.html'
+export INTRO_TEXT=$4 # 'The workshop will begin 2/28 at 8:55am ET. The Zoom link will be emailed to you.' 
 
 users=()
 missing_users=()
@@ -94,7 +94,7 @@ if (( ${#added_users[@]} )); then
     cat << EOF
 You can send these emails from AWS by executing these commands:
 cd $(readlink -e $OUTPUT_DIR)
-ls | xargs -t -I {} sh -c "mutt -s 'RNA-Seq Demystified workshop: credentials and setup' {} < {}
+ls | xargs -t -I {} sh -c "mutt -s 'UM BioinfCore Workshop Login' {} < {}
 EOF
 else
     echo WARNING: no emails were created.
